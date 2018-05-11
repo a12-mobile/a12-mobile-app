@@ -2,7 +2,6 @@
   <div>
     <mt-header :title="$route.meta.title" fixed>
     </mt-header>
-    
      <ul  class="list-group">
       <li class="list-group-item" v-for="item in data" v-bind:key="item">{{item}}</li>
     </ul>

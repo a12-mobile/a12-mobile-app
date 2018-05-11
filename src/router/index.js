@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
-import Home from '@/pages/Home'
-import MultiWellList from '@/pages/MultiWellList'
-import Discussion from '@/pages/Discussion'
-import Me from '@/pages/Me'
+import Home from '@/pages/Tab-Home'
+import MultiWellList from '@/pages/Tab-MultiWellList'
+import Discussion from '@/pages/Tab-Discussion'
+import Me from '@/pages/Tab-Me'
 import SubView from '@/pages/SubView'
 
 Vue.use(Router)
@@ -40,6 +40,6 @@ export default new Router({
       name: 'SubView',
       component: SubView,
       meta: { navShow: false, title: '子页面' }
-    }
+    },
   ]
 })
