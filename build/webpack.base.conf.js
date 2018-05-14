@@ -8,7 +8,7 @@ function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
-var webpack = require("webpack")
+var webpack = require('webpack')
 
 module.exports = {
   context: path.resolve(__dirname, '../'),
@@ -66,13 +66,6 @@ module.exports = {
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
       },
-      {
-
-        test: /\.less$/,
-        
-        loader: "style-loader!css-loader!less-loader",
-        
-      },
     ]
   },
   node: {
@@ -90,11 +83,11 @@ module.exports = {
   plugins: [
     // 配置全局使用 jquery
     new webpack.ProvidePlugin({
-        $: "jquery",
-        jQuery: "jquery",
-        jquery: "jquery",
-        "window.jQuery": "jquery",
-        Popper: ['popper.js', 'default'], 
+      $: 'jquery',
+      jQuery: 'jquery',
+      jquery: 'jquery',
+      'window.jQuery': 'jquery',
+      Popper: ['popper.js', 'default']
     })
   ]
 }

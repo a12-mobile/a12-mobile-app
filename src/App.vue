@@ -1,9 +1,7 @@
 <template>
   <div id="app">
-    <div v-show="$route.meta.navShow">
-      <!-- 下面是底部标签 -->
-      <Tabs></Tabs>
-    </div>
+    <!-- 下面是底部标签 -->
+    <Tabs></Tabs>
     <div class="content">
       <router-view></router-view>
     </div>
@@ -12,24 +10,27 @@
 
 <script>
   import Tabs from "./pages/Tabs.vue"
+  import myDatepicker from 'vue-datepicker'
   export default {
     name: 'App',
     data() {
       return {}
     },
     components: {
-      Tabs
+      Tabs,
+      'date-picker': myDatepicker
     }
   }
 </script>
 
-<style>
+<style lang="scss">
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    margin-top: 60px;
+    margin-top: 50px;
+    height: 100% !important;
   }
 </style>

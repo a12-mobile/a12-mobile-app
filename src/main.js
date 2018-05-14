@@ -18,6 +18,7 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 
 // 按需引入部分mint-ui组件
 import { Header,Button } from 'mint-ui';
+
 Vue.component(Header.name, Header);
 Vue.component(Button.name, Button);
 
@@ -29,6 +30,8 @@ import {VTable,VPagination} from 'vue-easytable'
 // 注册到全局
 Vue.component(VTable.name, VTable)
 Vue.component(VPagination.name, VPagination)
+
+// require("./assets/css/style.css")
 
 
 

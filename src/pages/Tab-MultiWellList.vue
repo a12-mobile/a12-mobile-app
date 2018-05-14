@@ -2,7 +2,7 @@
   <div>
     <mt-header :title="$route.meta.title" fixed>
     </mt-header>
-     <ul  class="list-group">
+    <ul class="list-group">
       <li class="list-group-item" v-for="item in data" v-bind:key="item">{{item}}</li>
     </ul>
   </div>
@@ -10,12 +10,12 @@
 
 <script>
   export default {
-    data(){
-      let data=[];
-      for(let i=0;i<20;i++){
-        data.push("这是第"+i+"行");
+    data() {
+      let data = [];
+      for (let i = 0; i < 20; i++) {
+        data.push("这是第" + i + "行");
       }
-      return{
+      return {
         data
       }
     },
