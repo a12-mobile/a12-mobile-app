@@ -225,7 +225,6 @@
 
     .wu-frame{
         margin:10px;
-        // float:left;
     }
     .wu-margin{
         padding-left:25px;
