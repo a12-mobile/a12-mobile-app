@@ -9,6 +9,13 @@
     <router-link to="/sub">
       <button type="button" class="btn btn-primary">进入子页面</button>
     </router-link>
+
+    <br/>
+    <br/>
+    <router-link to="/dailyOfDrilling">
+      <button type="button" class="btn btn-primary">进入中油油服钻井日报</button>
+    </router-link>
+
   </div>
 </template>
 
