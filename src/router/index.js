@@ -7,6 +7,8 @@ import Discussion from '@/pages/Tab-Discussion'
 import Me from '@/pages/Tab-Me'
 import SubView from '@/pages/SubView'
 
+import DailyOfDrilling from '@/components/DailyOfDrilling'
+
 Vue.use(Router)
 
 export default new Router({
@@ -41,5 +43,11 @@ export default new Router({
       component: SubView,
       meta: { navShow: false, title: '子页面' }
     },
+    {
+      path:'/dailyOfDrilling',
+      name:'dailyOfDrilling',
+      component:DailyOfDrilling,
+      meta:{navShow:true,title:'中油油服钻井工作量日报'}
+    }
   ]
 })
