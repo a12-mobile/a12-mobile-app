@@ -108,9 +108,9 @@
         data() {
             return {
                 isQuery: false,
-                startTime: timepicker.params().startTime,
-                endTime: timepicker.params().endTime,
-                option: timepicker.params().timeOption,
+                startTime: timepicker.startTime,
+                endTime: timepicker.endTime,
+                option: timepicker.timeOption,
                 websock: null,
                 select: "page1",
                 tableData: [],
@@ -155,7 +155,7 @@
             },
             initWebSocket() { //初始化weosocket
                 //ws地址
-                const wsuri = "ws:/localhost:8080/a12-mobile/websocket";
+                const wsuri = "ws:/10.88.123.11:8080/oms2-mobile/websocket";
                 this.websock = new WebSocket(wsuri);
                 this.websock.onmessage = this.websocketonmessage;
                 this.websock.onclose = this.websocketclose;

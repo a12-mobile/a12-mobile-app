@@ -1,4 +1,4 @@
-# a12-mobile-app
+# oms2-mobile
 
 > 井场实时监测与预警移动应用
 

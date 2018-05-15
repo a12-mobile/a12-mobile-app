@@ -88,7 +88,7 @@ import {
             },
             initWebSocket() { //初始化weosocket
                 //ws地址
-                const wsuri = "ws:/localhost:8080/a12-mobile/websocket";
+                const wsuri = "ws:/10.88.123.11:8080/oms2-mobile/websocket";
                 this.websock = new WebSocket(wsuri);
                 this.websock.onmessage = this.websocketonmessage;
                 this.websock.onclose = this.websocketclose;

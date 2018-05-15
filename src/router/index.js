@@ -6,6 +6,9 @@ import MultiWellList from '@/pages/Tab-MultiWellList'
 import Discussion from '@/pages/Tab-Discussion'
 import Me from '@/pages/Tab-Me'
 import SubView from '@/pages/SubView'
+import DrillListOfProjectData from '@/pages/DrillListOfProjectData'
+import DrillListOfProjectData2 from '@/pages/DrillListOfProjectData2'
+import DailyOfKeyWell from '@/pages/DailyOfKeyWell'
 
 Vue.use(Router)
 
@@ -40,6 +43,24 @@ export default new Router({
       name: 'SubView',
       component: SubView,
       meta: { navShow: false, title: '子页面' }
+    },
+    {
+      path: '/drill/project/data/list',
+      name: 'DrillListOfProjectData',
+      component: DrillListOfProjectData,
+      meta: { navShow: false, title: '工程数据列表' }
+    },
+    {
+      path: '/drill/project/data/list2',
+      name: 'DrillListOfProjectData2',
+      component: DrillListOfProjectData2,
+      meta: { navShow: false, title: '工程数据列表2' }
+    },
+    {
+      path: '/daily/well/key',
+      name: 'DailyOfKeyWell',
+      component: DailyOfKeyWell,
+      meta: { navShow: false, title: '重点井日报' }
     },
   ]
 })
