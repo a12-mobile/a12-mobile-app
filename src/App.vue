@@ -10,7 +10,6 @@
 
 <script>
   import Tabs from "./pages/Tabs.vue"
-  import myDatepicker from 'vue-datepicker'
   export default {
     name: 'App',
     data() {
@@ -18,7 +17,6 @@
     },
     components: {
       Tabs,
-      'date-picker': myDatepicker
     }
   }
 </script>

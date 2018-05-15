@@ -13,8 +13,6 @@
     <router-link to="/daily/well/key">
       <button type="button" class="btn btn-primary">重点井日报</button>
     </router-link>
-    <p id="font">微软雅黑</p>
-    <p id="">微软雅黑</p>
   </div>
 </template>
 
@@ -25,14 +23,6 @@
 </script>
 
 <style>
-  
-    #font{
-        font-family:'楷体';
-    }
-    p{
-      font-size: 25px;
-
-    }
 
 </style>
 

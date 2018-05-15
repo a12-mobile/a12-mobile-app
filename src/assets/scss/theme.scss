@@ -1,8 +1,16 @@
 @import "./variables.scss";
+
+//解决mint-ui 与 bootstrap样式冲突导致标题栏字体偏上的问题
 .mint-button{
     padding-top:10px !important;
 }
 .mint-header-title{
     padding-top:10px !important;
     font-size: 18px !important;
+}
+
+
+//设置timepicker的样式 宽度最大为屏幕宽度的80%
+.cov-date-body{
+    max-width: 80% !important;
 }
