@@ -10,6 +10,8 @@ import DrillListOfProjectData from '@/pages/DrillListOfProjectData'
 import DrillListOfProjectData2 from '@/pages/DrillListOfProjectData2'
 import DailyOfKeyWell from '@/pages/DailyOfKeyWell'
 
+import DailyOfDrilling from '@/components/DailyOfDrilling'
+
 Vue.use(Router)
 
 export default new Router({
@@ -45,6 +47,7 @@ export default new Router({
       meta: { navShow: false, title: '子页面' }
     },
     {
+<<<<<<< HEAD
       path: '/drill/project/data/list',
       name: 'DrillListOfProjectData',
       component: DrillListOfProjectData,
@@ -62,5 +65,12 @@ export default new Router({
       component: DailyOfKeyWell,
       meta: { navShow: false, title: '重点井日报' }
     },
+=======
+      path:'/dailyOfDrilling',
+      name:'dailyOfDrilling',
+      component:DailyOfDrilling,
+      meta:{navShow:true,title:'中油油服钻井工作量日报'}
+    }
+>>>>>>> c86030e58437536226ad3dc52eb64a50c3ab7b29
   ]
 })

@@ -65,7 +65,7 @@
     color: #D0021B;
   }
   .tabs ul li div {
-    font-size: 12x;
+    font-size: 12px;
   }
   .tabs ul li div i {
     font-size: 30px;
