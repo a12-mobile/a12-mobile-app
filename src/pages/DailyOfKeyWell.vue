@@ -5,12 +5,7 @@
                 <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
             </mt-header>
         </header>
-        <div class="wu-frame">
-            <!-- <span>日期：</span> -->
-            <button type="button" class="btn btn-sm btn-outline-primary wu-margin" @click="handleDateReduce">前一天</button>
-            <date-picker :date="date" :option="option"></date-picker>
-            <button type="button" class="btn btn-sm btn-outline-primary wu-margin" @click="handleDateAdd">后一天</button>
-        </div>
+        <oms2-daily-date-picker :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @change="change"></oms2-daily-date-picker>
         <v-table
             is-horizontal-resize
             is-vertical-resize
@@ -28,17 +23,17 @@
 
 
 <script>
+import DailyDatePicker from './../components/DailyDatePicker'
+
     import { Indicator } from 'mint-ui';
     import timepicker from './../assets/js/timepicker'
-    import myDatepicker from 'vue-datepicker'
-    import {addDate, compareDate, getCurrentDate} from './../assets/js/date'
+    import { getCurrentDate} from './../assets/js/date'
     import { Toast } from "mint-ui"
     export default {
          data() {
             return {
                 date: timepicker.startTime,
                 currentDate:getCurrentDate(),
-                option: timepicker.option,
                 columns: [
                     {field: 'shigongdanwei', width: 50, columnAlign: 'center', columnAlign: 'center', isFrozen: true},
                     {field: 'duihao', width: 50, columnAlign: 'center', columnAlign: 'center', isFrozen: true},
@@ -141,8 +136,8 @@
 
                               //第四行
                              [
-                              {fields: ['sheji'], title: '设计', titleAlign: 'center', rowspan:1,titleCellClassName:'wu-title-cell-4'},
-                              {fields: ['shiji'], title: '实际', titleAlign: 'center', rowspan:1,titleCellClassName:'wu-title-cell-4'},
+                              {fields: ['sheji'], title: '设计', titleAlign: 'center', rowspan:1,titleCellClassName:'wu-title-cell'},
+                              {fields: ['shiji'], title: '实际', titleAlign: 'center', rowspan:1,titleCellClassName:'wu-title-cell'},
                              ]
                 ],
                 tableData: [
@@ -170,28 +165,19 @@
             handleBack(){
                 window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
             },
-            handleDateAdd(){
-                let compare=compareDate(this.date.time,this.currentDate)
-                if(compare>=0){
-                    Toast({
-                        message:'当前为最新日期',
-                        position: 'bottom',
-                        duration: 3000,
-                    })
-                }else{
+            handleDateAdd(date){
+                if(date<=getCurrentDate()){
                     Indicator.open('加载中...')
                     setTimeout(()=>{
                         Indicator.close()
                     },1000)
-                    this.date.time=addDate(this.date.time,1)
                 }
             },
-            handleDateReduce(){
+            handleDateReduce(date){
                 Indicator.open('加载中...')
                     setTimeout(()=>{
                         Indicator.close()
                     },1000)
-                this.date.time=addDate(this.date.time,-1)
             },
             //设置列单元格样式
             columnCellClass(rowIndex,columnName,rowData){
@@ -200,10 +186,13 @@
                 }
 
             },
+            change(date){
+                alert("改变了"+date)
+            }
 
         },
         components: {
-            'date-picker': myDatepicker
+            'oms2-daily-date-picker': DailyDatePicker
         }
     }
 </script>
