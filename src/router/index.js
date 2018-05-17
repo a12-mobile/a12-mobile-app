@@ -9,7 +9,7 @@ import SubView from '@/pages/SubView'
 import DrillListOfProjectData from '@/pages/DrillListOfProjectData'
 import DrillListOfProjectData2 from '@/pages/DrillListOfProjectData2'
 import DailyOfKeyWell from '@/pages/DailyOfKeyWell'
-
+import LogsOfRecordWell from '@/pages/LogsOfRecordWell'
 import DailyOfDrilling from '@/components/DailyOfDrilling'
 
 Vue.use(Router)
@@ -69,6 +69,12 @@ export default new Router({
       name:'dailyOfDrilling',
       component:DailyOfDrilling,
       meta:{navShow:true,title:'中油油服钻井工作量日报'}
+    },
+    {
+      path: '/logsOfRecordWell',
+      name: 'LogsOfRecordWell',
+      component: LogsOfRecordWell,
+      meta:{ navShow: false, title: '录井日报'}
     }
   ]
 })
