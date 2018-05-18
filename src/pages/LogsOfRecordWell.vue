@@ -17,7 +17,6 @@
                 row-hover-color="#eee"
                 row-click-color="#edf7ff"
                 even-bg-color="#f4f4f4"
-                :cell-merge="cellMerge"
                 :select-all="selectALL"
                 :select-change="selectChange"
                 :select-group-change="selectGroupChange"
@@ -32,14 +31,12 @@
     import DailyDatePicker from './../components/DailyDatePicker'
     import { Indicator } from 'mint-ui';
     import timepicker from './../assets/js/timepicker'
-    import { getCurrentDate} from './../assets/js/date'
     import { Toast } from "mint-ui"
 
     export default{
         data() {
             return {
                     date: timepicker.startTime,
-                    currentDate: getCurrentDate(),
                     tableData: [
                         {"units":"赵伟","wellID":"156*****1987","wellLogId":"钢琴、书法、唱歌","wellType":"上海市黄浦区金陵东路569号17楼","wellDrillingId":"12345678"},
                         {"units":"李伟","wellID":"182*****1538","wellLogId":"钢琴、书法、唱歌","wellType":"上海市奉贤区南桥镇立新路12号2楼","wellDrillingId":"12345678"}
@@ -113,8 +110,8 @@
                     window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
                 },
 
-                handleDateAdd(date){
-                    if(date<=getCurrentDate()){
+                handleDateAdd(param){
+                    if(param.canAdd){
                         Indicator.open('加载中...')
                         setTimeout(()=>{
                             Indicator.close()
