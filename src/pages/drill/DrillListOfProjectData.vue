@@ -98,8 +98,8 @@
 <script>
     import {
         convertJsonToBean
-    } from "./../assets/js/convert"
-    import timepicker from './../assets/js/timepicker';
+    } from "./../../assets/js/convert"
+    import timepicker from './../../assets/js/timepicker';
     import myDatepicker from 'vue-datepicker'
     import {
         Toast

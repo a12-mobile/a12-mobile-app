@@ -1,14 +1,26 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+
+//tab页
 import Home from '@/pages/Tab-Home'
 import MultiWellList from '@/pages/Tab-MultiWellList'
 import Discussion from '@/pages/Tab-Discussion'
 import Me from '@/pages/Tab-Me'
+
+
 import SubView from '@/pages/SubView'
-import DrillListOfProjectData from '@/pages/DrillListOfProjectData'
-import DrillListOfProjectData2 from '@/pages/DrillListOfProjectData2'
-import DailyOfKeyWell from '@/pages/DailyOfKeyWell'
+
+//钻井
+import DrillListOfProjectData from '@/pages/drill/DrillListOfProjectData'
+import DrillListOfProjectData2 from '@/pages/drill/DrillListOfProjectData2'
+import DrillFormList from '@/pages/drill/DrillFormList'
+import DrillDailyOfKeyWell from '@/pages/drill/DrillDailyOfKeyWell'
+
+//井下
+import DhFormList from '@/pages/dh/DhFormList'
+import DhHomeMonthlyOfWorkload from '@/pages/dh/DhHomeMonthlyOfWorkload'
+import DhTotalMonthlyOfWorkload from '@/pages/dh/DhTotalMonthlyOfWorkload'
+
 import LogsOfRecordWell from '@/pages/LogsOfRecordWell'
 import DailyOfDrilling from '@/components/DailyOfDrilling'
 
@@ -46,6 +58,33 @@ export default new Router({
       component: SubView,
       meta: { navShow: false, title: '子页面' }
     },
+    
+    {
+      path:'/dailyOfDrilling',
+      name:'dailyOfDrilling',
+      component:DailyOfDrilling,
+      meta:{navShow:true,title:'中油油服钻井工作量日报'}
+    },
+    {
+      path: '/logsOfRecordWell',
+      name: 'LogsOfRecordWell',
+      component: LogsOfRecordWell,
+      meta:{ navShow: false, title: '录井日报'}
+    },
+
+    //钻井
+    {
+      path: '/drill/form/list',
+      name: 'DrillFormList',
+      component: DrillFormList,
+      meta: { navShow: false, title: '钻井报表' }
+    },
+    {
+      path: '/drill/daily/well/key',
+      name: 'DrillDailyOfKeyWell',
+      component: DrillDailyOfKeyWell,
+      meta: { navShow: false, title: '重点井日报' }
+    },
     {
       path: '/drill/project/data/list',
       name: 'DrillListOfProjectData',
@@ -58,23 +97,27 @@ export default new Router({
       component: DrillListOfProjectData2,
       meta: { navShow: false, title: '工程数据列表2' }
     },
+    //钻井 end
+
+    //井下
     {
-      path: '/daily/well/key',
-      name: 'DailyOfKeyWell',
-      component: DailyOfKeyWell,
-      meta: { navShow: false, title: '重点井日报' }
+      path: '/dh/form/list',
+      name: 'DhFormList',
+      component: DhFormList,
+      meta:{ navShow: false, title: '井下报表'}
     },
     {
-      path:'/dailyOfDrilling',
-      name:'dailyOfDrilling',
-      component:DailyOfDrilling,
-      meta:{navShow:true,title:'中油油服钻井工作量日报'}
+      path: '/dh/workload/monthly/home',
+      name: 'DhHomeMonthlyOfWorkload',
+      component: DhHomeMonthlyOfWorkload,
+      meta:{ navShow: false, title: '统计月报'}
     },
     {
-      path: '/logsOfRecordWell',
-      name: 'LogsOfRecordWell',
-      component: LogsOfRecordWell,
-      meta:{ navShow: false, title: '录井日报'}
-    }
+      path: '/dh/workload/monthly/total',
+      name: 'DhTotalMonthlyOfWorkload',
+      component: DhTotalMonthlyOfWorkload,
+      meta:{ navShow: false, title: '统计月报'}
+    },
+    //井下 end
   ]
 })

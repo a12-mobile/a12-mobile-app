@@ -26,7 +26,7 @@
 <script>
 import {
         convertJsonToBean
-    } from "./../assets/js/convert"
+    } from "./../../assets/js/convert"
     import myDatepicker from 'vue-datepicker'
     import {
         Toast
