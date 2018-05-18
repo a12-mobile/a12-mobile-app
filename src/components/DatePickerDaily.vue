@@ -12,14 +12,14 @@
      * @module components/DailyDatePicker
      * @desc 日报时间选择
      * @param {object} [defaultDate] - 输入框默认显示的日期
-     * @param {string} [startDate] - 时间选择限制的起始日期   默认 2000-01-01 （包含2000-01-01当天）
-     * @param {string} [endDate] - 时间选择限制的终止日期   默认为当前日期 (包含当天日期)
+     * @param {string} [limitStartDate] - 时间选择限制的起始日期   默认 2000-01-01 （包含2000-01-01当天）
+     * @param {string} [limitEndDate] - 时间选择限制的终止日期   默认为当前日期 (包含当天日期)
      * @param {function} [handleDateReduce] - 前一天的回掉函数  （参数前一天的日期  格式：yyyy-MM-dd）
      * @param {function} [handleDateAdd] - 后一天的回掉函数  （参数后一天的日期  格式：yyyy-MM-dd）
      * @param {function} [change] - 选择日期后的回调函数  （参数后一天的日期  格式：yyyy-MM-dd）
      *
      * @example
-     * <oms2-daily-date-picker :date="defaultDate" :startDate="startDate" :endDate="endDate" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @change="change"></oms2-daily-date-picker>
+     * <oms2-daily-date-picker :date="defaultDate" :limitStartDate="limitStartDate" :limitEndDate="limitEndDate" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @change="change"></oms2-daily-date-picker>
      * 
      * 
      *<script>
@@ -31,8 +31,8 @@
             defaultDate: {       //需要定义成这种对象的形式，因为父组件传值(对象)，子组件收到对象后可随意改变对象的属性，但不能改变对象本身。如果父组件传的不是对象，子组件直接修改父组件的值会报错。因此定义成这种形式
               time: '2018-01-01'
             },
-            startDate:"2001-01-01",
-            endDate:"2018-01-01",
+            limitStartDate:"2001-01-01",
+            limitEndDate:"2018-01-01",
           }
         },
         methods: {
@@ -100,8 +100,8 @@
                 limit: [
                     {
                         type: 'fromto',
-                        from: addDate(this.startDate, -1),
-                        to: addDate(this.endDate, 1)
+                        from: addDate(this.limitStartDate, -1),
+                        to: addDate(this.limitEndDate, 1)
                     }
                 ]
             }
@@ -113,11 +113,11 @@
                     time: getCurrentDate()
                 }
             },
-            startDate:{
+            limitStartDate:{
                 type:String,
                 default:'2000-01-01'
             },
-            endDate:{
+            limitEndDate:{
                 type:String,
                 default:getCurrentDate()
             }
@@ -128,10 +128,10 @@
              */
             handleDateAdd() {
                 let canAdd = false;
-                let compare = compareDate(this.date.time, this.endDate)
+                let compare = compareDate(this.date.time, this.limitEndDate)
                 if (compare >= 0) {
                     Toast({
-                        message: '最终时间为：'+this.endDate,
+                        message: '最终时间为：'+this.limitEndDate,
                         position: 'bottom',
                         duration: 3000,
                     })
@@ -149,10 +149,10 @@
              */
             handleDateReduce() {
                 let canReduce = false;
-                let compare = compareDate(this.startDate,this.date.time)
+                let compare = compareDate(this.limitStartDate,this.date.time)
                 if (compare >= 0) {
                     Toast({
-                        message: '最早时间为：'+this.startDate,
+                        message: '最早时间为：'+this.limitStartDate,
                         position: 'bottom',
                         duration: 3000,
                     })
