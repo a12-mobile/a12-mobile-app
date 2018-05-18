@@ -31,14 +31,16 @@
           }
         },
         methods: {
-          handleDateAdd(date) {   //与上面定义的defaultDate不同，此处参数date为String型，例如 2018-05-17
-            alert("加一天:" + date)
+          handleDateAdd(param) {   //与上面定义的defaultDate不同，此处参数date为String型，例如 2018-05-17
+            param参数为一个数组，包含两个属性，date为加一天后的日期，canAdd为boolean型，表示是否可以增加，默认如果为当前日期则不可增加
+            console.log("加一天后的日期:" + param.date)
+            console.log("是否可以增加日期"+param.canAdd)
           },
           handleDateReduce(date) {
-            alert("减一天:" + date)
+            console.log("减一天后的日期:" + date)
           },
           change(date){
-            alert("选择日期的回掉："+date)
+            console.log("选择日期的回掉结果："+date)
           },
         },
         components: {
@@ -104,6 +106,7 @@
              * 后一天回调函数
              */
             handleDateAdd() {
+                let canAdd = false;
                 let compare = compareDate(this.date.time, this.currentDate)
                 if (compare >= 0) {
                     Toast({
@@ -112,9 +115,13 @@
                         duration: 3000,
                     })
                 } else {
+                    canAdd=true;
                     this.date.time = addDate(this.date.time, 1)
                 }
-                this.$emit("date-add", this.date.time)
+                this.$emit("date-add", {
+                    date: this.date.time,
+                    canAdd:canAdd
+                })
             },
             /**
              * 前一天回调函数
