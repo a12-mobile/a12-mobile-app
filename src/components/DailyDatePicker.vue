@@ -1,7 +1,7 @@
 <template>
     <div class="oms2-daily-date-picker">
         <button type="button" class="btn btn-sm btn-outline-primary margin" @click="handleDateReduce">前一天</button>
-        <date-picker :date="date" :option="option" @change="handleChange"></date-picker>
+        <date-picker :date="date" :option="option" @change="handleChange" :limit="limit"></date-picker>
         <button type="button" class="btn btn-sm btn-outline-primary margin" @click="handleDateAdd">后一天</button>
     </div>
 </template>
@@ -65,8 +65,8 @@
                 currentDate: getCurrentDate(),
                 option: {
                     type: 'day',
-                    week: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
-                    month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    week: ['一', '二', '三', '四', '五', '六', '日'],
+                    month: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
                     format: 'YYYY-MM-DD',
                     placeholder: '选择时间',
                     inputStyle: {
@@ -91,6 +91,13 @@
                     overlayOpacity: 0.5, // 0.5 as default
                     dismissible: true // as true as default
                 },
+                limit: [
+                    {
+                        type: 'fromto',
+                        from: '2016-02-01',
+                        to: getCurrentDate(),
+                    }
+                ]
             }
         },
         props: {
@@ -115,12 +122,12 @@
                         duration: 3000,
                     })
                 } else {
-                    canAdd=true;
+                    canAdd = true;
                     this.date.time = addDate(this.date.time, 1)
                 }
                 this.$emit("date-add", {
                     date: this.date.time,
-                    canAdd:canAdd
+                    canAdd: canAdd
                 })
             },
             /**
@@ -134,6 +141,15 @@
              * 选择日期回调函数
              */
             handleChange(time) {
+                let compare = compareDate(this.date.time, this.currentDate)
+                if (compare >= 0) {
+                    this.date.time=this.currentDate
+                    Toast({
+                        message: '最新日期为：'+this.currentDate,
+                        position: 'bottom',
+                        duration: 3000,
+                    })
+                }
                 this.$emit("change", time)
             }
         },
