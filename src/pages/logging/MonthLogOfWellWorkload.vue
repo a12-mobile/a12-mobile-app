@@ -26,7 +26,7 @@
 <script>
     import DailyDatePicker from './../components/DailyDatePicker'
     import { Indicator } from 'mint-ui';
-    import timepicker from './../assets/js/timepicker'
+    import timepicker from '../../assets/js/timepicker'
     import { Toast } from "mint-ui"
     export default {
         name: "MonthLogOfWellWorkload",
@@ -70,7 +70,7 @@
               "developmentWell": "89",
               "synthesizeWell": "99"
             }
-            
+
           ],
           columns: [
             {field: 'marketDistribution', width: 50, columnAlign: 'center', isResize: true, isFrozen: true},
