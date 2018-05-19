@@ -5,7 +5,7 @@
                 <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
                 </mt-header>
             </header>
-            <oms2-daily-date-picker :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce" @change="change"></oms2-daily-date-picker>
+            <oms2-date-picker-daily :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce" @change="change"></oms2-date-picker-daily>
            
             <v-table
                 is-horizontal-resize
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-    import DailyDatePicker from './../components/DailyDatePicker'
+    import DatePickerDaily from './../components/DatePickerDaily'
     import { Indicator } from 'mint-ui';
     import timepicker from './../assets/js/timepicker'
     import { Toast } from "mint-ui"
@@ -150,7 +150,7 @@
                 }
         },
         components: {
-            'oms2-daily-date-picker': DailyDatePicker
+            'oms2-date-picker-daily': DatePickerDaily
         }
     }
 </script>
