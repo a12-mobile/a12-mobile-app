@@ -19,7 +19,7 @@
      * @param {function} [change] - 选择日期后的回调函数  （参数后一天的日期  格式：yyyy-MM-dd）
      *
      * @example
-     * <oms2-daily-date-picker :date="defaultDate" :limitStartDate="limitStartDate" :limitEndDate="limitEndDate" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @change="change"></oms2-daily-date-picker>
+     * <oms2-daily-date-picker :date="defaultDate" :limitStartDate="limitStartDate" :limitEndDate="limitEndDate" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @date-change="handleChange"></oms2-daily-date-picker>
      * 
      * 
      *<script>
@@ -45,7 +45,7 @@
             console.log("减一天后的日期:" + param.date)
             console.log("是否可以增加日期"+ param.canReduce) //默认任何时候都可以减少
           },
-          change(date){
+          handleChange(date){
             console.log("选择日期的回掉结果："+date)
           },
         },
@@ -178,7 +178,7 @@
                         duration: 3000,
                     })
                 }
-                this.$emit("change", time)
+                this.$emit("date-change", time)
             }
         },
         components: {
