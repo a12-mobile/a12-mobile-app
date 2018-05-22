@@ -2,7 +2,6 @@
 <div>
   <mt-header :title="$route.meta.title" fixed>
       <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
-      <mt-button icon="more" slot="right"></mt-button>
     </mt-header>
     <!-- <router-link to="/drill/project/data/list">
       <button type="button" class="btn btn-primary">工程数据列表</button>

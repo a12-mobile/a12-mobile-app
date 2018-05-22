@@ -25,6 +25,7 @@
 
 
 <script>
+/////单位排序，然后设计井深排序
 ////////注意   施工区域字段未找到
     import DatePickerDaily from './../../components/DatePickerDaily'
 
@@ -149,18 +150,22 @@
         methods:{
             requestDate() {
                 Indicator.open('加载中...')
-                this.$axios.get('http://10.88.123.11:8080/mobile/drill/daily/keyWell?token=2f8c670a-5f42-4c41-a005-71bd565bd248&rx_token=2f8c670a-5f42-4c41-a005-71bd565bd248&date='+this.date.time)
-                // this.$axios.get('http://10.88.123.11:8080/mobile/drill/daily/keyWell?date='+this.date.time)
-                .then((response)=> {
+                this.$http('get','/mobile/drill/daily/keyWell',{
+                    "token":"2f8c670a-5f42-4c41-a005-71bd565bd248",
+                    "rx_token":"2f8c670a-5f42-4c41-a005-71bd565bd248",
+                    "date":this.date.time
+                    })
+                .then((data)=> {
                     Indicator.close()
-                    this.tableData=[]
-                    response.data.forEach(element => {
-                        this.tableData.push(element);
-                    });
+                    if(data){
+                        this.tableData=data
+                    }else{
+                        this.tableData=[]
+                    }
                 })
                 .catch(function(error) {
                     Indicator.close()
-                    console.log(error);
+                    console.log(error)
                 })
             },
             handleBack(){
