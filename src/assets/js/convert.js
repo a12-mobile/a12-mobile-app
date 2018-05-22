@@ -1,5 +1,11 @@
 import {getCurrentTime} from './date'
 
+
+/**
+ * 测试页面转换
+ * 用的实时数据
+ * @param {*} data 
+ */
 export function convertJsonToBean(data) {
     var time = getCurrentTime();
     var item = {

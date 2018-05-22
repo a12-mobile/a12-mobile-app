@@ -5,7 +5,7 @@
                 <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
             </mt-header>
         </header>
-        <oms2-date-picker-daily :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @change="change"></oms2-date-picker-daily>
+        <oms2-date-picker-daily :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @date-change="handleChange"></oms2-date-picker-daily>
         <v-table
             is-horizontal-resize
             is-vertical-resize
@@ -25,6 +25,8 @@
 
 
 <script>
+/////单位排序，然后设计井深排序
+////////注意   施工区域字段未找到
     import DatePickerDaily from './../../components/DatePickerDaily'
 
     import { Indicator } from 'mint-ui';
@@ -34,81 +36,82 @@
          data() {
             return {
                 date: timepicker.startTime,
+                tableData: [],
                 columns: [
-                    {field: 'shigongdanwei', width: 50, columnAlign: 'center', columnAlign: 'center', isFrozen: true},
-                    {field: 'duihao', width: 50, columnAlign: 'center', columnAlign: 'center', isFrozen: true},
-                    {field: 'jinghao', width: 50, columnAlign: 'center', columnAlign: 'center', isFrozen: true},
-                    {field: 'jingbie', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'jingxing', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'sgdw', width: 40, columnAlign: 'center', columnAlign: 'center', isFrozen: true},
+                    {field: 'dh', width: 70, columnAlign: 'center', columnAlign: 'center', isFrozen: true},
+                    {field: 'jm', width: 80, columnAlign: 'center', columnAlign: 'center', isFrozen: true},
+                    {field: 'wellSort', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'wellType', width: 90, columnAlign: 'center', columnAlign: 'center',isResize:true},
                     {field: 'shigongquyu', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'kaizuanriqi', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'shejijingshen', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'dangqianjingshen', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'zuandacengwei', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'gongkuang', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'gongzuoneirong', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'dangri', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'yuejihua', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'yuelei-jinchi', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'nianlei-jinchi', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'yuelei-wankou', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'nianlei-wankou', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'zuantouchicun', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'zuanya', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'pailiang', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'chunzuanshijian', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'zuansu', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'start1Date', width: 60, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'designWellDepth', width: 60, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'actualWellDepth', width: 60, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'layername', width: 80, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'project', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'workContent', width: 100, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'dailyDrilledFootage', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'monthPlannedDrillingFootage', width: 50, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'cumulMonthDrilledFootage', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'cumulYearDrilledFootage', width: 50, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'monthCompletion', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'yearFinish', width: 50, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'bitSizeModel', width: 90, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'woba', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'deliveryVolume', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'onlydrill', width: 50, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'drillRotateSpeed', width: 50, columnAlign: 'center', columnAlign: 'center',isResize:true},
                     // {field: 'jixiezuansu', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'bengya', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'sheji', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'shiji', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'niandu', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'shishui', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'hansha', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'taoguanjizuangan', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'pumpPressure', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'designMudPropDendity', width: 60, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'mudPropDensity', width: 60, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'mudPropViscosity', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'mudPropWaterLose', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'mudPropGrittyConsistence', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'cannulaSizeModel', width: 200, columnAlign: 'center', columnAlign: 'center',isResize:true},
                 ],
 
                 titleRows: [ //第一行
-                             [{fields: ['shigongdanwei'], title: '施工单位', titleAlign: 'center', rowspan: 4},
-                              {fields: ['duihao'], title: '队号', titleAlign: 'center', rowspan: 4},
-                              {fields: ['jinghao'], title: '井号', titleAlign: 'center', rowspan: 4},
-                              {fields: ['jingbie', 'jingxing', 'shigongquyu','kaizuanriqi'], title: '基础信息', titleAlign: 'center', colspan: 4},
-                              {fields: ['shejijingshen', 'dangqianjingshen','zuandacengwei','gongkuang','gongzuoneirong'], title: '当日动态', titleAlign: 'center', colspan: 5},
-                              {fields: ['dangri','yuejihua','yuelei-jinchi','nianlei-jinchi','yuelei-wankou','nianlei-wankou'], title: '工作量', titleAlign: 'center', colspan: 6},
-                              {fields: ['zuantouchicun','zuanya','pailiang','chunzuanshijian','zuansu','bengya'], title: '钻头及钻井参数', titleAlign: 'center', colspan: 6},
-                              {fields: ['sheji','shiji','niandu','shishui','hansha'], title: '钻井液性能', titleAlign: 'center', colspan: 5},
-                              {fields: ['taoguanjizuangan',], title: '套管及钻杆', titleAlign: 'center', rowspan: 4},
+                             [{fields: ['sgdw'], title: '施工单位', titleAlign: 'center', rowspan: 4},
+                              {fields: ['dh'], title: '队号', titleAlign: 'center', rowspan: 4},
+                              {fields: ['jm'], title: '井号', titleAlign: 'center', rowspan: 4},
+                              {fields: ['wellSort', 'wellType', 'shigongquyu','start1Date'], title: '基础信息', titleAlign: 'center', colspan: 4},
+                              {fields: ['designWellDepth', 'actualWellDepth','layername','project','workContent'], title: '当日动态', titleAlign: 'center', colspan: 5},
+                              {fields: ['dailyDrilledFootage','monthPlannedDrillingFootage','cumulMonthDrilledFootage','cumulYearDrilledFootage','monthCompletion','yearFinish'], title: '工作量', titleAlign: 'center', colspan: 6},
+                              {fields: ['bitSizeModel','woba','deliveryVolume','onlydrill','drillRotateSpeed','pumpPressure'], title: '钻头及钻井参数', titleAlign: 'center', colspan: 6},
+                              {fields: ['designMudPropDendity','mudPropDensity','mudPropViscosity','mudPropWaterLose','mudPropGrittyConsistence'], title: '钻井液性能', titleAlign: 'center', colspan: 5},
+                              {fields: ['cannulaSizeModel',], title: '套管及钻杆', titleAlign: 'center', rowspan: 4},
                              ],
 
                              //第二行
                              //基础信息
-                             [{fields: ['jingbie'], title: '井别', titleAlign: 'center',rowspan:3},
-                              {fields: ['jingxing'], title: '井型', titleAlign: 'center', rowspan:3},
+                             [{fields: ['wellSort'], title: '井别', titleAlign: 'center',rowspan:3},
+                              {fields: ['wellType'], title: '井型', titleAlign: 'center', rowspan:3},
                               {fields: ['shigongquyu'], title: '施工区域', titleAlign: 'center', rowspan:3},
-                              {fields: ['kaizuanriqi'], title: '开钻日期', titleAlign: 'center', rowspan:3},
+                              {fields: ['start1Date'], title: '开钻日期', titleAlign: 'center', rowspan:3},
 
                               //当日动态
-                              {fields: ['shejijingshen'], title: '设计井深', titleAlign: 'center',rowspan:3},
-                              {fields: ['dangqianjingshen'], title: '当前井深', titleAlign: 'center', rowspan:3},
-                              {fields: ['zuandacengwei'], title: '钻打层位', titleAlign: 'center', rowspan:3},
-                              {fields: ['gongkuang'], title: '工况', titleAlign: 'center', rowspan:3},
-                              {fields: ['gongzuoneirong'], title: '工作内容', titleAlign: 'center', rowspan:3},
+                              {fields: ['designWellDepth'], title: '设计井深', titleAlign: 'center',rowspan:3},
+                              {fields: ['actualWellDepth'], title: '当前井深', titleAlign: 'center', rowspan:3},
+                              {fields: ['layername'], title: '钻打层位', titleAlign: 'center', rowspan:3},
+                              {fields: ['project'], title: '工况', titleAlign: 'center', rowspan:3},
+                              {fields: ['workContent'], title: '工作内容', titleAlign: 'center', rowspan:3},
 
                               //工作量
-                              {fields: ['dangri','yuejihua','yuelei-jinchi','nianlei-jinchi',], title: '进尺(米)', titleAlign: 'center',colspan:4},
-                              {fields: ['yuelei-wankou','nianlei-wankou'], title: '完井(口)', titleAlign: 'center', colspan:2},
+                              {fields: ['dailyDrilledFootage','monthPlannedDrillingFootage','cumulMonthDrilledFootage','cumulYearDrilledFootage',], title: '进尺(米)', titleAlign: 'center',colspan:4},
+                              {fields: ['monthCompletion','yearFinish'], title: '完井(口)', titleAlign: 'center', colspan:2},
 
                               //钻头及钻井参数
-                              {fields: ['zuantouchicun'], title: '钻头尺寸型号', titleAlign: 'center', rowspan:3},
-                              {fields: ['zuanya'], title: '钻压(KN))', titleAlign: 'center', rowspan:3},
-                              {fields: ['pailiang'], title: '排量(L/s)', titleAlign: 'center', rowspan:3},
-                              {fields: ['chunzuanshijian'], title: '纯钻时间(h)', titleAlign: 'center', rowspan:3},
-                              {fields: ['zuansu'], title: '转速(r/min)', titleAlign: 'center', rowspan:3},
+                              {fields: ['bitSizeModel'], title: '钻头尺寸型号', titleAlign: 'center', rowspan:3},
+                              {fields: ['woba'], title: '钻压(KN)', titleAlign: 'center', rowspan:3},
+                              {fields: ['deliveryVolume'], title: '排量(L/s)', titleAlign: 'center', rowspan:3},
+                              {fields: ['onlydrill'], title: '纯钻时间(h)', titleAlign: 'center', rowspan:3},
+                              {fields: ['drillRotateSpeed'], title: '转速(r/min)', titleAlign: 'center', rowspan:3},
                             //   {fields: ['jixiezuansu'], title: '机械钻速(m/h)', titleAlign: 'center', rowspan:3},
-                              {fields: ['bengya'], title: '泵压(MPa)', titleAlign: 'center', rowspan:3},
+                              {fields: ['pumpPressure'], title: '泵压(MPa)', titleAlign: 'center', rowspan:3},
 
                               //钻井液性能
-                              {fields: ['sheji','shiji','niandu','shishui','hansha'], title: '泥浆', titleAlign: 'center', colspan:5},
+                              {fields: ['designMudPropDendity','mudPropDensity','mudPropViscosity','mudPropWaterLose','mudPropGrittyConsistence'], title: '泥浆', titleAlign: 'center', colspan:5},
 
                             //   //套管及钻具
                             //   {fields: ['taoguanguige'], title: '套管规格(mmX米)', titleAlign: 'center', rowspan:3},
@@ -117,67 +120,65 @@
 
                               //第三行
                              [//进尺
-                              {fields: ['dangri'], title: '当日', titleAlign: 'center',rowspan:2},
-                              {fields: ['yuejihua'], title: '月计划', titleAlign: 'center', rowspan:2},
-                              {fields: ['yuelei-jinchi'], title: '月累', titleAlign: 'center', rowspan:2},
-                              {fields: ['nianlei-jinchi'], title: '年累', titleAlign: 'center', rowspan:2},
+                              {fields: ['dailyDrilledFootage'], title: '当日', titleAlign: 'center',rowspan:2},
+                              {fields: ['monthPlannedDrillingFootage'], title: '月计划', titleAlign: 'center', rowspan:2},
+                              {fields: ['cumulMonthDrilledFootage'], title: '月累', titleAlign: 'center', rowspan:2},
+                              {fields: ['cumulYearDrilledFootage'], title: '年累', titleAlign: 'center', rowspan:2},
 
                               //完井
-                              {fields: ['yuelei-wankou'], title: '月累', titleAlign: 'center', rowspan:2},
-                              {fields: ['nianlei-wankou'], title: '年累', titleAlign: 'center', rowspan:2},
+                              {fields: ['monthCompletion'], title: '月累', titleAlign: 'center', rowspan:2},
+                              {fields: ['yearFinish'], title: '年累', titleAlign: 'center', rowspan:2},
 
                               //密度(g/cm3)
-                              {fields: ['sheji','shiji'], title: '密度(g/cm3)', titleAlign: 'center', colspan:2},
-                              {fields: ['niandu'], title: '粘度(s)', titleAlign: 'center', rowspan:2},
-                              {fields: ['shishui'], title: '失水', titleAlign: 'center', rowspan:2},
-                              {fields: ['hansha'], title: '含砂', titleAlign: 'center', rowspan:2},
+                              {fields: ['designMudPropDendity','mudPropDensity'], title: '密度(g/cm3)', titleAlign: 'center', colspan:2},
+                              {fields: ['mudPropViscosity'], title: '粘度(s)', titleAlign: 'center', rowspan:2},
+                              {fields: ['mudPropWaterLose'], title: '失水', titleAlign: 'center', rowspan:2},
+                              {fields: ['mudPropGrittyConsistence'], title: '含砂', titleAlign: 'center', rowspan:2},
                              ],
 
                               //第四行
                              [
-                              {fields: ['sheji'], title: '设计', titleAlign: 'center', rowspan:1},
-                              {fields: ['shiji'], title: '实际', titleAlign: 'center', rowspan:1},
+                              {fields: ['designMudPropDendity'], title: '设计', titleAlign: 'center', rowspan:1},
+                              {fields: ['mudPropDensity'], title: '实际', titleAlign: 'center', rowspan:1},
                              ]
-                ],
-                tableData: [
-                        {"shigongdanwei":"123","duihao":"111","jinghao":"123","jingbie":"123","jingxing":"12312","shigongquyu":"1111","kaizuanriqi":"11","shejijingshen":"11","dangqianjingshen":"11","dangqianjingshen":"11","zuandacengwei":"11","gongkuang":"11","gongzuoneirong":"11","dangri":"11","yuejihua":"11","yuelei-jinchi":"11","nianlei-jinchi":"11","yuelei-wankou":"11","nianlei-wankou":"11","zuantouchicun":"11","zuanya":"11","pailiang":"11","chunzuanshijian":"11","zuansu":"11","jixiezuansu":"11","bengya":"11","sheji":"11","shiji":"11","niandu":"11","shishui":"11","hansha":"11","taoguanjizuangan":"11"},
-                        {"shigongdanwei":"123","duihao":"111","jinghao":"123","jingbie":"123","jingxing":"12312","shigongquyu":"1111","kaizuanriqi":"11","shejijingshen":"11","dangqianjingshen":"11","dangqianjingshen":"11","zuandacengwei":"11","gongkuang":"11","gongzuoneirong":"11","dangri":"11","yuejihua":"11","yuelei-jinchi":"11","nianlei-jinchi":"11","yuelei-wankou":"11","nianlei-wankou":"11","zuantouchicun":"11","zuanya":"11","pailiang":"11","chunzuanshijian":"11","zuansu":"11","jixiezuansu":"11","bengya":"11","sheji":"11","shiji":"11","niandu":"11","shishui":"11","hansha":"11","taoguanjizuangan":"11"},
-                        {"shigongdanwei":"123","duihao":"111","jinghao":"123","jingbie":"123","jingxing":"12312","shigongquyu":"1111","kaizuanriqi":"11","shejijingshen":"11","dangqianjingshen":"11","dangqianjingshen":"11","zuandacengwei":"11","gongkuang":"11","gongzuoneirong":"11","dangri":"11","yuejihua":"11","yuelei-jinchi":"11","nianlei-jinchi":"11","yuelei-wankou":"11","nianlei-wankou":"11","zuantouchicun":"11","zuanya":"11","pailiang":"11","chunzuanshijian":"11","zuansu":"11","jixiezuansu":"11","bengya":"11","sheji":"11","shiji":"11","niandu":"11","shishui":"11","hansha":"11","taoguanjizuangan":"11"},
-                        {"shigongdanwei":"123","duihao":"111","jinghao":"123","jingbie":"123","jingxing":"12312","shigongquyu":"1111","kaizuanriqi":"11","shejijingshen":"11","dangqianjingshen":"11","dangqianjingshen":"11","zuandacengwei":"11","gongkuang":"11","gongzuoneirong":"11","dangri":"11","yuejihua":"11","yuelei-jinchi":"11","nianlei-jinchi":"11","yuelei-wankou":"11","nianlei-wankou":"11","zuantouchicun":"11","zuanya":"11","pailiang":"11","chunzuanshijian":"11","zuansu":"11","jixiezuansu":"11","bengya":"11","sheji":"11","shiji":"11","niandu":"11","shishui":"11","hansha":"11","taoguanjizuangan":"11","zuanjuzuhe":"11"},
-                        {"shigongdanwei":"123","duihao":"111","jinghao":"123","jingbie":"123","jingxing":"12312","shigongquyu":"1111","kaizuanriqi":"11","shejijingshen":"11","dangqianjingshen":"11","dangqianjingshen":"11","zuandacengwei":"11","gongkuang":"11","gongzuoneirong":"11","dangri":"11","yuejihua":"11","yuelei-jinchi":"11","nianlei-jinchi":"11","yuelei-wankou":"11","nianlei-wankou":"11","zuantouchicun":"11","zuanya":"11","pailiang":"11","chunzuanshijian":"11","zuansu":"11","jixiezuansu":"11","bengya":"11","sheji":"11","shiji":"11","niandu":"11","shishui":"11","hansha":"11","taoguanjizuangan":"11","zuanjuzuhe":"11"},
-                        {"shigongdanwei":"123","duihao":"111","jinghao":"123","jingbie":"123","jingxing":"12312","shigongquyu":"1111","kaizuanriqi":"11","shejijingshen":"11","dangqianjingshen":"11","dangqianjingshen":"11","zuandacengwei":"11","gongkuang":"11","gongzuoneirong":"11","dangri":"11","yuejihua":"11","yuelei-jinchi":"11","nianlei-jinchi":"11","yuelei-wankou":"11","nianlei-wankou":"11","zuantouchicun":"11","zuanya":"11","pailiang":"11","chunzuanshijian":"11","zuansu":"11","jixiezuansu":"11","bengya":"11","sheji":"11","shiji":"11","niandu":"11","shishui":"11","hansha":"11","taoguanjizuangan":"11","zuanjuzuhe":"11"},
-                        {"shigongdanwei":"123","duihao":"111","jinghao":"123","jingbie":"123","jingxing":"12312","shigongquyu":"1111","kaizuanriqi":"11","shejijingshen":"11","dangqianjingshen":"11","dangqianjingshen":"11","zuandacengwei":"11","gongkuang":"11","gongzuoneirong":"11","dangri":"11","yuejihua":"11","yuelei-jinchi":"11","nianlei-jinchi":"11","yuelei-wankou":"11","nianlei-wankou":"11","zuantouchicun":"11","zuanya":"11","pailiang":"11","chunzuanshijian":"11","zuansu":"11","jixiezuansu":"11","bengya":"11","sheji":"11","shiji":"11","niandu":"11","shishui":"11","hansha":"11","taoguanjizuangan":"11","zuanjuzuhe":"11"},
-                        {"shigongdanwei":"123","duihao":"111","jinghao":"123","jingbie":"123","jingxing":"12312","shigongquyu":"1111","kaizuanriqi":"11","shejijingshen":"11","dangqianjingshen":"11","dangqianjingshen":"11","zuandacengwei":"11","gongkuang":"11","gongzuoneirong":"11","dangri":"11","yuejihua":"11","yuelei-jinchi":"11","nianlei-jinchi":"11","yuelei-wankou":"11","nianlei-wankou":"11","zuantouchicun":"11","zuanya":"11","pailiang":"11","chunzuanshijian":"11","zuansu":"11","jixiezuansu":"11","bengya":"11","sheji":"11","shiji":"11","niandu":"11","shishui":"11","hansha":"11","taoguanjizuangan":"11","zuanjuzuhe":"11"},
-                        {"shigongdanwei":"123","duihao":"111","jinghao":"123","jingbie":"123","jingxing":"12312","shigongquyu":"1111","kaizuanriqi":"11","shejijingshen":"11","dangqianjingshen":"11","dangqianjingshen":"11","zuandacengwei":"11","gongkuang":"11","gongzuoneirong":"11","dangri":"11","yuejihua":"11","yuelei-jinchi":"11","nianlei-jinchi":"11","yuelei-wankou":"11","nianlei-wankou":"11","zuantouchicun":"11","zuanya":"11","pailiang":"11","chunzuanshijian":"11","zuansu":"11","jixiezuansu":"11","bengya":"11","sheji":"11","shiji":"11","niandu":"11","shishui":"11","hansha":"11","taoguanjizuangan":"11","zuanjuzuhe":"11"},
-                        {"shigongdanwei":"123","duihao":"111","jinghao":"123","jingbie":"123","jingxing":"12312","shigongquyu":"1111","kaizuanriqi":"11","shejijingshen":"11","dangqianjingshen":"11","dangqianjingshen":"11","zuandacengwei":"11","gongkuang":"11","gongzuoneirong":"11","dangri":"11","yuejihua":"11","yuelei-jinchi":"11","nianlei-jinchi":"11","yuelei-wankou":"11","nianlei-wankou":"11","zuantouchicun":"11","zuanya":"11","pailiang":"11","chunzuanshijian":"11","zuansu":"11","jixiezuansu":"11","bengya":"11","sheji":"11","shiji":"11","niandu":"11","shishui":"11","hansha":"11","taoguanjizuangan":"11","zuanjuzuhe":"11"},
-                        {"shigongdanwei":"123","duihao":"111","jinghao":"123","jingbie":"123","jingxing":"12312","shigongquyu":"1111","kaizuanriqi":"11","shejijingshen":"11","dangqianjingshen":"11","dangqianjingshen":"11","zuandacengwei":"11","gongkuang":"11","gongzuoneirong":"11","dangri":"11","yuejihua":"11","yuelei-jinchi":"11","nianlei-jinchi":"11","yuelei-wankou":"11","nianlei-wankou":"11","zuantouchicun":"11","zuanya":"11","pailiang":"11","chunzuanshijian":"11","zuansu":"11","jixiezuansu":"11","bengya":"11","sheji":"11","shiji":"11","niandu":"11","shishui":"11","hansha":"11","taoguanjizuangan":"11","zuanjuzuhe":"11"},
-                        {"shigongdanwei":"123","duihao":"111","jinghao":"123","jingbie":"123","jingxing":"12312","shigongquyu":"1111","kaizuanriqi":"11","shejijingshen":"11","dangqianjingshen":"11","dangqianjingshen":"11","zuandacengwei":"11","gongkuang":"11","gongzuoneirong":"11","dangri":"11","yuejihua":"11","yuelei-jinchi":"11","nianlei-jinchi":"11","yuelei-wankou":"11","nianlei-wankou":"11","zuantouchicun":"11","zuanya":"11","pailiang":"11","chunzuanshijian":"11","zuansu":"11","jixiezuansu":"11","bengya":"11","sheji":"11","shiji":"11","niandu":"11","shishui":"11","hansha":"11","taoguanjizuangan":"11","zuanjuzuhe":"11"},
-                        {"shigongdanwei":"123","duihao":"111","jinghao":"123","jingbie":"123","jingxing":"12312","shigongquyu":"1111","kaizuanriqi":"11","shejijingshen":"11","dangqianjingshen":"11","dangqianjingshen":"11","zuandacengwei":"11","gongkuang":"11","gongzuoneirong":"11","dangri":"11","yuejihua":"11","yuelei-jinchi":"11","nianlei-jinchi":"11","yuelei-wankou":"11","nianlei-wankou":"11","zuantouchicun":"11","zuanya":"11","pailiang":"11","chunzuanshijian":"11","zuansu":"11","jixiezuansu":"11","bengya":"11","sheji":"11","shiji":"11","niandu":"11","shishui":"11","hansha":"11","taoguanjizuangan":"11","zuanjuzuhe":"11"},
-                        {"shigongdanwei":"123","duihao":"111","jinghao":"123","jingbie":"123","jingxing":"12312","shigongquyu":"1111","kaizuanriqi":"11","shejijingshen":"11","dangqianjingshen":"11","dangqianjingshen":"11","zuandacengwei":"11","gongkuang":"11","gongzuoneirong":"11","dangri":"11","yuejihua":"11","yuelei-jinchi":"11","nianlei-jinchi":"11","yuelei-wankou":"11","nianlei-wankou":"11","zuantouchicun":"11","zuanya":"11","pailiang":"11","chunzuanshijian":"11","zuansu":"11","jixiezuansu":"11","bengya":"11","sheji":"11","shiji":"11","niandu":"11","shishui":"11","hansha":"11","taoguanjizuangan":"11","zuanjuzuhe":"11"},
-                        {"shigongdanwei":"123","duihao":"111","jinghao":"123","jingbie":"123","jingxing":"12312","shigongquyu":"1111","kaizuanriqi":"11","shejijingshen":"11","dangqianjingshen":"11","dangqianjingshen":"11","zuandacengwei":"11","gongkuang":"11","gongzuoneirong":"11","dangri":"11","yuejihua":"11","yuelei-jinchi":"11","nianlei-jinchi":"11","yuelei-wankou":"11","nianlei-wankou":"11","zuantouchicun":"11","zuanya":"11","pailiang":"11","chunzuanshijian":"11","zuansu":"11","jixiezuansu":"11","bengya":"11","sheji":"11","shiji":"11","niandu":"11","shishui":"11","hansha":"11","taoguanjizuangan":"11","zuanjuzuhe":"11"},
-                        {"shigongdanwei":"123","duihao":"111","jinghao":"123","jingbie":"123","jingxing":"12312","shigongquyu":"1111","kaizuanriqi":"11","shejijingshen":"11","dangqianjingshen":"11","dangqianjingshen":"11","zuandacengwei":"11","gongkuang":"11","gongzuoneirong":"11","dangri":"11","yuejihua":"11","yuelei-jinchi":"11","nianlei-jinchi":"11","yuelei-wankou":"11","nianlei-wankou":"11","zuantouchicun":"11","zuanya":"11","pailiang":"11","chunzuanshijian":"11","zuansu":"11","jixiezuansu":"11","bengya":"11","sheji":"11","shiji":"11","niandu":"11","shishui":"11","hansha":"11","taoguanjizuangan":"11","zuanjuzuhe":"11"},
-
                 ],
                 }
         },
+        created(){
+            this.requestDate();
+        },
         methods:{
+            requestDate() {
+                Indicator.open('加载中...')
+                this.$http('get','/mobile/drill/daily/keyWell',{
+                    "token":"2f8c670a-5f42-4c41-a005-71bd565bd248",
+                    "rx_token":"2f8c670a-5f42-4c41-a005-71bd565bd248",
+                    "date":this.date.time
+                    })
+                .then((data)=> {
+                    Indicator.close()
+                    if(data){
+                        this.tableData=data
+                    }else{
+                        this.tableData=[]
+                    }
+                })
+                .catch(function(error) {
+                    Indicator.close()
+                    console.log(error)
+                })
+            },
             handleBack(){
                 window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
             },
             handleDateAdd(param){
                 if (param.canAdd) {
-                    Indicator.open('加载中...')
-                    setTimeout(()=>{
-                        Indicator.close()
-                    },1000)
+                    this.requestDate();
                 }
             },
             handleDateReduce(param){
                 if (param.canReduce) {
-                    Indicator.open('加载中...')
-                    setTimeout(()=>{
-                        Indicator.close()
-                    },1000)
+                    this.requestDate();
                 }
             },
             //设置列单元格样式
@@ -187,8 +188,8 @@
                 }
 
             },
-            change(date){
-                
+            handleChange(date){
+                this.requestDate();
             }
 
         },
@@ -196,6 +197,39 @@
             'oms2-date-picker-daily': DatePickerDaily
         }
     }
+
+    //字段实际含义
+      // "start1Date"   //开钻日期
+  // "bsflag"       //删除标志
+  // "jm"           //井名
+  // "designWellDepth"  //设计井深
+  // "dh"           //队号
+  // "mudPropWaterLose"     //失水
+  // "designMudPropDendity"  //设计密度
+  // "workContent"         //工作内容
+  // "project"             //工况
+  // "layername"           //钻达层位
+  // "dailyDrilledFootage"  //日进尺
+  // "monthPlannedDrillingFootage  //月计划
+  // "mudPropViscosity"     //粘度
+  // "yearFinish"           //年完
+  // "wellType"             //井型
+  // "cannulaSizeModel"     //套管程序 或 钻具组合
+  // "onlydrill"            //纯钻时间
+  // "drillRotateSpeed"     //转速
+  // "sgdw"     //施工单位
+  // "woba"     //钻压
+  // "mudPropGrittyConsistence"  //含砂
+  // "monthCompletion"       //月完
+  // "wellSort"       //井别
+  // "actualWellDepth"  //当前井深
+  // "pumpPressure"   //泵压
+  // "dynamicId"      //主键
+  // "deliveryVolume" //排量
+  // "cumulYearDrilledFootage"  //年累
+  // "bitSizeModel"   //钻头
+  // "cumulMonthDrilledFootage"  //月累
+  // "mudPropDensity"  //实际密度
 </script>
 
 <style lang="scss">

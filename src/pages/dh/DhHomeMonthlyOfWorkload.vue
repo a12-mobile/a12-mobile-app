@@ -1,5 +1,5 @@
 <template>
-    <div ip="DailyOfKeyWell">
+    <div ip="DhHomeMonthlyOfWorkload">
         <header>
             <mt-header :title="$route.meta.title" fixed>
                 <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
@@ -7,9 +7,17 @@
         </header>
         <h4>井下作业工作量统计月报</h4>
         <h5>（国内）</h5>
-        <!-- <oms2-daily-date-picker :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @change="change"></oms2-daily-date-picker> -->
         <h6>单位：中国石油</h6>
-        <h6>统计日期：2018年3月26日--2018年4月25日</h6>
+        <oms2-date-picker-monthly 
+            :startDate="startDate" 
+            :endDate="endDate"
+            limitStartDate='2018-01-01'
+            limitEndDate='2018-05-18'
+            componentClass='dateType'
+            @change="handleDateChange">
+            <span class='oms2-wu-span-title'>统计日期：</span>
+        </oms2-date-picker-monthly>
+        <!-- <h6>统计日期：2018年3月26日--2018年4月25日</h6> -->
         <v-table
             is-horizontal-resize
             is-vertical-resize
@@ -19,7 +27,6 @@
             :columns="columns"
             :title-rows="titleRows"
             :table-data="tableData"
-            :column-cell-class-name="columnCellClass"
             even-bg-color="#F4F4F4"
             row-hover-color="#eee"
             row-click-color="#edF7FF"
@@ -29,14 +36,19 @@
 
 
 <script>
-    // import DatePickerDaily from './../../components/DatePickerDaily'
+    import DatePickerMonthly from './../../components/DatePickerMonthly'
     import { Indicator } from 'mint-ui';
     import timepicker from './../../assets/js/timepicker'
     import { Toast } from "mint-ui"
     export default {
          data() {
             return {
-                date: timepicker.startTime,
+                startDate: {
+                    time:'2018-04-10'
+                },
+                endDate: {
+                    time:'2018-05-18'
+                },
                 columns: [
                     {field: 'danwei', width: 100, columnAlign: 'center', columnAlign: 'center', isFrozen: true},
                     {field: 'ceng', width: 50, columnAlign: 'center', columnAlign: 'center'},
@@ -56,7 +68,7 @@
                 ],
 
                 titleRows: [ //第一行
-                             [{fields: ['danwei'], title: '单位', titleAlign: 'center', rowspan: 4},
+                             [{fields: ['danwei'], title: '单位', titleAlign: 'center', rowspan: 4,titleCellClassName:'wu-title-cell-duijiao'},
                               {fields: ['ceng','kou'], title: '试油', titleAlign: 'center', colspan: 2},
                               {fields: ['heji','yalie','suanhua','daxiu','cezuan','xiaoji','xiaoji-weihu','qizhongjianbeng-weihu','xinjingtouchan','peihecuoshizuoye','qita'], title: '井下作业（井次）', titleAlign: 'center', colspan: 11},
                              ],
@@ -113,44 +125,36 @@
             handleBack(){
                 window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
             },
-            handleDateAdd(param){
-                if (param.canAdd) {
-                    Indicator.open('加载中...')
-                    setTimeout(()=>{
-                        Indicator.close()
-                    },1000)
-                }
-            },
-            handleDateReduce(date){
+            handleDateChange(startDate,endDate){
                 Indicator.open('加载中...')
                     setTimeout(()=>{
                         Indicator.close()
                     },1000)
-            },
-            //设置列单元格样式
-            columnCellClass(rowIndex,columnName,rowData){
-                if(columnName==='shigongdanwei'||columnName==='duihao'||columnName==='jinghao'){
-                    //return 'wu-column-cell-fixed'
-                }
-
-            },
-            change(date){
-                
             }
 
         },
         components: {
+            'oms2-date-picker-monthly': DatePickerMonthly
         }
     }
 </script>
 
 <style lang="scss">
+    .wu-title-cell-duijiao{
+
+    }
     h6{
         font-size:12px;
         text-align: left;
         margin-left:10px;
     }
+    .oms2-wu-span-title{
+        font-size:12px;
+    }
     
+    .dateType{
+        text-align:right !important;
+    }
 </style>
 
 

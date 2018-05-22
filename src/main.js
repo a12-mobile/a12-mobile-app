@@ -4,6 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import axios from 'axios'
+import httpServer from './assets/js/http/httpService'
+
 
 //引入jquery
 import $ from 'jquery' 
@@ -37,7 +39,8 @@ Vue.component(VPagination.name, VPagination)
 
 //全局注册
 Vue.config.productionTip = false
-Vue.prototype.$axios= axios
+Vue.prototype.$axios = axios
+Vue.prototype.$http = httpServer
 
 /* eslint-disable no-new */
 new Vue({
