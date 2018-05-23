@@ -28,9 +28,9 @@
 </template>
 
 <script>
-    import DatePickerDaily from './../components/datepicker/DatePickerDaily'
+    import DatePickerDaily from './../../components/datepicker/DatePickerDaily'
     import { Indicator } from 'mint-ui';
-    import timepicker from './../components/datepicker/timepicker'
+    import timepicker from './../../components/datepicker/timepicker'
     import { Toast } from "mint-ui"
 
     export default{

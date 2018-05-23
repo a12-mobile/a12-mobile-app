@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import axios from 'axios'
-import httpServer from './assets/js/http/httpService'
+import httpServer from './service/http/httpService'
 
 
 //引入jquery

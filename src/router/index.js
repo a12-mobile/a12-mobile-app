@@ -22,7 +22,7 @@ import DhMonthlyOfWorkloadZ from '@/pages/dh/DhMonthlyOfWorkloadZ'
 import LogFormList from '@/pages/log/LogFormList'
 import LogMonthlyOfWorkload from '@/pages/log/LogMonthlyOfWorkload'
 
-import LogsOfRecordWell from '@/pages/LogsOfRecordWell'
+import LogsOfRecordWell from '@/pages/logging/LogsOfRecordWell'
 import DailyOfDrilling from '@/components/DailyOfDrilling'
 
 Vue.use(Router)
@@ -59,6 +59,15 @@ export default new Router({
       component: SubView,
       meta: { navShow: false, title: '子页面' }
     },
+
+
+    //钻井
+    {
+      path: '/drill/form/list',
+      name: 'DrillFormList',
+      component: DrillFormList,
+      meta: { navShow: false, title: '钻井报表' }
+    },
     {
       path: '/drill/project/data/list',
       name: 'DrillListOfProjectData',
@@ -72,10 +81,19 @@ export default new Router({
       meta: { navShow: false, title: '工程数据列表2' }
     },
     {
-      path: '/daily/well/key',
-      name: 'DailyOfKeyWell',
-      component: DailyOfKeyWell,
+      path: '/drill/daily/well/key',
+      name: 'DrillDailyOfKeyWell',
+      component: DrillDailyOfKeyWell,
       meta: { navShow: false, title: '重点井日报' }
+    },
+    //钻井end
+
+    //井下
+    {
+      path: '/dh/form/list',
+      name: 'DhFormList',
+      component: DhFormList,
+      meta:{ navShow: false, title: '井下报表'}
     },
     {
       path: '/dh/monthly/workload/gn',

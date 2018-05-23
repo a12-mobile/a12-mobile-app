@@ -110,6 +110,10 @@
                     Indicator.close()
                     this.tableData=data.body
                 })
+                .catch(function(error) {
+                    Indicator.close()
+                    console.log(error)
+                })
             },
             //返回按钮
             handleBack(){

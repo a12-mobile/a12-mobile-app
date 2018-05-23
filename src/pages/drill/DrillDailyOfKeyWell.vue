@@ -151,10 +151,7 @@
         methods:{
             requestDate() {
                 Indicator.open('加载中...')
-                // this.$axios.get("http://10.88.123.11:8080/mobile/drill/daily/keyWell?date=2018-05-22")
                 this.$http('GET','/drill/daily/keyWell',{
-                    "token":"a735579b-93fa-4719-aa92-968191372004",
-                    "rx_token":"a735579b-93fa-4719-aa92-968191372004",
                     "date":this.date.time
                     })
                 .then((data)=> {
