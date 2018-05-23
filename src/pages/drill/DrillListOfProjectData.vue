@@ -96,7 +96,7 @@
 </template>
 
 <script>
-    import {getCurrentTime} from './../../service/utils/date'
+    import {getCurrentTime} from './../../service/utils//date/date'
     import timepicker from './../../components/datepicker/timepicker';
     import myDatepicker from 'vue-datepicker'
     import {

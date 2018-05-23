@@ -13,7 +13,7 @@
         addDate,
         compareDate,
         getCurrentDate
-    } from './../../service/utils/date'
+    } from './../../service/utils/date/date'
     export default {
         data() {
             return {
