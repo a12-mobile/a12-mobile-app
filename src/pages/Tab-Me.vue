@@ -15,9 +15,10 @@
     <router-link to="/dailyOfDrilling">
       <button type="button" class="btn btn-primary">进入中油油服钻井日报</button>
     </router-link>
-    <router-link to="/logsOfRecordWell">
-      <button type="button" class="btn btn-primary">进入录井日报</button>
+    <router-link to="/monthLogOfWellWorkload">
+      <button type="button" class="btn btn-primary">进入录井工作量月报</button>
     </router-link>
+
 
   </div>
 </template>

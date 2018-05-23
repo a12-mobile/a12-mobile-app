@@ -6,7 +6,7 @@
                 </mt-header>
             </header>
             <oms2-date-picker-daily :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce" @change="change"></oms2-date-picker-daily>
-           
+
             <v-table
                 is-horizontal-resize
                 is-vertical-resize
@@ -21,10 +21,10 @@
                 :select-change="selectChange"
                 :select-group-change="selectGroupChange"
         ></v-table>
-            
+
 
     </div>
-    
+
 </template>
 
 <script>
@@ -48,7 +48,7 @@
                        // {width: 60, titleAlign: 'center',columnAlign:'center',type: 'selection'},
                         {field: 'units', width: 50, columnAlign: 'center',isResize:true, isFrozen: true},
                         {
-                        field: 'serialNum', width: 50, titleAlign: 'center', columnAlign: 'center', 
+                        field: 'serialNum', width: 50, titleAlign: 'center', columnAlign: 'center',
                             formatter: function (rowData, index) {
                                 return index < 3 ? '<span style="color:red;font-weight: bold;">' + (index + 1) + '</span>' : index + 1
                             }, isFrozen: true
@@ -60,7 +60,7 @@
                         {field: 'wellDrillingId', width: 50, columnAlign: 'left',isResize:true},
                         {field: 'serviceName',  width: 50, columnAlign: 'left',isResize:true},
                         {field: 'startDate', width: 50, columnAlign: 'left',isResize:true},
-                        {field: 'startTime', width: 50, columnAlign: 'left',isResize:true},                
+                        {field: 'startTime', width: 50, columnAlign: 'left',isResize:true},
                         {field: 'wellDepth1', width: 50, columnAlign: 'left',isResize:true},
                         {field: 'targetStratum', width: 50, columnAlign: 'left',isResize:true},
                         {field: 'wellDepth2', width: 50, columnAlign: 'left',isResize:true},
@@ -101,7 +101,7 @@
                         {fields: ['density'], title: '密度(g/cm3)', titleAlign: 'center'},
                         {fields: ['viscosity'], title: '粘度(秒)', titleAlign: 'center'}]
 
-                    
+
                     ]
             }
         },
