@@ -6,16 +6,7 @@
     var hour=date.getHours()
     var minute=date.getMinutes()
     var second=date.getSeconds()
-    if(hour<10){
-      hour="0"+hour
-    }
-    if(minute<10){
-      minute="0"+minute
-    }
-    if(second<10){
-      second="0"+second
-    }
-    return hour+":"+minute+":"+second
+    return getFormatDate(hour)+":"+getFormatDate(minute)+":"+getFormatDate(second)
   }
 
   /**
@@ -44,6 +35,25 @@
       var day = date.getDate()
       return date.getFullYear() + '-' + getFormatDate(month) + '-' + getFormatDate(day)
   }
+
+  /**
+   * 将date类型转化为String类型
+   * @param {*} date Date类型的参数
+   * @param {*} format 转化的格式
+   */
+  export function convertDateToString(date,format="yyyy-MM-dd"){
+    var year=date.getFullYear()
+    var month=date.getMonth()+1
+    var day=date.getDate()
+    var hour=date.getHours()
+    var minute=date.getMinutes()
+    var second=date.getSeconds()
+    if(format){
+        
+    }
+  }
+
+  
 
   /**
    * 比较两个日期的大小

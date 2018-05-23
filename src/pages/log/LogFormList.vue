@@ -3,13 +3,8 @@
   <mt-header :title="$route.meta.title" fixed>
       <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
     </mt-header>
-    <router-link to="/dh/monthly/workload/gn">
-      <button type="button" class="btn btn-primary">井下作业工作量统计月报（国内）</button>
-    </router-link>
-    <br>
-    <br>
-    <router-link to="/dh/monthly/workload/total">
-      <button type="button" class="btn btn-primary">井下作业工作量统计月报（总）</button>
+    <router-link to="/log/Monthly/workload">
+      <button type="button" class="btn btn-primary">测井工作量统计表</button>
     </router-link>
 </div>
 </template>

@@ -18,6 +18,11 @@
     <router-link to="/dh/form/list">
       <button type="button" class="btn btn-primary">井下报表</button>
     </router-link>
+    <br>
+    <br>
+    <router-link to="/log/monthly">
+      <button type="button" class="btn btn-primary">测井报表</button>
+    </router-link>
   </div>
 </template>
 

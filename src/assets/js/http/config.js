@@ -6,11 +6,12 @@
  * 
  */
 
-let baseUrl = ''; 
-let imgBaseUrl = '';
+let baseUrl = ''
+let imgBaseUrl = ''
+
 
 //吴同本地测试地址
-baseUrl="http://10.88.123.11:8080";
+baseUrl="http://10.88.123.11:8080/mobile"
 
 export {
 	baseUrl,

@@ -1,6 +1,6 @@
 // for Vue 2.0
 // import myDatepicker from 'vue-datepicker'
-import {getCurrentDate} from './date'
+import {getCurrentDate} from './../../service/utils/date'
 
 export default {
       // for Vue 2.0
@@ -13,8 +13,8 @@ export default {
 
       option: {
         type: 'day',
-        week: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
-        month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        week: ['一', '二', '三', '四', '五', '六', '日'],
+        month: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
         format: 'YYYY-MM-DD',
         placeholder: '选择时间',
         inputStyle: {
@@ -41,8 +41,8 @@ export default {
       },
       timeOption: {
         type: 'min',
-        week: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
-        month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        week: ['一', '二', '三', '四', '五', '六', '日'],
+        month: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
         format: 'YYYY-MM-DD HH:mm',
         placeholder: '选择时间',
         buttons: {
@@ -55,8 +55,8 @@ export default {
       },
       multiOption: {
         type: 'multi-day',
-        week: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
-        month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        week: ['一', '二', '三', '四', '五', '六', '日'],
+        month: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
         format:"YYYY-MM-DD HH:mm"
       },
       limit: [{

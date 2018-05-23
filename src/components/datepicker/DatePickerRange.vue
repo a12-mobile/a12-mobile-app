@@ -25,7 +25,7 @@
         addDate,
         compareDate,
         getCurrentDate
-    } from './../assets/js/date'
+    } from './../../service/utils/date'
     import {
         Toast
     } from "mint-ui"

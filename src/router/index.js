@@ -18,8 +18,12 @@ import DrillDailyOfKeyWell from '@/pages/drill/DrillDailyOfKeyWell'
 
 //井下
 import DhFormList from '@/pages/dh/DhFormList'
-import DhHomeMonthlyOfWorkload from '@/pages/dh/DhHomeMonthlyOfWorkload'
-import DhTotalMonthlyOfWorkload from '@/pages/dh/DhTotalMonthlyOfWorkload'
+import DhMonthlyOfWorkloadGN from '@/pages/dh/DhMonthlyOfWorkloadGN'
+import DhMonthlyOfWorkloadZ from '@/pages/dh/DhMonthlyOfWorkloadZ'
+
+//测井
+import LogFormList from '@/pages/log/LogFormList'
+import LogMonthlyOfWorkload from '@/pages/log/LogMonthlyOfWorkload'
 
 import LogsOfRecordWell from '@/pages/LogsOfRecordWell'
 import DailyOfDrilling from '@/components/DailyOfDrilling'
@@ -32,7 +36,7 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home,
-      meta: { navShow: true, title: '首页' }
+      meta: { navShow: true, title: '首页' },
     },
     {
       path: '/multiWellList',
@@ -107,17 +111,34 @@ export default new Router({
       meta:{ navShow: false, title: '井下报表'}
     },
     {
-      path: '/dh/workload/monthly/home',
-      name: 'DhHomeMonthlyOfWorkload',
-      component: DhHomeMonthlyOfWorkload,
+      path: '/dh/monthly/workload/gn',
+      name: 'DhMonthlyOfWorkloadGN',
+      component: DhMonthlyOfWorkloadGN,
       meta:{ navShow: false, title: '统计月报'}
     },
+
     {
-      path: '/dh/workload/monthly/total',
-      name: 'DhTotalMonthlyOfWorkload',
-      component: DhTotalMonthlyOfWorkload,
+      path: '/dh/monthly/workload/total',
+      name: 'DhMonthlyOfWorkloadZ',
+      component: DhMonthlyOfWorkloadZ,
       meta:{ navShow: false, title: '统计月报'}
     },
     //井下 end
+
+    //测井
+    {
+      path: '/log/monthly',
+      name: 'LogFormList',
+      component: LogFormList,
+      meta:{ navShow: false, title: '测井报表'},
+    },
+    {
+      path: '/log/monthly/workload',
+      name: 'LogMonthlyOfWorkload',
+      component: LogMonthlyOfWorkload,
+      meta:{ navShow: false, title: '统计月报'}
+    },
+
+    //测井end
   ]
 })

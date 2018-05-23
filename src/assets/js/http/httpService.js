@@ -10,14 +10,14 @@ import {baseUrl} from './config'
  * 已经将封装后的axios定义了全局变量$http  
  * 参数值
  * method  请求方式，  'GET' 或 'POST'，不区分大小写
- * url     请求的路径，  不需要写ip和端口， ip和端口配置在同文件夹下的config.js文件中
+ * url     请求的路径，  不需要写ip,端口以及基础项目路径， ip和端口配置在同文件夹下的config.js文件中  例如： 10.88.123.01:8080/mobile
  * data    请求的参数，  类型为一个对象
  * 返回值为Promise形式，then()中的回掉参数data 为请求返回值的data，  假设返回值为res ， 则data为 res.data的值
  * 
  * 
  * 使用demo
  * requestTest() {
-        this.$http('GET','/mobile/drill/daily/keyWell',{
+        this.$http('GET','/drill/daily/keyWell',{
           "date":"2018-05-15"
         }).then((data)=>{
           console.log(data)

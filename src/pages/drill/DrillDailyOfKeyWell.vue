@@ -9,7 +9,8 @@
         <v-table
             is-horizontal-resize
             is-vertical-resize
-            :title-row-height=25
+            :title-row-height=20
+            :row-height=30
             title-bg-color="#F6F6F6"
             style="width:98%;margin-left:1%;font-size:12px"
             :columns="columns"
@@ -27,10 +28,10 @@
 <script>
 /////单位排序，然后设计井深排序
 ////////注意   施工区域字段未找到
-    import DatePickerDaily from './../../components/DatePickerDaily'
+    import DatePickerDaily from './../../components/datepicker/DatePickerDaily'
 
     import { Indicator } from 'mint-ui';
-    import timepicker from './../../assets/js/timepicker'
+    import timepicker from './../../components/datepicker/timepicker'
     import { Toast } from "mint-ui"
     export default {
          data() {
@@ -150,9 +151,10 @@
         methods:{
             requestDate() {
                 Indicator.open('加载中...')
-                this.$http('get','/mobile/drill/daily/keyWell',{
-                    "token":"2f8c670a-5f42-4c41-a005-71bd565bd248",
-                    "rx_token":"2f8c670a-5f42-4c41-a005-71bd565bd248",
+                // this.$axios.get("http://10.88.123.11:8080/mobile/drill/daily/keyWell?date=2018-05-22")
+                this.$http('GET','/drill/daily/keyWell',{
+                    "token":"a735579b-93fa-4719-aa92-968191372004",
+                    "rx_token":"a735579b-93fa-4719-aa92-968191372004",
                     "date":this.date.time
                     })
                 .then((data)=> {
@@ -169,6 +171,9 @@
                 })
             },
             handleBack(){
+                if(Indicator){
+                    Indicator.close()
+                }
                 window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
             },
             handleDateAdd(param){
