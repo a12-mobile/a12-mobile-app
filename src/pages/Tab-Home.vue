@@ -23,6 +23,9 @@
     <router-link to="/log/monthly">
       <button type="button" class="btn btn-primary">测井报表</button>
     </router-link>
+    <router-link to="/mlog/form/list">
+      <button type="button" class="btn btn-primary">测井报表</button>
+    </router-link>
   </div>
 </template>
 
