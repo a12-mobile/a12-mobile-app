@@ -12,6 +12,7 @@ import DrillListOfProjectData from '@/pages/drill/DrillListOfProjectData'
 import DrillListOfProjectData2 from '@/pages/drill/DrillListOfProjectData2'
 import DrillFormList from '@/pages/drill/DrillFormList'
 import DrillDailyOfKeyWell from '@/pages/drill/DrillDailyOfKeyWell'
+import DailyOfDrilling from '@/components/DailyOfDrilling'
 
 //井下
 import DhFormList from '@/pages/dh/DhFormList'
@@ -22,8 +23,12 @@ import DhMonthlyOfWorkloadZ from '@/pages/dh/DhMonthlyOfWorkloadZ'
 import LogFormList from '@/pages/log/LogFormList'
 import LogMonthlyOfWorkload from '@/pages/log/LogMonthlyOfWorkload'
 
-import LogsOfRecordWell from '@/pages/logging/LogsOfRecordWell'
-import DailyOfDrilling from '@/components/DailyOfDrilling'
+//录井
+import MonthLogOfLogWellByCompany from '@/pages/mlog/MonthLogOfLogWellByCompany'
+import MonthLogOfWellWorkload from '@/pages/mlog/MonthLogOfWellWorkload'
+import MlogsOfRecordWell from '@/pages/mlog/MlogsOfRecordWell'
+import MlogFormList from '@/pages/mlog/MlogFormList'
+
 
 Vue.use(Router)
 
@@ -86,6 +91,12 @@ export default new Router({
       component: DrillDailyOfKeyWell,
       meta: { navShow: false, title: '重点井日报' }
     },
+    {
+      path:'/dailyOfDrilling',
+      name:'dailyOfDrilling',
+      component:DailyOfDrilling,
+      meta:{navShow:true,title:'中油油服钻井工作量日报'}
+    },
     //钻井end
 
     //井下
@@ -110,16 +121,6 @@ export default new Router({
       meta:{ navShow: false, title: '统计月报'}
     },
     //井下 end
-
-    
-    
-    {
-      path:'/dailyOfDrilling',
-      name:'dailyOfDrilling',
-      component:DailyOfDrilling,
-      meta:{navShow:true,title:'中油油服钻井工作量日报'}
-    },
-
     //测井
     {
       path: '/log/monthly',
@@ -135,11 +136,30 @@ export default new Router({
     },
 
     //测井end
+    //录井
     {
-      path: '/logsOfRecordWell',
-      name: 'LogsOfRecordWell',
-      component: LogsOfRecordWell,
+      path: '/mlog/form/list',
+      name: 'MlogFormList',
+      component: MlogFormList,
+      meta:{ navShow: false, title: '录井报表'}
+    },
+    {
+      path: '/mlogsOfRecordWell',
+      name: 'MlogsOfRecordWell',
+      component: MlogsOfRecordWell,
       meta:{ navShow: false, title: '录井日报'}
+    },
+    {
+      path: '/MonthLogOfLogWellByCompany',
+      name: 'MonthLogOfLogWellByCompany',
+      component: MonthLogOfLogWellByCompany,
+      meta:{ navShow: false, title: '录井分市场月报'}
+    },
+    {
+      path: '/monthLogOfWellWorkload',
+      name: 'MonthLogOfWellWorkload',
+      component: MonthLogOfWellWorkload,
+      meta:{ navShow: false, title: '录井工作量月报'}
     }
   ]
 })
