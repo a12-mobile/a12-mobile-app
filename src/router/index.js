@@ -24,10 +24,10 @@ import LogFormList from '@/pages/log/LogFormList'
 import LogMonthlyOfWorkload from '@/pages/log/LogMonthlyOfWorkload'
 
 // //录井
-// import MonthLogOfLogWellByCompany from '@/pages/mlog/MonthLogOfLogWellByCompany'
-// import MonthLogOfWellWorkload from '@/pages/mlog/MonthLogOfWellWorkload'
-// import MlogsOfRecordWell from '@/pages/mlog/MlogsOfRecordWell'
-// import MlogFormList from '@/pages/mlog/MlogFormList'
+import MonthLogOfLogWellByCompany from '@/pages/mlog/MonthLogOfLogWellByCompany'
+import MonthLogOfWellWorkload from '@/pages/mlog/MonthLogOfWellWorkload'
+import MlogsOfRecordWell from '@/pages/mlog/MlogsOfRecordWell'
+import MlogFormList from '@/pages/mlog/MlogFormList'
 
 
 Vue.use(Router)
@@ -136,30 +136,30 @@ export default new Router({
     },
 
     //测井end
-    // //录井
-    // {
-    //   path: '/mlog/form/list',
-    //   name: 'MlogFormList',
-    //   component: MlogFormList,
-    //   meta:{ navShow: false, title: '录井报表'}
-    // },
-    // {
-    //   path: '/mlogsOfRecordWell',
-    //   name: 'MlogsOfRecordWell',
-    //   component: MlogsOfRecordWell,
-    //   meta:{ navShow: false, title: '录井日报'}
-    // },
-    // {
-    //   path: '/MonthLogOfLogWellByCompany',
-    //   name: 'MonthLogOfLogWellByCompany',
-    //   component: MonthLogOfLogWellByCompany,
-    //   meta:{ navShow: false, title: '录井分市场月报'}
-    // },
-    // {
-    //   path: '/monthLogOfWellWorkload',
-    //   name: 'MonthLogOfWellWorkload',
-    //   component: MonthLogOfWellWorkload,
-    //   meta:{ navShow: false, title: '录井工作量月报'}
-    // }
+    //录井
+    {
+      path: '/mlog/form/list',
+      name: 'MlogFormList',
+      component: MlogFormList,
+      meta:{ navShow: false, title: '录井报表'}
+    },
+    {
+      path: '/mlogsOfRecordWell',
+      name: 'MlogsOfRecordWell',
+      component: MlogsOfRecordWell,
+      meta:{ navShow: false, title: '录井日报'}
+    },
+    {
+      path: '/MonthLogOfLogWellByCompany',
+      name: 'MonthLogOfLogWellByCompany',
+      component: MonthLogOfLogWellByCompany,
+      meta:{ navShow: false, title: '录井分市场月报'}
+    },
+    {
+      path: '/monthLogOfWellWorkload',
+      name: 'MonthLogOfWellWorkload',
+      component: MonthLogOfWellWorkload,
+      meta:{ navShow: false, title: '录井工作量月报'}
+    }
   ]
 })
