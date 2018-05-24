@@ -13,9 +13,10 @@
     </router-link> -->
     <router-link to="/drill/daily/well/key">
       <button type="button" class="btn btn-primary">重点井日报</button>
-    <br>
-    <br>
-    </router-link><router-link to="/dailyOfDrilling">
+    </router-link>
+    <br/>
+    <br/>
+    <router-link to="/dailyOfDrilling">
       <button type="button" class="btn btn-primary">中油油服钻井工作量日报</button>
     </router-link>
 </div>
