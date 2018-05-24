@@ -106,7 +106,7 @@
                   Indicator.open('加载中...')
                   //this.$axios.get("http://10.88.123.10:8080/mobile/logging/loggingWell?token=a735579b-93fa-4719-aa92-968191372004&rx_token=a735579b-93fa-4719-aa92-968191372004&date="+this.date.time)
                   this.$http('get','/mlog/daily/logWell',{
-                    "date":"2018-05-22"
+                    "date":this.date.time
                   })
                     .then((data)=> {
                       Indicator.close()
