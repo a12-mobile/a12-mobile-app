@@ -9,15 +9,10 @@
     <!-- <router-link to="/sub">
       <button type="button" class="btn btn-primary">进入子页面</button>
     </router-link> -->
-<!-- 
+<!--
     <br/>
     <br/> -->
-    <router-link to="/dailyOfDrilling">
-      <button type="button" class="btn btn-primary">进入中油油服钻井日报</button>
-    </router-link>
-    <router-link to="/monthLogOfWellWorkload">
-      <button type="button" class="btn btn-primary">进入录井工作量月报</button>
-    </router-link>
+
 
 
   </div>
@@ -30,7 +25,7 @@
     },
     methods: {
       requestTest(){
-        this.$http('GET','logging/loggingWell',{
+        this.$http('GET','mlog/loggingWell',{
                     "token":"a735579b-93fa-4719-aa92-968191372004",
                     "rx_token":"a735579b-93fa-4719-aa92-968191372004",
                     "date":'2018-05-22'
@@ -48,7 +43,7 @@
                     console.log(error)
                 })
       }
-      
+
     }
   }
 </script>
