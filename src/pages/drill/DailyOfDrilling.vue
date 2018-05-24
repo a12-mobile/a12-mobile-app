@@ -4,7 +4,7 @@
       <mt-header :title="$route.meta.title" fixed>
         <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
       </mt-header>
-      <h4>中油油服钻井工作量日报</h4>
+      <h5>中油油服钻井工作量日报</h5>
       <oms2-date-picker-daily :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @date-change="handleChange"></oms2-date-picker-daily>
     </header>
     <v-table

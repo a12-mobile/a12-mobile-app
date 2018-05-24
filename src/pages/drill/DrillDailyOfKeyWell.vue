@@ -1,11 +1,13 @@
 <template>
     <div ip="DailyOfKeyWell">
-        <header>
+        <!-- <header>
             <mt-header :title="$route.meta.title" fixed>
                 <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
             </mt-header>
-        </header>
-        <oms2-date-picker-daily :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @date-change="handleChange"></oms2-date-picker-daily>
+        </header> -->
+        <h5>重点井日报</h5>
+        <oms2-date-picker-daily 
+            :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @date-change="handleChange"></oms2-date-picker-daily>
         <v-table
             is-horizontal-resize
             is-vertical-resize
@@ -33,15 +35,17 @@
     import { Indicator } from 'mint-ui';
     import timepicker from './../../components/datepicker/timepicker'
     import { Toast } from "mint-ui"
+    import {getDaliyOfKeyWell} from './../../service/drill/drillGetData'
     export default {
          data() {
             return {
+                // ruixinApi:new RuixinOpenAPI(),
                 date: timepicker.startTime,
                 tableData: [],
                 columns: [
                     {field: 'sgdw', width: 40, columnAlign: 'center', columnAlign: 'center', isFrozen: true},
                     {field: 'dh', width: 70, columnAlign: 'center', columnAlign: 'center', isFrozen: true},
-                    {field: 'jm', width: 80, columnAlign: 'center', columnAlign: 'center', isFrozen: true},
+                    {field: 'jm', width: 85, columnAlign: 'center', columnAlign: 'center', isFrozen: true},
                     {field: 'wellSort', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
                     {field: 'wellType', width: 90, columnAlign: 'center', columnAlign: 'center',isResize:true},
                     {field: 'shigongquyu', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
@@ -147,17 +151,18 @@
         },
         created(){
             this.requestDate();
+            this.$ruixinApi.setWebViewTitle({ //设置导航条标题
+                title:this.$route.meta.title
+            })
         },
         methods:{
             requestDate() {
                 Indicator.open('加载中...')
-                this.$http('GET','/drill/daily/keyWell',{
-                    "date":this.date.time
-                    })
+                getDaliyOfKeyWell(this.date.time)
                 .then((data)=> {
                     Indicator.close()
                     if(data){
-                        this.tableData=data
+                        this.tableData=data.body
                     }else{
                         this.tableData=[]
                     }

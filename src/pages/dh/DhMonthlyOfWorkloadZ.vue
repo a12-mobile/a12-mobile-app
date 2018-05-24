@@ -6,12 +6,10 @@
             </mt-header>
         </header>
         <h5>井下作业工作量统计月报（总）</h5>
-        <div class="oms2-datepicker-content">
         <oms2-date-picker-monthly
             :date=date
             @date-change="handleChange"
         ></oms2-date-picker-monthly>
-        </div>
         <v-table
             is-horizontal-resize
             is-vertical-resize
@@ -129,13 +127,6 @@
 </script>
 
 <style lang="scss">
-    .oms2-datepicker-content{
-        margin-bottom:10px;
-    }
-    .oms2-date-picker-monthly-input{
-        width:100px !important;
-        font-size: 10px;
-    }
 
 </style>
 

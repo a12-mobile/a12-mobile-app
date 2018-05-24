@@ -36,11 +36,12 @@ Vue.component(VPagination.name, VPagination)
 // require("./assets/css/style.css")
 
 
-
+let ruixinApi=new RuixinApi()
 //全局注册
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
 Vue.prototype.$http = httpServer
+Vue.prototype.$ruixinApi=ruixinApi
 
 /* eslint-disable no-new */
 new Vue({
