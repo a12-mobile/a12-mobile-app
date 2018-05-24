@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div id="DailyOfDrilling">
     <header>
-      <mt-header :title="$route.meta.title" fixed>
+      <!-- <mt-header :title="$route.meta.title" fixed>
         <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
-      </mt-header>
-      <h5>中油油服钻井工作量日报</h5>
+      </mt-header> -->
+      <h4>中油油服钻井工作量日报</h4>
       <oms2-date-picker-daily :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @date-change="handleChange"></oms2-date-picker-daily>
     </header>
     <v-table
@@ -92,6 +92,9 @@
     },
     created() {
       this.requestDate();
+      this.$ruixinApi.setWebViewTitle({ //设置导航条标题
+          title:this.$route.meta.title
+      })
     },
     methods: {
       requestDate() {

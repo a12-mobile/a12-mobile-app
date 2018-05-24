@@ -2,14 +2,6 @@
   <div id="home">
     <mt-header :title="$route.meta.title" fixed>
     </mt-header>
-    <!-- <router-link to="/drill/project/data/list">
-      <button type="button" class="btn btn-primary">工程数据列表</button>
-    </router-link>
-    <br>
-    <br>
-    <router-link to="/drill/project/data/list2">
-      <button type="button" class="btn btn-primary">工程数据列表2</button>
-    </router-link> -->
     <router-link to="/drill/form/list">
       <button type="button" class="btn btn-primary">钻井报表</button>
     </router-link>
@@ -38,6 +30,9 @@
 </script>
 
 <style>
+  #home{
+    margin-top:50px;
+  }
 
 </style>
 

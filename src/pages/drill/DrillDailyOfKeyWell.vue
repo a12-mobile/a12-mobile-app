@@ -5,7 +5,7 @@
                 <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
             </mt-header>
         </header> -->
-        <h5>重点井日报</h5>
+        <h4>重点井日报</h4>
         <oms2-date-picker-daily 
             :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @date-change="handleChange"></oms2-date-picker-daily>
         <v-table
@@ -44,8 +44,8 @@
                 tableData: [],
                 columns: [
                     {field: 'sgdw', width: 40, columnAlign: 'center', columnAlign: 'center', isFrozen: true},
-                    {field: 'dh', width: 70, columnAlign: 'center', columnAlign: 'center', isFrozen: true},
                     {field: 'jm', width: 85, columnAlign: 'center', columnAlign: 'center', isFrozen: true},
+                    {field: 'dh', width: 70, columnAlign: 'center', columnAlign: 'center', isFrozen: false},
                     {field: 'wellSort', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
                     {field: 'wellType', width: 90, columnAlign: 'center', columnAlign: 'center',isResize:true},
                     {field: 'shigongquyu', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
@@ -78,8 +78,8 @@
 
                 titleRows: [ //第一行
                              [{fields: ['sgdw'], title: '施工单位', titleAlign: 'center', rowspan: 4},
-                              {fields: ['dh'], title: '队号', titleAlign: 'center', rowspan: 4},
                               {fields: ['jm'], title: '井号', titleAlign: 'center', rowspan: 4},
+                              {fields: ['dh'], title: '队号', titleAlign: 'center', rowspan: 4},
                               {fields: ['wellSort', 'wellType', 'shigongquyu','start1Date'], title: '基础信息', titleAlign: 'center', colspan: 4},
                               {fields: ['designWellDepth', 'actualWellDepth','layername','project','workContent'], title: '当日动态', titleAlign: 'center', colspan: 5},
                               {fields: ['dailyDrilledFootage','monthPlannedDrillingFootage','cumulMonthDrilledFootage','cumulYearDrilledFootage','monthCompletion','yearFinish'], title: '工作量', titleAlign: 'center', colspan: 6},

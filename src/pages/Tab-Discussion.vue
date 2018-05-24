@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="Discussion">
     <mt-header :title="$route.meta.title" fixed>
     </mt-header>
     <p>这是协同讨论页面</p>
@@ -19,5 +19,8 @@
 </script>
 
 <style>
+  #Discussion{
+    margin-top: 50px;
+  }
 
 </style>

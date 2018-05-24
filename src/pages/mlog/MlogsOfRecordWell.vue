@@ -1,10 +1,11 @@
 <template>
     <div>
-            <header>
+            <!-- <header>
                 <mt-header :title="$route.meta.title" fixed>
                 <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
                 </mt-header>
-            </header>
+            </header> -->
+            <h4>录井日报</h4>
             <oms2-date-picker-daily :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce" @change="handleChange"></oms2-date-picker-daily>
 
             <v-table
@@ -100,6 +101,9 @@
         },
         created(){
           this.requestDate();
+          this.$ruixinApi.setWebViewTitle({ //设置导航条标题
+                title:this.$route.meta.title
+            })
         },
         methods:{
                 requestDate() {

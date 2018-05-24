@@ -95,7 +95,7 @@ export default new Router({
       path:'/dailyOfDrilling',
       name:'dailyOfDrilling',
       component:DailyOfDrilling,
-      meta:{navShow:true,title:'钻井分井动态'}
+      meta:{navShow:false,title:'钻井分井动态'}
     },
     //钻井end
 

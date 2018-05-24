@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="MultiWellList">
     <mt-header :title="$route.meta.title" fixed>
     </mt-header>
     <ul class="list-group">
@@ -23,5 +23,8 @@
 </script>
 
 <style>
+  #MultiWellList{
+    margin-top: 50px;
+  }
 
 </style>

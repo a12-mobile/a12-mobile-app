@@ -1,30 +1,24 @@
 <template>
     <div ip="DhMonthlyOfWorkloadGN">
         <header>
-            <mt-header :title="$route.meta.title" fixed>
-                <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
-            </mt-header>
+            <!-- <mt-header :title="$route.meta.title" fixed>
+                    <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
+                </mt-header> -->
+            <h5>井下作业工作量统计月报（国内）</h5>
+            <oms2-date-picker-monthly :date=date @date-change="handleChange"></oms2-date-picker-monthly>
         </header>
-        <h5>井下作业工作量统计月报（国内）</h5>
-        <oms2-date-picker-monthly
-            :date=date
-            @date-change="handleChange"
-        ></oms2-date-picker-monthly>
-
-        <v-table
-            is-horizontal-resize
-            is-vertical-resize
-            :title-row-height=25
-            :row-height=30
-            title-bg-color="#F6F6F6"
-            style="width:98%;margin-left:1%;font-size:12px"
-            :columns="columns"
-            :title-rows="titleRows"
-            :table-data="tableData"
-            even-bg-color="#F4F4F4"
+        <v-table 
+            is-horizontal-resize 
+            is-vertical-resize 
+            :title-row-height=25 
+            :row-height=30 
+            title-bg-color="#F6F6F6" 
+            style="width:98%;margin-left:1%;font-size:12px" 
+            :columns="columns" :title-rows="titleRows" 
+            :table-data="tableData" 
+            even-bg-color="#F4F4F4" 
             row-hover-color="#eee"
-            row-click-color="#edF7FF"
-    ></v-table>
+            row-click-color="#edF7FF"></v-table>
     </div>
 </template>
 
@@ -96,6 +90,9 @@
         },
         created(){
             this.requestData()
+            this.$ruixinApi.setWebViewTitle({ //设置导航条标题
+                title:this.$route.meta.title
+            })
         },
         methods:{
             //请求数据方法

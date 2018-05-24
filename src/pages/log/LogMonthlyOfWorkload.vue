@@ -1,11 +1,11 @@
 <template>
     <div ip="DhMonthlyOfWorkloadGN">
-        <header>
+        <!-- <header>
             <mt-header :title="$route.meta.title" fixed>
                 <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
             </mt-header>
-        </header>
-        <h5>测井工作量统计表</h5>
+        </header> -->
+        <h4>测井工作量统计表</h4>
         <oms2-date-picker-monthly
             :date=date
             @date-change="handleChange"
@@ -138,6 +138,9 @@
         },
         created(){
             this.requestData()
+            this.$ruixinApi.setWebViewTitle({ //设置导航条标题
+                title:this.$route.meta.title
+            })
         },
         methods:{
             //请求数据方法
@@ -150,6 +153,7 @@
                 .catch(function(error) {
                     Indicator.close()
                     console.log(error)
+                    
                 })
 
             },
