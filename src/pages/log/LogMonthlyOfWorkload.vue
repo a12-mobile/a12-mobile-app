@@ -6,12 +6,10 @@
             </mt-header>
         </header>
         <h5>测井工作量统计表</h5>
-        <div class="oms2-datepicker-content">
-        <vue-datepicker-local 
-            v-model="date"
-            inputClass='oms2-date-picker-monthly-input'
-            format="YYYY-MM" />
-        </div>
+        <oms2-date-picker-monthly
+            :date=date
+            @date-change="handleChange"
+        ></oms2-date-picker-monthly>
         <v-table
             is-horizontal-resize
             is-vertical-resize
@@ -22,6 +20,7 @@
             :columns="columns"
             :title-rows="titleRows"
             :table-data="tableData"
+            :cell-merge="cellMerge"
             even-bg-color="#F4F4F4"
             row-hover-color="#eee"
             row-click-color="#edF7FF"
@@ -31,14 +30,17 @@
 
 
 <script>
-    import VueDatepickerLocal from 'vue-datepicker-local'
+    import DatePickerMonthly from './../../components/datepicker/DatePickerMonthly'
     import { Indicator } from 'mint-ui';
     import { getMonthlyOfWorkload } from './../../service/log/logGetData'
-    import {convertDateToString} from './../../service/utils/date/date'
+    import {convertDateToString,addMonth,getCurrentDate} from './../../service/utils/date/date'
     export default {
          data() {
             return {
-                date: new Date(),
+                date: {
+                    time:getCurrentDate()
+                },
+                juOrgList:[],
                 columns: [
                     {field: 'juOrgabb', width:60, columnAlign: 'center', columnAlign: 'center', isFrozen: true},
                     {field: 'chuOrgabb', width: 110, columnAlign: 'center', columnAlign: 'center', isFrozen: true},
@@ -68,8 +70,6 @@
                     {field: 'nullityEquipment', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
                     {field: 'nullityWell', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
                     {field: 'nullityOther', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-
-                    
                 ],
 
                 titleRows: [ //第一行
@@ -136,11 +136,6 @@
                 tableData: [],
                 }
         },
-        watch:{
-            date:function(newDate,oldDate){
-                this.requestData()
-            }
-        },
         created(){
             this.requestData()
         },
@@ -148,8 +143,7 @@
             //请求数据方法
             requestData(){
                 Indicator.open('加载中...')
-                let date=convertDateToString(this.date,"yyyy-MM")
-                getMonthlyOfWorkload(date).then((data)=>{
+                getMonthlyOfWorkload(this.date.time).then((data)=>{
                     Indicator.close()
                     this.tableData=data.body
                 })
@@ -159,16 +153,53 @@
                 })
 
             },
+            handleMonthReduce(){
+                console.log("月减少一天")
+                this.date=new Date(addMonth(this.date,-1));
+            },
+            handleMonthAdd(){
+                console.log("月增加一天")
+                this.date=new Date(addMonth(this.date,1));
+
+            },
             //返回按钮
             handleBack(){
                 if(Indicator){
                     Indicator.close()
                 }
                 window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+            },
+            handleChange(){
+                this.requestData()
+            },
+            //合并单元格
+            cellMerge(rowIndex,rowData,field){ 
+                if(field==='juOrgabb'){
+                    let juOrgabb=rowData[field]
+                    if(this.juOrgList.indexOf(juOrgabb)==-1){
+                        //还没有合并该局级单位
+                        let num=0  //记录这个局级单位有多少个
+                        for(let i=rowIndex;i<this.tableData.length;i++){
+                            if(this.tableData[i].juOrgabb==juOrgabb){
+                                num++
+                            }
+                        }
+                        if(num>0){
+                            return {
+                                colSpan: 1,
+                                rowSpan: num,
+                                content: juOrgabb,
+                                componentName: ''
+                            }
+                        }
+                        this.juOrgList.push(juOrgabb)
+                    }
+                }
+
             }
         },
         components: {
-            VueDatepickerLocal
+            'oms2-date-picker-monthly':DatePickerMonthly
         }
     }
 </script>
@@ -180,6 +211,11 @@
     .oms2-date-picker-monthly-input{
         width:100px !important;
         font-size: 10px;
+    }
+    .oms2-icon{
+        margin-left:20px;
+        margin-right:20px;
+        font-size:18px;
     }
 
 </style>

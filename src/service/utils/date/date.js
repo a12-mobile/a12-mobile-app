@@ -23,9 +23,9 @@
   /**
    * 日期，在原有日期基础上，增加（减少）days天数，默认增加1天
    * @param {*} date 日期字符串形式 如2018-05-10
-   * @param {*} days 
+   * @param {*} days number型，为加减的天数，为负数时减少天数
    */
-  export function addDate(date, days) {
+  export function addDate(date, days=1) {
       if (days == undefined || days == '') {
           days = 1
       }
@@ -34,6 +34,20 @@
       var month = date.getMonth() + 1
       var day = date.getDate()
       return date.getFullYear() + '-' + getFormatDate(month) + '-' + getFormatDate(day)
+  }
+
+
+  /**
+   * 在原有日期基础上，增加（减少）months月，默认增加1月
+   * @param {String/Date} date 日期字符串形式 如2018-05-10  Date格式也可以
+   * @param {number} months 为加减的月份数，为负数时减少月份
+   * @param {String} format 日期格式
+   */
+  export function addMonth(date, months=1 ,format='yyyy-MM-dd') {
+      var date1 = new Date(date);
+      date1.setMonth(date1.getMonth() + months)
+      //对日期进行格式化
+      return convertDateToString(date1,format)
   }
 
   /**

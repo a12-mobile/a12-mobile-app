@@ -7,10 +7,10 @@
         </header>
         <h5>井下作业工作量统计月报（总）</h5>
         <div class="oms2-datepicker-content">
-        <vue-datepicker-local 
-            v-model="date"
-            inputClass='oms2-date-picker-monthly-input'
-            format="YYYY-MM" />
+        <oms2-date-picker-monthly
+            :date=date
+            @date-change="handleChange"
+        ></oms2-date-picker-monthly>
         </div>
         <v-table
             is-horizontal-resize
@@ -31,13 +31,16 @@
 
 
 <script>
-    import VueDatepickerLocal from 'vue-datepicker-local'
+    import DatePickerMonthly from './../../components/datepicker/DatePickerMonthly'
     import { Indicator } from 'mint-ui';
     import { getMonthlyOfWorkloadZ } from './../../service/dh/dhGetData'
+    import { getCurrentDate } from '../../service/utils/date/date'
     export default {
          data() {
             return {
-                date: new Date(),
+                date: {
+                    time:getCurrentDate()
+                },
                 columns: [
                     {field: 'jujiorgname', width: 80, columnAlign: 'center', columnAlign: 'center', isFrozen: true},
                     {field: 'testoilnum', width: 40, columnAlign: 'center', columnAlign: 'center'},
@@ -92,13 +95,6 @@
                 tableData: [],
                 }
         },
-        watch:{
-            date:function(newDate,oldDate){
-                console.log("旧值"+oldDate)
-                console.log("新值"+newDate)
-                this.requestData()
-            }
-        },
         created(){
             this.requestData()
         },
@@ -106,7 +102,7 @@
             //请求数据方法
             requestData(){
                 Indicator.open('加载中...')
-                getMonthlyOfWorkloadZ("2018-05-22").then((data)=>{
+                getMonthlyOfWorkloadZ(this.date.time).then((data)=>{
                     Indicator.close()
                     this.tableData=data.body
                 })
@@ -121,10 +117,13 @@
                     Indicator.close()
                 }
                 window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+            },
+            handleChange(){
+                this.requestData()
             }
         },
         components: {
-            VueDatepickerLocal
+            'oms2-date-picker-monthly':DatePickerMonthly
         }
     }
 </script>
