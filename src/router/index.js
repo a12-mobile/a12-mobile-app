@@ -12,7 +12,7 @@ import DrillListOfProjectData from '@/pages/drill/DrillListOfProjectData'
 import DrillListOfProjectData2 from '@/pages/drill/DrillListOfProjectData2'
 import DrillFormList from '@/pages/drill/DrillFormList'
 import DrillDailyOfKeyWell from '@/pages/drill/DrillDailyOfKeyWell'
-import DailyOfDrilling from '@/components/DailyOfDrilling'
+import DailyOfDrilling from '@/pages/drill/DailyOfDrilling'
 
 //井下
 import DhFormList from '@/pages/dh/DhFormList'
@@ -95,7 +95,7 @@ export default new Router({
       path:'/dailyOfDrilling',
       name:'dailyOfDrilling',
       component:DailyOfDrilling,
-      meta:{navShow:true,title:'中油油服钻井工作量日报'}
+      meta:{navShow:true,title:'钻井分井动态'}
     },
     //钻井end
 
