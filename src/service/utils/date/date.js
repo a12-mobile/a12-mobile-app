@@ -1,5 +1,5 @@
   /**
-   * 获取当前时间  hh:mm:ss
+   * 获取当前时间  HH:mm:ss
    */
   export function getCurrentTime(){
     var date = new Date()
@@ -23,9 +23,9 @@
   /**
    * 日期，在原有日期基础上，增加（减少）days天数，默认增加1天
    * @param {*} date 日期字符串形式 如2018-05-10
-   * @param {*} days 
+   * @param {*} days number型，为加减的天数，为负数时减少天数
    */
-  export function addDate(date, days) {
+  export function addDate(date, days=1) {
       if (days == undefined || days == '') {
           days = 1
       }
@@ -36,21 +36,51 @@
       return date.getFullYear() + '-' + getFormatDate(month) + '-' + getFormatDate(day)
   }
 
+
+  /**
+   * 在原有日期基础上，增加（减少）months月，默认增加1月
+   * @param {String/Date} date 日期字符串形式 如2018-05-10  Date格式也可以
+   * @param {number} months 为加减的月份数，为负数时减少月份
+   * @param {String} format 日期格式
+   */
+  export function addMonth(date, months=1 ,format='yyyy-MM-dd') {
+      var date1 = new Date(date);
+      date1.setMonth(date1.getMonth() + months)
+      //对日期进行格式化
+      return convertDateToString(date1,format)
+  }
+
   /**
    * 将date类型转化为String类型
    * @param {*} date Date类型的参数
-   * @param {*} format 转化的格式
+   * @param {*} format 转化的格式  yyyy-MM-dd HH:mm:ss
    */
-  export function convertDateToString(date,format="yyyy-MM-dd"){
+  export function convertDateToString(date,format="yyyy-MM-dd HH:mm:ss"){
     var year=date.getFullYear()
     var month=date.getMonth()+1
     var day=date.getDate()
     var hour=date.getHours()
     var minute=date.getMinutes()
     var second=date.getSeconds()
-    if(format){
-        
+    if(format.indexOf('yyyy')!=-1){
+        format=format.replace('yyyy',year)
     }
+    if(format.indexOf('MM')!=-1){
+        format=format.replace('MM',getFormatDate(month))
+    }
+    if(format.indexOf('dd')!=-1){
+        format=format.replace('dd',getFormatDate(day))
+    }
+    if(format.indexOf('HH')!=-1){
+        format=format.replace('HH',getFormatDate(hour))
+    }
+    if(format.indexOf('mm')!=-1){
+        format=format.replace('mm',getFormatDate(minute))
+    }
+    if(format.indexOf('ss')!=-1){
+        format=format.replace('ss',getFormatDate(second))
+    }
+    return format
   }
 
   
@@ -82,7 +112,7 @@
         return ''
     }
     var re = arg + ''
-    if (re.length < 2) {
+    if (re.length < 2||re.length==0) {
         re = '0' + re
     }
     return re

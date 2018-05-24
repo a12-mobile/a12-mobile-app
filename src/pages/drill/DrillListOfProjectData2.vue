@@ -25,7 +25,7 @@
 
 <script>
     import myDatepicker from 'vue-datepicker'
-    import {getCurrentTime} from './../../service/utils/date'
+    import {getCurrentTime} from './../../service/utils/date/date'
     import {
         Toast
     } from "mint-ui"

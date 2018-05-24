@@ -1,6 +1,6 @@
 // for Vue 2.0
 // import myDatepicker from 'vue-datepicker'
-import {getCurrentDate} from './../../service/utils/date'
+import {getCurrentDate} from './../../service/utils/date/date'
 
 export default {
       // for Vue 2.0

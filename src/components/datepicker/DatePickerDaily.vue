@@ -8,15 +8,15 @@
 
 <script>
     /**
-     * oms2-daily-date-picker
-     * @module components/DailyDatePicker
+     * oms2-date-picker-daily
+     * @module components/DatePickerDaily
      * @desc 日报时间选择
      * @param {object} [defaultDate] - 输入框默认显示的日期
      * @param {string} [limitStartDate] - 时间选择限制的起始日期   默认 2000-01-01 （包含2000-01-01当天）
      * @param {string} [limitEndDate] - 时间选择限制的终止日期   默认为当前日期 (包含当天日期)
      * @param {function} [handleDateReduce] - 前一天的回掉函数  （参数前一天的日期  格式：yyyy-MM-dd）
      * @param {function} [handleDateAdd] - 后一天的回掉函数  （参数后一天的日期  格式：yyyy-MM-dd）
-     * @param {function} [change] - 选择日期后的回调函数  （参数后一天的日期  格式：yyyy-MM-dd）
+     * @param {function} [handleChange] - 选择日期后的回调函数  （参数后一天的日期  格式：yyyy-MM-dd）
      *
      * @example
      * <oms2-daily-date-picker :date="defaultDate" :limitStartDate="limitStartDate" :limitEndDate="limitEndDate" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @date-change="handleChange"></oms2-daily-date-picker>
@@ -60,7 +60,7 @@
         addDate,
         compareDate,
         getCurrentDate
-    } from './../../service/utils/date'
+    } from './../../service/utils/date/date'
     import {
         Toast
     } from "mint-ui"
