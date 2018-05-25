@@ -1,11 +1,13 @@
 <template>
     <div ip="DailyOfKeyWell">
-        <header>
+        <!-- <header>
             <mt-header :title="$route.meta.title" fixed>
                 <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
             </mt-header>
-        </header>
-        <oms2-date-picker-daily :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @date-change="handleChange"></oms2-date-picker-daily>
+        </header> -->
+        <h4>重点井日报</h4>
+        <oms2-date-picker-daily 
+            :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @date-change="handleChange"></oms2-date-picker-daily>
         <v-table
             is-horizontal-resize
             is-vertical-resize
@@ -33,15 +35,17 @@
     import { Indicator } from 'mint-ui';
     import timepicker from './../../components/datepicker/timepicker'
     import { Toast } from "mint-ui"
+    import {getDaliyOfKeyWell} from './../../service/drill/drillGetData'
     export default {
          data() {
             return {
+                // ruixinApi:new RuixinOpenAPI(),
                 date: timepicker.startTime,
                 tableData: [],
                 columns: [
                     {field: 'sgdw', width: 40, columnAlign: 'center', columnAlign: 'center', isFrozen: true},
-                    {field: 'dh', width: 70, columnAlign: 'center', columnAlign: 'center', isFrozen: true},
-                    {field: 'jm', width: 80, columnAlign: 'center', columnAlign: 'center', isFrozen: true},
+                    {field: 'jm', width: 85, columnAlign: 'center', columnAlign: 'center', isFrozen: true},
+                    {field: 'dh', width: 70, columnAlign: 'center', columnAlign: 'center', isFrozen: false},
                     {field: 'wellSort', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
                     {field: 'wellType', width: 90, columnAlign: 'center', columnAlign: 'center',isResize:true},
                     {field: 'shigongquyu', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
@@ -66,98 +70,92 @@
                     {field: 'pumpPressure', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
                     {field: 'designMudPropDendity', width: 60, columnAlign: 'center', columnAlign: 'center',isResize:true},
                     {field: 'mudPropDensity', width: 60, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'mudPropViscosity', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'mudPropWaterLose', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'mudPropGrittyConsistence', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'mudPropViscosity', width: 60, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'mudPropWaterLose', width: 60, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'mudPropGrittyConsistence', width: 60, columnAlign: 'center', columnAlign: 'center',isResize:true},
                     {field: 'cannulaSizeModel', width: 200, columnAlign: 'center', columnAlign: 'center',isResize:true},
                 ],
 
                 titleRows: [ //第一行
-                             [{fields: ['sgdw'], title: '施工单位', titleAlign: 'center', rowspan: 4},
-                              {fields: ['dh'], title: '队号', titleAlign: 'center', rowspan: 4},
-                              {fields: ['jm'], title: '井号', titleAlign: 'center', rowspan: 4},
+                             [{fields: ['sgdw'], title: '施工单位', titleAlign: 'center', rowspan: 3},
+                              {fields: ['jm'], title: '井号', titleAlign: 'center', rowspan: 3},
+                              {fields: ['dh'], title: '队号', titleAlign: 'center', rowspan: 3},
                               {fields: ['wellSort', 'wellType', 'shigongquyu','start1Date'], title: '基础信息', titleAlign: 'center', colspan: 4},
                               {fields: ['designWellDepth', 'actualWellDepth','layername','project','workContent'], title: '当日动态', titleAlign: 'center', colspan: 5},
                               {fields: ['dailyDrilledFootage','monthPlannedDrillingFootage','cumulMonthDrilledFootage','cumulYearDrilledFootage','monthCompletion','yearFinish'], title: '工作量', titleAlign: 'center', colspan: 6},
                               {fields: ['bitSizeModel','woba','deliveryVolume','onlydrill','drillRotateSpeed','pumpPressure'], title: '钻头及钻井参数', titleAlign: 'center', colspan: 6},
                               {fields: ['designMudPropDendity','mudPropDensity','mudPropViscosity','mudPropWaterLose','mudPropGrittyConsistence'], title: '钻井液性能', titleAlign: 'center', colspan: 5},
-                              {fields: ['cannulaSizeModel',], title: '套管及钻杆', titleAlign: 'center', rowspan: 4},
+                              {fields: ['cannulaSizeModel',], title: '套管及钻具', titleAlign: 'center', rowspan: 3},
                              ],
 
                              //第二行
                              //基础信息
-                             [{fields: ['wellSort'], title: '井别', titleAlign: 'center',rowspan:3},
-                              {fields: ['wellType'], title: '井型', titleAlign: 'center', rowspan:3},
-                              {fields: ['shigongquyu'], title: '施工区域', titleAlign: 'center', rowspan:3},
-                              {fields: ['start1Date'], title: '开钻日期', titleAlign: 'center', rowspan:3},
+                             [{fields: ['wellSort'], title: '井别', titleAlign: 'center',rowspan: 2},
+                              {fields: ['wellType'], title: '井型', titleAlign: 'center', rowspan: 2},
+                              {fields: ['shigongquyu'], title: '施工区域', titleAlign: 'center', rowspan: 2},
+                              {fields: ['start1Date'], title: '开钻日期', titleAlign: 'center', rowspan: 2},
 
                               //当日动态
-                              {fields: ['designWellDepth'], title: '设计井深', titleAlign: 'center',rowspan:3},
-                              {fields: ['actualWellDepth'], title: '当前井深', titleAlign: 'center', rowspan:3},
-                              {fields: ['layername'], title: '钻打层位', titleAlign: 'center', rowspan:3},
-                              {fields: ['project'], title: '工况', titleAlign: 'center', rowspan:3},
-                              {fields: ['workContent'], title: '工作内容', titleAlign: 'center', rowspan:3},
+                              {fields: ['designWellDepth'], title: '设计井深(m)', titleAlign: 'center',rowspan: 2},
+                              {fields: ['actualWellDepth'], title: '当前井深(m)', titleAlign: 'center', rowspan: 2},
+                              {fields: ['layername'], title: '钻达层位', titleAlign: 'center', rowspan: 2},
+                              {fields: ['project'], title: '工况', titleAlign: 'center', rowspan: 2},
+                              {fields: ['workContent'], title: '工作内容', titleAlign: 'center', rowspan: 2},
 
                               //工作量
-                              {fields: ['dailyDrilledFootage','monthPlannedDrillingFootage','cumulMonthDrilledFootage','cumulYearDrilledFootage',], title: '进尺(米)', titleAlign: 'center',colspan:4},
+                              {fields: ['dailyDrilledFootage','monthPlannedDrillingFootage','cumulMonthDrilledFootage','cumulYearDrilledFootage',], title: '进尺(m)', titleAlign: 'center',colspan:4},
                               {fields: ['monthCompletion','yearFinish'], title: '完井(口)', titleAlign: 'center', colspan:2},
 
                               //钻头及钻井参数
-                              {fields: ['bitSizeModel'], title: '钻头尺寸型号', titleAlign: 'center', rowspan:3},
-                              {fields: ['woba'], title: '钻压(KN)', titleAlign: 'center', rowspan:3},
-                              {fields: ['deliveryVolume'], title: '排量(L/s)', titleAlign: 'center', rowspan:3},
-                              {fields: ['onlydrill'], title: '纯钻时间(h)', titleAlign: 'center', rowspan:3},
-                              {fields: ['drillRotateSpeed'], title: '转速(r/min)', titleAlign: 'center', rowspan:3},
-                            //   {fields: ['jixiezuansu'], title: '机械钻速(m/h)', titleAlign: 'center', rowspan:3},
-                              {fields: ['pumpPressure'], title: '泵压(MPa)', titleAlign: 'center', rowspan:3},
+                              {fields: ['bitSizeModel'], title: '钻头尺寸型号', titleAlign: 'center', rowspan: 2},
+                              {fields: ['woba'], title: '钻压(KN)', titleAlign: 'center', rowspan: 2},
+                              {fields: ['deliveryVolume'], title: '排量(L/s)', titleAlign: 'center', rowspan: 2},
+                              {fields: ['onlydrill'], title: '纯钻时间(h)', titleAlign: 'center', rowspan: 2},
+                              {fields: ['drillRotateSpeed'], title: '转速(r/min)', titleAlign: 'center', rowspan: 2},
+                            //   {fields: ['jixiezuansu'], title: '机械钻速(m/h)', titleAlign: 'center', rowspan: 2},
+                              {fields: ['pumpPressure'], title: '泵压(MPa)', titleAlign: 'center', rowspan: 2},
+                              {fields: ['designMudPropDendity','mudPropDensity'], title: '密度(g/cm3)', titleAlign: 'center', colspan:2},
 
-                              //钻井液性能
-                              {fields: ['designMudPropDendity','mudPropDensity','mudPropViscosity','mudPropWaterLose','mudPropGrittyConsistence'], title: '泥浆', titleAlign: 'center', colspan:5},
-
+                              {fields: ['mudPropViscosity'], title: '粘度(s)', titleAlign: 'center', rowspan: 2},
+                              {fields: ['mudPropWaterLose'], title: '失水(ml)', titleAlign: 'center', rowspan: 2},
+                              {fields: ['mudPropGrittyConsistence'], title: '含砂(%)', titleAlign: 'center', rowspan: 2},
                             //   //套管及钻具
-                            //   {fields: ['taoguanguige'], title: '套管规格(mmX米)', titleAlign: 'center', rowspan:3},
-                            //   {fields: ['zuanjuzuhe'], title: '钻具组合', titleAlign: 'center', rowspan:3},
+                            //   {fields: ['taoguanguige'], title: '套管规格(mmX米)', titleAlign: 'center', rowspan: 2},
+                            //   {fields: ['zuanjuzuhe'], title: '钻具组合', titleAlign: 'center', rowspan: 2},
                              ],
 
                               //第三行
                              [//进尺
-                              {fields: ['dailyDrilledFootage'], title: '当日', titleAlign: 'center',rowspan:2},
-                              {fields: ['monthPlannedDrillingFootage'], title: '月计划', titleAlign: 'center', rowspan:2},
-                              {fields: ['cumulMonthDrilledFootage'], title: '月累', titleAlign: 'center', rowspan:2},
-                              {fields: ['cumulYearDrilledFootage'], title: '年累', titleAlign: 'center', rowspan:2},
+                              {fields: ['dailyDrilledFootage'], title: '当日', titleAlign: 'center',rowspan: 1},
+                              {fields: ['monthPlannedDrillingFootage'], title: '月计划', titleAlign: 'center', rowspan: 1},
+                              {fields: ['cumulMonthDrilledFootage'], title: '月累', titleAlign: 'center', rowspan: 1},
+                              {fields: ['cumulYearDrilledFootage'], title: '年累', titleAlign: 'center', rowspan: 1},
 
                               //完井
-                              {fields: ['monthCompletion'], title: '月累', titleAlign: 'center', rowspan:2},
-                              {fields: ['yearFinish'], title: '年累', titleAlign: 'center', rowspan:2},
+                              {fields: ['monthCompletion'], title: '月累', titleAlign: 'center', rowspan: 1},
+                              {fields: ['yearFinish'], title: '年累', titleAlign: 'center', rowspan: 1},
 
                               //密度(g/cm3)
-                              {fields: ['designMudPropDendity','mudPropDensity'], title: '密度(g/cm3)', titleAlign: 'center', colspan:2},
-                              {fields: ['mudPropViscosity'], title: '粘度(s)', titleAlign: 'center', rowspan:2},
-                              {fields: ['mudPropWaterLose'], title: '失水', titleAlign: 'center', rowspan:2},
-                              {fields: ['mudPropGrittyConsistence'], title: '含砂', titleAlign: 'center', rowspan:2},
-                             ],
-
-                              //第四行
-                             [
                               {fields: ['designMudPropDendity'], title: '设计', titleAlign: 'center', rowspan:1},
                               {fields: ['mudPropDensity'], title: '实际', titleAlign: 'center', rowspan:1},
-                             ]
-                ],
+                             ],
+                    ],
                 }
         },
         created(){
             this.requestDate();
+            this.$ruixinApi.setWebViewTitle({ //设置导航条标题
+                title:'钻井日报'
+            })
         },
         methods:{
             requestDate() {
                 Indicator.open('加载中...')
-                this.$http('GET','/drill/daily/keyWell',{
-                    "date":this.date.time
-                    })
+                getDaliyOfKeyWell(this.date.time)
                 .then((data)=> {
                     Indicator.close()
                     if(data){
-                        this.tableData=data
+                        this.tableData=data.body
                     }else{
                         this.tableData=[]
                     }

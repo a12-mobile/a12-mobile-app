@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="MlogFormList">
     <mt-header :title="$route.meta.title" fixed>
       <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
     </mt-header>
@@ -33,5 +33,9 @@
 </script>
 
 <style scoped>
+  #MlogFormList{
+    margin-top:50px;
+  }
+
 
 </style>

@@ -60,12 +60,21 @@ function errorState(response){
 
 //对正确返回数据进行处理
 function successState(res){
-    if(res.data.errCode == '000002'){
-        Toast({
-            message: '网络异常，错误码000002',
-            position: 'bottom',
-            duration: 3000,
-        })
+    if(res.data.body&&res.data.status){
+        if(res.data.body.length==0){
+            Toast({
+                message: '暂无数据',
+                position: 'bottom',
+                duration: 1000,
+            })
+        }
+        if(res.data.status.code == '1001'){
+            Toast({
+                message: '后台报错了',
+                position: 'bottom',
+                duration: 3000,
+            })
+        }
     }
 }
 

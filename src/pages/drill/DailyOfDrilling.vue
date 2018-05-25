@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div id="DailyOfDrilling">
     <header>
-      <mt-header :title="$route.meta.title" fixed>
+      <!-- <mt-header :title="$route.meta.title" fixed>
         <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
-      </mt-header>
+      </mt-header> -->
       <h4>中油油服钻井工作量日报</h4>
       <oms2-date-picker-daily :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @date-change="handleChange"></oms2-date-picker-daily>
     </header>
@@ -32,6 +32,7 @@
 
   import { Indicator } from 'mint-ui';
   import timepicker from './../../components/datepicker/timepicker'
+  import {getDaliyOfWorkload} from './../../service/drill/drillGetData'
   export default {
     data() {
       return {
@@ -39,7 +40,7 @@
         tableData: [],
         multipleSort:false,
         columns: [
-          {field: 'sgdw', width: 80, columnAlign: 'center', isFrozen: true, orderBy:'asc',isResize: true},
+          {field: 'sgdw', width: 40, columnAlign: 'center', isFrozen: true, orderBy:'asc',isResize: true},
           {field: 'dailyDrilledFootage', width: 60, columnAlign: 'center', isResize: true},
           {field: 'cumulMonthDrilledFootage', width: 70, columnAlign: 'center', isResize: true},
           {field: 'cumulYearDrilledFootage', width: 70, columnAlign: 'center', isResize: true},
@@ -92,17 +93,18 @@
     },
     created() {
       this.requestDate();
+      this.$ruixinApi.setWebViewTitle({ //设置导航条标题
+          title:'钻井日报'
+      })
     },
     methods: {
       requestDate() {
         Indicator.open('加载中...')
-        this.$http('GET', '/drill/report/dailyDrill', {
-          "date": this.date.time
-        })
+        getDaliyOfWorkload(this.date.time)
           .then((data) => {
             Indicator.close()
             if (data) {
-              this.tableData = data
+              this.tableData = data.body
             } else {
               this.tableData = []
             }

@@ -89,13 +89,13 @@ export default new Router({
       path: '/drill/daily/well/key',
       name: 'DrillDailyOfKeyWell',
       component: DrillDailyOfKeyWell,
-      meta: { navShow: false, title: '重点井日报' }
+      meta: { navShow: false, title: '钻井日报' }
     },
     {
       path:'/dailyOfDrilling',
       name:'dailyOfDrilling',
       component:DailyOfDrilling,
-      meta:{navShow:true,title:'钻井分井动态'}
+      meta:{navShow:false,title:'钻井分井动态'}
     },
     //钻井end
 
