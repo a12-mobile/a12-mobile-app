@@ -9,3 +9,13 @@ export function getDaliyOfKeyWell(date) {
     'date': date
   })
 }
+
+/**
+ * 向服务器获取钻井工作量日报
+ * @param {*} date 
+ */
+export function getDaliyOfWorkload(date) {
+  return httpService('GET', '/drill/report/dailyDrill', {
+    'date': date
+  })
+}

@@ -139,7 +139,7 @@
         created(){
             this.requestData()
             this.$ruixinApi.setWebViewTitle({ //设置导航条标题
-                title:this.$route.meta.title
+                title:'测井月报'
             })
         },
         methods:{
