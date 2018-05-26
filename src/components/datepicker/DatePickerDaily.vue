@@ -1,8 +1,11 @@
 <template>
     <div class="oms2-date-picker-daily">
-        <button type="button" class="btn btn-sm btn-outline-primary margin" @click="handleDateReduce">前一天</button>
+        <slot></slot>
+        <a class="oms2-icon-left" @click="handleDateReduce"><i class="fa fa-chevron-left"></i></a>
+        <!-- <button v-if="!hiddenButton" type="button" class="btn btn-sm btn-outline-primary margin" @click="handleDateReduce">前一天</button> -->
         <date-picker :date="date" :option="option" @change="handleChange" :limit="limit"></date-picker>
-        <button type="button" class="btn btn-sm btn-outline-primary margin" @click="handleDateAdd">后一天</button>
+        <!-- <button v-if="!hiddenButton" type="button" class="btn btn-sm btn-outline-primary margin" @click="handleDateAdd">后一天</button> -->
+        <a class="oms2-icon-right" @click="handleDateAdd"><i class="fa fa-chevron-right"></i></a>
     </div>
 </template>
 
@@ -18,6 +21,39 @@
      * @param {function} [handleDateAdd] - 后一天的回掉函数  （参数后一天的日期  格式：yyyy-MM-dd）
      * @param {function} [handleChange] - 选择日期后的回调函数  （参数后一天的日期  格式：yyyy-MM-dd）
      *
+     * 
+     * Props:
+     *   @param {Object}  date 日期 对象中包含一个time类型的属性，time为String型 日期的格式  如'2018-01-01'
+     *   @param {String}  limitStartDate 限制起始日期  日期的格式  如'2018-01-01'
+     *   @param {String}  limitEndDate 限制结束日期  日期的格式  如'2018-01-01'
+     *   @param {Boolean}  hiddenButton 是否显示前一天，后一天按钮
+     * 
+     * 
+     * 事件：
+     *   @param {function}  date-add 增加日期回掉函数 
+     *   @param {function}  date-reduce 减少日期回掉函数 
+     *   @param {function}  date-change 改变日期回掉函数 
+     * 
+     * 
+     * date: {
+                type: Object,
+                default: {
+                    time: getCurrentDate()
+                }
+            },
+            limitStartDate:{
+                type:String,
+                default:'2000-01-01'
+            },
+            limitEndDate:{
+                type:String,
+                default:getCurrentDate()
+            },
+            hiddenButton:{
+                type:Boolean,
+                default:false,
+            }
+     * 
      * @example
      * <oms2-daily-date-picker :date="defaultDate" :limitStartDate="limitStartDate" :limitEndDate="limitEndDate" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @date-change="handleChange"></oms2-daily-date-picker>
      * 
@@ -77,8 +113,9 @@
                     placeholder: '选择时间',
                     inputStyle: {
                         'display': 'inline-block',
-                        'padding': '6px',
+                        'padding': '3px',
                         'line-height': '22px',
+                        'text-align':'center',
                         'font-size': '16px',
                         'border': '2px solid #fff',
                         'box-shadow': '0 1px 3px 0 rgba(0, 0, 0, 0.2)',
@@ -120,6 +157,10 @@
             limitEndDate:{
                 type:String,
                 default:getCurrentDate()
+            },
+            hiddenButton:{
+                type:Boolean,
+                default:false,
             }
         },
         methods: {
@@ -189,7 +230,16 @@
 
 <style>
     .oms2-date-picker-daily {
-        margin: 10px;
+        /* margin-top: 10px; */
+        margin-bottom: 5px;
+    }
+    .oms2-icon-left{
+        margin-right:15px;
+        font-size:18px;
+    }
+    .oms2-icon-right{
+        margin-left:15px;
+        font-size:18px;
     }
     .margin {
         padding-left: 20px;

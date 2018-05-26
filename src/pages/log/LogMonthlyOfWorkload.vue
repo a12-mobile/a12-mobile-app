@@ -1,33 +1,18 @@
 <template>
     <div ip="DhMonthlyOfWorkloadGN">
         <!-- <header>
-            <mt-header :title="$route.meta.title" fixed>
-                <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
-            </mt-header>
-        </header> -->
+                <mt-header :title="$route.meta.title" fixed>
+                    <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
+                </mt-header>
+            </header> -->
         <h4>测井工作量统计表</h4>
-        <oms2-date-picker-monthly
-            :date=date
-            @date-change="handleChange"
-        ></oms2-date-picker-monthly>
-        <v-table
-            is-horizontal-resize
-            is-vertical-resize
-            :title-row-height=25
-            :row-height=30
-            title-bg-color="#F6F6F6"
-            style="width:98%;margin-left:1%;font-size:12px"
-            :columns="columns"
-            :title-rows="titleRows"
-            :table-data="tableData"
-            :cell-merge="cellMerge"
-            even-bg-color="#F4F4F4"
-            row-hover-color="#eee"
-            row-click-color="#edF7FF"
-    ></v-table>
+        <oms2-date-picker-monthly :date=date @date-change="handleChange"></oms2-date-picker-monthly>
+        <!-- Button trigger modal -->
+        
+        <v-table is-horizontal-resize is-vertical-resize :title-row-height=25 :row-height=30 title-bg-color="#F6F6F6" style="width:98%;margin-left:1%;font-size:12px" :columns="columns" :title-rows="titleRows" :table-data="tableData" :cell-merge="cellMerge" even-bg-color="#F4F4F4"
+            row-hover-color="#eee" row-click-color="#edF7FF"></v-table>
     </div>
 </template>
-
 
 <script>
     import DatePickerMonthly from './../../components/datepicker/DatePickerMonthly'
@@ -40,36 +25,35 @@
                 date: {
                     time:getCurrentDate()
                 },
-                juOrgList:[],
                 columns: [
-                    {field: 'juOrgabb', width:60, columnAlign: 'center', columnAlign: 'center', isFrozen: true},
-                    {field: 'chuOrgabb', width: 110, columnAlign: 'center', columnAlign: 'center', isFrozen: true},
-                    {field: 'totalWellCount', width: 40, columnAlign: 'center', columnAlign: 'center'},
-                    {field: 'completeWellCount', width: 40, columnAlign: 'center', columnAlign: 'center'},
-                    {field: 'wjcjCount', width: 80, columnAlign: 'center', columnAlign: 'center'},
-                    {field: 'lyTotal', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'wjcjWellcount', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'numberSpare2', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'lyOther', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'scTotal', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'ccCount', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'zrCount', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'dcCount', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'sccjqt', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'gcTotal', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'tsTest', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'gjQualityTest', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'projectOther', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'skTotal', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'vittaTransfers', width: 80, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'cableSk', width: 50, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'differentWork', width: 60, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'thicknessSk', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'bombCount', width: 50, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'wxTotal', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'nullityEquipment', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'nullityWell', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'nullityOther', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'juOrgabb', width:60, columnAlign: 'center', isFrozen: true,isResize:true},
+                    {field: 'chuOrgabb', width: 110, columnAlign: 'center', isFrozen: true,isResize:true},
+                    {field: 'totalWellCount', width: 60, columnAlign: 'right',isResize:true},
+                    {field: 'completeWellCount', width: 60, columnAlign: 'right',isResize:true},
+                    {field: 'wjcjCount', width: 80, columnAlign: 'right',isResize:true},
+                    {field: 'lyTotal', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'wjcjWellcount', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'numberSpare2', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'lyOther', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'scTotal', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'ccCount', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'zrCount', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'dcCount', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'sccjqt', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'gcTotal', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'tsTest', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'gjQualityTest', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'projectOther', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'skTotal', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'vittaTransfers', width: 80, columnAlign: 'right',isResize:true},
+                    {field: 'cableSk', width: 50, columnAlign: 'right',isResize:true},
+                    {field: 'differentWork', width: 60, columnAlign: 'right',isResize:true},
+                    {field: 'thicknessSk', width: 50, columnAlign: 'right',isResize:true},
+                    {field: 'bombCount', width: 50, columnAlign: 'right',isResize:true},
+                    {field: 'wxTotal', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'nullityEquipment', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'nullityWell', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'nullityOther', width: 40, columnAlign: 'right',isResize:true},
                 ],
 
                 titleRows: [ //第一行
@@ -178,9 +162,26 @@
             },
             //合并单元格
             cellMerge(rowIndex,rowData,field){ 
+                if(rowIndex==0&&field=="juOrgabb"){
+                    return {
+                        colSpan: 2,
+                        rowSpan: 1,
+                        content: '集团总计',
+                        componentName: ''
+                    }
+                }
+                if(rowData[field]==-1){
+                    return {
+                        colSpan: 1,
+                        rowSpan: 1,
+                        content: '',
+                        componentName: ''
+                    }
+                }
                 if(field==='juOrgabb'){
                     let juOrgabb=rowData[field]
-                    if(this.juOrgList.indexOf(juOrgabb)==-1){
+                    let juOrgList=[]
+                    if(juOrgList.indexOf(juOrgabb)==-1){
                         //还没有合并该局级单位
                         let num=0  //记录这个局级单位有多少个
                         for(let i=rowIndex;i<this.tableData.length;i++){
@@ -196,10 +197,9 @@
                                 componentName: ''
                             }
                         }
-                        this.juOrgList.push(juOrgabb)
+                        juOrgList.push(juOrgabb)
                     }
                 }
-
             }
         },
         components: {
@@ -223,6 +223,7 @@
     }
 
 </style>
+
 
 
 

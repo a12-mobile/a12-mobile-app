@@ -43,6 +43,20 @@ Vue.prototype.$axios = axios
 Vue.prototype.$http = httpServer
 Vue.prototype.$ruixinApi=ruixinApi
 
+
+//定义全局过滤器
+/**
+ * 如果数值为-1,则说明该值为null,   自己定义的，后台传入
+ * 用于报表展示
+ */
+Vue.filter('ifNumberIsNull', function (value) {
+  if(value==-1){
+    return ''
+  }else{
+    return value
+  }
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

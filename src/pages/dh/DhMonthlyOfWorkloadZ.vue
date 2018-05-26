@@ -15,6 +15,7 @@
             title-bg-color="#F6F6F6" 
             style="width:98%;margin-left:1%;font-size:12px" 
             :columns="columns" 
+            :cell-merge="cellMerge"
             :title-rows="titleRows" 
             :table-data="tableData" 
             even-bg-color="#F4F4F4" 
@@ -28,28 +29,28 @@
     import DatePickerMonthly from './../../components/datepicker/DatePickerMonthly'
     import { Indicator } from 'mint-ui';
     import { getMonthlyOfWorkloadZ } from './../../service/dh/dhGetData'
-    import { getCurrentDate } from '../../service/utils/date/date'
+    import { convertDateToString, addMonth } from '../../service/utils/date/date'
     export default {
          data() {
             return {
                 date: {
-                    time:getCurrentDate()
+                    time:convertDateToString(new Date(),'yyyy-MM')
                 },
                 columns: [
-                    {field: 'jujiorgname', width: 80, columnAlign: 'center', columnAlign: 'center', isFrozen: true},
-                    {field: 'testoilnum', width: 40, columnAlign: 'center', columnAlign: 'center'},
-                    {field: 'testnum', width: 40, columnAlign: 'center', columnAlign: 'center'},
-                    {field: 'taskmountnum', width: 40, columnAlign: 'center', columnAlign: 'center'},
-                    {field: 'tracknum', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'acidificationnum', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'bigrepairnum', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'sidedrillnum', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'totalsmallnum', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'totalrepnum', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'checkdumpnum', width: 60, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'newdrillnum', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'collapronum', width: 50, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'otherworknum', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'jujiorgname', width: 80, columnAlign: 'center', isFrozen: true},
+                    {field: 'testoilnum', width: 40, columnAlign: 'right'},
+                    {field: 'testnum', width: 40, columnAlign: 'right'},
+                    {field: 'taskmountnum', width: 50, columnAlign: 'right'},
+                    {field: 'tracknum', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'acidificationnum', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'bigrepairnum', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'sidedrillnum', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'totalsmallnum', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'totalrepnum', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'checkdumpnum', width: 60, columnAlign: 'right',isResize:true},
+                    {field: 'newdrillnum', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'collapronum', width: 50, columnAlign: 'right',isResize:true},
+                    {field: 'otherworknum', width: 40, columnAlign: 'right',isResize:true},
                     
                 ],
 
@@ -99,9 +100,14 @@
             //请求数据方法
             requestData(){
                 Indicator.open('加载中...')
-                getMonthlyOfWorkloadZ(this.date.time).then((data)=>{
+                let nextMonth=addMonth(this.date.time,1,'yyyy-MM')
+                getMonthlyOfWorkloadZ(this.date.time+'-01 00:00:00',nextMonth+'-01 00:00:00').then((data)=>{
                     Indicator.close()
-                    this.tableData=data.body
+                    if(data.body){
+                        this.tableData=data.body
+                    }else{
+                        this.tableData=[]
+                    }
                 })
                 .catch(function(error) {
                     Indicator.close()
@@ -117,7 +123,18 @@
             },
             handleChange(){
                 this.requestData()
-            }
+            },
+            //设置列单元格样式
+            cellMerge(rowIndex,rowData,field){
+                if(rowData[field]==-1){
+                    return {
+                        colSpan: 1,
+                        rowSpan: 1,
+                        content: '',
+                        componentName: ''
+                    }
+                }
+            },
         },
         components: {
             'oms2-date-picker-monthly':DatePickerMonthly

@@ -19,7 +19,7 @@ export default {
         placeholder: '选择时间',
         inputStyle: {
           'display': 'inline-block',
-          'padding': '6px',
+          'padding': '3px',
           'line-height': '22px',
           'font-size': '16px',
           'border': '2px solid #fff',

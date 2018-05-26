@@ -1,31 +1,205 @@
 <template>
     <div ip="DailyOfKeyWell">
         <!-- <header>
-            <mt-header :title="$route.meta.title" fixed>
-                <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
-            </mt-header>
-        </header> -->
-        <h4>重点井日报</h4>
-        <oms2-date-picker-daily 
-            :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @date-change="handleChange"></oms2-date-picker-daily>
-        <v-table
-            is-horizontal-resize
-            is-vertical-resize
-            :title-row-height=20
-            :row-height=30
-            title-bg-color="#F6F6F6"
-            style="width:98%;margin-left:1%;font-size:12px"
-            :columns="columns"
-            :title-rows="titleRows"
-            :table-data="tableData"
-            :column-cell-class-name="columnCellClass"
-            even-bg-color="#F4F4F4"
-            row-hover-color="#eee"
-            row-click-color="#edF7FF"
-    ></v-table>
+                <mt-header :title="$route.meta.title" fixed>
+                    <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
+                </mt-header>
+            </header> -->
+        <h4>重点井日报<span class='oms2-search' @click="handleShowSelect"><i class="fa fa-search"></i></span></h4>
+        <!-- <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#ModalSelect"><i class="fa fa-search"></i></button> -->
+        <!-- Modal -->
+        <div class="modal fade" id="ModalSelect" tabindex="-1" role="dialog" aria-labelledby="ModalSelectTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">数据查询</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                  </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col-3 col-form-label">日期:</label>
+                                <div class="col-7 center">
+                                    <oms2-date-picker-daily :date="date"></oms2-date-picker-daily>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-3 col-form-label">井号:</label>
+                                <div class="col-7">
+                                    <select id="inputState" class="form-control" v-model="selectedJM">
+                                        <option>全部</option>
+                                        <option v-for="item in baseData">{{item.jm}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            <button type="button" @click="handleSelect" data-dismiss="modal" class="btn btn-primary">查询</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <v-table 
+            is-horizontal-resize 
+            is-vertical-resize 
+            :title-row-height=20 
+            :row-height=30 
+            :row-click="handleRowClick"
+            title-bg-color="#F6F6F6" 
+            style="width:98%;margin-left:1%;font-size:12px" 
+            :columns="columns" 
+            :title-rows="titleRows" 
+            :table-data="tableData" 
+            :cell-merge="cellMerge"
+            even-bg-color="#F4F4F4" row-hover-color="#eee" row-click-color="#edF7FF"></v-table>
+
+
+
+
+        <!-- Modal 具体数据信息 -->
+        <div class="modal fade" id="ModalWellMessage" tabindex="-1" role="dialog" aria-labelledby="ModalWellMessageTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">{{selectedRow.jm}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                  </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <a href="#" class="oms2-list-divider list-group-item list-group-item-dark">基础信息</a>
+                            <div class="row">
+                                <label class="col-5 oms2-right">施工单位:</label>
+                                <p>{{selectedRow.sgdw}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">队号:</label>
+                                <p>{{selectedRow.dh}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">井别:</label>
+                                <p>{{selectedRow.wellSort}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">井型:</label>
+                                <p>{{selectedRow.wellType}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">开钻日期:</label>
+                                <p>{{selectedRow.start1Date}}</p>
+                            </div>
+                            <a href="#" class="oms2-list-divider list-group-item list-group-item-dark">当日动态</a>
+                            <div class="row">
+                                <label class="col-5 oms2-right">设计井深(m):</label>
+                                <p>{{selectedRow.designWellDepth}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">当前井深(m):</label>
+                                <p>{{selectedRow.actualWellDepth}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">钻达层位:</label>
+                                <p>{{selectedRow.layername}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">工况:</label>
+                                <p>{{selectedRow.project}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">工作内容:</label>
+                                <div class="col-7 oms2-list-item-content">{{selectedRow.workContent}}</div>
+                            </div>
+                            <a href="#" class="oms2-list-divider list-group-item list-group-item-dark ">工作量</a>
+                            <div class="row">
+                                <label class="col-5 oms2-right">进尺-当日(m):</label>
+                                <p>{{selectedRow.dailyDrilledFootage | ifNumberIsNull}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-6 oms2-right">进尺-月计划(m):</label>
+                                <p>{{selectedRow.monthPlannedDrillingFootage | ifNumberIsNull}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">进尺-月累(m):</label>
+                                <p>{{selectedRow.cumulMonthDrilledFootage | ifNumberIsNull}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">进尺-年累(m):</label>
+                                <p>{{selectedRow.cumulYearDrilledFootage | ifNumberIsNull}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">完井-月累(口):</label>
+                                <p>{{selectedRow.monthCompletion | ifNumberIsNull}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">完井-年累(口):</label>
+                                <p>{{selectedRow.yearFinish | ifNumberIsNull}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">钻头尺寸型号:</label>
+                                <p>{{selectedRow.bitSizeModel}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">钻压(KN):</label>
+                                <p>{{selectedRow.woba | ifNumberIsNull}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">排量(L/s):</label>
+                                <p>{{selectedRow.deliveryVolume | ifNumberIsNull}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">纯钻时间(h):</label>
+                                <p>{{selectedRow.onlydrill | ifNumberIsNull}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">钻速(r/min):</label>
+                                <p>{{selectedRow.drillRotateSpeed}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">泵压(MPa):</label>
+                                <p>{{selectedRow.pumpPressure | ifNumberIsNull}}</p>
+                            </div>
+                            <a href="#" class="list-group-item list-group-item-dark oms2-list-divider">钻井液性能</a>
+                            <div class="row">
+                                <label class="col-5 oms2-right">密度-设计(g/cm3):</label>
+                                <p>{{selectedRow.designMudPropDendity | ifNumberIsNull}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">密度-实际(g/cm3):</label>
+                                <p>{{selectedRow.mudPropDensity | ifNumberIsNull}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">粘度(s):</label>
+                                <p>{{selectedRow.mudPropViscosity | ifNumberIsNull}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">失水(ml):</label>
+                                <p>{{selectedRow.mudPropWaterLose | ifNumberIsNull}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">含沙(%):</label>
+                                <p>{{selectedRow.mudPropGrittyConsistence | ifNumberIsNull}}</p>
+                            </div>
+                            <a href="#" class="list-group-item list-group-item-dark oms2-list-divider">套管及钻具</a>
+                            <div class="row">
+                                <label class="col-6 oms2-right">套管规格(mm*m):</label>
+                                <div>{{selectedRow.cannulaSizeModel}}</div>
+                            </div>
+                        
+                        </form>
+                        <div class="modal-footer">
+                            <button type="button" data-dismiss="modal" class="btn btn-primary">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
-
 
 <script>
 /////单位排序，然后设计井深排序
@@ -35,45 +209,49 @@
     import { Indicator } from 'mint-ui';
     import timepicker from './../../components/datepicker/timepicker'
     import { Toast } from "mint-ui"
-    import {getDaliyOfKeyWell} from './../../service/drill/drillGetData'
+    import { getDaliyOfKeyWell } from './../../service/drill/drillGetData'
     export default {
          data() {
             return {
                 // ruixinApi:new RuixinOpenAPI(),
                 date: timepicker.startTime,
+                //用于存储井名，查询使用
+                baseData:[],
                 tableData: [],
+                selectedRow:{},
+                selectedJM:'全部',
                 columns: [
-                    {field: 'sgdw', width: 40, columnAlign: 'center', columnAlign: 'center', isFrozen: true},
-                    {field: 'jm', width: 85, columnAlign: 'center', columnAlign: 'center', isFrozen: true},
-                    {field: 'dh', width: 70, columnAlign: 'center', columnAlign: 'center', isFrozen: false},
-                    {field: 'wellSort', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'wellType', width: 90, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'shigongquyu', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'start1Date', width: 60, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'designWellDepth', width: 60, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'actualWellDepth', width: 60, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'layername', width: 80, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'project', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'workContent', width: 100, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'dailyDrilledFootage', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'monthPlannedDrillingFootage', width: 50, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'cumulMonthDrilledFootage', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'cumulYearDrilledFootage', width: 50, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'monthCompletion', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'yearFinish', width: 50, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'bitSizeModel', width: 90, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'woba', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'deliveryVolume', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'onlydrill', width: 50, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'drillRotateSpeed', width: 50, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    // {field: 'jixiezuansu', width: 70, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'pumpPressure', width: 40, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'designMudPropDendity', width: 60, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'mudPropDensity', width: 60, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'mudPropViscosity', width: 60, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'mudPropWaterLose', width: 60, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'mudPropGrittyConsistence', width: 60, columnAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'cannulaSizeModel', width: 200, columnAlign: 'center', columnAlign: 'center',isResize:true},
+                    {field: 'sgdw', width: 40, columnAlign: 'left', isFrozen: true},
+                    {field: 'jm', width: 85, columnAlign: 'left', isFrozen: true},
+                    {field: 'dh', width: 70, columnAlign: 'left', isFrozen: false},
+                    {field: 'wellSort', width: 70, columnAlign: 'left',isResize:true},
+                    {field: 'wellType', width: 90, columnAlign: 'left',isResize:true},
+                    {field: 'shigongquyu', width: 70, columnAlign: 'left',isResize:true},
+                    {field: 'start1Date', width: 60, columnAlign: 'right',isResize:true},
+                    {field: 'designWellDepth', width: 60, columnAlign: 'right',isResize:true},
+                    {field: 'actualWellDepth', width: 60, columnAlign: 'right',isResize:true},
+                    {field: 'layername', width: 80, columnAlign: 'left',isResize:true},
+                    {field: 'project', width: 70, columnAlign: 'left',isResize:true},
+                    {field: 'workContent', width: 100, columnAlign: 'left',isResize:true},
+                    {field: 'dailyDrilledFootage', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'monthPlannedDrillingFootage', width: 60, columnAlign: 'right',isResize:true},
+                    {field: 'cumulMonthDrilledFootage', width: 60, columnAlign: 'right',isResize:true},
+                    {field: 'cumulYearDrilledFootage', width: 50, columnAlign: 'right',isResize:true},
+                    {field: 'monthCompletion', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'yearFinish', width: 50, columnAlign: 'right',isResize:true},
+                    {field: 'bitSizeModel', width: 110, columnAlign: 'right',isResize:true},
+                    {field: 'woba', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'deliveryVolume', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'onlydrill', width: 50, columnAlign: 'right',isResize:true},
+                    {field: 'drillRotateSpeed', width: 50, columnAlign: 'right',isResize:true},
+                    // {field: 'jixiezuansu', width: 70, columnAlign: 'right',isResize:true},
+                    {field: 'pumpPressure', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'designMudPropDendity', width: 60, columnAlign: 'right',isResize:true},
+                    {field: 'mudPropDensity', width: 60, columnAlign: 'right',isResize:true},
+                    {field: 'mudPropViscosity', width: 60, columnAlign: 'right',isResize:true},
+                    {field: 'mudPropWaterLose', width: 60, columnAlign: 'right',isResize:true},
+                    {field: 'mudPropGrittyConsistence', width: 60, columnAlign: 'right',isResize:true},
+                    {field: 'cannulaSizeModel', width: 200, columnAlign: 'left',isResize:true},
                 ],
 
                 titleRows: [ //第一行
@@ -85,7 +263,7 @@
                               {fields: ['dailyDrilledFootage','monthPlannedDrillingFootage','cumulMonthDrilledFootage','cumulYearDrilledFootage','monthCompletion','yearFinish'], title: '工作量', titleAlign: 'center', colspan: 6},
                               {fields: ['bitSizeModel','woba','deliveryVolume','onlydrill','drillRotateSpeed','pumpPressure'], title: '钻头及钻井参数', titleAlign: 'center', colspan: 6},
                               {fields: ['designMudPropDendity','mudPropDensity','mudPropViscosity','mudPropWaterLose','mudPropGrittyConsistence'], title: '钻井液性能', titleAlign: 'center', colspan: 5},
-                              {fields: ['cannulaSizeModel',], title: '套管及钻具', titleAlign: 'center', rowspan: 3},
+                              {fields: ['cannulaSizeModel',], title: '套管规格(mm*m)', titleAlign: 'center', rowspan: 3},
                              ],
 
                              //第二行
@@ -151,11 +329,23 @@
         methods:{
             requestDate() {
                 Indicator.open('加载中...')
-                getDaliyOfKeyWell(this.date.time)
+                // getDaliyOfKeyWell(this.date.time)
+                getDaliyOfKeyWell('2018-05-14')
                 .then((data)=> {
                     Indicator.close()
                     if(data){
-                        this.tableData=data.body
+                        if(this.baseData.length==0){
+                            this.baseData=data.body
+                        }
+                        // this.tableData=data.body
+                        this.tableData=[]
+                        if(this.selectedJM!='全部'){
+                            this.tableData=data.body.filter((item)=>{
+                                return item.jm==this.selectedJM
+                            })
+                        }else{
+                            this.tableData=data.body
+                        }
                     }else{
                         this.tableData=[]
                     }
@@ -182,14 +372,29 @@
                 }
             },
             //设置列单元格样式
-            columnCellClass(rowIndex,columnName,rowData){
-                if(columnName==='shigongdanwei'||columnName==='duihao'||columnName==='jinghao'){
-                    //return 'wu-column-cell-fixed'
+            cellMerge(rowIndex,rowData,field){
+                if(rowData[field]==-1){
+                    return {
+                        colSpan: 1,
+                        rowSpan: 1,
+                        content: '',
+                        componentName: ''
+                    }
                 }
-
             },
             handleChange(date){
                 this.requestDate();
+            },
+            handleSelect(){
+                this.requestDate();
+            },
+            handleShowSelect(){
+                $("#ModalSelect").modal('show')
+            },
+            //行点击回掉
+            handleRowClick(rowIndex, rowData, column){
+                this.selectedRow=rowData
+                $("#ModalWellMessage").modal('show')
             }
 
         },
@@ -233,8 +438,34 @@
 </script>
 
 <style lang="scss">
+    .oms2-search{
+        position:absolute;
+        right:10px;
+        top:10px;
+    }
+    .oms2-column-cell-calss{
+        // overflow:hidden !important;
+        // text-overflow:ellipsis !important;
+        // display:-webkit-box;
+        // -webkit-box-orient:vertical !important;
+        // -webkit-line-clamp:2 !important; 
+    }
+    .oms2-list-item-content{
+        text-align: left;
+        padding-left:0px;
+        padding-bottom:1rem;
+    }
+    .oms2-list-divider{
+        padding-top:0px;
+        padding-bottom:0px;
+        margin-bottom:10px;
+    }
+    .oms2-right{
+        text-align: right;
+    }
 
 </style>
+
 
 
 
