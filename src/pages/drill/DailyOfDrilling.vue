@@ -1,11 +1,15 @@
 <template>
-  <div id="DailyOfDrilling">
+  <div>
     <header>
-      <!-- <mt-header :title="$route.meta.title" fixed>
+      <!--<mt-header :title="$route.meta.title" fixed>
         <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
-      </mt-header> -->
+      </mt-header>-->
       <h4>中油油服钻井工作量日报</h4>
-      <oms2-date-picker-daily :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @date-change="handleChange"></oms2-date-picker-daily>
+      <oms2-date-picker-daily :date="date"
+                  @date-add="handleDateAdd"
+                  @date-reduce="handleDateReduce"
+                  @date-change="handleChange">
+        </oms2-date-picker-daily>
     </header>
     <v-table
       is-horizontal-resize
@@ -17,7 +21,6 @@
       :title-rows="titleRows"
       :table-data="tableData"
       :multiple-sort="multipleSort"
-
       title-bg-color="#F6F6F6"
       even-bg-color="#f2f2f2"
       row-hover-color="#eee"
@@ -26,10 +29,8 @@
   </div>
 </template>
 
-
 <script>
   import DatePickerDaily from './../../components/datepicker/DatePickerDaily'
-
   import { Indicator } from 'mint-ui';
   import timepicker from './../../components/datepicker/timepicker'
   import {getDaliyOfWorkload} from './../../service/drill/drillGetData'
@@ -40,16 +41,16 @@
         tableData: [],
         multipleSort:false,
         columns: [
-          {field: 'sgdw', width: 40, columnAlign: 'center', isFrozen: true, orderBy:'asc',isResize: true},
-          {field: 'dailyDrilledFootage', width: 60, columnAlign: 'center', isResize: true},
-          {field: 'cumulMonthDrilledFootage', width: 70, columnAlign: 'center', isResize: true},
-          {field: 'cumulYearDrilledFootage', width: 70, columnAlign: 'center', isResize: true},
-          {field: 'spuddedDayCumul', width: 50, columnAlign: 'center', isResize: true},
-          {field: 'spuddedMonthCumul', width: 50, columnAlign: 'center', isResize: true},
-          {field: 'spuddedYearCumul', width: 50, columnAlign: 'center', isResize: true},
-          {field: 'deliverWellDay', width: 50, columnAlign: 'center', isResize: true},
-          {field: 'deliverWellMonthCumul', width: 50, columnAlign: 'center', isResize: true},
-          {field: 'deliverWellYearCumul', width: 50, columnAlign: 'center', isResize: true},
+          {field: 'sgdw', width: 80, columnAlign: 'center', isFrozen: true, orderBy:'asc',isResize: true},
+          {field: 'dailyDrilledFootage', width: 60, columnAlign: 'right', isResize: true},
+          {field: 'cumulMonthDrilledFootage', width: 70, columnAlign: 'right', isResize: true},
+          {field: 'cumulYearDrilledFootage', width: 80, columnAlign: 'right', isResize: true},
+          {field: 'spuddedDayCumul', width: 50, columnAlign: 'right', isResize: true},
+          {field: 'spuddedMonthCumul', width: 50, columnAlign: 'right', isResize: true},
+          {field: 'spuddedYearCumul', width: 50, columnAlign: 'right', isResize: true},
+          {field: 'deliverWellDay', width: 50, columnAlign: 'right', isResize: true},
+          {field: 'deliverWellMonthCumul', width: 50, columnAlign: 'right', isResize: true},
+          {field: 'deliverWellYearCumul', width: 50, columnAlign: 'right', isResize: true},
         ],
 
         titleRows: [ //第一行
@@ -94,7 +95,7 @@
     created() {
       this.requestDate();
       this.$ruixinApi.setWebViewTitle({ //设置导航条标题
-          title:'钻井日报'
+        title:'钻井分井动态'
       })
     },
     methods: {
@@ -132,9 +133,9 @@
       },
       //设置列单元格样式
       columnCellClass(rowIndex, columnName, rowData) {
-        if (columnName === 'shigongdanwei' || columnName === 'duihao' || columnName === 'jinghao') {
-          //return 'wu-column-cell-fixed'
-        }
+        // if (columnName === 'shigongdanwei' || columnName === 'duihao' || columnName === 'jinghao') {
+        //   //return 'wu-column-cell-fixed'
+        // }
 
       },
       handleChange(date) {
@@ -154,34 +155,6 @@
       //       colSpan: 1,
       //       rowSpan: 2,
       //       content: '<span >西部钻探</span>',
-      //       componentName: ''
-      //     }
-      //   } else if (field === 'sgdw' && rowData[field] === '长城') {
-      //     return {
-      //       colSpan: 1,
-      //       rowSpan: 2,
-      //       content: '<span >长城钻探</span>',
-      //       componentName: ''
-      //     }
-      //   } else if (field === 'sgdw' && rowData[field] === '渤海') {
-      //     return {
-      //       colSpan: 1,
-      //       rowSpan: 2,
-      //       content: '<span >渤海钻探</span>',
-      //       componentName: ''
-      //     }
-      //   } else if (field === 'sgdw' && rowData[field] === '川庆') {
-      //     return {
-      //       colSpan: 1,
-      //       rowSpan: 2,
-      //       content: '<span >川庆钻探</span>',
-      //       componentName: ''
-      //     }
-      //   } else if (field === 'sgdw' && rowData[field] === '海洋') {
-      //     return {
-      //       colSpan: 1,
-      //       rowSpan: 2,
-      //       content: '<span >海洋工程公司</span>',
       //       componentName: ''
       //     }
       //   }
