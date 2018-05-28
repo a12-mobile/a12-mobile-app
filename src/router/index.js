@@ -95,7 +95,7 @@ export default new Router({
       path:'/dailyOfDrilling',
       name:'dailyOfDrilling',
       component:DailyOfDrilling,
-      meta:{navShow:false,title:'钻井分井动态'}
+      meta:{navShow:false,title:'钻井综合日报'}
     },
     //钻井end
 
@@ -147,7 +147,7 @@ export default new Router({
       path: '/mlogsOfRecordWell',
       name: 'MlogsOfRecordWell',
       component: MlogsOfRecordWell,
-      meta:{ navShow: false, title: '录井日报'}
+      meta:{ navShow: false, title: '录井分队日报'}
     },
     {
       path: '/MonthLogOfLogWellByCompany',
