@@ -101,9 +101,6 @@
         },
         created(){
           this.requestDate();
-          this.$ruixinApi.setWebViewTitle({ //设置导航条标题
-                title:this.$route.meta.title
-            })
         },
         methods:{
               requestDate() {

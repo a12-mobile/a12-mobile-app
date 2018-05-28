@@ -17,6 +17,7 @@
             :columns="columns" :title-rows="titleRows" 
             :table-data="tableData" 
             :cell-merge="cellMerge"
+            :column-cell-class-name="columnCellClass"
             even-bg-color="#F4F4F4" 
             row-hover-color="#eee"
             row-click-color="#edF7FF"></v-table>
@@ -91,9 +92,6 @@
         },
         created(){
             this.requestData()
-            this.$ruixinApi.setWebViewTitle({ //设置导航条标题
-                title:'井下月报'
-            })
         },
         methods:{
             //请求数据方法
@@ -102,7 +100,35 @@
                 let nextMonth=addMonth(this.date.time,1,'yyyy-MM')
                 getMonthlyOfWorkloadGN(this.date.time+'-01 00:00:00',nextMonth+'-01 00:00:00').then((data)=>{
                     Indicator.close()
-                    this.tableData=data.body
+                    if(data.body){
+                        this.tableData=data.body
+
+                        //检查是否含有所有地区
+                        let jujiorgnames=['集团合计','川庆钻探','大庆钻探','长城钻探','渤海钻探','西部钻探','海洋工程公司','大庆油田','吉林油田','辽河油田','冀东油田','大港油田',
+                                    '华北油田','长庆油田','玉门油田','青海油田','吐哈油田','新疆油田']
+                        let jujisFromDate=[]
+                        for(var date of this.tableData){
+                            jujisFromDate.push(date.jujiorgname)
+                        }
+                        for(var jujiorgname of jujiorgnames){
+                            if(!jujisFromDate.includes(jujiorgname)){
+                                //不存在需要添加
+                                let newItem={
+                                    jujiorgname:jujiorgname,
+                                    remark:'Not exist'
+                                }
+                                this.tableData.push(newItem)
+                            }
+                        }
+                        //排序
+                        this.tableData.sort((pre,next)=>{
+                            let preIndex=jujiorgnames.indexOf(pre.jujiorgname)
+                            let nextIndex=jujiorgnames.indexOf(next.jujiorgname)
+                            return preIndex-nextIndex
+                        })
+                    }else{
+                        this.tableData=[]
+                    }
                 })
                 .catch(function(error) {
                     Indicator.close()
@@ -131,6 +157,11 @@
                     }
                 }
             },
+            columnCellClass(rowIndex,columnName,rowData){
+                if(columnName=='jujiorgname'&&this.tableData[rowIndex].remark=='Not exist'){
+                    return 'oms2-item-not-exict'
+                }
+            }
         },
         components: {
             'oms2-date-picker-monthly':DatePickerMonthly
@@ -145,6 +176,9 @@
     .oms2-date-picker-monthly-input{
         width:100px !important;
         font-size: 10px;
+    }
+    .oms2-item-not-exict{
+        color:#f00;
     }
 
 </style>
