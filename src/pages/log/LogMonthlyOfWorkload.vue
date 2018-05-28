@@ -122,9 +122,6 @@
         },
         created(){
             this.requestData()
-            this.$ruixinApi.setWebViewTitle({ //设置导航条标题
-                title:'测井月报'
-            })
         },
         methods:{
             //请求数据方法

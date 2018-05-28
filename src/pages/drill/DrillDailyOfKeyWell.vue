@@ -26,21 +26,21 @@
                                     <oms2-date-picker-daily :date="date"></oms2-date-picker-daily>
                                 </div>
                             </div> -->
-                            <!-- <div class="form-group row">
-                                <label class="col-3 col-form-label">施工单位:</label>
+                            <div class="form-group row">
+                                <label class="col-4 col-form-label">施工单位:</label>
                                 <div class="col-7">
                                     <select id="inputState" class="form-control" v-model="selectedSGDW">
                                         <option>全部</option>
                                         <option v-for="item in sgdwList">{{item}}</option>
                                     </select>
                                 </div>
-                            </div> -->
+                            </div>
                             <div class="form-group row">
-                                <label class="col-3 col-form-label">井号:</label>
+                                <label class="col-4 col-form-label">井号:</label>
                                 <div class="col-7">
                                     <select id="inputState" class="form-control" v-model="selectedJM">
                                         <option>全部</option>
-                                        <option v-for="item in baseData">{{item.jm}}</option>
+                                        <option v-for="item in jmList">{{item.jm}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -229,6 +229,7 @@
                 baseData:[],
                 tableData: [],
                 sgdwList:[],
+                jmList:[],
                 selectedRow:{},
                 selectedJM:'全部',
                 selectedSGDW:'全部',
@@ -334,9 +335,6 @@
         },
         created(){
             this.requestDate();
-            this.$ruixinApi.setWebViewTitle({ //设置导航条标题
-                title:'钻井日报'
-            })
         },
         methods:{
             requestDate() {
@@ -383,6 +381,28 @@
                         componentName: ''
                     }
                 }
+                // if(field==='sgdw'){
+                //     let juOrgabb=rowData[field]
+                //     let juOrgList=[]
+                //     if(juOrgList.indexOf(juOrgabb)==-1){
+                //         //还没有合并该局级单位
+                //         let num=0  //记录这个局级单位有多少个
+                //         for(let i=rowIndex;i<this.tableData.length;i++){
+                //             if(this.tableData[i].sgdw==juOrgabb){
+                //                 num++
+                //             }
+                //         }
+                //         if(num>0){
+                //             return {
+                //                 colSpan: 1,
+                //                 rowSpan: num,
+                //                 content: juOrgabb,
+                //                 componentName: ''
+                //             }
+                //         }
+                //         juOrgList.push(juOrgabb)
+                //     }
+                // }
             },
             handleChange(date){
                 this.requestDate();
@@ -403,9 +423,11 @@
                 this.baseData.forEach((item)=>{
                     sgdws.add(item.sgdw)
                 })
+                this.sgdwList=[]
                 for(var sgdw of sgdws){
                     this.sgdwList.push(sgdw)
                 }
+                this.jmList=this.baseData
             },
             //行点击回掉
             handleRowClick(rowIndex, rowData, column){
@@ -413,6 +435,18 @@
                 $("#ModalWellMessage").modal('show')
             }
 
+        },
+        watch:{
+            selectedSGDW:function(){
+                if(this.selectedSGDW=="全部"){
+                    this.jmList=this.baseData
+                }else{
+                    this.jmList=this.baseData.filter((item)=>{
+                        return item.sgdw==this.selectedSGDW
+                    })
+                    this.selectedJM='全部'
+                }
+            }
         },
         components: {
             'oms2-date-picker-daily': DatePickerDaily
