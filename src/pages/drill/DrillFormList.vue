@@ -17,7 +17,7 @@
     <br/>
     <br/>
     <router-link to="/dailyOfDrilling">
-      <button type="button" class="btn btn-primary">中油油服钻井工作量日报</button>
+      <button type="button" class="btn btn-primary">钻井综合日报</button>
     </router-link>
   </div>
 </template>

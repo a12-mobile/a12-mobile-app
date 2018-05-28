@@ -4,7 +4,7 @@
       <!--<mt-header :title="$route.meta.title" fixed>
         <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
       </mt-header>-->
-      <h4>中油油服钻井工作量日报</h4>
+      <!--<h4>中油油服钻井工作量日报</h4>-->
       <oms2-date-picker-daily :date="date"
                   @date-add="handleDateAdd"
                   @date-reduce="handleDateReduce"
@@ -41,8 +41,8 @@
         tableData: [],
         multipleSort:false,
         columns: [
-          {field: 'sgdw', width: 80, columnAlign: 'center', isFrozen: true, orderBy:'asc',isResize: true},
-          {field: 'dailyDrilledFootage', width: 70, columnAlign: 'right', isResize: true},
+          {field: 'sgdw', width: 40, columnAlign: 'left', isFrozen: true,isResize: true},
+          {field: 'dailyDrilledFootage', width: 80, columnAlign: 'right', isResize: true},
           {field: 'cumulMonthDrilledFootage', width: 80, columnAlign: 'right', isResize: true},
           {field: 'cumulYearDrilledFootage', width: 80, columnAlign: 'right', isResize: true},
           {field: 'spuddedDayCumul', width: 50, columnAlign: 'right', isResize: true},
