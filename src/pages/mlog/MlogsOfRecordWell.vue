@@ -10,7 +10,7 @@
             <oms2-date-picker-daily :date="date"
                       @date-add="handleDateAdd"
                       @date-reduce="handleDateReduce"
-                      @change="handleChange">
+                      @date-change="handleChange">
             </oms2-date-picker-daily>
             <v-table
                 is-horizontal-resize
@@ -111,6 +111,7 @@
                   //this.$axios.get("http://10.88.123.10:8080/mobile/logging/loggingWell?token=a735579b-93fa-4719-aa92-968191372004&rx_token=a735579b-93fa-4719-aa92-968191372004&date="+this.date.time)
                 getDailyOfMlogWell(this.date.time)
                   .then((data)=> {
+                      console.log("获取到了")
                     Indicator.close()
                     if(data){
                       this.tableData=data.body

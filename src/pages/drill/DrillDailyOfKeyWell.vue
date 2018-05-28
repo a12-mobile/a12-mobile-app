@@ -6,6 +6,7 @@
                 </mt-header>
             </header> -->
         <h4>重点井日报<span class='oms2-search' @click="handleShowSelect"><i class="fa fa-search"></i></span></h4>
+        <oms2-date-picker-daily :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @date-change="handleChange"></oms2-date-picker-daily>
         <!-- <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#ModalSelect"><i class="fa fa-search"></i></button> -->
         <!-- Modal -->
         <div class="modal fade" id="ModalSelect" tabindex="-1" role="dialog" aria-labelledby="ModalSelectTitle" aria-hidden="true">
@@ -19,12 +20,21 @@
                     </div>
                     <div class="modal-body">
                         <form>
-                            <div class="form-group row">
+                            <!-- <div class="form-group row">
                                 <label for="staticEmail" class="col-3 col-form-label">日期:</label>
                                 <div class="col-7 center">
                                     <oms2-date-picker-daily :date="date"></oms2-date-picker-daily>
                                 </div>
-                            </div>
+                            </div> -->
+                            <!-- <div class="form-group row">
+                                <label class="col-3 col-form-label">施工单位:</label>
+                                <div class="col-7">
+                                    <select id="inputState" class="form-control" v-model="selectedSGDW">
+                                        <option>全部</option>
+                                        <option v-for="item in sgdwList">{{item}}</option>
+                                    </select>
+                                </div>
+                            </div> -->
                             <div class="form-group row">
                                 <label class="col-3 col-form-label">井号:</label>
                                 <div class="col-7">
@@ -165,23 +175,23 @@
                             </div>
                             <a href="#" class="list-group-item list-group-item-dark oms2-list-divider">钻井液性能</a>
                             <div class="row">
-                                <label class="col-5 oms2-right">密度-设计(g/cm3):</label>
+                                <label class="col-6 oms2-right">密度-设计(g/cm3):</label>
                                 <p>{{selectedRow.designMudPropDendity | ifNumberIsNull}}</p>
                             </div>
                             <div class="row">
-                                <label class="col-5 oms2-right">密度-实际(g/cm3):</label>
+                                <label class="col-6 oms2-right">密度-实际(g/cm3):</label>
                                 <p>{{selectedRow.mudPropDensity | ifNumberIsNull}}</p>
                             </div>
                             <div class="row">
-                                <label class="col-5 oms2-right">粘度(s):</label>
+                                <label class="col-6 oms2-right">粘度(s):</label>
                                 <p>{{selectedRow.mudPropViscosity | ifNumberIsNull}}</p>
                             </div>
                             <div class="row">
-                                <label class="col-5 oms2-right">失水(ml):</label>
+                                <label class="col-6 oms2-right">失水(ml):</label>
                                 <p>{{selectedRow.mudPropWaterLose | ifNumberIsNull}}</p>
                             </div>
                             <div class="row">
-                                <label class="col-5 oms2-right">含沙(%):</label>
+                                <label class="col-6 oms2-right">含沙(%):</label>
                                 <p>{{selectedRow.mudPropGrittyConsistence | ifNumberIsNull}}</p>
                             </div>
                             <a href="#" class="list-group-item list-group-item-dark oms2-list-divider">套管及钻具</a>
@@ -218,8 +228,10 @@
                 //用于存储井名，查询使用
                 baseData:[],
                 tableData: [],
+                sgdwList:[],
                 selectedRow:{},
                 selectedJM:'全部',
+                selectedSGDW:'全部',
                 columns: [
                     {field: 'sgdw', width: 40, columnAlign: 'left', isFrozen: true},
                     {field: 'jm', width: 85, columnAlign: 'left', isFrozen: true},
@@ -330,22 +342,12 @@
             requestDate() {
                 Indicator.open('加载中...')
                 // getDaliyOfKeyWell(this.date.time)
-                getDaliyOfKeyWell('2018-05-14')
+                getDaliyOfKeyWell(this.date.time)
                 .then((data)=> {
                     Indicator.close()
                     if(data){
-                        if(this.baseData.length==0){
-                            this.baseData=data.body
-                        }
-                        // this.tableData=data.body
-                        this.tableData=[]
-                        if(this.selectedJM!='全部'){
-                            this.tableData=data.body.filter((item)=>{
-                                return item.jm==this.selectedJM
-                            })
-                        }else{
-                            this.tableData=data.body
-                        }
+                        this.tableData=data.body
+                        this.baseData=data.body
                     }else{
                         this.tableData=[]
                     }
@@ -386,10 +388,24 @@
                 this.requestDate();
             },
             handleSelect(){
-                this.requestDate();
+                    if(this.selectedJM!='全部'){
+                        this.tableData=this.baseData.filter((item)=>{
+                            return item.jm==this.selectedJM
+                        })
+                    }else{
+                        this.tableData=this.baseData
+                    }
             },
             handleShowSelect(){
                 $("#ModalSelect").modal('show')
+                //获取施工单位的列表
+                let sgdws=new Set();
+                this.baseData.forEach((item)=>{
+                    sgdws.add(item.sgdw)
+                })
+                for(var sgdw of sgdws){
+                    this.sgdwList.push(sgdw)
+                }
             },
             //行点击回掉
             handleRowClick(rowIndex, rowData, column){
