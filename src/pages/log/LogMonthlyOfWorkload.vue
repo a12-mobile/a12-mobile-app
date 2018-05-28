@@ -5,11 +5,11 @@
                     <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
                 </mt-header>
             </header> -->
-        <h4>测井工作量统计表</h4>
+        <!-- <h4>测井工作量统计表</h4> -->
         <oms2-date-picker-monthly :date=date @date-change="handleChange"></oms2-date-picker-monthly>
         <!-- Button trigger modal -->
         
-        <v-table is-horizontal-resize is-vertical-resize :title-row-height=25 :row-height=30 title-bg-color="#F6F6F6" style="width:98%;margin-left:1%;font-size:12px" :columns="columns" :title-rows="titleRows" :table-data="tableData" :cell-merge="cellMerge" even-bg-color="#F4F4F4"
+        <v-table is-horizontal-resize is-vertical-resize :title-row-height=25 :row-height=30 title-bg-color="#F6F6F6" style="width:100%;font-size:12px"  :columns="columns" :title-rows="titleRows" :table-data="tableData" :cell-merge="cellMerge" even-bg-color="#F4F4F4"
             row-hover-color="#eee" row-click-color="#edF7FF"></v-table>
     </div>
 </template>

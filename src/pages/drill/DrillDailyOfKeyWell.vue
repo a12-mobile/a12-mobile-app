@@ -5,8 +5,7 @@
                     <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
                 </mt-header>
             </header> -->
-        <h4>重点井日报<span class='oms2-search' @click="handleShowSelect"><i class="fa fa-search"></i></span></h4>
-        <oms2-date-picker-daily :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @date-change="handleChange"></oms2-date-picker-daily>
+        <oms2-date-picker-daily :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @date-change="handleChange"></oms2-date-picker-daily><span class='oms2-search' @click="handleShowSelect"><i class="fa fa-search"></i></span>
         <!-- <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#ModalSelect"><i class="fa fa-search"></i></button> -->
         <!-- Modal -->
         <div class="modal fade" id="ModalSelect" tabindex="-1" role="dialog" aria-labelledby="ModalSelectTitle" aria-hidden="true">
@@ -60,7 +59,7 @@
             :row-height=30 
             :row-click="handleRowClick"
             title-bg-color="#F6F6F6" 
-            style="width:98%;margin-left:1%;font-size:12px" 
+            style="width:100%;font-size:12px" 
             :columns="columns" 
             :title-rows="titleRows" 
             :table-data="tableData" 

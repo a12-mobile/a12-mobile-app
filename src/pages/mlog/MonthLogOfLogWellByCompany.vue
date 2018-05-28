@@ -19,7 +19,7 @@
     <v-table
       is-horizontal-resize
       is-vertical-resize
-      style="width:98%;margin-left:1%;font-size:12px"
+      style="width:100%;font-size:12px" 
       :title-row-height=25
       :row-height=30
       title-bg-color="#F6F6F6"
