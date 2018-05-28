@@ -42,8 +42,8 @@
         multipleSort:false,
         columns: [
           {field: 'sgdw', width: 80, columnAlign: 'center', isFrozen: true, orderBy:'asc',isResize: true},
-          {field: 'dailyDrilledFootage', width: 60, columnAlign: 'right', isResize: true},
-          {field: 'cumulMonthDrilledFootage', width: 70, columnAlign: 'right', isResize: true},
+          {field: 'dailyDrilledFootage', width: 70, columnAlign: 'right', isResize: true},
+          {field: 'cumulMonthDrilledFootage', width: 80, columnAlign: 'right', isResize: true},
           {field: 'cumulYearDrilledFootage', width: 80, columnAlign: 'right', isResize: true},
           {field: 'spuddedDayCumul', width: 50, columnAlign: 'right', isResize: true},
           {field: 'spuddedMonthCumul', width: 50, columnAlign: 'right', isResize: true},
