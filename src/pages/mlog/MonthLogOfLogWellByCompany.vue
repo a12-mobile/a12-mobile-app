@@ -1,16 +1,15 @@
 <template>
   <div>
     <header>
-      <mt-header :title="$route.meta.title" fixed>
+      <!--<mt-header :title="$route.meta.title" fixed>
         <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
-      </mt-header>
+      </mt-header>-->
     </header>
     <h5>录井工作量分单位月报</h5>
     <oms2-date-picker-monthly
       :date=date
       @date-change="handleChange"
     ></oms2-date-picker-monthly>
-
     <!--<div class="oms2-datepicker-content">-->
       <!--<vue-datepicker-local-->
         <!--v-model="date"-->
@@ -27,6 +26,8 @@
       :columns="columns"
       :table-data="tableData"
       :title-rows="titleRows"
+      :cellMerge="cellMerge"
+      :footer="footer"
       row-hover-color="#eee"
       row-click-color="#edf7ff"
       even-bg-color="#f4f4f4"
@@ -39,216 +40,37 @@
 <script>
     import DatePickerMonthly from './../../components/datepicker/DatePickerMonthly'
     import { Indicator } from 'mint-ui';
-    import { getMonthlyOfWorkloadGN } from './../../service/dh/dhGetData'
+    import { getMonthLogOfMlogWellByCompany } from './../../service/mlog/mlogGetData'
     import { getCurrentDate } from '../../service/utils/date/date'
     export default {
       name: "MonthLogOfLogWellByCompany",
       data: function () {
         return {
           date: {time:getCurrentDate()},
-          tableData: [
-            // {
-            //   "market1": "大庆钻探",
-            //   "market2": "小计",
-            //   //"market3": "小计",
-            //   "logWellTotalNum": "620",
-            //   "logWellTotalNum2": "178",
-            //   "prospectingWell": "14",
-            //   "developmentWell": "104",
-            //   "synthesizeWell": "36",
-            //   "gasLogWell":"29",
-            //   "geologicalLogWell":"113",
-            //   "geochemicalLogWell2":"246",
-            //   "quantitativeFluorescence":"35",
-            //   "nmrLogWell":"15",
-            //   "imaging":"102",
-            //   "elementsLogWell":"124",
-            //   "logWellGuide":"12",
-            //   "teleransission":"32",
-            //   //"tryOilLogWell":"124",
-            //   "countNum":"13",
-            //   "trueLength":"937.44",
-            //   "engineeringAnomalyForecast":"19",
-            //   "inlandLogWell":"178",
-            //   "foreignLogWell":"124",
-            // },
-            // {
-            //   "market1": "大庆钻探",
-            //   "market2": "录井一公司",
-            //   //"market3": "大庆",
-            //   "logWellTotalNum": "15",
-            //   "logWellTotalNum2": "20",
-            //   "prospectingWell": "234",
-            //   "developmentWell": "45",
-            //   "synthesizeWell": "577"
-            // },
-            // {
-            //   "market1": "大庆钻探",
-            //   "market2": "录井二公司",
-            //   //"market3": "辽河",
-            //   "logWellTotalNum": "657",
-            //   "logWellTotalNum2": "20",
-            //   "prospectingWell": "944",
-            //   "developmentWell": "45",
-            //   "synthesizeWell": "670"
-            // },
-            // {
-            //   "market1": "西部钻探",
-            //   "market2": "小计",
-            //   //"market3": "吉林",
-            //   "logWellTotalNum": "15",
-            //   "logWellTotalNum2": "20",
-            //   "prospectingWell": "124",
-            //   "developmentWell": "45",
-            //   "synthesizeWell": "150"
-            // },
-            // {
-            //   "market1": "西部钻探",
-            //   "market2": "克拉玛依录井工程公司",
-            //   //"market3": "华北",
-            //   "logWellTotalNum": "15",
-            //   "logWellTotalNum2": "20",
-            //   "prospectingWell": "456",
-            //   "developmentWell": "45",
-            //   "synthesizeWell": "150"
-            // },
-            // {
-            //   "market1": "西部钻探",
-            //   "market2": "吐哈录井工程公司",
-            //   //"market3": "大港",
-            //   "logWellTotalNum": "15",
-            //   "logWellTotalNum2": "20",
-            //   "prospectingWell": "124",
-            //   "developmentWell": "112",
-            //   "synthesizeWell": "150"
-            // },
-            // {
-            //   "market1": "长城钻探",
-            //   "market2": "小计",
-            //   //"market3": "西南",
-            //   "logWellTotalNum": "15",
-            //   "logWellTotalNum2": "234",
-            //   "prospectingWell": "124",
-            //   "developmentWell": "45",
-            //   "synthesizeWell": "150"
-            // },
-            // {
-            //   "market1": "长城钻探",
-            //   "market2": "录井公司",
-            //   //"market3": "长庆",
-            //   "logWellTotalNum": "15",
-            //   "logWellTotalNum2": "20",
-            //   "prospectingWell": "278",
-            //   "developmentWell": "45",
-            //   "synthesizeWell": "150"
-            // },
-            // {
-            //   "market1": "渤海钻探",
-            //   "market2": "小计",
-            //   //"market3": "新疆",
-            //   "logWellTotalNum": "15",
-            //   "logWellTotalNum2": "220",
-            //   "prospectingWell": "124",
-            //   "developmentWell": "45",
-            //   "synthesizeWell": "150"
-            // },
-            // {
-            //   "market1": "渤海钻探",
-            //   "market2": "第一录井公司",
-            //   //"market3": "吐哈",
-            //   "logWellTotalNum": "15",
-            //   "logWellTotalNum2": "568",
-            //   "prospectingWell": "124",
-            //   "developmentWell": "45",
-            //   "synthesizeWell": "150"
-            // },
-            // {
-            //   "market1": "渤海钻探",
-            //   "market2": "第二录井公司",
-            //   //"market3": "塔里木",
-            //   "logWellTotalNum": "15",
-            //   "logWellTotalNum2": "943",
-            //   "prospectingWell": "124",
-            //   "developmentWell": "45",
-            //   "synthesizeWell": "150"
-            // },
-            // {
-            //   "market1": "川庆钻探",
-            //   "market2": "小计",
-            //   //"market3": "青海",
-            //   "logWellTotalNum": "15",
-            //   "logWellTotalNum2": "20",
-            //   "prospectingWell": "124",
-            //   "developmentWell": "456",
-            //   "synthesizeWell": "150"
-            // },
-            // {
-            //   "market1": "川庆钻探",
-            //   "market2": "地研院",
-            //   //"market3": "玉门",
-            //   "logWellTotalNum": "15",
-            //   "logWellTotalNum2": "20",
-            //   "prospectingWell": "838",
-            //   "developmentWell": "45",
-            //   "synthesizeWell": "150"
-            // },
-            // {
-            //   "market1": "中油测井",
-            //   "market2": "小计",
-            //   //"market3": "冀东",
-            //   "logWellTotalNum": "15",
-            //   "logWellTotalNum2": "647",
-            //   "prospectingWell": "124",
-            //   "developmentWell": "45",
-            //   "synthesizeWell": "150"
-            // },
-            // {
-            //   "market1": "中油测井",
-            //   "market2": "青海分公司",
-            //   //"market3": "浙江",
-            //   "logWellTotalNum": "15",
-            //   "logWellTotalNum2": "765",
-            //   "prospectingWell": "124",
-            //   "developmentWell": "45",
-            //   "synthesizeWell": "150"
-            // },
-            // {
-            //   "market1": "总计",
-            //   // "market2": "集团内",
-            //   // "market3": "南方",
-            //   "logWellTotalNum": "15",
-            //   "logWellTotalNum2": "557",
-            //   "prospectingWell": "124",
-            //   "developmentWell": "248",
-            //   "synthesizeWell": "150"
-            // },
-
-
-          ],
+          tableData: [],
           columns: [
             {field: 'jujorgNam', width: 70, columnAlign: 'center', isResize: true, isFrozen: true},
             {field: 'cjorgName', width: 140, columnAlign: 'center', isResize: true, isFrozen: true},
-            {field: 'logWellTotalNum', width: 50, columnAlign: 'center', isResize: true},
-            {field: 'logWellTotalNum2', width: 50, columnAlign: 'center', isResize: true},
-            {field: 'ewellNum', width: 50, columnAlign: 'center', isResize: true},
-            {field: 'dwellNum', width: 50, columnAlign: 'center', isResize: true},
-            {field: 'synthesizeWell', width: 50, columnAlign: 'center', isResize: true},
-            {field: 'gasLogWell', width: 50, columnAlign: 'center', isResize: true},
-            {field: 'geologicalLogWell', width: 50, columnAlign: 'center', isResize: true},
-            {field: 'geochemicalLogWell2', width: 50, columnAlign: 'center', isResize: true},
-            {field: 'quantitativeFluorescence', width: 50, columnAlign: 'center', isResize: true},
-            {field: 'nmrLogWell', width: 50, columnAlign: 'center', isResize: true},
-            {field: 'imaging', width: 50, columnAlign: 'center', isResize: true},
-            {field: 'elementsLogWell', width: 50, columnAlign: 'center', isResize: true},
-            {field: 'logWellGuide', width: 50, columnAlign: 'center', isResize: true},
-            {field: 'teleransission', width: 50, columnAlign: 'center', isResize: true},
-            {field: 'tryOilLogWell', width: 50, columnAlign: 'center', isResize: true},
-            {field: 'countNum', width: 50, columnAlign: 'center', isResize: true},
-            {field: 'spare1', width: 50, columnAlign: 'center', isResize: true},
-            {field: 'engineeringAnomalyForecast', width: 50, columnAlign: 'center', isResize: true},
-            {field: 'inlandLogWell', width: 50, columnAlign: 'center', isResize: true},
-            {field: 'foreignLogWell', width: 50, columnAlign: 'center', isResize: true}
-
+            {field: 'logWellTotalNum', width: 50, columnAlign: 'right', isResize: true},
+            {field: 'logWellTotalNum2', width: 50, columnAlign: 'right', isResize: true},
+            {field: 'ewellNum', width: 50, columnAlign: 'right', isResize: true},
+            {field: 'dwellNum', width: 50, columnAlign: 'right', isResize: true},
+            {field: 'synthesizeWell', width: 50, columnAlign: 'right', isResize: true},
+            {field: 'gasLogWell', width: 50, columnAlign: 'right', isResize: true},
+            {field: 'geologicalLogWell', width: 50, columnAlign: 'right', isResize: true},
+            {field: 'geochemicalLogWell2', width: 50, columnAlign: 'right', isResize: true},
+            {field: 'quantitativeFluorescence', width: 50, columnAlign: 'right', isResize: true},
+            {field: 'nmrLogWell', width: 50, columnAlign: 'right', isResize: true},
+            {field: 'imaging', width: 50, columnAlign: 'right', isResize: true},
+            {field: 'elementsLogWell', width: 50, columnAlign: 'right', isResize: true},
+            {field: 'logWellGuide', width: 50, columnAlign: 'right', isResize: true},
+            {field: 'teleransission', width: 50, columnAlign: 'right', isResize: true},
+            {field: 'tryOilLogWell', width: 50, columnAlign: 'right', isResize: true},
+            {field: 'countNum', width: 50, columnAlign: 'right', isResize: true},
+            {field: 'spare1', width: 50, columnAlign: 'right', isResize: true},
+            {field: 'engineeringAnomalyForecast', width: 50, columnAlign: 'right', isResize: true},
+            {field: 'inlandLogWell', width: 50, columnAlign: 'right', isResize: true},
+            {field: 'foreignLogWell', width: 50, columnAlign: 'right', isResize: true}
           ],
           titleRows: [
             //第一行
@@ -277,50 +99,110 @@
             //设计
             [{fields: ['countNum'], title: '口数', titleAlign: 'center', rowspan: 1},
             {fields: ['spare1'], title: '实长(m)', titleAlign: 'center', rowspan: 1}],
-          ]
+          ],
+          footer: []
         }
       },
       created(){
         this.requestData()
+        this.$ruixinApi.setWebViewTitle({ //设置导航条标题
+          title:'录井分单位月报'
+        })
       },
       methods: {
           requestData(){
-            Indicator.open('加载中...')
-            this.$http('GET', '/mlog/month/byCompany', {
-              "date": this.date.time
-            })
-              .then((data) => {
+              Indicator.open('加载中...')
+              getMonthLogOfMlogWellByCompany(this.date.time).then((data)=>{
                 Indicator.close()
-                if (data) {
-                  this.tableData = data
-                } else {
-                  this.tableData = []
-                }
+                this.tableData=data.body
               })
-              .catch(function (error) {
+              .catch(function(error) {
                 Indicator.close()
                 console.log(error)
               })
-            // getMonthlyOfWorkloadGN(this.date.time).then((data)=>{
-            //   Indicator.close()
-            //   this.tableData=data.body
-            // })
-            //   .catch(function(error) {
-            //     Indicator.close()
-            //     console.log(error)
-            //   })
-
           },
-          handleBack() {
+          setFooterData(){
+
+            let result = [],
+              amounts1 = this.tableData.map(item => {
+                return item.amount1
+              }),
+              amounts2 = this.tableData.map(item => {
+                return item.amount2
+              });
+
+            let minVal = ['最小值'];
+            minVal.push(Math.min.apply(null, amounts1)+' ￥');
+            minVal.push(Math.min.apply(null, amounts2)+' ￥');
+            minVal.push('-');
+
+
+            let sumVal = ['求和'];
+            sumVal.push(
+              amounts1.reduce((prev, curr) => {
+
+                return parseInt(prev) + parseInt(curr);
+              }, 0)+' ￥'
+            )
+
+            sumVal.push(
+              amounts2.reduce((prev, curr) => {
+
+                return parseInt(prev) + parseInt(curr);
+              }, 0)+' ￥'
+            )
+
+            sumVal.push('-');
+
+
+            result.push(minVal);
+            result.push(sumVal);
+
+            this.footer = result;
+          },
+
+        handleBack() {
               if(Indicator){
                 Indicator.close()
               }
               window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
           },
-          handleChange(){
-            this.requestData()
+        handleChange(){
+          this.requestData()
+        },
+        cellMerge(rowIndex,rowData,field){
+          if (field === 'jujorgNam' && rowData[field] === '集团总计') {
+            return {
+              colSpan: 2,
+              rowSpan: 1,
+              content: '总计',
+              componentName: ''
+            }
+          }
+            if(field==='jujorgNam'){
+            let jujorgNam=rowData[field]
+            let jujorgNamList=[]
+            if(jujorgNamList.indexOf(jujorgNam)==-1){
+              //还没有合并该局级单位
+              let num=0  //记录这个局级单位有多少个
+              for(let i=rowIndex;i<this.tableData.length;i++){
+                if(this.tableData[i].jujorgNam==jujorgNam){
+                  num++
+                }
+              }
+              if(num>0){
+                return {
+                  colSpan: 1,
+                  rowSpan: num,
+                  content: jujorgNam,
+                  componentName: ''
+                }
+              }
+              jujorgNamList.push(jujorgNam)
+            }
           }
 
+        }
       },
       components: {
         'oms2-date-picker-monthly':DatePickerMonthly
@@ -334,58 +216,7 @@
         //       content: '<span >大庆钻探</span>',
         //       componentName: ''
         //     }
-        //   } else if (field === 'market1' &&  rowData[field] === '西部钻探') {
-        //     return {
-        //       colSpan: 1,
-        //       rowSpan: 3,
-        //       content: '<span >西部钻探</span>',
-        //       componentName: ''
-        //     }
-        //   } else if (field === 'market1' && rowData[field] === '长城钻探') {
-        //     return {
-        //       colSpan: 1,
-        //       rowSpan: 2,
-        //       content: '<span >长城钻探</span>',
-        //       componentName: '',
-        //     }
-        //   }else if (field === 'market1' && rowData[field] === '渤海钻探') {
-        //     return {
-        //       colSpan: 1,
-        //       rowSpan: 3,
-        //       content: '<span >集团外</span>',
-        //       componentName: '',
-        //     }
-        //   }else if (field === 'market1' && rowData[field] === '川庆钻探') {
-        //     return {
-        //       colSpan: 1,
-        //       rowSpan: 2,
-        //       content: '<span >川庆钻探</span>',
-        //       componentName: '',
-        //     }
-        //   }else if (field === 'market1' && rowData[field] === '中油测井') {
-        //     return {
-        //       colSpan: 1,
-        //       rowSpan: 2,
-        //       content: '<span style="text-align: center">中油测井</span>',
-        //       componentName: '',
-        //     }
-        //   }else if (field === 'market1' && rowData[field] === '总计') {
-        //     return {
-        //       colSpan: 2,
-        //       rowSpan: 1,
-        //       content: '<span >总计</span>',
-        //       componentName: '',
-        //     }
-        //   }else if (field === 'market1' && rowData[field] === '合计') {
-        //     return {
-        //       colSpan: 3,
-        //       rowSpan: 1,
-        //       content: '<span >合    计</span>',
-        //       componentName: '',
-        //     }
         //   }
-        // }
-      // }
     }
 </script>
 
