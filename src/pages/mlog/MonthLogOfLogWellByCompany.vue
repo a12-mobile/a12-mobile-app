@@ -5,7 +5,7 @@
         <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
       </mt-header>-->
     </header>
-    <h5>录井工作量分单位月报</h5>
+    <!--<h5>录井工作量分单位月报</h5>-->
     <oms2-date-picker-monthly
       :date=date
       @date-change="handleChange"
@@ -49,8 +49,8 @@
           date: {time:getCurrentDate()},
           tableData: [],
           columns: [
-            {field: 'jujorgNam', width: 70, columnAlign: 'center', isResize: true, isFrozen: true},
-            {field: 'cjorgName', width: 140, columnAlign: 'center', isResize: true, isFrozen: true},
+            {field: 'jujorgNam', width: 70, columnAlign: 'left', isResize: true, isFrozen: true},
+            {field: 'cjorgName', width: 140, columnAlign: 'left', isResize: true, isFrozen: true},
             {field: 'logWellTotalNum', width: 50, columnAlign: 'right', isResize: true},
             {field: 'logWellTotalNum2', width: 50, columnAlign: 'right', isResize: true},
             {field: 'ewellNum', width: 50, columnAlign: 'right', isResize: true},
@@ -74,7 +74,7 @@
           ],
           titleRows: [
             //第一行
-            [{fields: ['jujorgNam', 'cjorgName'], title: '市场分布', titleAlign: 'center', rowspan:2, colspan: 2},
+            [{fields: ['jujorgNam', 'cjorgName'], title: '单位', titleAlign: 'center', rowspan:2, colspan: 2},
               {fields: ['logWellTotalNum'], title: '录井总井次', titleAlign: 'center', rowspan: 2},
               {fields: ['logWellTotalNum2'], title: '录井总口数', titleAlign: 'center', rowspan: 2},
               {fields: ['ewellNum'], title: '探井(口)', titleAlign: 'center', rowspan: 2},
@@ -105,9 +105,9 @@
       },
       created(){
         this.requestData()
-        this.$ruixinApi.setWebViewTitle({ //设置导航条标题
-          title:'录井分单位月报'
-        })
+        // this.$ruixinApi.setWebViewTitle({ //设置导航条标题
+        //   title:'录井分单位月报'
+        // })
       },
       methods: {
           requestData(){

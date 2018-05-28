@@ -5,7 +5,7 @@
                 <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
                 </mt-header>
             </header> -->
-            <h4>录井分井动态</h4>
+            <!--<h4>录井分队日报</h4>-->
             <!--引入日期控件-->
             <oms2-date-picker-daily :date="date"
                       @date-add="handleDateAdd"
@@ -43,8 +43,9 @@
             return {
                     date: timepicker.startTime,
                     tableData: [],
+                    baseData: [],
                     columns: [
-                        {field: 'jujname', width: 60, columnAlign: 'center',isResize:true, isFrozen: true},
+                        {field: 'jujname', width: 60, columnAlign: 'left',isResize:true, isFrozen: true},
                         {
                         field: 'serialNum', width: 30, titleAlign: 'center', columnAlign: 'center',
                             formatter: function (rowData, index) {
@@ -101,9 +102,9 @@
         },
         created(){
           this.requestDate();
-          this.$ruixinApi.setWebViewTitle({ //设置导航条标题
-                title:this.$route.meta.title
-            })
+          // this.$ruixinApi.setWebViewTitle({ //设置导航条标题
+          //       title:this.$route.meta.title
+          //   })
         },
         methods:{
               requestDate() {
@@ -115,6 +116,9 @@
                     Indicator.close()
                     if(data){
                       this.tableData=data.body
+                      // setTimeout(()=>{
+                      //   this.tableData=this.baseData
+                      // },100)
                     }else{
                       this.tableData=[]
                     }
@@ -170,28 +174,28 @@
               },
               //合并单元格
               cellMerge(rowIndex,rowData,field){
-                if(field==='jujname'){
-                  let jujname=rowData[field]
-                  let jujnameList=[]
-                  if(jujnameList.indexOf(jujname)==-1){
-                    //还没有合并该局级单位
-                    let num=0  //记录这个局级单位有多少个
-                    for(let i=rowIndex;i<this.tableData.length;i++){
-                      if(this.tableData[i].jujname==jujname){
-                        num++
-                      }
-                    }
-                    if(num>0){
-                      return {
-                        colSpan: 1,
-                        rowSpan: num,
-                        content: jujname,
-                        componentName: ''
-                      }
-                    }
-                    jujnameList.push(jujname)
-                  }
-                }
+                // if(field==='jujname'){
+                //   let jujname=rowData[field]
+                //   let jujnameList=[]
+                //   if(jujnameList.indexOf(jujname)==-1){
+                //     //还没有合并该局级单位
+                //     let num=0  //记录这个局级单位有多少个
+                //     for(let i=rowIndex;i<this.tableData.length;i++){
+                //       if(this.tableData[i].jujname==jujname){
+                //         num++
+                //       }
+                //     }
+                //     if(num>0){
+                //       return {
+                //         colSpan: 1,
+                //         rowSpan: num,
+                //         content: jujname,
+                //         componentName: ''
+                //       }
+                //     }
+                //     jujnameList.push(jujname)
+                //   }
+                // }
               }
 
         },
