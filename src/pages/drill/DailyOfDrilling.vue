@@ -94,6 +94,9 @@
     },
     created() {
       this.requestDate();
+      // this.$ruixinApi.setWebViewTitle({ //设置导航条标题
+      //   title:'钻井分井动态'
+      // })
     },
     methods: {
       requestDate() {
