@@ -4,7 +4,7 @@
             <!-- <mt-header :title="$route.meta.title" fixed>
                     <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
                 </mt-header> -->
-            <h5>井下作业工作量统计月报（总）</h5>
+            <!-- <h5>井下作业工作量统计月报（总）</h5> -->
             <oms2-date-picker-monthly :date=date @date-change="handleChange"></oms2-date-picker-monthly>
         </header>
         <v-table 
@@ -13,7 +13,7 @@
             :title-row-height=25 
             :row-height=30 
             title-bg-color="#F6F6F6" 
-            style="width:98%;margin-left:1%;font-size:12px" 
+            style="width:100%;font-size:12px" 
             :columns="columns" 
             :cell-merge="cellMerge"
             :title-rows="titleRows" 

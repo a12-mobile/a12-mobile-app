@@ -15,7 +15,7 @@
             <v-table
                 is-horizontal-resize
                 is-vertical-resize
-                style="width:98%;margin-left:1%;font-size:12px"
+                style="width:100%;font-size:12px"
                 :title-row-height=30
                 :row-height=30
                 :columns="columns"

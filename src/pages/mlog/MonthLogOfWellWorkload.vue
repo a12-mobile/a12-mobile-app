@@ -10,7 +10,7 @@
     <v-table
       is-horizontal-resizenpm
       is-vertical-resize
-      style="width:98%,margin-left:1%;font-size:12px"
+      style="width:100%;font-size:12px" 
       :columns="columns"
       :table-data="tableData"
       :title-rows="titleRows"
