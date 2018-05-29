@@ -18,6 +18,7 @@
                 style="width:100%;font-size:12px"
                 :title-row-height=30
                 :row-height=30
+                :height=tableHeight
                 :columns="columns"
                 :table-data="tableData"
                 :title-rows="titleRows"
@@ -27,6 +28,7 @@
                 even-bg-color="#f4f4f4"
                 title-bg-color="#F6F6F6"
         ></v-table>
+        <div class='oms2-report-float-right'>数据来源于集团系统录井分井动态</div>
     </div>
 </template>
 
@@ -41,6 +43,7 @@
     export default{
         data() {
             return {
+                    tableHeight:0,   //表格高度
                     date: timepicker.startTime,
                     tableData: [],
                     baseData: [],
@@ -102,9 +105,7 @@
         },
         created(){
           this.requestDate();
-          // this.$ruixinApi.setWebViewTitle({ //设置导航条标题
-          //       title:this.$route.meta.title
-          //   })
+          this.tableHeight=window.innerHeight-70
         },
         methods:{
               requestDate() {
@@ -112,7 +113,6 @@
                   //this.$axios.get("http://10.88.123.10:8080/mobile/logging/loggingWell?token=a735579b-93fa-4719-aa92-968191372004&rx_token=a735579b-93fa-4719-aa92-968191372004&date="+this.date.time)
                 getDailyOfMlogWell(this.date.time)
                   .then((data)=> {
-                      console.log("获取到了")
                     Indicator.close()
                     if(data){
                       this.tableData=data.body

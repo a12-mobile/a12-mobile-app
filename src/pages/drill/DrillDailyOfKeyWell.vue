@@ -1,13 +1,8 @@
 <template>
     <div ip="DailyOfKeyWell">
-        <!-- <header>
-                <mt-header :title="$route.meta.title" fixed>
-                    <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
-                </mt-header>
-            </header> -->
-        <oms2-date-picker-daily :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @date-change="handleChange"></oms2-date-picker-daily><span class='oms2-search' @click="handleShowSelect"><i class="fa fa-search"></i></span>
-        <!-- <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#ModalSelect"><i class="fa fa-search"></i></button> -->
-        <!-- Modal -->
+        <oms2-date-picker-daily :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @date-change="handleDateChange"></oms2-date-picker-daily><span class='oms2-search' @click="handleShowSelect"><i class="fa fa-search"></i></span>
+
+        <!-- 查询 Modal -->
         <div class="modal fade" id="ModalSelect" tabindex="-1" role="dialog" aria-labelledby="ModalSelectTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -19,12 +14,6 @@
                     </div>
                     <div class="modal-body">
                         <form>
-                            <!-- <div class="form-group row">
-                                <label for="staticEmail" class="col-3 col-form-label">日期:</label>
-                                <div class="col-7 center">
-                                    <oms2-date-picker-daily :date="date"></oms2-date-picker-daily>
-                                </div>
-                            </div> -->
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">施工单位:</label>
                                 <div class="col-7">
@@ -37,10 +26,18 @@
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">井号:</label>
                                 <div class="col-7">
-                                    <select id="inputState" class="form-control" v-model="selectedJM">
-                                        <option>全部</option>
-                                        <option v-for="item in jmList">{{item.jm}}</option>
-                                    </select>
+                                    <vue-instant 
+                                        suggestion-attribute="original_title" 
+                                        v-model="selectedJM" 
+                                        :disabled="false"  
+                                        @input="handleInstantChange"
+                                        :show-autocomplete="true" 
+                                        :autofocus="false" 
+                                        :suggestions="suggestions" 
+                                        name="customName" 
+                                        placeholder="填写井名" 
+                                        type="google">
+                                    </vue-instant>
                                 </div>
                             </div>
                         </form>
@@ -59,14 +56,14 @@
             :row-height=30 
             :row-click="handleRowClick"
             title-bg-color="#F6F6F6" 
-            style="width:100%;font-size:12px" 
+            :height=tableHeight
+            style="width:100%;font-size:12px"
             :columns="columns" 
             :title-rows="titleRows" 
             :table-data="tableData" 
             :cell-merge="cellMerge"
             even-bg-color="#F4F4F4" row-hover-color="#eee" row-click-color="#edF7FF"></v-table>
-
-
+        <div class='oms2-report-float-right'>数据来源于集团系统钻井重点井日报</div>
 
 
         <!-- Modal 具体数据信息 -->
@@ -201,7 +198,7 @@
                         
                         </form>
                         <div class="modal-footer">
-                            <button type="button" data-dismiss="modal" class="btn btn-primary">确定</button>
+                            <button type="button" data-dismiss="modal" class="btn btn-primary">返回</button>
                         </div>
                     </div>
                 </div>
@@ -211,27 +208,24 @@
 </template>
 
 <script>
-/////单位排序，然后设计井深排序
-////////注意   施工区域字段未找到
     import DatePickerDaily from './../../components/datepicker/DatePickerDaily'
-
     import { Indicator } from 'mint-ui';
     import timepicker from './../../components/datepicker/timepicker'
-    import { Toast } from "mint-ui"
+    import { showToast,POSITION } from "./../../service/utils/toast/toast.js"
     import { getDaliyOfKeyWell } from './../../service/drill/drillGetData'
     export default {
          data() {
             return {
-                // ruixinApi:new RuixinOpenAPI(),
-                date: timepicker.startTime,
-                //用于存储井名，查询使用
-                baseData:[],
-                tableData: [],
-                sgdwList:[],
-                jmList:[],
-                selectedRow:{},
-                selectedJM:'全部',
-                selectedSGDW:'全部',
+                tableHeight:0,   //表格高度
+                suggestions:[],  //搜索井名时提示的数组
+                date: timepicker.startTime,  //时间选择器使用
+                baseData:[],     //对从服务器获取的数据进行备份，方便查询等操作，不许重复向服务器查询
+                tableData: [],   //表格中显示的数据
+                sgdwList:[],     //施工单位列表  用于查询使用
+                jmList:[],       //井名列表  用于查询使用
+                selectedRow:{},  //选中的行
+                selectedJM:'',   //查询的井名
+                selectedSGDW:'全部', //查询的施工单位
                 columns: [
                     {field: 'sgdw', width: 40, columnAlign: 'left', isFrozen: true},
                     {field: 'jm', width: 85, columnAlign: 'left', isFrozen: true},
@@ -256,7 +250,6 @@
                     {field: 'deliveryVolume', width: 40, columnAlign: 'right',isResize:true},
                     {field: 'onlydrill', width: 50, columnAlign: 'right',isResize:true},
                     {field: 'drillRotateSpeed', width: 50, columnAlign: 'right',isResize:true},
-                    // {field: 'jixiezuansu', width: 70, columnAlign: 'right',isResize:true},
                     {field: 'pumpPressure', width: 40, columnAlign: 'right',isResize:true},
                     {field: 'designMudPropDendity', width: 60, columnAlign: 'right',isResize:true},
                     {field: 'mudPropDensity', width: 60, columnAlign: 'right',isResize:true},
@@ -302,16 +295,12 @@
                               {fields: ['deliveryVolume'], title: '排量(L/s)', titleAlign: 'center', rowspan: 2},
                               {fields: ['onlydrill'], title: '纯钻时间(h)', titleAlign: 'center', rowspan: 2},
                               {fields: ['drillRotateSpeed'], title: '转速(r/min)', titleAlign: 'center', rowspan: 2},
-                            //   {fields: ['jixiezuansu'], title: '机械钻速(m/h)', titleAlign: 'center', rowspan: 2},
                               {fields: ['pumpPressure'], title: '泵压(MPa)', titleAlign: 'center', rowspan: 2},
                               {fields: ['designMudPropDendity','mudPropDensity'], title: '密度(g/cm3)', titleAlign: 'center', colspan:2},
 
                               {fields: ['mudPropViscosity'], title: '粘度(s)', titleAlign: 'center', rowspan: 2},
                               {fields: ['mudPropWaterLose'], title: '失水(ml)', titleAlign: 'center', rowspan: 2},
                               {fields: ['mudPropGrittyConsistence'], title: '含砂(%)', titleAlign: 'center', rowspan: 2},
-                            //   //套管及钻具
-                            //   {fields: ['taoguanguige'], title: '套管规格(mmX米)', titleAlign: 'center', rowspan: 2},
-                            //   {fields: ['zuanjuzuhe'], title: '钻具组合', titleAlign: 'center', rowspan: 2},
                              ],
 
                               //第三行
@@ -333,18 +322,23 @@
                 }
         },
         created(){
+            //首次进入页面获取数据
             this.requestDate();
+            this.tableHeight=window.innerHeight-70
         },
         methods:{
+            /**
+             * 向服务器获取数据的方法
+             */
             requestDate() {
                 Indicator.open('加载中...')
-                // getDaliyOfKeyWell(this.date.time)
                 getDaliyOfKeyWell(this.date.time)
                 .then((data)=> {
                     Indicator.close()
                     if(data){
                         this.tableData=data.body
                         this.baseData=data.body
+                        
                     }else{
                         this.tableData=[]
                     }
@@ -354,23 +348,40 @@
                     console.log(error)
                 })
             },
+            /**
+             * 返回的方法
+             */
             handleBack(){
                 if(Indicator){
                     Indicator.close()
                 }
                 window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
             },
+            /**
+             * 日期增加的方法
+             */
             handleDateAdd(param){
                 if (param.canAdd) {
                     this.requestDate();
                 }
             },
+            /**
+             * 日期减少的方法
+             */
             handleDateReduce(param){
                 if (param.canReduce) {
                     this.requestDate();
                 }
             },
-            //设置列单元格样式
+            /**
+             * 时间选择器时间发生改变时调用的方法
+             */
+            handleDateChange(date){
+                this.requestDate();
+            },
+            /**
+             * 设置表格列单元格样式
+             * */
             cellMerge(rowIndex,rowData,field){
                 if(rowData[field]==-1){
                     return {
@@ -380,60 +391,65 @@
                         componentName: ''
                     }
                 }
-                // if(field==='sgdw'){
-                //     let juOrgabb=rowData[field]
-                //     let juOrgList=[]
-                //     if(juOrgList.indexOf(juOrgabb)==-1){
-                //         //还没有合并该局级单位
-                //         let num=0  //记录这个局级单位有多少个
-                //         for(let i=rowIndex;i<this.tableData.length;i++){
-                //             if(this.tableData[i].sgdw==juOrgabb){
-                //                 num++
-                //             }
-                //         }
-                //         if(num>0){
-                //             return {
-                //                 colSpan: 1,
-                //                 rowSpan: num,
-                //                 content: juOrgabb,
-                //                 componentName: ''
-                //             }
-                //         }
-                //         juOrgList.push(juOrgabb)
-                //     }
-                // }
             },
-            handleChange(date){
-                this.requestDate();
-            },
+            /**
+             * 点击查询按钮后的方法
+             */
             handleSelect(){
-                    if(this.selectedJM!='全部'){
-                        this.tableData=this.baseData.filter((item)=>{
-                            return item.jm==this.selectedJM
-                        })
-                    }else{
-                        this.tableData=this.baseData
+                if(this.selectedJM.trim()!=''){
+                    this.tableData=this.baseData.filter((item)=>{
+                        return item.jm==this.selectedJM
+                    })
+                    if(this.tableData.length==0){
+                        showToast("没有该井的数据",POSITION.middle,3000)
                     }
+                }else{
+                    this.tableData=this.baseData
+                }
             },
+            /**
+             * 显示查询模态框时的方法
+             */
             handleShowSelect(){
                 $("#ModalSelect").modal('show')
+                this.selectedJM=''
                 //获取施工单位的列表
                 let sgdws=new Set();
-                this.baseData.forEach((item)=>{
-                    sgdws.add(item.sgdw)
-                })
-                this.sgdwList=[]
-                for(var sgdw of sgdws){
-                    this.sgdwList.push(sgdw)
+                if(this.baseData.length>0){
+                    this.baseData.forEach((item)=>{
+                        sgdws.add(item.sgdw)
+                    })
+                    this.sgdwList=[]
+                    for(var sgdw of sgdws){
+                        this.sgdwList.push(sgdw)
+                    }
+                    this.jmList=this.baseData
                 }
-                this.jmList=this.baseData
             },
-            //行点击回掉
+            /**
+             * 搜索框自动完成
+             */
+            handleInstantChange(){
+                this.suggestions=[]
+                if(this.jmList.length>0){
+                    this.jmList.forEach((item)=>{
+                        if(item.jm.indexOf(this.selectedJM)!=-1){
+                            this.suggestions.push({
+                                original_title:item.jm
+                            })
+
+                        }
+                    })
+                    console.log(this.suggestions)
+                }
+            },
+            /**
+             * 表格行点击回掉
+             */
             handleRowClick(rowIndex, rowData, column){
                 this.selectedRow=rowData
                 $("#ModalWellMessage").modal('show')
             }
-
         },
         watch:{
             selectedSGDW:function(){
@@ -443,7 +459,7 @@
                     this.jmList=this.baseData.filter((item)=>{
                         return item.sgdw==this.selectedSGDW
                     })
-                    this.selectedJM='全部'
+                    this.selectedJM=''
                 }
             }
         },
@@ -451,39 +467,6 @@
             'oms2-date-picker-daily': DatePickerDaily
         }
     }
-
-    //字段实际含义
-      // "start1Date"   //开钻日期
-  // "bsflag"       //删除标志
-  // "jm"           //井名
-  // "designWellDepth"  //设计井深
-  // "dh"           //队号
-  // "mudPropWaterLose"     //失水
-  // "designMudPropDendity"  //设计密度
-  // "workContent"         //工作内容
-  // "project"             //工况
-  // "layername"           //钻达层位
-  // "dailyDrilledFootage"  //日进尺
-  // "monthPlannedDrillingFootage  //月计划
-  // "mudPropViscosity"     //粘度
-  // "yearFinish"           //年完
-  // "wellType"             //井型
-  // "cannulaSizeModel"     //套管程序 或 钻具组合
-  // "onlydrill"            //纯钻时间
-  // "drillRotateSpeed"     //转速
-  // "sgdw"     //施工单位
-  // "woba"     //钻压
-  // "mudPropGrittyConsistence"  //含砂
-  // "monthCompletion"       //月完
-  // "wellSort"       //井别
-  // "actualWellDepth"  //当前井深
-  // "pumpPressure"   //泵压
-  // "dynamicId"      //主键
-  // "deliveryVolume" //排量
-  // "cumulYearDrilledFootage"  //年累
-  // "bitSizeModel"   //钻头
-  // "cumulMonthDrilledFootage"  //月累
-  // "mudPropDensity"  //实际密度
 </script>
 
 <style lang="scss">
@@ -491,13 +474,6 @@
         position:absolute;
         right:10px;
         top:10px;
-    }
-    .oms2-column-cell-calss{
-        // overflow:hidden !important;
-        // text-overflow:ellipsis !important;
-        // display:-webkit-box;
-        // -webkit-box-orient:vertical !important;
-        // -webkit-line-clamp:2 !important; 
     }
     .oms2-list-item-content{
         text-align: left;
@@ -512,6 +488,21 @@
     .oms2-right{
         text-align: right;
     }
+
+    //改变搜索框样式
+    .sbx-google{
+        width:100% !important;
+    }
+    .sbx-google__submit{
+        display: none;
+    }
+    .sbx-google__input{
+        padding-right:11px;
+    }
+    .sbx-google__reset{
+        right:10px;
+    }
+    //改变搜索框样式  end
 
 </style>
 

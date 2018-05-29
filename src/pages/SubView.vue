@@ -1,12 +1,20 @@
 <template>
-    <v-table
-            is-horizontal-resize
-            style="width:1000px"
-            :columns="columns"
-            :table-data="tableData"
-            row-hover-color="#eee"
-            row-click-color="#edf7ff"
-    ></v-table>
+    <div style="width:80%">
+        <label>{{selectedEvent}}</label>
+        <vue-instant 
+            :suggestion-attribute="suggestionAttribute" 
+            v-model="value" 
+            :disabled="false"  
+            @input="changed"
+            :show-autocomplete="true" 
+            :autofocus="false" 
+            :suggestions="suggestions" 
+            name="customName" 
+            placeholder="填写井名" 
+            type="twitter">
+        </vue-instant>
+    </div>
+
 </template>
 
 <script>
@@ -14,20 +22,72 @@
     export default{
         data() {
             return {
-                tableData: [
-                    {"name":"赵伟","tel":"156*****1987","hobby":"钢琴、书法、唱歌","address":"上海市黄浦区金陵东路569号17楼"},
-                    {"name":"李伟","tel":"182*****1538","hobby":"钢琴、书法、唱歌","address":"上海市奉贤区南桥镇立新路12号2楼"},
-                    {"name":"孙伟","tel":"161*****0097","hobby":"钢琴、书法、唱歌","address":"上海市崇明县城桥镇八一路739号"},
-                    {"name":"周伟","tel":"197*****1123","hobby":"钢琴、书法、唱歌","address":"上海市青浦区青浦镇章浜路24号"},
-                    {"name":"吴伟","tel":"183*****6678","hobby":"钢琴、书法、唱歌","address":"上海市松江区乐都西路867-871号"}
-                 ],
-                columns: [
-                    {field: 'name', title: '姓名', width: 80, titleAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'tel', title: '手机号码', width: 150, titleAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'hobby', title: '爱好', width: 150, titleAlign: 'center', columnAlign: 'center',isResize:true},
-                    {field: 'address', title: '地址', width: 100, titleAlign: 'center', columnAlign: 'left',isResize:true}
-                ]
+                value: '',
+                suggestionAttribute: 'original_title',
+                suggestions:[],
+                selectedEvent: ""
             }
+        },
+        created(){
+            
+            console.log(this.suggestions)
+
+        },
+        methods:{
+             clickInput: function() {
+                this.selectedEvent = 'click input'
+            },
+            clickButton: function() {
+                this.selectedEvent = 'click button'
+            },
+            selected: function() {
+                this.selectedEvent = 'selection changed'
+            },
+            enter: function() {
+                this.selectedEvent = 'enter'
+            },
+            keyUp: function() {
+                this.selectedEvent = 'keyup pressed'
+            },
+            keyDown: function() {
+                this.selectedEvent = 'keyDown pressed'
+            },
+            keyRight: function() {
+                this.selectedEvent = 'keyRight pressed'
+            },
+            clear: function() {
+                this.selectedEvent = 'clear input'
+            },
+            escape: function() {
+                this.selectedEvent = 'escape'
+            },
+            changed: function() {
+                console.log(this.value)
+                
+            this.suggestions=[]
+                this.suggestions.push({
+		// "vote_count": 0,
+		// "id": 395239,
+		// "video": false,
+		// "vote_average": 0,
+		// "title": "ABCD of Health",
+		// "popularity": 1.001177,
+		// "poster_path": null,
+		// "original_language": "en",
+		"original_title": "ABCD of Health",
+		// "genre_ids": [],
+		// "backdrop_path": null,
+		// "adult": false,
+		// "overview": "Part of BFI boxset Ration Books and Rabbit Pies: Films from the Home Front.",
+		// "release_date": "1942-01-01"
+    })
+    this.suggestions.push({
+        'original_title':'abcd of abcd'
+    })
+            }
+        },
+        components: {
+            // 'vue-instant': VueInstant.VueInstant
         }
     }
 </script>
