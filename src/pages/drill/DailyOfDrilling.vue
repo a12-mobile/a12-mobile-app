@@ -20,7 +20,7 @@
       :columns="columns"
       :title-rows="titleRows"
       :table-data="tableData"
-      :multiple-sort="multipleSort"
+      :column-cell-class-name="columnCellClass"
       title-bg-color="#F6F6F6"
       even-bg-color="#f2f2f2"
       row-hover-color="#eee"
@@ -40,9 +40,8 @@
       return {
         date: timepicker.startTime,
         tableData: [],
-        multipleSort:false,
         columns: [
-          {field: 'sgdw', width: 40, columnAlign: 'left', isFrozen: true,isResize: true},
+          {field: 'sgdw', width: 80, columnAlign: 'left', isFrozen: true,isResize: true},
           {field: 'dailyDrilledFootage', width: 80, columnAlign: 'right', isResize: true},
           {field: 'cumulMonthDrilledFootage', width: 80, columnAlign: 'right', isResize: true},
           {field: 'cumulYearDrilledFootage', width: 80, columnAlign: 'right', isResize: true},
@@ -107,6 +106,28 @@
             Indicator.close()
             if (data) {
               this.tableData = data.body
+              //检查是否含有所有地区
+              let sgdws=['总计','大庆','西部','长城','渤海','川庆','海洋']
+              let sgdwsFromDate=[]
+              for(var date of this.tableData){
+                sgdwsFromDate.push(date.sgdw)
+              }
+              for(var sgdw of sgdws){
+                if(!sgdwsFromDate.includes(sgdw)){
+                  //不存在需要添加
+                  let newItem={
+                    sgdw:sgdw,
+                    remark:'Not exist'
+                  }
+                  this.tableData.push(newItem)
+                }
+              }
+              //排序
+              this.tableData.sort((pre,next)=>{
+                let preIndex=sgdws.indexOf(pre.sgdw)
+                let nextIndex=sgdws.indexOf(next.sgdw)
+                return preIndex-nextIndex
+              })
             } else {
               this.tableData = []
             }
@@ -134,9 +155,9 @@
       },
       //设置列单元格样式
       columnCellClass(rowIndex, columnName, rowData) {
-        // if (columnName === 'shigongdanwei' || columnName === 'duihao' || columnName === 'jinghao') {
-        //   //return 'wu-column-cell-fixed'
-        // }
+        if(columnName=='sgdw'&&this.tableData[rowIndex].remark=='Not exist'){
+          return 'oms2-item-not-exict'
+        }
 
       },
       handleChange(date) {
@@ -151,13 +172,6 @@
       //       content: '<span >大庆钻探</span>',
       //       componentName: ''
       //     }
-      //   } else if (field === 'sgdw' && rowData[field] === '西部') {
-      //     return {
-      //       colSpan: 1,
-      //       rowSpan: 2,
-      //       content: '<span >西部钻探</span>',
-      //       componentName: ''
-      //     }
       //   }
       // }
     },
@@ -169,8 +183,17 @@
   }
 </script>
 
-<style>
-
+<style lang="scss">
+  .oms2-datepicker-content{
+    margin-bottom:10px;
+  }
+  .oms2-date-picker-monthly-input{
+    width:100px !important;
+    font-size: 10px;
+  }
+  .oms2-item-not-exict{
+    color: #ff0000;
+  }
 </style>
 
 
