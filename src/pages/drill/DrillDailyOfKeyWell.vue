@@ -324,7 +324,7 @@
         created(){
             //首次进入页面获取数据
             this.requestDate();
-            this.tableHeight=window.innerHeight-70
+            this.tableHeight=window.innerHeight-80
         },
         methods:{
             /**
@@ -398,7 +398,7 @@
             handleSelect(){
                 if(this.selectedJM.trim()!=''){
                     this.tableData=this.baseData.filter((item)=>{
-                        return item.jm==this.selectedJM
+                        return item.jm.toLowerCase()==this.selectedJM.toLowerCase()
                     })
                     if(this.tableData.length==0){
                         showToast("没有该井的数据",POSITION.middle,3000)
@@ -433,14 +433,12 @@
                 this.suggestions=[]
                 if(this.jmList.length>0){
                     this.jmList.forEach((item)=>{
-                        if(item.jm.indexOf(this.selectedJM)!=-1){
+                        if(item.jm.toLowerCase().indexOf(this.selectedJM.toLowerCase())!=-1){
                             this.suggestions.push({
                                 original_title:item.jm
                             })
-
                         }
                     })
-                    console.log(this.suggestions)
                 }
             },
             /**
