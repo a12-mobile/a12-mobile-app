@@ -1,4 +1,19 @@
   /**
+   * 封装关于Date的方法，方法含有：
+   * 
+   * getCurrentTime()        获取当前时间  HH:mm:ss
+   * getCurrentDate()        获取当前日期  yyyy-MM-dd
+   * addDate()               日期，在原有日期基础上，增加（减少）days天数，默认增加1天
+   * addMonth()              在原有日期基础上，增加（减少）months月，默认增加1月
+   * formatDate()            将date类型按指定格式转化为String类型
+   * compareDate()           比较两个日期的大小
+   */
+  
+  
+  
+  
+  
+  /**
    * 获取当前时间  HH:mm:ss
    */
   export function getCurrentTime(){
@@ -47,7 +62,7 @@
       var date1 = new Date(date);
       date1.setMonth(date1.getMonth() + months)
       //对日期进行格式化
-      return convertDateToString(date1,format)
+      return formatDate(date1,format)
   }
 
   /**
@@ -55,7 +70,7 @@
    * @param {*} date Date类型的参数
    * @param {*} format 转化的格式  yyyy-MM-dd HH:mm:ss
    */
-  export function convertDateToString(date,format="yyyy-MM-dd HH:mm:ss"){
+  export function formatDate(date,format="yyyy-MM-dd HH:mm:ss"){
     var year=date.getFullYear()
     var month=date.getMonth()+1
     var day=date.getDate()

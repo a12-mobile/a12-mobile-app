@@ -31,12 +31,12 @@
     import DatePickerMonthly from './../../components/datepicker/DatePickerMonthly'
     import { Indicator } from 'mint-ui';
     import { getMonthlyOfWorkloadGN } from './../../service/dh/dhGetData'
-    import { convertDateToString,addMonth } from '../../service/utils/date/date'
+    import { formatDate,addMonth } from '../../service/utils/date/date'
     export default {
          data() {
             return {
                 date: {
-                    time:convertDateToString(new Date(),'yyyy-MM')
+                    time:formatDate(new Date(),'yyyy-MM')
                 },
                 tableHeight:0,   //表格高度
                 columns: [

@@ -19,7 +19,7 @@
     import DatePickerMonthly from './../../components/datepicker/DatePickerMonthly'
     import { Indicator } from 'mint-ui';
     import { getMonthlyOfWorkload } from './../../service/log/logGetData'
-    import {convertDateToString,addMonth,getCurrentDate} from './../../service/utils/date/date'
+    import {formatDate,addMonth,getCurrentDate} from './../../service/utils/date/date'
     export default {
          data() {
             return {
