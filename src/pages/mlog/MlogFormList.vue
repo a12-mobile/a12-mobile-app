@@ -16,6 +16,9 @@
     <!--<router-link to="/monthLogOfWellWorkload">
       <button type="button" class="btn btn-primary">录井工作量月报</button>
     </router-link>-->
+    <router-link to="/mlogMonthOfTeam">
+      <button type="button" class="btn btn-primary">录井队伍统计月报</button>
+    </router-link>
   </div>
 </template>
 
