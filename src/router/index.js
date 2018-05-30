@@ -28,7 +28,7 @@ import MonthLogOfLogWellByCompany from '@/pages/mlog/MonthLogOfLogWellByCompany'
 import MonthLogOfWellWorkload from '@/pages/mlog/MonthLogOfWellWorkload'
 import MlogsOfRecordWell from '@/pages/mlog/MlogsOfRecordWell'
 import MlogFormList from '@/pages/mlog/MlogFormList'
-
+import MlogMonthOfTeam from '@/pages/mlog/MlogMonthOfTeam'
 
 Vue.use(Router)
 
@@ -160,6 +160,12 @@ export default new Router({
       name: 'MonthLogOfWellWorkload',
       component: MonthLogOfWellWorkload,
       meta:{ navShow: false, title: '录井工作量月报'}
+    },
+    {
+      path: '/mlogMonthOfTeam',
+      name: 'MlogMonthOfTeam',
+      component: MlogMonthOfTeam,
+      meta:{ navShow: false, title: '录井队伍统计月报'}
     }
   ]
 })
