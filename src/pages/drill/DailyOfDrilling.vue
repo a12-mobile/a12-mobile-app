@@ -26,7 +26,7 @@
       row-hover-color="#eee"
       row-click-color="#edf7ff"
     ></v-table>
-    <div class='oms2-report-float-right'>数据来源于集团系统中油油服钻井工作量日报</div>
+    <div class='oms2-report-float-right'>数据来源于集团A7库钻井综合日报</div>
   </div>
 </template>
 

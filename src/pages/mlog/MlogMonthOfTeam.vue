@@ -21,6 +21,7 @@
       even-bg-color="#F4F4F4"
       row-hover-color="#eee"
       row-click-color="#edF7FF"></v-table>
+    <div class='oms2-report-float-right'>数据来源于集团A7库录井服务队伍统计月报</div>
   </div>
 </template>
 
@@ -28,12 +29,12 @@
     import DatePickerMonthly from './../../components/datepicker/DatePickerMonthly'
     import { Indicator } from 'mint-ui';
     import { getMlogMonthOfTeam } from './../../service/mlog/mlogGetData'
-    import { convertDateToString,addMonth } from '../../service/utils/date/date'
+    import { formatDate,addMonth } from '../../service/utils/date/date'
     export default {
         data(){
           return{
             date: {
-              time:convertDateToString(new Date(),'yyyy-MM')
+              time:formatDate(new Date(),'yyyy-MM')
             },
             tableData: [],
             columns: [
