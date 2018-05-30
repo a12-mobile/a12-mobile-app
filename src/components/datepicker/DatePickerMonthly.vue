@@ -69,7 +69,7 @@
         Toast
     } from "mint-ui"
     import VueDatepickerLocal from 'vue-datepicker-local'
-    import { convertDateToString,addMonth } from './../../service/utils/date/date'
+    import { formatDate,addMonth } from './../../service/utils/date/date'
     import {
         addDate,
         compareDate,
@@ -96,7 +96,7 @@
              * * oldDate  改变之前的值
              */
             time: function(newDate, oldDate) {
-                let compare = compareDate(this.time, convertDateToString(new Date(),'yyyy-MM-dd'))
+                let compare = compareDate(this.time, formatDate(new Date(),'yyyy-MM-dd'))
                 if (compare > 0) {
                     Toast({
                         message: '尚未到达该月份',
@@ -105,20 +105,20 @@
                     })
                 } else {
                 }
-                this.date.time=convertDateToString(this.time,"yyyy-MM")
-                this.$emit('date-change',convertDateToString(newDate,"yyyy-MM"))
+                this.date.time=formatDate(this.time,"yyyy-MM")
+                this.$emit('date-change',formatDate(newDate,"yyyy-MM"))
             }
         },
         methods: {
             //减少一个月的回掉
             handleMonthReduce(){
                 this.time=new Date(addMonth(this.time,-1))
-                this.date.time=convertDateToString(this.time,"yyyy-MM")
+                this.date.time=formatDate(this.time,"yyyy-MM")
                 this.$emit("date-reduce",this.date.time)
             },
             //增加一个月的回掉
             handleMonthAdd(){
-                let compare = compareDate(this.date.time, convertDateToString(new Date(),'yyyy-MM'))
+                let compare = compareDate(this.date.time, formatDate(new Date(),'yyyy-MM'))
                 if (compare >= 0) {
                     Toast({
                         message: '不能再增加月',
@@ -127,7 +127,7 @@
                     })
                 } else {
                     this.time=new Date(addMonth(this.time,1))
-                    this.date.time=convertDateToString(this.time,"yyyy-MM")
+                    this.date.time=formatDate(this.time,"yyyy-MM")
                     this.$emit("date-add",this.date.time)
                 }
             },

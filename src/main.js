@@ -24,6 +24,11 @@ import { Header,Button } from 'mint-ui';
 Vue.component(Header.name, Header);
 Vue.component(Button.name, Button);
 
+//添加自动完成搜索框
+import 'vue-instant/dist/vue-instant.css'
+import VueInstant from 'vue-instant'
+Vue.use(VueInstant)
+
 //easytable引入
 // 引入样式
 import 'vue-easytable/libs/themes-base/index.css'

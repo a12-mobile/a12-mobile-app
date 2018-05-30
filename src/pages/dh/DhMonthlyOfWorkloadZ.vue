@@ -13,7 +13,8 @@
             :title-row-height=25 
             :row-height=30 
             title-bg-color="#F6F6F6" 
-            style="width:100%;font-size:12px" 
+            :height=tableHeight
+            style="width:100%;font-size:12px"
             :columns="columns" 
             :cell-merge="cellMerge"
             :title-rows="titleRows" 
@@ -22,6 +23,7 @@
             even-bg-color="#F4F4F4" 
             row-hover-color="#eee"
             row-click-color="#edF7FF"></v-table>
+            <div class='oms2-report-float-right'>数据来源于集团系统井下作业工作量统计月报（总）</div>
     </div>
 </template>
 
@@ -30,13 +32,14 @@
     import DatePickerMonthly from './../../components/datepicker/DatePickerMonthly'
     import { Indicator } from 'mint-ui';
     import { getMonthlyOfWorkloadZ } from './../../service/dh/dhGetData'
-    import { convertDateToString, addMonth } from '../../service/utils/date/date'
+    import { formatDate, addMonth } from '../../service/utils/date/date'
     export default {
          data() {
             return {
                 date: {
-                    time:convertDateToString(new Date(),'yyyy-MM')
+                    time:formatDate(new Date(),'yyyy-MM')
                 },
+                tableHeight:0,   //表格高度
                 columns: [
                     {field: 'jujiorgname', width: 80, columnAlign: 'center', isFrozen: true},
                     {field: 'testoilnum', width: 40, columnAlign: 'right'},
@@ -93,6 +96,7 @@
         },
         created(){
             this.requestData()
+            this.tableHeight=window.innerHeight-80
         },
         methods:{
             //请求数据方法

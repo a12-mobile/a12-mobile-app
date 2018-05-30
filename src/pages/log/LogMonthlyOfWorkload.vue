@@ -9,8 +9,9 @@
         <oms2-date-picker-monthly :date=date @date-change="handleChange"></oms2-date-picker-monthly>
         <!-- Button trigger modal -->
         
-        <v-table is-horizontal-resize is-vertical-resize :title-row-height=25 :row-height=30 title-bg-color="#F6F6F6" style="width:100%;font-size:12px"  :columns="columns" :title-rows="titleRows" :table-data="tableData" :cell-merge="cellMerge" even-bg-color="#F4F4F4"
+        <v-table is-horizontal-resize :height=tableHeight is-vertical-resize :title-row-height=25 :row-height=30 title-bg-color="#F6F6F6" style="width:100%;font-size:12px"  :columns="columns" :title-rows="titleRows" :table-data="tableData" :cell-merge="cellMerge" even-bg-color="#F4F4F4"
             row-hover-color="#eee" row-click-color="#edF7FF"></v-table>
+        <div class='oms2-report-float-right'>数据来源于集团系统测井工作量月报</div>
     </div>
 </template>
 
@@ -18,13 +19,14 @@
     import DatePickerMonthly from './../../components/datepicker/DatePickerMonthly'
     import { Indicator } from 'mint-ui';
     import { getMonthlyOfWorkload } from './../../service/log/logGetData'
-    import {convertDateToString,addMonth,getCurrentDate} from './../../service/utils/date/date'
+    import {formatDate,addMonth,getCurrentDate} from './../../service/utils/date/date'
     export default {
          data() {
             return {
                 date: {
                     time:getCurrentDate()
                 },
+                tableHeight:0,   //表格高度
                 columns: [
                     {field: 'juOrgabb', width:60, columnAlign: 'center', isFrozen: true,isResize:true},
                     {field: 'chuOrgabb', width: 110, columnAlign: 'center', isFrozen: true,isResize:true},
@@ -122,6 +124,7 @@
         },
         created(){
             this.requestData()
+            this.tableHeight=window.innerHeight-80
         },
         methods:{
             //请求数据方法

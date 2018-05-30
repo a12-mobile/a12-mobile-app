@@ -14,7 +14,7 @@
     <v-table
       is-horizontal-resize
       is-vertical-resize
-      style="width:98%;margin-left:1%;font-size:12px"
+      style="width:100%;font-size:12px"
       :title-row-height=20
       :row-height=30
       :columns="columns"
@@ -26,6 +26,7 @@
       row-hover-color="#eee"
       row-click-color="#edf7ff"
     ></v-table>
+    <div class='oms2-report-float-right'>数据来源于集团系统中油油服钻井工作量日报</div>
   </div>
 </template>
 
