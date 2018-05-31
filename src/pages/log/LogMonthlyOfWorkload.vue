@@ -1,17 +1,12 @@
 <template>
-    <div ip="DhMonthlyOfWorkloadGN">
-        <!-- <header>
-                <mt-header :title="$route.meta.title" fixed>
-                    <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
-                </mt-header>
-            </header> -->
+    <div id="DhMonthlyOfWorkloadGN">
         <!-- <h4>测井工作量统计表</h4> -->
         <oms2-date-picker-monthly :date=date @date-change="handleChange"></oms2-date-picker-monthly>
         <!-- Button trigger modal -->
         
-        <v-table is-horizontal-resize :height=tableHeight is-vertical-resize :title-row-height=25 :row-height=30 title-bg-color="#F6F6F6" style="width:100%;font-size:12px"  :columns="columns" :title-rows="titleRows" :table-data="tableData" :cell-merge="cellMerge" even-bg-color="#F4F4F4"
+        <v-table is-horizontal-resize :height=tableHeight is-vertical-resize :title-row-height=25 :row-height=30 title-bg-color="#F6F6F6" style="width:100%;font-size:12px"  :columns="columns" :title-rows="titleRows" :column-cell-class-name="columnCellClass" :table-data="tableData" :cell-merge="cellMerge" even-bg-color="#F4F4F4"
             row-hover-color="#eee" row-click-color="#edF7FF"></v-table>
-        <div class='oms2-report-float-right'>数据来源于集团系统测井工作量月报</div>
+        <div class='oms2-report-float-right'>数据来源于集团A7测井工作量月报</div>
     </div>
 </template>
 
@@ -24,7 +19,7 @@
          data() {
             return {
                 date: {
-                    time:getCurrentDate()
+                    time:getCurrentDate('yyyy-MM')
                 },
                 tableHeight:0,   //表格高度
                 columns: [
@@ -130,9 +125,80 @@
             //请求数据方法
             requestData(){
                 Indicator.open('加载中...')
+                console.log(this.date.time)
                 getMonthlyOfWorkload(this.date.time).then((data)=>{
                     Indicator.close()
-                    this.tableData=data.body
+                    if(data.body){
+                        this.tableData=data.body
+                        //检查是否含有所有地区
+                        let jujiorgnames=[{'juOrgabb':'集团总计','chuOrgabb':''},
+                                        {'juOrgabb':'长城钻探','chuOrgabb':'合计'},
+                                        {'juOrgabb':'长城钻探','chuOrgabb':'国际测井公司'},
+                                        {'juOrgabb':'渤海钻探','chuOrgabb':'合计'},
+                                        {'juOrgabb':'渤海钻探','chuOrgabb':'井下作业公司'},
+                                        {'juOrgabb':'渤海钻探','chuOrgabb':'油气井测试分公司'},
+                                        {'juOrgabb':'中油测井','chuOrgabb':'合计'},
+                                        {'juOrgabb':'中油测井','chuOrgabb':'长庆分公司'},
+                                        {'juOrgabb':'中油测井','chuOrgabb':'西南分公司'},
+                                        {'juOrgabb':'中油测井','chuOrgabb':'新疆分公司'},
+                                        {'juOrgabb':'中油测井','chuOrgabb':'大庆分公司'},
+                                        {'juOrgabb':'中油测井','chuOrgabb':'辽河分公司'},
+                                        {'juOrgabb':'中油测井','chuOrgabb':'天津分公司'},
+                                        {'juOrgabb':'中油测井','chuOrgabb':'华北分公司'},
+                                        {'juOrgabb':'中油测井','chuOrgabb':'青海分公司'},
+                                        {'juOrgabb':'中油测井','chuOrgabb':'吐哈分公司'},
+                                        {'juOrgabb':'中油测井','chuOrgabb':'塔里木分公司'},
+                                        {'juOrgabb':'中油测井','chuOrgabb':'国际事业部'},
+                                        {'juOrgabb':'中油测井','chuOrgabb':'生产测井中心'},
+                                        ]
+                        let jujisFromData=[]
+                        for(var date of this.tableData){
+                            jujisFromData.push({
+                                'juOrgabb':date.juOrgabb,
+                                'chuOrgabb':date.chuOrgabb
+                            })
+                        }
+                        let include=false;  //判断是否存在
+                        for(var jujiorgname of jujiorgnames){
+                            include=false;
+                            for(var juji of jujisFromData){
+                                if(juji.juOrgabb==jujiorgname.juOrgabb&&juji.chuOrgabb==jujiorgname.chuOrgabb){
+                                    include=true
+                                }
+                            }
+                            if(!include){
+                                //不存在需要添加
+                                let newItem={
+                                    'juOrgabb':jujiorgname.juOrgabb,
+                                    'chuOrgabb':jujiorgname.chuOrgabb,
+                                    remark:'Not exist'
+                                }
+                                this.tableData.push(newItem)
+                            }
+                        }
+                        
+                        //排序
+                        this.tableData.sort((pre,next)=>{
+                            let preIndex=-1
+                            let nextIndex=-1
+                            let index=0;
+                            for(var item of jujiorgnames){
+                                if(item.juOrgabb==pre.juOrgabb&&item.chuOrgabb==pre.chuOrgabb){
+                                    preIndex=index
+                                }
+                                if(item.juOrgabb==next.juOrgabb&&item.chuOrgabb==next.chuOrgabb){
+                                    nextIndex=index
+                                }
+                                if(preIndex!=-1&&nextIndex!=-1){
+                                    break
+                                }
+                                index++
+                            }
+                            return preIndex-nextIndex
+                        })
+                    }else{
+                        this.tableData=[]
+                    }
                 })
                 .catch(function(error) {
                     Indicator.close()
@@ -199,6 +265,11 @@
                         }
                         juOrgList.push(juOrgabb)
                     }
+                }
+            },
+            columnCellClass(rowIndex,columnName,rowData){
+                if(this.tableData[rowIndex].remark=='Not exist'){
+                    return 'oms2-item-not-exict'
                 }
             }
         },

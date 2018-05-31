@@ -1,5 +1,5 @@
 <template>
-    <div ip="DailyOfKeyWell">
+    <div id="DailyOfKeyWell">
         <oms2-date-picker-daily :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @date-change="handleDateChange"></oms2-date-picker-daily><span class='oms2-search' @click="handleShowSelect"><i class="fa fa-search"></i></span>
 
         <!-- 查询 Modal -->
@@ -25,19 +25,12 @@
                             </div>
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">井号:</label>
-                                <div class="col-7">
-                                    <vue-instant 
-                                        suggestion-attribute="original_title" 
-                                        v-model="selectedJM" 
-                                        :disabled="false"  
-                                        @input="handleInstantChange"
-                                        :show-autocomplete="true" 
-                                        :autofocus="false" 
-                                        :suggestions="suggestions" 
-                                        name="customName" 
-                                        placeholder="填写井名" 
-                                        type="google">
-                                    </vue-instant>
+                                <div class="col-7 input-group">
+                                    <input type="text" class="form-control" placeholder="井号" v-model="selectedJM">
+                                    <div class="input-group-append" @click="handleInputClean">
+                                        <i class="fa fa-times input-group-text"></i>
+                                        <!-- <span class="" id="basic-addon2">m</span> -->
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -63,7 +56,7 @@
             :table-data="tableData" 
             :cell-merge="cellMerge"
             even-bg-color="#F4F4F4" row-hover-color="#eee" row-click-color="#edF7FF"></v-table>
-        <div class='oms2-report-float-right'>数据来源于集团系统钻井重点井日报</div>
+        <div class='oms2-report-float-right'>数据来源于集团A7钻井重点井日报</div>
 
 
         <!-- Modal 具体数据信息 -->
@@ -71,14 +64,15 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">{{selectedRow.jm}}</h5>
+                        <h5 class="modal-title" id="exampleModalLongTitle">{{selectedRow.jm}}<span style="padding-left:20px;font-size:14px">(
+                            {{date.time}})</span></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                       <span aria-hidden="true">&times;</span>
                                   </button>
                     </div>
                     <div class="modal-body">
                         <form>
-                            <a href="#" class="oms2-list-divider list-group-item list-group-item-dark">基础信息</a>
+                            <div class="oms2-list-divider list-group-item list-group-item-dark">基础信息</div>
                             <div class="row">
                                 <label class="col-5 oms2-right">施工单位:</label>
                                 <p>{{selectedRow.sgdw}}</p>
@@ -99,7 +93,7 @@
                                 <label class="col-5 oms2-right">开钻日期:</label>
                                 <p>{{selectedRow.start1Date}}</p>
                             </div>
-                            <a href="#" class="oms2-list-divider list-group-item list-group-item-dark">当日动态</a>
+                            <div class="oms2-list-divider list-group-item list-group-item-dark">当日动态</div>
                             <div class="row">
                                 <label class="col-5 oms2-right">设计井深(m):</label>
                                 <p>{{selectedRow.designWellDepth}}</p>
@@ -120,7 +114,7 @@
                                 <label class="col-5 oms2-right">工作内容:</label>
                                 <div class="col-7 oms2-list-item-content">{{selectedRow.workContent}}</div>
                             </div>
-                            <a href="#" class="oms2-list-divider list-group-item list-group-item-dark ">工作量</a>
+                            <div class="oms2-list-divider list-group-item list-group-item-dark ">工作量</div>
                             <div class="row">
                                 <label class="col-5 oms2-right">进尺-当日(m):</label>
                                 <p>{{selectedRow.dailyDrilledFootage | ifNumberIsNull}}</p>
@@ -169,7 +163,7 @@
                                 <label class="col-5 oms2-right">泵压(MPa):</label>
                                 <p>{{selectedRow.pumpPressure | ifNumberIsNull}}</p>
                             </div>
-                            <a href="#" class="list-group-item list-group-item-dark oms2-list-divider">钻井液性能</a>
+                            <div class="list-group-item list-group-item-dark oms2-list-divider">钻井液性能</div>
                             <div class="row">
                                 <label class="col-6 oms2-right">密度-设计(g/cm3):</label>
                                 <p>{{selectedRow.designMudPropDendity | ifNumberIsNull}}</p>
@@ -190,7 +184,7 @@
                                 <label class="col-6 oms2-right">含沙(%):</label>
                                 <p>{{selectedRow.mudPropGrittyConsistence | ifNumberIsNull}}</p>
                             </div>
-                            <a href="#" class="list-group-item list-group-item-dark oms2-list-divider">套管及钻具</a>
+                            <div class="list-group-item list-group-item-dark oms2-list-divider">套管及钻具</div>
                             <div class="row">
                                 <label class="col-6 oms2-right">套管规格(mm*m):</label>
                                 <div>{{selectedRow.cannulaSizeModel}}</div>
@@ -217,7 +211,6 @@
          data() {
             return {
                 tableHeight:0,   //表格高度
-                suggestions:[],  //搜索井名时提示的数组
                 date: timepicker.startTime,  //时间选择器使用
                 baseData:[],     //对从服务器获取的数据进行备份，方便查询等操作，不许重复向服务器查询
                 tableData: [],   //表格中显示的数据
@@ -394,17 +387,30 @@
             },
             /**
              * 点击查询按钮后的方法
+             * 设计初衷：之所以用四个判断是为了减少baseData循环时判断的次数
              */
             handleSelect(){
-                if(this.selectedJM.trim()!=''){
+                if(this.selectedJM.trim()!=''&&this.selectedSGDW=='全部'){
+                    //搜索井名
                     this.tableData=this.baseData.filter((item)=>{
-                        return item.jm.toLowerCase()==this.selectedJM.toLowerCase()
+                        return item.jm.toLowerCase().includes(this.selectedJM.toLowerCase())
                     })
-                    if(this.tableData.length==0){
-                        showToast("没有该井的数据",POSITION.middle,3000)
-                    }
+                }else if(this.selectedJM.trim()!=''&&this.selectedSGDW!='全部'){
+                    //搜索该单位下的井名
+                    this.tableData=this.baseData.filter((item)=>{
+                        return item.jm.toLowerCase().includes(this.selectedJM.toLowerCase())&&item.sgdw==this.selectedSGDW
+                    })
+                }else if(this.selectedJM.trim()==''&&this.selectedSGDW!='全部'){
+                    //搜索某单位下的井
+                    this.tableData=this.baseData.filter((item)=>{
+                        return item.sgdw==this.selectedSGDW
+                    })
                 }else{
+                    //没有搜索
                     this.tableData=this.baseData
+                }
+                if(this.tableData.length==0){
+                    showToast("没有该井的数据",POSITION.middle,3000)
                 }
             },
             /**
@@ -427,20 +433,12 @@
                 }
             },
             /**
-             * 搜索框自动完成
+             * 输入框取消按钮
              */
-            handleInstantChange(){
-                this.suggestions=[]
-                if(this.jmList.length>0){
-                    this.jmList.forEach((item)=>{
-                        if(item.jm.toLowerCase().indexOf(this.selectedJM.toLowerCase())!=-1){
-                            this.suggestions.push({
-                                original_title:item.jm
-                            })
-                        }
-                    })
-                }
+            handleInputClean(){
+                this.selectedJM=''
             },
+            
             /**
              * 表格行点击回掉
              */
@@ -479,8 +477,9 @@
         padding-bottom:1rem;
     }
     .oms2-list-divider{
-        padding-top:0px;
-        padding-bottom:0px;
+        text-align: center;
+        padding-top:0px !important;
+        padding-bottom:0px !important;
         margin-bottom:10px;
     }
     .oms2-right{

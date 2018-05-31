@@ -28,7 +28,7 @@
                 even-bg-color="#f4f4f4"
                 title-bg-color="#F6F6F6"
         ></v-table>
-        <div class='oms2-report-float-right'>数据来源于集团系统录井分井动态</div>
+        <div class='oms2-report-float-right'>数据来源于集团A7录井分井动态</div>
     </div>
 </template>
 

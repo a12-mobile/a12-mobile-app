@@ -32,7 +32,7 @@
       row-click-color="#edf7ff"
       even-bg-color="#f4f4f4"
     ></v-table>
-    <div class='oms2-report-float-right'>数据来源于集团系统录井工作量分单位月报</div>
+    <div class='oms2-report-float-right'>数据来源于集团A7录井工作量分单位月报</div>
 
 
   </div>

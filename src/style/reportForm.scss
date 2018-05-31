@@ -1,6 +1,12 @@
 .oms2-report-float-right{
-    float: right;
+    position:absolute;
+    right:0px;
     font-size: 10px;
     padding:5px;
+    color:#f00;
+}
+
+//列表不存在时显示红色
+.oms2-item-not-exict{
     color:#f00;
 }

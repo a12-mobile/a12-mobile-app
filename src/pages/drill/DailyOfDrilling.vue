@@ -26,7 +26,7 @@
       row-hover-color="#eee"
       row-click-color="#edf7ff"
     ></v-table>
-    <div class='oms2-report-float-right'>数据来源于集团系统中油油服钻井工作量日报</div>
+    <div class='oms2-report-float-right'>数据来源于集团A7中油油服钻井工作量日报</div>
   </div>
 </template>
 
@@ -184,13 +184,6 @@
 </script>
 
 <style lang="scss">
-  .oms2-datepicker-content{
-    margin-bottom:10px;
-  }
-  .oms2-date-picker-monthly-input{
-    width:100px !important;
-    font-size: 10px;
-  }
   .oms2-item-not-exict{
     color: #ff0000;
   }

@@ -27,12 +27,21 @@
   /**
    * 获取当前日期  yyyy-MM-dd
    */
-  export function getCurrentDate(){
+  export function getCurrentDate(format='yyyy-MM-dd'){
     var date = new Date()
     var year=date.getFullYear()
     var month=date.getMonth()+1
     var day=date.getDate()
-    return year+"-"+getFormatDate(month)+"-"+getFormatDate(day)
+    if(format.indexOf('yyyy')!=-1){
+        format=format.replace('yyyy',year)
+    }
+    if(format.indexOf('MM')!=-1){
+        format=format.replace('MM',getFormatDate(month))
+    }
+    if(format.indexOf('dd')!=-1){
+        format=format.replace('dd',getFormatDate(day))
+    }
+    return format
   }
 
   /**

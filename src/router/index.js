@@ -28,7 +28,16 @@ import MonthLogOfLogWellByCompany from '@/pages/mlog/MonthLogOfLogWellByCompany'
 import MonthLogOfWellWorkload from '@/pages/mlog/MonthLogOfWellWorkload'
 import MlogsOfRecordWell from '@/pages/mlog/MlogsOfRecordWell'
 import MlogFormList from '@/pages/mlog/MlogFormList'
+import WellList from '@/pages/WellList'
 
+
+//demo
+import HorizontalScreen from '@/pages/demo/HorizontalScreen'
+import LoadMore from '@/pages/demo/LoadMore'
+import Mlogs from '@/pages/demo/MlogsOfRecordWell'
+
+//horizontal
+import DrillDailyOfZH from '@/pages/horizontal/DrillDailyOfZH'
 
 Vue.use(Router)
 
@@ -39,6 +48,12 @@ export default new Router({
       name: 'Home',
       component: Home,
       meta: { navShow: true, title: '首页' },
+    },
+    {
+      path: '/well/list',
+      name: 'WellList',
+      component: WellList,
+      meta: { navShow: false, title: '井列表' },
     },
     {
       path: '/multiWellList',
@@ -160,6 +175,41 @@ export default new Router({
       name: 'MonthLogOfWellWorkload',
       component: MonthLogOfWellWorkload,
       meta:{ navShow: false, title: '录井工作量月报'}
+    },
+
+
+
+
+
+    //demo
+    {
+      path: '/hscreen',
+      name: 'HorizontalScreen',
+      component: HorizontalScreen,
+      meta:{ navShow: false, title: '横屏效果demo'}
+    },
+    {
+      path: '/loadmore',
+      name: 'LoadMore',
+      component: LoadMore,
+      meta:{ navShow: false, title: '加载更多demo'}
+    },
+    {
+      path: '/mlogs',
+      name: 'Mlogs',
+      component: Mlogs,
+      meta:{ navShow: false, title: '录井分井动态下拉加载'}
+    },
+
+
+
+
+    //horizontal
+    {
+      path: '/horizontal/drill/daily/zh',
+      name: 'DrillDailyOfZH',
+      component: DrillDailyOfZH,
+      meta:{ navShow: false, title: '横屏效果'}
     }
   ]
 })

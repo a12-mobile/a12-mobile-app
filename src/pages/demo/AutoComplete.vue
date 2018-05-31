@@ -1,5 +1,5 @@
 <template>
-    <div id="DailyOfKeyWell1">
+    <div id="DailyOfKeyWell">
         <oms2-date-picker-daily :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @date-change="handleDateChange"></oms2-date-picker-daily><span class='oms2-search' @click="handleShowSelect"><i class="fa fa-search"></i></span>
 
         <!-- 查询 Modal -->
@@ -63,7 +63,7 @@
             :table-data="tableData" 
             :cell-merge="cellMerge"
             even-bg-color="#F4F4F4" row-hover-color="#eee" row-click-color="#edF7FF"></v-table>
-        <div class='oms2-report-float-right'>数据来源于集团A7库钻井重点井日报</div>
+        <div class='oms2-report-float-right'>数据来源于集团A7钻井重点井日报</div>
 
 
         <!-- Modal 具体数据信息 -->
@@ -209,11 +209,11 @@
 </template>
 
 <script>
-    import DatePickerDaily from './../components/datepicker/DatePickerDaily'
+    import DatePickerDaily from './../../components/datepicker/DatePickerDaily'
     import { Indicator } from 'mint-ui';
-    import timepicker from './../components/datepicker/timepicker'
-    import { showToast,POSITION } from "./../service/utils/toast/toast.js"
-    import { getDaliyOfKeyWell } from './../service/drill/drillGetData'
+    import timepicker from './../../components/datepicker/timepicker'
+    import { showToast,POSITION } from "./../../service/utils/toast/toast.js"
+    import { getDaliyOfKeyWell } from './../../service/drill/drillGetData'
     export default {
          data() {
             return {
@@ -325,8 +325,7 @@
         created(){
             //首次进入页面获取数据
             this.requestDate();
-            this.$ruixinApi.hideWebViewTitle({});
-            this.tableHeight=window.innerHeight
+            this.tableHeight=window.innerHeight-80
         },
         methods:{
             /**
@@ -470,20 +469,6 @@
 </script>
 
 <style lang="scss">
-    #DailyOfKeyWell1{
-            width:600px;
-            height:360px;
-            transform:rotate(90deg);
-            -ms-transform:rotate(90deg); 	/* IE 9 */
-            -moz-transform:rotate(90deg); 	/* Firefox */
-            -webkit-transform:rotate(90deg); /* Safari 和 Chrome */
-            -o-transform:rotate(90deg); 	/* Opera */
-
-            transform-origin:160px 160px;
-            position:absolute;
-            z-index:2000;
-
-    }
     .oms2-search{
         position:absolute;
         right:10px;
@@ -520,3 +505,7 @@
     //改变搜索框样式  end
 
 </style>
+
+
+
+

@@ -19,10 +19,18 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 // Vue.use(Mint);
 
 // 按需引入部分mint-ui组件
-import { Header,Button } from 'mint-ui';
+import { Header,Button,IndexList, IndexSection, Cell ,Loadmore ,Spinner } from 'mint-ui';
 
+Vue.component(Spinner.name, Spinner);
+
+Vue.component(Loadmore.name, Loadmore);
 Vue.component(Header.name, Header);
 Vue.component(Button.name, Button);
+Vue.component(IndexList.name, IndexList);
+Vue.component(IndexSection.name, IndexSection);
+Vue.component(Cell.name, Cell);
+
+// 按需引入部分mint-ui组件 END
 
 //添加自动完成搜索框
 import 'vue-instant/dist/vue-instant.css'

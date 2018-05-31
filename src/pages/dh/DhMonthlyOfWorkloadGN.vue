@@ -1,5 +1,5 @@
 <template>
-    <div ip="DhMonthlyOfWorkloadGN">
+    <div id="DhMonthlyOfWorkloadGN">
         <header>
             <!-- <mt-header :title="$route.meta.title" fixed>
                     <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
@@ -22,7 +22,7 @@
             even-bg-color="#F4F4F4" 
             row-hover-color="#eee"
             row-click-color="#edF7FF"></v-table>
-            <div class='oms2-report-float-right'>数据来源于集团系统井下作业工作量统计月报（国内）</div>
+            <div class='oms2-report-float-right'>数据来源于集团A7井下作业工作量统计月报（国内）</div>
     </div>
 </template>
 
@@ -31,16 +31,16 @@
     import DatePickerMonthly from './../../components/datepicker/DatePickerMonthly'
     import { Indicator } from 'mint-ui';
     import { getMonthlyOfWorkloadGN } from './../../service/dh/dhGetData'
-    import { formatDate,addMonth } from '../../service/utils/date/date'
+    import { getCurrentDate,addMonth } from '../../service/utils/date/date'
     export default {
          data() {
             return {
                 date: {
-                    time:formatDate(new Date(),'yyyy-MM')
+                    time:getCurrentDate('yyyy-MM')
                 },
                 tableHeight:0,   //表格高度
                 columns: [
-                    {field: 'jujiorgname', width: 80, columnAlign: 'center', isFrozen: true},
+                    {field: 'jujiorgname', width: 90, columnAlign: 'center', isFrozen: true},
                     {field: 'testoilnum', width: 40, columnAlign: 'right'},
                     {field: 'testnum', width: 40, columnAlign: 'right'},
                     {field: 'taskmountnum', width: 50, columnAlign: 'right'},
@@ -58,7 +58,7 @@
                 ],
 
                 titleRows: [ //第一行
-                             [{fields: ['jujiorgname'], title: '单位', titleAlign: 'center', rowspan: 4,titleCellClassName:'wu-title-cell-duijiao'},
+                             [{fields: ['jujiorgname'], title: '<span class="title1">作业内容</span><span class="title2">单位</span>', titleAlign: 'center', rowspan: 4,titleCellClassName:'oms2-title-cell-duijiao'},
                               {fields: ['testoilnum','testnum'], title: '试油', titleAlign: 'center', colspan: 2},
                               {fields: ['taskmountnum','tracknum','acidificationnum','bigrepairnum','sidedrillnum','totalsmallnum','totalrepnum','checkdumpnum','newdrillnum','collapronum','otherworknum'], title: '井下作业（井次）', titleAlign: 'center', colspan: 11},
                              ],
@@ -110,12 +110,12 @@
                         //检查是否含有所有地区
                         let jujiorgnames=['集团合计','川庆钻探','大庆钻探','长城钻探','渤海钻探','西部钻探','海洋工程公司','大庆油田','吉林油田','辽河油田','冀东油田','大港油田',
                                     '华北油田','长庆油田','玉门油田','青海油田','吐哈油田','新疆油田']
-                        let jujisFromDate=[]
+                        let jujisFromData=[]
                         for(var date of this.tableData){
-                            jujisFromDate.push(date.jujiorgname)
+                            jujisFromData.push(date.jujiorgname)
                         }
                         for(var jujiorgname of jujiorgnames){
-                            if(!jujisFromDate.includes(jujiorgname)){
+                            if(!jujisFromData.includes(jujiorgname)){
                                 //不存在需要添加
                                 let newItem={
                                     jujiorgname:jujiorgname,
@@ -183,6 +183,31 @@
     }
     .oms2-item-not-exict{
         color:#f00;
+    }
+
+    .oms2-title-cell-duijiao:before {
+            content: "";
+            position: absolute;
+            width: 1px;
+            height: 134.5px;
+            top: 0;
+            left: 0;
+            background-color: #E3E3E3;
+            display: block;
+            transform: rotate(-41.99deg);
+            transform-origin: top;
+            -ms-transform: rotate(-41.996deg);
+            -ms-transform-origin: top;
+        }
+    .title1{
+        position: absolute;
+        top: 5px;
+        right:10px;
+        }
+    .title2{
+        position: absolute;
+        top: 80px;
+        left:10px;
     }
 
 </style>

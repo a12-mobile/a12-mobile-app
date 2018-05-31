@@ -1,5 +1,5 @@
 <template>
-    <div id="DailyOfKeyWell1">
+    <div id="HorizontalScreen">
         <oms2-date-picker-daily :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @date-change="handleDateChange"></oms2-date-picker-daily><span class='oms2-search' @click="handleShowSelect"><i class="fa fa-search"></i></span>
 
         <!-- 查询 Modal -->
@@ -49,6 +49,7 @@
                 </div>
             </div>
         </div>
+        
         <v-table 
             is-horizontal-resize 
             is-vertical-resize 
@@ -209,11 +210,11 @@
 </template>
 
 <script>
-    import DatePickerDaily from './../components/datepicker/DatePickerDaily'
+    import DatePickerDaily from './../../components/datepicker/DatePickerDaily'
     import { Indicator } from 'mint-ui';
-    import timepicker from './../components/datepicker/timepicker'
-    import { showToast,POSITION } from "./../service/utils/toast/toast.js"
-    import { getDaliyOfKeyWell } from './../service/drill/drillGetData'
+    import timepicker from './../../components/datepicker/timepicker'
+    import { showToast,POSITION } from "./../../service/utils/toast/toast.js"
+    import { getDaliyOfKeyWell } from './../../service/drill/drillGetData'
     export default {
          data() {
             return {
@@ -470,8 +471,8 @@
 </script>
 
 <style lang="scss">
-    #DailyOfKeyWell1{
-            width:600px;
+    #HorizontalScreen{
+            width:640px;
             height:360px;
             transform:rotate(90deg);
             -ms-transform:rotate(90deg); 	/* IE 9 */

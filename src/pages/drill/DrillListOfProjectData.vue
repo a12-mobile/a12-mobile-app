@@ -7,7 +7,7 @@
                 <mt-button v-if="isQuery" slot="right" @click="isQuery=!isQuery">收起</mt-button>
             </mt-header>
         </header>
-        <div class="content">
+        <div class="content1">
             <nav class="navs">
                 <div class="nav nav-tabs row" id="nav-tab" role="tablist">
                     <a class="nav-item nav-link col active" id="nav-page1-tab" data-toggle="tab" href="#nav-page1" role="tab" aria-controls="nav-page1" aria-selected="false" @click="handleSelect('page1')">Page1</a>
@@ -223,7 +223,7 @@ convertJsonToBean(data) {
         margin-top: 10px;
         margin-bottom: 10px;
     }
-    .content {
+    .content1 {
         margin-left: 10px;
         margin-right: 10px;
     }

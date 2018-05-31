@@ -44,7 +44,6 @@ axios.interceptors.response.use(response=>{
 
 //对错误数据进行处理
 function errorState(response){
-    console.log(response)
     //如果状态吗正常，则直接返回数据
     if(response&&(response.status===200||response.status===304||response.status===400)){
         //不需要date之外的数据，可以直接返回response.data
@@ -75,6 +74,12 @@ function successState(res){
                 duration: 3000,
             })
         }
+    }else{
+        Toast({
+            message: '请求失败',
+            position: 'bottom',
+            duration: 3000,
+        })
     }
 }
 

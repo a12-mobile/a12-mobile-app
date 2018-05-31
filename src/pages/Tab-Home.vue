@@ -20,6 +20,11 @@
     <router-link to="/mlog/form/list">
       <button type="button" class="btn btn-primary">录井报表</button>
     </router-link>
+    <br/>
+    <br/>
+    <router-link to="/well/list">
+      <button type="button" class="btn btn-primary">井列表</button>
+    </router-link>
   </div>
 </template>
 

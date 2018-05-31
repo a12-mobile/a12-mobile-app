@@ -141,6 +141,7 @@
 <style>
     .oms2-date-picker-monthly {
         margin: 10px;
+        text-align: center;
     }
     .oms2-date-picker-monthly-input {
         width: 100px !important;
