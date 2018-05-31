@@ -27,6 +27,7 @@
       :table-data="tableData"
       :title-rows="titleRows"
       :cellMerge="cellMerge"
+      :column-cell-class-name="columnCellClass"
       :footer="footer"
       row-hover-color="#eee"
       row-click-color="#edf7ff"
@@ -47,7 +48,7 @@
       name: "MonthLogOfLogWellByCompany",
       data: function () {
         return {
-          date: {time:getCurrentDate()},
+          date: {time:getCurrentDate('yyyy-MM')},
           tableData: [],
           columns: [
             {field: 'jujorgNam', width: 70, columnAlign: 'left', isResize: true, isFrozen: true},
@@ -115,53 +116,81 @@
           requestData(){
               Indicator.open('加载中...')
               getMonthLogOfMlogWellByCompany(this.date.time).then((data)=>{
-                Indicator.close()
-                this.tableData=data.body
-              })
+                if (data) {
+                  Indicator.close()
+                  this.tableData = data.body
+                  //检查是否含有所有地区
+                  let jujiorgnames=[{'jujorgNam':'集团总计','cjorgName':''},
+                    {'jujorgNam':'大庆钻探','cjorgName':'小计'},
+                    {'jujorgNam':'大庆钻探','cjorgName':'录井一公司'},
+                    {'jujorgNam':'大庆钻探','cjorgName':'录井二公司'},
+                    {'jujorgNam':'西部钻探','cjorgName':'小计'},
+                    {'jujorgNam':'西部钻探','cjorgName':'克拉玛依录井工程公司'},
+                    {'jujorgNam':'西部钻探','cjorgName':'吐哈录井工程公司'},
+                    {'jujorgNam':'长城钻探','cjorgName':'小计'},
+                    {'jujorgNam':'长城钻探','cjorgName':'录井公司'},
+                    {'jujorgNam':'渤海钻探','cjorgName':'小计'},
+                    {'jujorgNam':'渤海钻探','cjorgName':'第一录井公司'},
+                    {'jujorgNam':'渤海钻探','cjorgName':'第二录井公司'},
+                    {'jujorgNam':'川庆钻探','cjorgName':'小计'},
+                    {'jujorgNam':'川庆钻探','cjorgName':'地研院'},
+                    {'jujorgNam':'中油测井','cjorgName':'小计'},
+                    {'jujorgNam':'中油测井','cjorgName':'青海分公司'},
+                  ]
+                  let jujorgNamFromDate = []
+                  for (var date of this.tableData) {
+                    jujorgNamFromDate.push({
+                      'jujorgNam':date.jujorgNam,
+                      'cjorgName':date.cjorgName
+                    })
+                  }
+                  let include=false;  //判断是否存在
+                  for(var jujorgNam of jujiorgnames){
+                    include=false;
+                    for(var juji of jujorgNamFromDate){
+                      if(juji.jujorgNam==jujorgNam.jujorgNam&&juji.cjorgName==jujorgNam.cjorgName){
+                        include=true
+                      }
+                    }
+                    if(!include){
+                      //不存在需要添加
+                      let newItem={
+                        'jujorgNam':jujorgNam.jujorgNam,
+                        'cjorgName':jujorgNam.cjorgName,
+                        remark:'Not exist'
+                      }
+                      this.tableData.push(newItem)
+                    }
+                  }
+
+                //排序
+                this.tableData.sort((pre,next)=>{
+                  let preIndex=-1
+                  let nextIndex=-1
+                  let index=0;
+                  for(var item of jujiorgnames){
+                    if(item.jujorgNam==pre.jujorgNam&&item.cjorgName==pre.cjorgName){
+                      preIndex=index
+                    }
+                    if(item.jujorgNam==next.jujorgNam&&item.cjorgName==next.cjorgName){
+                      nextIndex=index
+                    }
+                    if(preIndex!=-1&&nextIndex!=-1){
+                      break
+                    }
+                    index++
+                  }
+                  return preIndex-nextIndex
+                })
+              }else{
+              this.tableData=[]
+            }
+          })
               .catch(function(error) {
                 Indicator.close()
                 console.log(error)
               })
           },
-          // setFooterData(){
-          //
-          //   let result = [],
-          //     amounts1 = this.tableData.map(item => {
-          //       return item.amount1
-          //     }),
-          //     amounts2 = this.tableData.map(item => {
-          //       return item.amount2
-          //     });
-          //
-          //   let minVal = ['最小值'];
-          //   minVal.push(Math.min.apply(null, amounts1)+' ￥');
-          //   minVal.push(Math.min.apply(null, amounts2)+' ￥');
-          //   minVal.push('-');
-          //
-          //
-          //   let sumVal = ['求和'];
-          //   sumVal.push(
-          //     amounts1.reduce((prev, curr) => {
-          //
-          //       return parseInt(prev) + parseInt(curr);
-          //     }, 0)+' ￥'
-          //   )
-          //
-          //   sumVal.push(
-          //     amounts2.reduce((prev, curr) => {
-          //
-          //       return parseInt(prev) + parseInt(curr);
-          //     }, 0)+' ￥'
-          //   )
-          //
-          //   sumVal.push('-');
-          //
-          //
-          //   result.push(minVal);
-          //   result.push(sumVal);
-          //
-          //   this.footer = result;
-          // },
 
         handleBack() {
               if(Indicator){
@@ -169,6 +198,15 @@
               }
               window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
           },
+        columnCellClass(rowIndex, columnName, rowData) {
+          if(columnName=='jujorgNam'&&this.tableData[rowIndex].remark=='Not exist'){
+            return 'oms2-item-not-exict'
+          }
+          if(columnName=='cjorgName'&&this.tableData[rowIndex].remark=='Not exist'){
+            return 'oms2-item-not-exict'
+          }
+
+        },
         handleChange(){
           this.requestData()
         },
@@ -237,5 +275,15 @@
       position: absolute;
       top: 30px;
       left:10px;
+    }
+    .oms2-datepicker-content{
+      margin-bottom:10px;
+    }
+    .oms2-date-picker-monthly-input{
+      width:100px !important;
+      font-size: 10px;
+    }
+    .oms2-item-not-exict{
+      color: #ff0000;
     }
 </style>
