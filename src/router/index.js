@@ -177,7 +177,6 @@ export default new Router({
       component: MonthLogOfWellWorkload,
       meta:{ navShow: false, title: '录井工作量月报'}
     },
-<<<<<<< HEAD
 
 
 
@@ -212,13 +211,11 @@ export default new Router({
       name: 'DrillDailyOfZH',
       component: DrillDailyOfZH,
       meta:{ navShow: false, title: '横屏效果'}
-=======
     {
       path: '/mlogMonthOfTeam',
       name: 'MlogMonthOfTeam',
       component: MlogMonthOfTeam,
       meta:{ navShow: false, title: '录井队伍统计月报'}
->>>>>>> 158381e8904dba94d75699878dd5a687bb9d89bf
     }
   ]
 })
