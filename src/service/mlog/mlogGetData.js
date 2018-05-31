@@ -31,3 +31,14 @@ export function getMonthLogOfMlogWellByCompany(date) {
     'date': date
   })
 }
+
+/**
+ * 向服务器获取录井服务队伍月报
+ * @param {*} date
+ */
+export function getMlogMonthOfTeam(startDate,endDate) {
+  return httpService('GET', '/mlog/month/findTeamByDate', {
+    'startDate': startDate,
+    'endDate':endDate
+  })
+}

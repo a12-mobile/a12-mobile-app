@@ -19,7 +19,7 @@
     <v-table
       is-horizontal-resize
       is-vertical-resize
-      style="width:100%;font-size:12px" 
+      style="width:100%;font-size:12px"
       :title-row-height=25
       :row-height=30
       title-bg-color="#F6F6F6"
@@ -32,7 +32,7 @@
       row-click-color="#edf7ff"
       even-bg-color="#f4f4f4"
     ></v-table>
-    <div class='oms2-report-float-right'>数据来源于集团A7录井工作量分单位月报</div>
+    <div class='oms2-report-float-right'>数据来源于集团A7库录井工作量分单位月报</div>
 
 
   </div>
@@ -75,7 +75,8 @@
           ],
           titleRows: [
             //第一行
-            [{fields: ['jujorgNam', 'cjorgName'], title: '单位', titleAlign: 'center', rowspan:2, colspan: 2},
+            [{fields: ['jujorgNam','cjorgName'], title: '<span class="title1">项目</span><span class="title2">单位</span>', titleAlign: 'center', rowspan: 2,colspan: 2,titleCellClassName:'oms2-title-cell-duijiao'},
+             // {fields: ['jujorgNam', 'cjorgName'], title: '单位', titleAlign: 'center', rowspan:2, colspan: 2},
               {fields: ['logWellTotalNum'], title: '录井总井次', titleAlign: 'center', rowspan: 2},
               {fields: ['logWellTotalNum2'], title: '录井总口数', titleAlign: 'center', rowspan: 2},
               {fields: ['ewellNum'], title: '探井(口)', titleAlign: 'center', rowspan: 2},
@@ -122,45 +123,45 @@
                 console.log(error)
               })
           },
-          setFooterData(){
-
-            let result = [],
-              amounts1 = this.tableData.map(item => {
-                return item.amount1
-              }),
-              amounts2 = this.tableData.map(item => {
-                return item.amount2
-              });
-
-            let minVal = ['最小值'];
-            minVal.push(Math.min.apply(null, amounts1)+' ￥');
-            minVal.push(Math.min.apply(null, amounts2)+' ￥');
-            minVal.push('-');
-
-
-            let sumVal = ['求和'];
-            sumVal.push(
-              amounts1.reduce((prev, curr) => {
-
-                return parseInt(prev) + parseInt(curr);
-              }, 0)+' ￥'
-            )
-
-            sumVal.push(
-              amounts2.reduce((prev, curr) => {
-
-                return parseInt(prev) + parseInt(curr);
-              }, 0)+' ￥'
-            )
-
-            sumVal.push('-');
-
-
-            result.push(minVal);
-            result.push(sumVal);
-
-            this.footer = result;
-          },
+          // setFooterData(){
+          //
+          //   let result = [],
+          //     amounts1 = this.tableData.map(item => {
+          //       return item.amount1
+          //     }),
+          //     amounts2 = this.tableData.map(item => {
+          //       return item.amount2
+          //     });
+          //
+          //   let minVal = ['最小值'];
+          //   minVal.push(Math.min.apply(null, amounts1)+' ￥');
+          //   minVal.push(Math.min.apply(null, amounts2)+' ￥');
+          //   minVal.push('-');
+          //
+          //
+          //   let sumVal = ['求和'];
+          //   sumVal.push(
+          //     amounts1.reduce((prev, curr) => {
+          //
+          //       return parseInt(prev) + parseInt(curr);
+          //     }, 0)+' ￥'
+          //   )
+          //
+          //   sumVal.push(
+          //     amounts2.reduce((prev, curr) => {
+          //
+          //       return parseInt(prev) + parseInt(curr);
+          //     }, 0)+' ￥'
+          //   )
+          //
+          //   sumVal.push('-');
+          //
+          //
+          //   result.push(minVal);
+          //   result.push(sumVal);
+          //
+          //   this.footer = result;
+          // },
 
         handleBack() {
               if(Indicator){
@@ -172,14 +173,14 @@
           this.requestData()
         },
         cellMerge(rowIndex,rowData,field){
-          if (field === 'jujorgNam' && rowData[field] === '集团总计') {
-            return {
-              colSpan: 2,
-              rowSpan: 1,
-              content: '总计',
-              componentName: ''
+            if (field === 'jujorgNam' && rowData[field] === '集团总计') {
+              return {
+                colSpan: 2,
+                rowSpan: 1,
+                content: '总计',
+                componentName: ''
+              }
             }
-          }
             if(field==='jujorgNam'){
             let jujorgNam=rowData[field]
             let jujorgNamList=[]
@@ -201,7 +202,7 @@
               }
               jujorgNamList.push(jujorgNam)
             }
-          }
+        }
 
         }
       },
@@ -209,18 +210,32 @@
         'oms2-date-picker-monthly':DatePickerMonthly
       }
 
-        // cellMerge(rowIndex, rowData, field) {
-        //   if (field === 'market1' && rowData[field] === '大庆钻探') {
-        //     return {
-        //       colSpan: 1,
-        //       rowSpan: 3,
-        //       content: '<span >大庆钻探</span>',
-        //       componentName: ''
-        //     }
-        //   }
     }
 </script>
 
-<style scoped>
-
+<style lang="scss">
+    .oms2-title-cell-duijiao:before {
+      content: "";
+      position: absolute;
+      width: 1px;
+      height: 215.9px;
+      top: 0;
+      left: 0;
+      background-color: #E3E3E3;
+      display: block;
+      transform: rotate(-76.61deg);
+      transform-origin: top;
+      -ms-transform: rotate(-76.61deg);
+      -ms-transform-origin: top;
+    }
+    .title1{
+      position: absolute;
+      top: 5px;
+      right:10px;
+    }
+    .title2{
+      position: absolute;
+      top: 30px;
+      left:10px;
+    }
 </style>
