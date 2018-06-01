@@ -59,7 +59,8 @@
                 ],
 
                 titleRows: [ //第一行
-                             [{fields: ['jujiorgname'], title: '<span class="title1">作业内容</span><span class="title2">单位</span>', titleAlign: 'center', rowspan: 4,titleCellClassName:'oms2-title-cell-duijiao'},
+                            //  [{fields: ['jujiorgname'], title: '<span class="title1">作业内容</span><span class="title2">单位</span>', titleAlign: 'center', rowspan: 4,titleCellClassName:'oms2-title-cell-duijiao'},
+                              [{fields: ['jujiorgname'], title: '单位', titleAlign: 'center', rowspan: 4},
                               {fields: ['testoilnum','testnum'], title: '试油', titleAlign: 'center', colspan: 2},
                               {fields: ['taskmountnum','tracknum','acidificationnum','bigrepairnum','sidedrillnum','totalsmallnum','totalrepnum','checkdumpnum','newdrillnum','collapronum','otherworknum'], title: '井下作业（井次）', titleAlign: 'center', colspan: 11},
                              ],

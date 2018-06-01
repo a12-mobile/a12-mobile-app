@@ -48,7 +48,7 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home,
-      meta: { navShow: true, title: '首页' },
+      meta: { navShow: false, title: '首页' },
     },
     {
       path: '/well/list',
