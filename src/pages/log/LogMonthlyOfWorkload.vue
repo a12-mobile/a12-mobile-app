@@ -6,7 +6,7 @@
         
         <v-table is-horizontal-resize :height=tableHeight is-vertical-resize :title-row-height=25 :row-height=30 title-bg-color="#F6F6F6" style="width:100%;font-size:12px"  :columns="columns" :title-rows="titleRows" :column-cell-class-name="columnCellClass" :table-data="tableData" :cell-merge="cellMerge" even-bg-color="#F4F4F4"
             row-hover-color="#eee" row-click-color="#edF7FF"></v-table>
-        <div class='oms2-report-float-right'>数据来源于集团A7测井工作量月报</div>
+        <div class='oms2-report-float-right'>数据来源于A7集团系统测井工作量月报</div>
     </div>
 </template>
 
@@ -125,7 +125,6 @@
             //请求数据方法
             requestData(){
                 Indicator.open('加载中...')
-                console.log(this.date.time)
                 getMonthlyOfWorkload(this.date.time).then((data)=>{
                     Indicator.close()
                     if(data.body){

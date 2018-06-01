@@ -2,7 +2,7 @@
     <div id="DrillDailyOfZH">
         <header>
             <h5>钻井综合日报</h5>
-            <div class='oms2-report-float-right' style="top:40px">数据来源于集团A7中油油服钻井工作量日报</div>
+            <div class='oms2-report-float-right' style="top:40px">数据来源于A7集团系统中油油服钻井工作量日报</div>
             <oms2-date-picker-daily :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce" @date-change="handleChange">
             </oms2-date-picker-daily>
         </header>
@@ -167,8 +167,8 @@
         },
         created() {
             this.requestDate()
-            this.$ruixinApi.hideWebViewTitle({});
             this.tableHeight = 600
+            this.$ruixinApi.hideWebViewTitle({});
             //   this.tableHeight=window.innerHeight-10
         },
         methods: {
@@ -202,12 +202,14 @@
                                 return preIndex - nextIndex
                             })
                         } else {
+                            // alert("成功但失败")
                             if (this.tableData.length > 0) {
                                 this.tableData = []
                             }
                         }
                     })
                     .catch((error) => {
+                        // alert('失败')
                         Indicator.close()
                         if (this.tableData.length > 0) {
                             this.tableData = []

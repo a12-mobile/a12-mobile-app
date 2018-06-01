@@ -211,7 +211,7 @@ export default new Router({
       name: 'DrillDailyOfZH',
       component: DrillDailyOfZH,
       meta:{ navShow: false, title: '横屏效果'}
-    },
+    },  
     {
       path: '/mlogMonthOfTeam',
       name: 'MlogMonthOfTeam',
