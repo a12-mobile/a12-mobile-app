@@ -4,7 +4,7 @@
       <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
     </mt-header>
     <router-link to="/mlogsOfRecordWell">
-      <button type="button" class="btn btn-primary">录井分队日报</button>
+      <button type="button" class="btn btn-primary">录井分队动态</button>
     </router-link>
     <br/>
     <br/>
