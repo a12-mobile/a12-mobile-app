@@ -33,7 +33,7 @@
       row-click-color="#edf7ff"
       even-bg-color="#f4f4f4"
     ></v-table>
-    <div class='oms2-report-float-right'>数据来源于A7集团系统库录井工作量分单位月报</div>
+    <div class='oms2-report-float-right'>数据来源于集团A7库录井工作量分单位月报</div>
 
 
   </div>
@@ -52,7 +52,7 @@
           tableData: [],
           columns: [
             {field: 'jujorgNam', width: 70, columnAlign: 'left', isResize: true, isFrozen: true},
-            {field: 'cjorgName', width: 140, columnAlign: 'left', isResize: true, isFrozen: true},
+            {field: 'cjorgName', width: 70, columnAlign: 'left',  isFrozen: true},
             {field: 'logWellTotalNum', width: 50, columnAlign: 'right', isResize: true},
             {field: 'logWellTotalNum2', width: 50, columnAlign: 'right', isResize: true},
             {field: 'ewellNum', width: 50, columnAlign: 'right', isResize: true},
@@ -76,9 +76,8 @@
           ],
           titleRows: [
             //第一行
-            [
-              //{fields: ['jujorgNam','cjorgName'], title: '<span class="title1">项目</span><span class="title2">单位</span>', titleAlign: 'center', rowspan: 2,colspan: 2,titleCellClassName:'oms2-title-cell-duijiao'},
-              {fields: ['jujorgNam', 'cjorgName'], title: '单位', titleAlign: 'center', rowspan:2, colspan: 2},
+            [{fields: ['jujorgNam','cjorgName'], title: '<span class="title1">项目</span><span class="title2">单位</span>', titleAlign: 'center', rowspan: 2,colspan: 2,titleCellClassName:'oms2-title-cell-duijiao'},
+             // {fields: ['jujorgNam', 'cjorgName'], title: '单位', titleAlign: 'center', rowspan:2, colspan: 2},
               {fields: ['logWellTotalNum'], title: '录井总井次', titleAlign: 'center', rowspan: 2},
               {fields: ['logWellTotalNum2'], title: '录井总口数', titleAlign: 'center', rowspan: 2},
               {fields: ['ewellNum'], title: '探井(口)', titleAlign: 'center', rowspan: 2},
@@ -262,9 +261,9 @@
       left: 0;
       background-color: #E3E3E3;
       display: block;
-      transform: rotate(-76.61deg);
+      transform: rotate(-70.35deg);
       transform-origin: top;
-      -ms-transform: rotate(-76.61deg);
+      -ms-transform: rotate(-70.35deg);
       -ms-transform-origin: top;
     }
     .title1{
