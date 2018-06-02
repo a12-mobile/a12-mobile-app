@@ -33,7 +33,7 @@
       row-click-color="#edf7ff"
       even-bg-color="#f4f4f4"
     ></v-table>
-    <div class='oms2-report-float-right'>数据来源于集团A7库录井工作量分单位月报</div>
+    <div class='oms2-report-float-right'>数据来源于A7集团系统库录井工作量分单位月报</div>
 
 
   </div>
@@ -76,8 +76,9 @@
           ],
           titleRows: [
             //第一行
-            [{fields: ['jujorgNam','cjorgName'], title: '<span class="title1">项目</span><span class="title2">单位</span>', titleAlign: 'center', rowspan: 2,colspan: 2,titleCellClassName:'oms2-title-cell-duijiao'},
-             // {fields: ['jujorgNam', 'cjorgName'], title: '单位', titleAlign: 'center', rowspan:2, colspan: 2},
+            [
+              //{fields: ['jujorgNam','cjorgName'], title: '<span class="title1">项目</span><span class="title2">单位</span>', titleAlign: 'center', rowspan: 2,colspan: 2,titleCellClassName:'oms2-title-cell-duijiao'},
+              {fields: ['jujorgNam', 'cjorgName'], title: '单位', titleAlign: 'center', rowspan:2, colspan: 2},
               {fields: ['logWellTotalNum'], title: '录井总井次', titleAlign: 'center', rowspan: 2},
               {fields: ['logWellTotalNum2'], title: '录井总口数', titleAlign: 'center', rowspan: 2},
               {fields: ['ewellNum'], title: '探井(口)', titleAlign: 'center', rowspan: 2},

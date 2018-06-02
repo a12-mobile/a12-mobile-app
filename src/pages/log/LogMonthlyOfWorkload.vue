@@ -6,7 +6,7 @@
         
         <v-table is-horizontal-resize :height=tableHeight is-vertical-resize :title-row-height=25 :row-height=30 title-bg-color="#F6F6F6" style="width:100%;font-size:12px"  :columns="columns" :title-rows="titleRows" :column-cell-class-name="columnCellClass" :table-data="tableData" :cell-merge="cellMerge" even-bg-color="#F4F4F4"
             row-hover-color="#eee" row-click-color="#edF7FF"></v-table>
-        <div class='oms2-report-float-right'>数据来源于集团A7测井工作量月报</div>
+        <div class='oms2-report-float-right'>数据来源于A7集团系统测井工作量月报</div>
     </div>
 </template>
 
@@ -25,9 +25,9 @@
                 columns: [
                     {field: 'juOrgabb', width:60, columnAlign: 'center', isFrozen: true,isResize:true},
                     {field: 'chuOrgabb', width: 110, columnAlign: 'center', isFrozen: true,isResize:true},
-                    {field: 'totalWellCount', width: 60, columnAlign: 'right',isResize:true},
-                    {field: 'completeWellCount', width: 60, columnAlign: 'right',isResize:true},
-                    {field: 'wjcjCount', width: 80, columnAlign: 'right',isResize:true},
+                    {field: 'totalWellCount', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'completeWellCount', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'wjcjCount', width: 40, columnAlign: 'right',isResize:true},
                     {field: 'lyTotal', width: 40, columnAlign: 'right',isResize:true},
                     {field: 'wjcjWellcount', width: 40, columnAlign: 'right',isResize:true},
                     {field: 'numberSpare2', width: 40, columnAlign: 'right',isResize:true},
@@ -43,7 +43,7 @@
                     {field: 'projectOther', width: 40, columnAlign: 'right',isResize:true},
                     {field: 'skTotal', width: 40, columnAlign: 'right',isResize:true},
                     {field: 'vittaTransfers', width: 80, columnAlign: 'right',isResize:true},
-                    {field: 'cableSk', width: 50, columnAlign: 'right',isResize:true},
+                    {field: 'cableSk', width: 40, columnAlign: 'right',isResize:true},
                     {field: 'differentWork', width: 60, columnAlign: 'right',isResize:true},
                     {field: 'thicknessSk', width: 50, columnAlign: 'right',isResize:true},
                     {field: 'bombCount', width: 50, columnAlign: 'right',isResize:true},
@@ -58,7 +58,7 @@
                               {fields: ['totalWellCount','completeWellCount','wjcjCount','lyTotal','wjcjWellcount','numberSpare2','lyOther','scTotal',
                               'ccCount','zrCount','dcCount','sccjqt','gcTotal','tsTest','gjQualityTest','projectOther',
                                         'skTotal','vittaTransfers','cableSk','differentWork','thicknessSk','bombCount','wxTotal','nullityEquipment',
-                                        'nullityWell','nullityOther'], title: '井下作业（井次）', titleAlign: 'center', colspan: 26},
+                                        'nullityWell','nullityOther'], title: '指标名称', titleAlign: 'center', colspan: 26},
                              ],
 
                              //第二行
@@ -78,32 +78,32 @@
                               {fields: ['lyTotal'], title: '合计', titleAlign: 'center', rowspan:2},   //===========/
                               {fields: ['wjcjWellcount'], title: '测井井次', titleAlign: 'center', rowspan:2},
                               {fields: ['numberSpare2'], title: 'LWD', titleAlign: 'center', rowspan:2},
-                              {fields: ['lyOther'], title: '其他', titleAlign: 'center', rowspan:2},
+                              {fields: ['lyOther'], title: '其它', titleAlign: 'center', rowspan:2},
                               
                               //生产测井（井次）
                               {fields: ['scTotal'], title: '合计', titleAlign: 'center', rowspan:2},//////============//
                               {fields: ['ccCount'], title: '产出剖面', titleAlign: 'center', rowspan:2},
                               {fields: ['zrCount'], title: '注入剖面', titleAlign: 'center', rowspan:2},
                               {fields: ['dcCount'], title: '储层参数', titleAlign: 'center', rowspan:2},
-                              {fields: ['sccjqt'], title: '其他', titleAlign: 'center', rowspan:2},
+                              {fields: ['sccjqt'], title: '其它', titleAlign: 'center', rowspan:2},
 
                               //工程测井（井次）
                               {fields: ['gcTotal'], title: '合计', titleAlign: 'center', rowspan:2},//=============/
                               {fields: ['tsTest'], title: '套损检测', titleAlign: 'center', rowspan:2},
                               {fields: ['gjQualityTest'], title: '固井质量检测', titleAlign: 'center', rowspan:2},
-                              {fields: ['projectOther'], title: '其他', titleAlign: 'center', rowspan:2},
+                              {fields: ['projectOther'], title: '其它', titleAlign: 'center', rowspan:2},
                               
 
                               //射孔
                               {fields: ['skTotal','vittaTransfers','cableSk','differentWork'], title: '射孔 (井次)', titleAlign: 'center', colspan:4},
                               {fields: ['thicknessSk'], title: '射孔厚度 (m)', titleAlign: 'center', rowspan:2},
-                              {fields: ['bombCount'], title: '用弹量 (万发)', titleAlign: 'center', rowspan:2},
+                              {fields: ['bombCount'], title: '用弹量<br> (万发)', titleAlign: 'center', rowspan:2},
 
                               //无效井次
                               {fields: ['wxTotal'], title: '合计', titleAlign: 'center', rowspan:2},  /////=========/
                               {fields: ['nullityEquipment'], title: '设备', titleAlign: 'center', rowspan:2},
                               {fields: ['nullityWell'], title: '井况', titleAlign: 'center', rowspan:2},
-                              {fields: ['nullityOther'], title: '其他', titleAlign: 'center', rowspan:2},
+                              {fields: ['nullityOther'], title: '其它', titleAlign: 'center', rowspan:2},
                              ],
 
                               //第四行
@@ -125,7 +125,6 @@
             //请求数据方法
             requestData(){
                 Indicator.open('加载中...')
-                console.log(this.date.time)
                 getMonthlyOfWorkload(this.date.time).then((data)=>{
                     Indicator.close()
                     if(data.body){

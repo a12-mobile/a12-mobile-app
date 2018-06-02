@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class='mlogs'>
         <!--<h4>录井分队日报</h4>-->
         <!--引入日期控件-->
         <div class="oms2-fixed">
@@ -9,8 +9,7 @@
         <div class="main-body" ref="wrapper" :style="{'-webkit-overflow-scrolling': scrollMode,'overflow':'auto',height: wrapperHeight + 'px'}">
             <mt-loadmore :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
                 <div class="oms2-table-content">
-                    <v-table is-horizontal-resize style="width:100%;font-size:12px" :title-row-height=30 :row-height=30 :columns="columns" :table-data="tableData" :title-rows="titleRows" row-hover-color="#eee" row-click-color="#edf7ff" even-bg-color="#f4f4f4"
-                        title-bg-color="#F6F6F6"></v-table>
+                    <v-table is-horizontal-resize style="width:100%;font-size:12px" :title-row-height=30 :row-height=30 :columns="columns" :table-data="tableData" :title-rows="titleRows" row-hover-color="#eee" row-click-color="#edf7ff" even-bg-color="#f4f4f4" title-bg-color="#F6F6F6"></v-table>
                 </div>
             </mt-loadmore>
         </div>
@@ -19,10 +18,16 @@
 
 <script>
     import DatePickerDaily from './../../components/datepicker/DatePickerDaily' //导入日期控件
-    import { Indicator } from 'mint-ui'; //导入加载动画插件
+    import {
+        Indicator
+    } from 'mint-ui'; //导入加载动画插件
     import timepicker from './../../components/datepicker/timepicker' //导入时间插件，获取当前时间
-    import { getDailyOfMlogByPage } from './../../service/mlog/mlogGetData' //导入axios封装函数，包含请求后台路径
-    import { showToast } from './../../service/utils/toast/toast'
+    import {
+        getDailyOfMlogByPage
+    } from './../../service/mlog/mlogGetData' //导入axios封装函数，包含请求后台路径
+    import {
+        showToast
+    } from './../../service/utils/toast/toast'
     export default {
         data() {
             return {
@@ -299,12 +304,11 @@
         methods: {
             loadingDate() {
                 Indicator.open('加载中...')
-                getDailyOfMlogByPage(this.date.time,this.searchCondition.pageNo,this.searchCondition.pageSize)
+                getDailyOfMlogByPage(this.date.time, this.searchCondition.pageNo, this.searchCondition.pageSize)
                     .then((data) => {
                         Indicator.close()
                         if (data.body) {
-                            this.tableData=this.tableData.concat(data.body)
-                            console.log(this.tableData.length)
+                            this.tableData = this.tableData.concat(data.body)
                         }
                         //判断是否还有数据
                         this.isHaveMore(data.isHaveMore)
@@ -321,19 +325,19 @@
                 window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
             },
             handleDateAdd(param) {
-                this.tableData=[]
+                this.tableData = []
                 if (param.canAdd) {
                     this.loadingDate();
                 }
             },
             handleDateReduce(param) {
-                this.tableData=[]
+                this.tableData = []
                 if (param.canReduce) {
                     this.loadingDate()
                 }
             },
             handleChange(date) {
-                this.tableData=[]
+                this.tableData = []
                 this.loadingDate();
             },
             //上拉加载
@@ -350,12 +354,12 @@
                 this.allLoaded = true; //true是禁止上拉加载  
                 if (isHaveMore) {
                     this.allLoaded = false;
-                }else if(isHaveMore==false){
+                } else if (isHaveMore == false) {
                     showToast('数据加载完毕')
                 }
             }
         },
-        created(){
+        created() {
             this.loadingDate(); //初次访问查询列表  
         },
         mounted() {
@@ -366,14 +370,9 @@
         }
     }
 </script>
-<style>
-    .v-table-title-class {
-        position: fixed;
-        top: 47px;
-    }
+<style lang="scss">
     .oms2-fixed {
         top: 0px;
-        padding-top: 10px;
         background-color: white;
         width: 100%;
         height: 48px;
@@ -382,6 +381,10 @@
     }
     .oms2-table-content {
         margin-top: 105px;
+        .v-table-title-class {
+            position: fixed;
+            top: 47px;
+        }
     }
 </style>
 

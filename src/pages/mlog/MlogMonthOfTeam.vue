@@ -21,7 +21,7 @@
       even-bg-color="#F4F4F4"
       row-hover-color="#eee"
       row-click-color="#edF7FF"></v-table>
-    <div class='oms2-report-float-right'>数据来源于集团A7库录井服务队伍统计月报</div>
+    <div class='oms2-report-float-right'>数据来源于A7集团系统库录井服务队伍统计月报</div>
   </div>
 </template>
 

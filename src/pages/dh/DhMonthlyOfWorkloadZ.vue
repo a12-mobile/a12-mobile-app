@@ -23,7 +23,7 @@
             even-bg-color="#F4F4F4" 
             row-hover-color="#eee"
             row-click-color="#edF7FF"></v-table>
-            <div class='oms2-report-float-right'>数据来源于集团A7井下作业工作量统计月报（总）</div>
+            <div class='oms2-report-float-right'>数据来源于A7集团系统井下作业工作量统计月报（总）</div>
     </div>
 </template>
 
@@ -59,7 +59,8 @@
                 ],
 
                 titleRows: [ //第一行
-                             [{fields: ['jujiorgname'], title: '<span class="title1">作业内容</span><span class="title2">单位</span>', titleAlign: 'center', rowspan: 4,titleCellClassName:'oms2-title-cell-duijiao'},
+                            //  [{fields: ['jujiorgname'], title: '<span class="title1">作业内容</span><span class="title2">单位</span>', titleAlign: 'center', rowspan: 4,titleCellClassName:'oms2-title-cell-duijiao'},
+                              [{fields: ['jujiorgname'], title: '单位', titleAlign: 'center', rowspan: 4},
                               {fields: ['testoilnum','testnum'], title: '试油', titleAlign: 'center', colspan: 2},
                               {fields: ['taskmountnum','tracknum','acidificationnum','bigrepairnum','sidedrillnum','totalsmallnum','totalrepnum','checkdumpnum','newdrillnum','collapronum','otherworknum'], title: '井下作业（井次）', titleAlign: 'center', colspan: 11},
                              ],
