@@ -9,6 +9,19 @@
  *    3.添加bootstrap模态框效果不好，如果一定要添加查询可以添加到页面最上方，如果一定一定要用模态框，那可以设置页面的z-index值
  *    4.toast提示，输入法均为竖屏效果，忍受不了不要横屏
  * 
+ * 
+ * 
+ * 使用demo
+ * 1.js中引入
+ * import {transToHorizontalScreen} from './../../service/utils/system/screen'
+ * 
+ * 2.在create()方法中使用
+ * created() {
+        this.$nextTick(()=>{
+            transToHorizontalScreen("#DrillDailyOfZH")
+        })
+    }
+ * 
  */
 export function transToHorizontalScreen(id){
     $(id).css({

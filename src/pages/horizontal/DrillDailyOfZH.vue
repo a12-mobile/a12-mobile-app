@@ -14,7 +14,7 @@
 <script>
     
     import DatePickerDaily from './../../components/datepicker/DatePickerDaily'
-    import {transToHorizontalScreen} from './../../service/utils/horizontal/horizontal'
+    import {transToHorizontalScreen} from './../../service/utils/system/screen'
     import {
         Indicator
     } from 'mint-ui';
