@@ -33,7 +33,7 @@ export function getMonthLogOfMlogWellByCompany(date) {
 }
 
 /**
- * 向服务器获取录井服务队伍月报
+ * 向服务器获取录井队伍统计月报
  * @param {*} date
  */
 export function getMlogMonthOfTeam(startDate,endDate) {

@@ -32,7 +32,7 @@
           <h6>录井队伍统计月报</h6>
         </div>
         <div class="col-4 oms2-grid-cell">
-          <router-link to="/mlogs">
+          <router-link to="/mlogsOfRecordWell">
             <img class='oms2-grid-cell-image' src="./../assets/img/mlogDaily.png">
           </router-link>
           <h6>录井分队动态</h6>
@@ -63,6 +63,14 @@
             <img class='oms2-grid-cell-image' src="./../assets/img/wellList.png">
           </router-link>
           <h6>井下工作量月报国内</h6>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4 oms2-grid-cell">
+          <router-link to="/dRDailyOfRigDynamic">
+            <img class='oms2-grid-cell-image' src="./../assets/img/wellList.png">
+          </router-link>
+          <h6>钻机动态日报</h6>
         </div>
       </div>
     </div>

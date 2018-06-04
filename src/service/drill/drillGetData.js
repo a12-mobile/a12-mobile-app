@@ -19,3 +19,13 @@ export function getDaliyOfWorkload(date) {
     'date': date
   })
 }
+
+/**
+ * 向服务器获取钻机动态日报
+ * @param {*} date
+ */
+export function getDaliyOfRigDynamic(date) {
+  return httpService('GET', '/drill/report/findRigByDate', {
+    'date': date
+  })
+}

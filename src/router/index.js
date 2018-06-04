@@ -13,7 +13,7 @@ import DrillListOfProjectData2 from '@/pages/drill/DrillListOfProjectData2'
 import DrillFormList from '@/pages/drill/DrillFormList'
 import DrillDailyOfKeyWell from '@/pages/drill/DrillDailyOfKeyWell'
 import DailyOfDrilling from '@/pages/drill/DailyOfDrilling'
-
+import DRDailyOfRigDynamic from '@/pages/drill/DRDailyOfRigDynamic'
 //井下
 import DhFormList from '@/pages/dh/DhFormList'
 import DhMonthlyOfWorkloadGN from '@/pages/dh/DhMonthlyOfWorkloadGN'
@@ -48,7 +48,7 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home,
-      meta: { navShow: false, title: '首页' },
+      meta: { navShow: true, title: '首页' },
     },
     {
       path: '/well/list',
@@ -109,9 +109,15 @@ export default new Router({
     },
     {
       path:'/dailyOfDrilling',
-      name:'dailyOfDrilling',
+      name:'DailyOfDrilling',
       component:DailyOfDrilling,
       meta:{navShow:false,title:'钻井综合日报'}
+    },
+    {
+      path:'/dRDailyOfRigDynamic',
+      name:'DRDailyOfRigDynamic',
+      component:DRDailyOfRigDynamic,
+      meta:{navShow:false,title:'钻机动态日报'}
     },
     //钻井end
 
@@ -163,7 +169,7 @@ export default new Router({
       path: '/mlogsOfRecordWell',
       name: 'MlogsOfRecordWell',
       component: MlogsOfRecordWell,
-      meta:{ navShow: false, title: '录井分队日报'}
+      meta:{ navShow: false, title: '录井分队动态'}
     },
     {
       path: '/MonthLogOfLogWellByCompany',
@@ -177,7 +183,12 @@ export default new Router({
       component: MonthLogOfWellWorkload,
       meta:{ navShow: false, title: '录井工作量月报'}
     },
-
+    {
+      path: '/mlogMonthOfTeam',
+      name: 'MlogMonthOfTeam',
+      component: MlogMonthOfTeam,
+      meta:{ navShow: false, title: '录井队伍统计月报'}
+    },
 
 
 
@@ -211,12 +222,7 @@ export default new Router({
       name: 'DrillDailyOfZH',
       component: DrillDailyOfZH,
       meta:{ navShow: false, title: '横屏效果'}
-    },  
-    {
-      path: '/mlogMonthOfTeam',
-      name: 'MlogMonthOfTeam',
-      component: MlogMonthOfTeam,
-      meta:{ navShow: false, title: '录井队伍统计月报'}
-    }
+    },
+
   ]
 })

@@ -24,6 +24,11 @@
     <router-link to="/horizontal/drill/daily/zh">
       <button type="button" class="btn btn-primary">钻井综合日报(横屏)</button>
     </router-link>
+    <br/>
+    <br/>
+    <router-link to="/drDailyOfRigDynamic">
+      <button type="button" class="btn btn-primary">钻机动态日报</button>
+    </router-link>
   </div>
 </template>
 
