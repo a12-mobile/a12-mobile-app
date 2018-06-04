@@ -9,8 +9,7 @@
             <!--引入日期控件-->
             <div class="oms2-fixed">
               <oms2-date-picker-daily :date="date"
-                        @date-add="handleDateAdd"
-                        @date-reduce="handleDateReduce"
+
                         @date-change="handleChange">
               </oms2-date-picker-daily><span class='oms2-search' @click="handleShowSelect"><i class="fa fa-search"></i></span>
             </div>
@@ -201,19 +200,7 @@
                   this.tableData=[];
                   this.loadingDate();
               },
-              handleDateAdd(param){
-                  if(param.canAdd){
-                      this.tableData=[];
-                      this.loadingDate();
-                  }
-              },
 
-              handleDateReduce(param){
-                  if(param.canReduce){
-                    this.tableData=[];
-                    this.loadingDate();
-                  }
-              },
               //上拉加载
               loadBottom: function() {
                 // 上拉加载
