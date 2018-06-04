@@ -9,8 +9,6 @@
             <!--引入日期控件-->
             <div class="oms2-fixed">
               <oms2-date-picker-daily :date="date"
-                        @date-add="handleDateAdd"
-                        @date-reduce="handleDateReduce"
                         @date-change="handleChange">
               </oms2-date-picker-daily><span class='oms2-search' @click="handleShowSelect"><i class="fa fa-search"></i></span>
             </div>
@@ -222,20 +220,6 @@
                   }
                   window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
               },
-
-              handleDateAdd(param){
-                  if(param.canAdd){
-                      this.tableData=[];
-                      this.loadingDate();
-                  }
-              },
-
-              handleDateReduce(param){
-                  if(param.canReduce){
-                    this.tableData=[];
-                    this.loadingDate();
-                  }
-              },
               //上拉加载
               loadBottom: function() {
                 // 上拉加载
@@ -263,6 +247,7 @@
               },
 
               handleChange(date){
+                this.tableData=[];
                   this.loadingDate();
               },
               /**

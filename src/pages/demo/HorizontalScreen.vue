@@ -1,6 +1,6 @@
 <template>
     <div id="HorizontalScreen">
-        <oms2-date-picker-daily :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @date-change="handleDateChange"></oms2-date-picker-daily><span class='oms2-search' @click="handleShowSelect"><i class="fa fa-search"></i></span>
+        <oms2-date-picker-daily :date="date" @date-change="handleDateChange"></oms2-date-picker-daily><span class='oms2-search' @click="handleShowSelect"><i class="fa fa-search"></i></span>
 
         <!-- 查询 Modal -->
         <div class="modal fade" id="ModalSelect" tabindex="-1" role="dialog" aria-labelledby="ModalSelectTitle" aria-hidden="true">
@@ -360,22 +360,7 @@
                 }
                 window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
             },
-            /**
-             * 日期增加的方法
-             */
-            handleDateAdd(param){
-                if (param.canAdd) {
-                    this.requestDate();
-                }
-            },
-            /**
-             * 日期减少的方法
-             */
-            handleDateReduce(param){
-                if (param.canReduce) {
-                    this.requestDate();
-                }
-            },
+            
             /**
              * 时间选择器时间发生改变时调用的方法
              */

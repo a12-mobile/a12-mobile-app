@@ -73,14 +73,12 @@
                 Indicator.open('加载中...')
                 getWellList().then((data) => {
                         Indicator.close()
-                        console.log("获取到了")
                         if (data.body) {
                             this.baseData = data.body;
                         } else {
                             this.baseData = []
                         }
                         this.tableData = this.baseData
-                        console.log(this.tableData)
 
                         //获取施工单位的列表
                 let sgdws = new Set();

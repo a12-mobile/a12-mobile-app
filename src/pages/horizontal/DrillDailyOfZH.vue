@@ -3,7 +3,7 @@
         <header>
             <h5>钻井综合日报</h5>
             <div class='oms2-report-float-right' style="top:40px">数据来源于A7集团系统中油油服钻井工作量日报</div>
-            <oms2-date-picker-daily :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce" @date-change="handleChange">
+            <oms2-date-picker-daily :date="date" @date-change="handleChange">
             </oms2-date-picker-daily>
         </header>
             <v-table is-horizontal-resize is-vertical-resize style="width:100%;font-size:12px" :title-row-height=20 :row-height=30 :columns="columns" :title-rows="titleRows" :table-data="tableData" :column-cell-class-name="columnCellClass" :height=tableHeight title-bg-color="#F6F6F6"
@@ -228,16 +228,7 @@
                 }
                 window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
             },
-            handleDateAdd(param) {
-                if (param.canAdd) {
-                    this.requestDate();
-                }
-            },
-            handleDateReduce(param) {
-                if (param.canReduce) {
-                    this.requestDate();
-                }
-            },
+            
             //设置列单元格样式
             columnCellClass(rowIndex, columnName, rowData) {
                 if (columnName == 'sgdw' && this.tableData[rowIndex].remark == 'Not exist') {

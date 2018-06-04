@@ -156,22 +156,7 @@
                 }
                 window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
             },
-            /**
-             * 日期增加的方法
-             */
-            handleDateAdd(param){
-                if (param.canAdd) {
-                    this.requestDate();
-                }
-            },
-            /**
-             * 日期减少的方法
-             */
-            handleDateReduce(param){
-                if (param.canReduce) {
-                    this.requestDate();
-                }
-            },
+            
             /**
              * 时间选择器时间发生改变时调用的方法
              */
