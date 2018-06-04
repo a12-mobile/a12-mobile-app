@@ -85,7 +85,7 @@ function successState(res){
 
 
 //请求方法
-const httpServer=(method,url,data)=>{
+const httpServer=(method,url,data={})=>{
     let requestMethod=method.toUpperCase()
     let Public={  //存放公共参数
 

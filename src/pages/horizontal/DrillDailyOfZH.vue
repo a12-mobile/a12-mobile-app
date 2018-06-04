@@ -6,13 +6,15 @@
             <oms2-date-picker-daily :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce" @date-change="handleChange">
             </oms2-date-picker-daily>
         </header>
-        <v-table is-horizontal-resize is-vertical-resize style="width:100%;font-size:12px" :title-row-height=20 :row-height=30 :columns="columns" :title-rows="titleRows" :table-data="tableData" :column-cell-class-name="columnCellClass" :height=tableHeight title-bg-color="#F6F6F6"
-            even-bg-color="#f2f2f2" row-hover-color="#eee" row-click-color="#edf7ff"></v-table>
+            <v-table is-horizontal-resize is-vertical-resize style="width:100%;font-size:12px" :title-row-height=20 :row-height=30 :columns="columns" :title-rows="titleRows" :table-data="tableData" :column-cell-class-name="columnCellClass" :height=tableHeight title-bg-color="#F6F6F6"
+                even-bg-color="#f2f2f2" row-hover-color="#eee" row-click-color="#edf7ff"></v-table>
     </div>
 </template>
 
 <script>
+    
     import DatePickerDaily from './../../components/datepicker/DatePickerDaily'
+    import {transToHorizontalScreen} from './../../service/utils/horizontal/horizontal'
     import {
         Indicator
     } from 'mint-ui';
@@ -30,7 +32,7 @@
                         field: 'sgdw',
                         width: 60,
                         columnAlign: 'left',
-                        isFrozen: true,
+                        isFrozen: false,
                         isResize: true
                     },
                     {
@@ -167,9 +169,13 @@
         },
         created() {
             this.requestDate()
-            this.tableHeight = 600
-            this.$ruixinApi.hideWebViewTitle({});
-            //   this.tableHeight=window.innerHeight-10
+            this.tableHeight = window.innerHeight*0.94
+            // this.$ruixinApi.hideWebViewTitle({});
+            this.$nextTick(()=>{
+                transToHorizontalScreen("#DrillDailyOfZH")
+            })
+            
+
         },
         methods: {
             requestDate() {
@@ -180,7 +186,7 @@
                         if (data.body) {
                             this.tableData = data.body
                             //检查是否含有所有地区
-                            let sgdws = ['总计', '大庆', '西部', '长城', '渤海', '川庆', '海洋']
+                            let sgdws = ['总计', '大庆钻探', '西部钻探', '长城钻探', '渤海钻探', '川庆钻探', '海洋钻探']
                             let sgdwsFromDate = []
                             for (var date of this.tableData) {
                                 sgdwsFromDate.push(date.sgdw)
@@ -249,22 +255,6 @@
 </script>
 
 <style lang="scss">
-    #DrillDailyOfZH {
-        width: 600px;
-        height: 400px;
-        transform: rotate(90deg);
-        -ms-transform: rotate(90deg);
-        /* IE 9 */
-        -moz-transform: rotate(90deg);
-        /* Firefox */
-        -webkit-transform: rotate(90deg);
-        /* Safari 和 Chrome */
-        -o-transform: rotate(90deg);
-        /* Opera */
-        transform-origin: 170px 170px;
-        position: absolute;
-        margin-top: 10px;
-    }
     .oms2-item-not-exict {
         color: #ff0000;
     }

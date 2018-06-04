@@ -46,7 +46,7 @@
             is-horizontal-resize 
             is-vertical-resize 
             :title-row-height=20 
-            :row-height=30 
+            :row-height=30
             :row-click="handleRowClick"
             title-bg-color="#F6F6F6" 
             :height=tableHeight
@@ -215,7 +215,6 @@
                 baseData:[],     //对从服务器获取的数据进行备份，方便查询等操作，不许重复向服务器查询
                 tableData: [],   //表格中显示的数据
                 sgdwList:[],     //施工单位列表  用于查询使用
-                jmList:[],       //井名列表  用于查询使用
                 selectedRow:{},  //选中的行
                 selectedJM:'',   //查询的井名
                 selectedSGDW:'全部', //查询的施工单位
@@ -331,7 +330,6 @@
                     if(data){
                         this.tableData=data.body
                         this.baseData=data.body
-                        
                     }else{
                         this.tableData=[]
                     }
@@ -429,7 +427,6 @@
                     for(var sgdw of sgdws){
                         this.sgdwList.push(sgdw)
                     }
-                    this.jmList=this.baseData
                 }
             },
             /**
@@ -445,18 +442,6 @@
             handleRowClick(rowIndex, rowData, column){
                 this.selectedRow=rowData
                 $("#ModalWellMessage").modal('show')
-            }
-        },
-        watch:{
-            selectedSGDW:function(){
-                if(this.selectedSGDW=="全部"){
-                    this.jmList=this.baseData
-                }else{
-                    this.jmList=this.baseData.filter((item)=>{
-                        return item.sgdw==this.selectedSGDW
-                    })
-                    this.selectedJM=''
-                }
             }
         },
         components: {

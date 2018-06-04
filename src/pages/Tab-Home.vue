@@ -5,7 +5,7 @@
     <div class="container">
       <div class="row">
           <div class="col-4 oms2-grid-cell" >
-            <a href="http://61.158.56.6:8030/websocket/echarts/demo.html">
+            <a href="http://11.10.97.109:9493/websocket/echarts/demo.html">
             <img class='oms2-grid-cell-image' src="./../assets/img/shishishuju.png">
             </a>
             <h6>实时监测</h6>

@@ -1,210 +1,6 @@
 <template>
     <div id="DailyOfKeyWell1">
-        <oms2-date-picker-daily :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @date-change="handleDateChange"></oms2-date-picker-daily><span class='oms2-search' @click="handleShowSelect"><i class="fa fa-search"></i></span>
-
-        <!-- 查询 Modal -->
-        <div class="modal fade" id="ModalSelect" tabindex="-1" role="dialog" aria-labelledby="ModalSelectTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">数据查询</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                  </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group row">
-                                <label class="col-4 col-form-label">施工单位:</label>
-                                <div class="col-7">
-                                    <select id="inputState" class="form-control" v-model="selectedSGDW">
-                                        <option>全部</option>
-                                        <option v-for="item in sgdwList">{{item}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-4 col-form-label">井号:</label>
-                                <div class="col-7">
-                                    <vue-instant 
-                                        suggestion-attribute="original_title" 
-                                        v-model="selectedJM" 
-                                        :disabled="false"  
-                                        @input="handleInstantChange"
-                                        :show-autocomplete="true" 
-                                        :autofocus="false" 
-                                        :suggestions="suggestions" 
-                                        name="customName" 
-                                        placeholder="填写井名" 
-                                        type="google">
-                                    </vue-instant>
-                                </div>
-                            </div>
-                        </form>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                            <button type="button" @click="handleSelect" data-dismiss="modal" class="btn btn-primary">查询</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <v-table 
-            is-horizontal-resize 
-            is-vertical-resize 
-            :title-row-height=20 
-            :row-height=30 
-            :row-click="handleRowClick"
-            title-bg-color="#F6F6F6" 
-            :height=tableHeight
-            style="width:100%;font-size:12px"
-            :columns="columns" 
-            :title-rows="titleRows" 
-            :table-data="tableData" 
-            :cell-merge="cellMerge"
-            even-bg-color="#F4F4F4" row-hover-color="#eee" row-click-color="#edF7FF"></v-table>
-        <div class='oms2-report-float-right'>数据来源于A7集团系统库钻井重点井日报</div>
-
-
-        <!-- Modal 具体数据信息 -->
-        <div class="modal fade" id="ModalWellMessage" tabindex="-1" role="dialog" aria-labelledby="ModalWellMessageTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">{{selectedRow.jm}}<span style="padding-left:20px;font-size:14px">(
-                            {{date.time}})</span></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                  </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="oms2-list-divider list-group-item list-group-item-dark">基础信息</div>
-                            <div class="row">
-                                <label class="col-5 oms2-right">施工单位:</label>
-                                <p>{{selectedRow.sgdw}}</p>
-                            </div>
-                            <div class="row">
-                                <label class="col-5 oms2-right">队号:</label>
-                                <p>{{selectedRow.dh}}</p>
-                            </div>
-                            <div class="row">
-                                <label class="col-5 oms2-right">井别:</label>
-                                <p>{{selectedRow.wellSort}}</p>
-                            </div>
-                            <div class="row">
-                                <label class="col-5 oms2-right">井型:</label>
-                                <p>{{selectedRow.wellType}}</p>
-                            </div>
-                            <div class="row">
-                                <label class="col-5 oms2-right">开钻日期:</label>
-                                <p>{{selectedRow.start1Date}}</p>
-                            </div>
-                            <div class="oms2-list-divider list-group-item list-group-item-dark">当日动态</div>
-                            <div class="row">
-                                <label class="col-5 oms2-right">设计井深(m):</label>
-                                <p>{{selectedRow.designWellDepth}}</p>
-                            </div>
-                            <div class="row">
-                                <label class="col-5 oms2-right">当前井深(m):</label>
-                                <p>{{selectedRow.actualWellDepth}}</p>
-                            </div>
-                            <div class="row">
-                                <label class="col-5 oms2-right">钻达层位:</label>
-                                <p>{{selectedRow.layername}}</p>
-                            </div>
-                            <div class="row">
-                                <label class="col-5 oms2-right">工况:</label>
-                                <p>{{selectedRow.project}}</p>
-                            </div>
-                            <div class="row">
-                                <label class="col-5 oms2-right">工作内容:</label>
-                                <div class="col-7 oms2-list-item-content">{{selectedRow.workContent}}</div>
-                            </div>
-                            <div class="oms2-list-divider list-group-item list-group-item-dark ">工作量</div>
-                            <div class="row">
-                                <label class="col-5 oms2-right">进尺-当日(m):</label>
-                                <p>{{selectedRow.dailyDrilledFootage | ifNumberIsNull}}</p>
-                            </div>
-                            <div class="row">
-                                <label class="col-6 oms2-right">进尺-月计划(m):</label>
-                                <p>{{selectedRow.monthPlannedDrillingFootage | ifNumberIsNull}}</p>
-                            </div>
-                            <div class="row">
-                                <label class="col-5 oms2-right">进尺-月累(m):</label>
-                                <p>{{selectedRow.cumulMonthDrilledFootage | ifNumberIsNull}}</p>
-                            </div>
-                            <div class="row">
-                                <label class="col-5 oms2-right">进尺-年累(m):</label>
-                                <p>{{selectedRow.cumulYearDrilledFootage | ifNumberIsNull}}</p>
-                            </div>
-                            <div class="row">
-                                <label class="col-5 oms2-right">完井-月累(口):</label>
-                                <p>{{selectedRow.monthCompletion | ifNumberIsNull}}</p>
-                            </div>
-                            <div class="row">
-                                <label class="col-5 oms2-right">完井-年累(口):</label>
-                                <p>{{selectedRow.yearFinish | ifNumberIsNull}}</p>
-                            </div>
-                            <div class="row">
-                                <label class="col-5 oms2-right">钻头尺寸型号:</label>
-                                <p>{{selectedRow.bitSizeModel}}</p>
-                            </div>
-                            <div class="row">
-                                <label class="col-5 oms2-right">钻压(KN):</label>
-                                <p>{{selectedRow.woba | ifNumberIsNull}}</p>
-                            </div>
-                            <div class="row">
-                                <label class="col-5 oms2-right">排量(L/s):</label>
-                                <p>{{selectedRow.deliveryVolume | ifNumberIsNull}}</p>
-                            </div>
-                            <div class="row">
-                                <label class="col-5 oms2-right">纯钻时间(h):</label>
-                                <p>{{selectedRow.onlydrill | ifNumberIsNull}}</p>
-                            </div>
-                            <div class="row">
-                                <label class="col-5 oms2-right">钻速(r/min):</label>
-                                <p>{{selectedRow.drillRotateSpeed}}</p>
-                            </div>
-                            <div class="row">
-                                <label class="col-5 oms2-right">泵压(MPa):</label>
-                                <p>{{selectedRow.pumpPressure | ifNumberIsNull}}</p>
-                            </div>
-                            <div class="list-group-item list-group-item-dark oms2-list-divider">钻井液性能</div>
-                            <div class="row">
-                                <label class="col-6 oms2-right">密度-设计(g/cm3):</label>
-                                <p>{{selectedRow.designMudPropDendity | ifNumberIsNull}}</p>
-                            </div>
-                            <div class="row">
-                                <label class="col-6 oms2-right">密度-实际(g/cm3):</label>
-                                <p>{{selectedRow.mudPropDensity | ifNumberIsNull}}</p>
-                            </div>
-                            <div class="row">
-                                <label class="col-6 oms2-right">粘度(s):</label>
-                                <p>{{selectedRow.mudPropViscosity | ifNumberIsNull}}</p>
-                            </div>
-                            <div class="row">
-                                <label class="col-6 oms2-right">失水(ml):</label>
-                                <p>{{selectedRow.mudPropWaterLose | ifNumberIsNull}}</p>
-                            </div>
-                            <div class="row">
-                                <label class="col-6 oms2-right">含沙(%):</label>
-                                <p>{{selectedRow.mudPropGrittyConsistence | ifNumberIsNull}}</p>
-                            </div>
-                            <div class="list-group-item list-group-item-dark oms2-list-divider">套管及钻具</div>
-                            <div class="row">
-                                <label class="col-6 oms2-right">套管规格(mm*m):</label>
-                                <div>{{selectedRow.cannulaSizeModel}}</div>
-                            </div>
-                        
-                        </form>
-                        <div class="modal-footer">
-                            <button type="button" data-dismiss="modal" class="btn btn-primary">返回</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <p>获取得参数为:<span>{{$route.query.username}}</span></p>
     </div>
 </template>
 
@@ -324,9 +120,10 @@
         },
         created(){
             //首次进入页面获取数据
-            this.requestDate();
-            this.$ruixinApi.hideWebViewTitle({});
-            this.tableHeight=window.innerHeight
+            // console.log(this.$route)
+            // this.requestDate();
+            // this.$ruixinApi.hideWebViewTitle({});
+            // this.tableHeight=window.innerHeight
         },
         methods:{
             /**
@@ -483,11 +280,6 @@
             position:absolute;
             z-index:2000;
 
-    }
-    .oms2-search{
-        position:absolute;
-        right:10px;
-        top:10px;
     }
     .oms2-list-item-content{
         text-align: left;
