@@ -1,14 +1,15 @@
 <template>
     <div>
-        <header>
+        <!-- <header>
             <mt-header :title="$route.meta.title" fixed>
                 <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
             </mt-header>
-        </header>
-        <div class="content" style="margin-left:5px">
+        </header> -->
+        <div class="content" style="margin-top:10px">
             <v-table
-             :width="340"
-             :height="600"
+              is-horizontal-resize 
+              is-vertical-resize
+             style="width:100%;font-size:12px"
              :columns="columns"
              :table-data="filterData"
              even-bg-color="#f4f4f4"

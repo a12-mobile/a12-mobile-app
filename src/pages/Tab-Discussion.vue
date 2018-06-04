@@ -1,103 +1,1134 @@
 <template>
   <div id="Discussion">
-    <mt-header :title="$route.meta.title" fixed>
-    </mt-header>
-    <p>这是协同讨论页面</p>
-    <oms2-date-picker-daily :date="date"></oms2-date-picker-daily>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalSelect">查询</button>
-    <!-- Modal -->
-    <div class="modal fade" id="ModalSelect" tabindex="-1" role="dialog" aria-labelledby="ModalSelectTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">数据查询</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                              </button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="form-group row">
-                <label for="staticEmail" class="col-3 col-form-label">日期：</label>
-                  <div class="col-7 center">
-                  <oms2-date-picker-daily :date="date">
-                    <!-- <label for="staticEmail" class="col-3 col-form-label">日期：</label> -->
-                  </oms2-date-picker-daily>
-                  </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-3 col-form-label">队号：</label>
-                <div class="col-7">
-                  <select id="inputState" class="form-control">
-                      <option v-for="item in tableData">{{item.dh}}</option>
-                      </select>
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-3 col-form-label">井号：</label>
-                <div class="col-7">
-                  <select id="inputState" class="form-control">
-                      <option v-for="item in tableData">{{item.jm}}</option>
-                      </select>
-                </div>
-              </div>
-            </form>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-              <button type="button" class="btn btn-primary">查询</button>
-            </div>
-          </div>
-        </div>
-      </div>
+    <!-- <mt-header :title="$route.meta.title" fixed>
+    </mt-header> -->
+    <h3 style="">Content Scroll Fix table header</h3>
+    <div class="scroll_table_content" id="scroll_wrap">
+      <table id="top_fix_table" border="0" cellpadding="4" cellspacing="0" class="table table-hover">
+        <thead>
+          <tr id="table_head">
+            <td>Test0</td>
+            <td>Test1</td>
+            <td>Test2</td>
+            <td>Test3</td>
+            <td>Test4</td>
+            <td>Test5</td>
+            <td>Test6</td>
+            <td>Test7</td>
+            <td>Test8</td>
+            <td>Test9</td>
+            <td>Test10</td>
+            <td>Test11</td>
+            <td>Test12</td>
+            <td>Test13</td>
+            <td>Test14</td>
+            <td>Test15</td>
+            <td>Test16</td>
+            <td>Test17</td>
+            <td>Test18</td>
+            <td>Test19</td>
+            <td>Test20</td>
+            <td>Test21</td>
+            <td>Test22</td>
+            <td>Test23</td>
+            <td>Test24</td>
+            <td>Test25</td>
+            <td>Test26</td>
+            <td>Test27</td>
+            <td>Test28</td>
+            <td>Test29</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>content1</td>
+            <td>content1</td>
+            <td>content1</td>
+            <td>content1</td>
+            <td>content1</td>
+            <td>content1</td>
+            <td>content1</td>
+            <td>content1</td>
+            <td>content1</td>
+            <td>content1</td>
+            <td>content1</td>
+            <td>content1</td>
+            <td>content1</td>
+            <td>content1</td>
+            <td>content1</td>
+            <td>content1</td>
+            <td>content1</td>
+            <td>content1</td>
+            <td>content1</td>
+            <td>content1</td>
+            <td>content1</td>
+            <td>content1</td>
+            <td>content1</td>
+            <td>content1</td>
+            <td>content1</td>
+            <td>content1</td>
+            <td>content1</td>
+            <td>content1</td>
+            <td>content1</td>
+            <td>content1</td>
+          </tr>
+          <tr>
+            <td>content2</td>
+            <td>content2</td>
+            <td>content2</td>
+            <td>content2</td>
+            <td>content2</td>
+            <td>content2</td>
+            <td>content2</td>
+            <td>content2</td>
+            <td>content2</td>
+            <td>content2</td>
+            <td>content2</td>
+            <td>content2</td>
+            <td>content2</td>
+            <td>content2</td>
+            <td>content2</td>
+            <td>content2</td>
+            <td>content2</td>
+            <td>content2</td>
+            <td>content2</td>
+            <td>content2</td>
+            <td>content2</td>
+            <td>content2</td>
+            <td>content2</td>
+            <td>content2</td>
+            <td>content2</td>
+            <td>content2</td>
+            <td>content2</td>
+            <td>content2</td>
+            <td>content2</td>
+            <td>content2</td>
+          </tr>
+          <tr>
+            <td>content3</td>
+            <td>content3</td>
+            <td>content3</td>
+            <td>content3</td>
+            <td>content3</td>
+            <td>content3</td>
+            <td>content3</td>
+            <td>content3</td>
+            <td>content3</td>
+            <td>content3</td>
+            <td>content3</td>
+            <td>content3</td>
+            <td>content3</td>
+            <td>content3</td>
+            <td>content3</td>
+            <td>content3</td>
+            <td>content3</td>
+            <td>content3</td>
+            <td>content3</td>
+            <td>content3</td>
+            <td>content3</td>
+            <td>content3</td>
+            <td>content3</td>
+            <td>content3</td>
+            <td>content3</td>
+            <td>content3</td>
+            <td>content3</td>
+            <td>content3</td>
+            <td>content3</td>
+            <td>content3</td>
+          </tr>
+          <tr>
+            <td>content4</td>
+            <td>content4</td>
+            <td>content4</td>
+            <td>content4</td>
+            <td>content4</td>
+            <td>content4</td>
+            <td>content4</td>
+            <td>content4</td>
+            <td>content4</td>
+            <td>content4</td>
+            <td>content4</td>
+            <td>content4</td>
+            <td>content4</td>
+            <td>content4</td>
+            <td>content4</td>
+            <td>content4</td>
+            <td>content4</td>
+            <td>content4</td>
+            <td>content4</td>
+            <td>content4</td>
+            <td>content4</td>
+            <td>content4</td>
+            <td>content4</td>
+            <td>content4</td>
+            <td>content4</td>
+            <td>content4</td>
+            <td>content4</td>
+            <td>content4</td>
+            <td>content4</td>
+            <td>content4</td>
+          </tr>
+          <tr>
+            <td>content5</td>
+            <td>content5</td>
+            <td>content5</td>
+            <td>content5</td>
+            <td>content5</td>
+            <td>content5</td>
+            <td>content5</td>
+            <td>content5</td>
+            <td>content5</td>
+            <td>content5</td>
+            <td>content5</td>
+            <td>content5</td>
+            <td>content5</td>
+            <td>content5</td>
+            <td>content5</td>
+            <td>content5</td>
+            <td>content5</td>
+            <td>content5</td>
+            <td>content5</td>
+            <td>content5</td>
+            <td>content5</td>
+            <td>content5</td>
+            <td>content5</td>
+            <td>content5</td>
+            <td>content5</td>
+            <td>content5</td>
+            <td>content5</td>
+            <td>content5</td>
+            <td>content5</td>
+            <td>content5</td>
+          </tr>
+          <tr>
+            <td>content6</td>
+            <td>content6</td>
+            <td>content6</td>
+            <td>content6</td>
+            <td>content6</td>
+            <td>content6</td>
+            <td>content6</td>
+            <td>content6</td>
+            <td>content6</td>
+            <td>content6</td>
+            <td>content6</td>
+            <td>content6</td>
+            <td>content6</td>
+            <td>content6</td>
+            <td>content6</td>
+            <td>content6</td>
+            <td>content6</td>
+            <td>content6</td>
+            <td>content6</td>
+            <td>content6</td>
+            <td>content6</td>
+            <td>content6</td>
+            <td>content6</td>
+            <td>content6</td>
+            <td>content6</td>
+            <td>content6</td>
+            <td>content6</td>
+            <td>content6</td>
+            <td>content6</td>
+            <td>content6</td>
+          </tr>
+          <tr>
+            <td>content7</td>
+            <td>content7</td>
+            <td>content7</td>
+            <td>content7</td>
+            <td>content7</td>
+            <td>content7</td>
+            <td>content7</td>
+            <td>content7</td>
+            <td>content7</td>
+            <td>content7</td>
+            <td>content7</td>
+            <td>content7</td>
+            <td>content7</td>
+            <td>content7</td>
+            <td>content7</td>
+            <td>content7</td>
+            <td>content7</td>
+            <td>content7</td>
+            <td>content7</td>
+            <td>content7</td>
+            <td>content7</td>
+            <td>content7</td>
+            <td>content7</td>
+            <td>content7</td>
+            <td>content7</td>
+            <td>content7</td>
+            <td>content7</td>
+            <td>content7</td>
+            <td>content7</td>
+            <td>content7</td>
+          </tr>
+          <tr>
+            <td>content8</td>
+            <td>content8</td>
+            <td>content8</td>
+            <td>content8</td>
+            <td>content8</td>
+            <td>content8</td>
+            <td>content8</td>
+            <td>content8</td>
+            <td>content8</td>
+            <td>content8</td>
+            <td>content8</td>
+            <td>content8</td>
+            <td>content8</td>
+            <td>content8</td>
+            <td>content8</td>
+            <td>content8</td>
+            <td>content8</td>
+            <td>content8</td>
+            <td>content8</td>
+            <td>content8</td>
+            <td>content8</td>
+            <td>content8</td>
+            <td>content8</td>
+            <td>content8</td>
+            <td>content8</td>
+            <td>content8</td>
+            <td>content8</td>
+            <td>content8</td>
+            <td>content8</td>
+            <td>content8</td>
+          </tr>
+          <tr>
+            <td>content9</td>
+            <td>content9</td>
+            <td>content9</td>
+            <td>content9</td>
+            <td>content9</td>
+            <td>content9</td>
+            <td>content9</td>
+            <td>content9</td>
+            <td>content9</td>
+            <td>content9</td>
+            <td>content9</td>
+            <td>content9</td>
+            <td>content9</td>
+            <td>content9</td>
+            <td>content9</td>
+            <td>content9</td>
+            <td>content9</td>
+            <td>content9</td>
+            <td>content9</td>
+            <td>content9</td>
+            <td>content9</td>
+            <td>content9</td>
+            <td>content9</td>
+            <td>content9</td>
+            <td>content9</td>
+            <td>content9</td>
+            <td>content9</td>
+            <td>content9</td>
+            <td>content9</td>
+            <td>content9</td>
+          </tr>
+          <tr>
+            <td>content10</td>
+            <td>content10</td>
+            <td>content10</td>
+            <td>content10</td>
+            <td>content10</td>
+            <td>content10</td>
+            <td>content10</td>
+            <td>content10</td>
+            <td>content10</td>
+            <td>content10</td>
+            <td>content10</td>
+            <td>content10</td>
+            <td>content10</td>
+            <td>content10</td>
+            <td>content10</td>
+            <td>content10</td>
+            <td>content10</td>
+            <td>content10</td>
+            <td>content10</td>
+            <td>content10</td>
+            <td>content10</td>
+            <td>content10</td>
+            <td>content10</td>
+            <td>content10</td>
+            <td>content10</td>
+            <td>content10</td>
+            <td>content10</td>
+            <td>content10</td>
+            <td>content10</td>
+            <td>content10</td>
+          </tr>
+          <tr>
+            <td>content11</td>
+            <td>content11</td>
+            <td>content11</td>
+            <td>content11</td>
+            <td>content11</td>
+            <td>content11</td>
+            <td>content11</td>
+            <td>content11</td>
+            <td>content11</td>
+            <td>content11</td>
+            <td>content11</td>
+            <td>content11</td>
+            <td>content11</td>
+            <td>content11</td>
+            <td>content11</td>
+            <td>content11</td>
+            <td>content11</td>
+            <td>content11</td>
+            <td>content11</td>
+            <td>content11</td>
+            <td>content11</td>
+            <td>content11</td>
+            <td>content11</td>
+            <td>content11</td>
+            <td>content11</td>
+            <td>content11</td>
+            <td>content11</td>
+            <td>content11</td>
+            <td>content11</td>
+            <td>content11</td>
+          </tr>
+          <tr>
+            <td>content12</td>
+            <td>content12</td>
+            <td>content12</td>
+            <td>content12</td>
+            <td>content12</td>
+            <td>content12</td>
+            <td>content12</td>
+            <td>content12</td>
+            <td>content12</td>
+            <td>content12</td>
+            <td>content12</td>
+            <td>content12</td>
+            <td>content12</td>
+            <td>content12</td>
+            <td>content12</td>
+            <td>content12</td>
+            <td>content12</td>
+            <td>content12</td>
+            <td>content12</td>
+            <td>content12</td>
+            <td>content12</td>
+            <td>content12</td>
+            <td>content12</td>
+            <td>content12</td>
+            <td>content12</td>
+            <td>content12</td>
+            <td>content12</td>
+            <td>content12</td>
+            <td>content12</td>
+            <td>content12</td>
+          </tr>
+          <tr>
+            <td>content13</td>
+            <td>content13</td>
+            <td>content13</td>
+            <td>content13</td>
+            <td>content13</td>
+            <td>content13</td>
+            <td>content13</td>
+            <td>content13</td>
+            <td>content13</td>
+            <td>content13</td>
+            <td>content13</td>
+            <td>content13</td>
+            <td>content13</td>
+            <td>content13</td>
+            <td>content13</td>
+            <td>content13</td>
+            <td>content13</td>
+            <td>content13</td>
+            <td>content13</td>
+            <td>content13</td>
+            <td>content13</td>
+            <td>content13</td>
+            <td>content13</td>
+            <td>content13</td>
+            <td>content13</td>
+            <td>content13</td>
+            <td>content13</td>
+            <td>content13</td>
+            <td>content13</td>
+            <td>content13</td>
+          </tr>
+          <tr>
+            <td>content14</td>
+            <td>content14</td>
+            <td>content14</td>
+            <td>content14</td>
+            <td>content14</td>
+            <td>content14</td>
+            <td>content14</td>
+            <td>content14</td>
+            <td>content14</td>
+            <td>content14</td>
+            <td>content14</td>
+            <td>content14</td>
+            <td>content14</td>
+            <td>content14</td>
+            <td>content14</td>
+            <td>content14</td>
+            <td>content14</td>
+            <td>content14</td>
+            <td>content14</td>
+            <td>content14</td>
+            <td>content14</td>
+            <td>content14</td>
+            <td>content14</td>
+            <td>content14</td>
+            <td>content14</td>
+            <td>content14</td>
+            <td>content14</td>
+            <td>content14</td>
+            <td>content14</td>
+            <td>content14</td>
+          </tr>
+          <tr>
+            <td>content15</td>
+            <td>content15</td>
+            <td>content15</td>
+            <td>content15</td>
+            <td>content15</td>
+            <td>content15</td>
+            <td>content15</td>
+            <td>content15</td>
+            <td>content15</td>
+            <td>content15</td>
+            <td>content15</td>
+            <td>content15</td>
+            <td>content15</td>
+            <td>content15</td>
+            <td>content15</td>
+            <td>content15</td>
+            <td>content15</td>
+            <td>content15</td>
+            <td>content15</td>
+            <td>content15</td>
+            <td>content15</td>
+            <td>content15</td>
+            <td>content15</td>
+            <td>content15</td>
+            <td>content15</td>
+            <td>content15</td>
+            <td>content15</td>
+            <td>content15</td>
+            <td>content15</td>
+            <td>content15</td>
+          </tr>
+          <tr>
+            <td>content16</td>
+            <td>content16</td>
+            <td>content16</td>
+            <td>content16</td>
+            <td>content16</td>
+            <td>content16</td>
+            <td>content16</td>
+            <td>content16</td>
+            <td>content16</td>
+            <td>content16</td>
+            <td>content16</td>
+            <td>content16</td>
+            <td>content16</td>
+            <td>content16</td>
+            <td>content16</td>
+            <td>content16</td>
+            <td>content16</td>
+            <td>content16</td>
+            <td>content16</td>
+            <td>content16</td>
+            <td>content16</td>
+            <td>content16</td>
+            <td>content16</td>
+            <td>content16</td>
+            <td>content16</td>
+            <td>content16</td>
+            <td>content16</td>
+            <td>content16</td>
+            <td>content16</td>
+            <td>content16</td>
+          </tr>
+          <tr>
+            <td>content17</td>
+            <td>content17</td>
+            <td>content17</td>
+            <td>content17</td>
+            <td>content17</td>
+            <td>content17</td>
+            <td>content17</td>
+            <td>content17</td>
+            <td>content17</td>
+            <td>content17</td>
+            <td>content17</td>
+            <td>content17</td>
+            <td>content17</td>
+            <td>content17</td>
+            <td>content17</td>
+            <td>content17</td>
+            <td>content17</td>
+            <td>content17</td>
+            <td>content17</td>
+            <td>content17</td>
+            <td>content17</td>
+            <td>content17</td>
+            <td>content17</td>
+            <td>content17</td>
+            <td>content17</td>
+            <td>content17</td>
+            <td>content17</td>
+            <td>content17</td>
+            <td>content17</td>
+            <td>content17</td>
+          </tr>
+          <tr>
+            <td>content18</td>
+            <td>content18</td>
+            <td>content18</td>
+            <td>content18</td>
+            <td>content18</td>
+            <td>content18</td>
+            <td>content18</td>
+            <td>content18</td>
+            <td>content18</td>
+            <td>content18</td>
+            <td>content18</td>
+            <td>content18</td>
+            <td>content18</td>
+            <td>content18</td>
+            <td>content18</td>
+            <td>content18</td>
+            <td>content18</td>
+            <td>content18</td>
+            <td>content18</td>
+            <td>content18</td>
+            <td>content18</td>
+            <td>content18</td>
+            <td>content18</td>
+            <td>content18</td>
+            <td>content18</td>
+            <td>content18</td>
+            <td>content18</td>
+            <td>content18</td>
+            <td>content18</td>
+            <td>content18</td>
+          </tr>
+          <tr>
+            <td>content19</td>
+            <td>content19</td>
+            <td>content19</td>
+            <td>content19</td>
+            <td>content19</td>
+            <td>content19</td>
+            <td>content19</td>
+            <td>content19</td>
+            <td>content19</td>
+            <td>content19</td>
+            <td>content19</td>
+            <td>content19</td>
+            <td>content19</td>
+            <td>content19</td>
+            <td>content19</td>
+            <td>content19</td>
+            <td>content19</td>
+            <td>content19</td>
+            <td>content19</td>
+            <td>content19</td>
+            <td>content19</td>
+            <td>content19</td>
+            <td>content19</td>
+            <td>content19</td>
+            <td>content19</td>
+            <td>content19</td>
+            <td>content19</td>
+            <td>content19</td>
+            <td>content19</td>
+            <td>content19</td>
+          </tr>
+          <tr>
+            <td>content20</td>
+            <td>content20</td>
+            <td>content20</td>
+            <td>content20</td>
+            <td>content20</td>
+            <td>content20</td>
+            <td>content20</td>
+            <td>content20</td>
+            <td>content20</td>
+            <td>content20</td>
+            <td>content20</td>
+            <td>content20</td>
+            <td>content20</td>
+            <td>content20</td>
+            <td>content20</td>
+            <td>content20</td>
+            <td>content20</td>
+            <td>content20</td>
+            <td>content20</td>
+            <td>content20</td>
+            <td>content20</td>
+            <td>content20</td>
+            <td>content20</td>
+            <td>content20</td>
+            <td>content20</td>
+            <td>content20</td>
+            <td>content20</td>
+            <td>content20</td>
+            <td>content20</td>
+            <td>content20</td>
+          </tr>
+          <tr>
+            <td>content21</td>
+            <td>content21</td>
+            <td>content21</td>
+            <td>content21</td>
+            <td>content21</td>
+            <td>content21</td>
+            <td>content21</td>
+            <td>content21</td>
+            <td>content21</td>
+            <td>content21</td>
+            <td>content21</td>
+            <td>content21</td>
+            <td>content21</td>
+            <td>content21</td>
+            <td>content21</td>
+            <td>content21</td>
+            <td>content21</td>
+            <td>content21</td>
+            <td>content21</td>
+            <td>content21</td>
+            <td>content21</td>
+            <td>content21</td>
+            <td>content21</td>
+            <td>content21</td>
+            <td>content21</td>
+            <td>content21</td>
+            <td>content21</td>
+            <td>content21</td>
+            <td>content21</td>
+            <td>content21</td>
+          </tr>
+          <tr>
+            <td>content22</td>
+            <td>content22</td>
+            <td>content22</td>
+            <td>content22</td>
+            <td>content22</td>
+            <td>content22</td>
+            <td>content22</td>
+            <td>content22</td>
+            <td>content22</td>
+            <td>content22</td>
+            <td>content22</td>
+            <td>content22</td>
+            <td>content22</td>
+            <td>content22</td>
+            <td>content22</td>
+            <td>content22</td>
+            <td>content22</td>
+            <td>content22</td>
+            <td>content22</td>
+            <td>content22</td>
+            <td>content22</td>
+            <td>content22</td>
+            <td>content22</td>
+            <td>content22</td>
+            <td>content22</td>
+            <td>content22</td>
+            <td>content22</td>
+            <td>content22</td>
+            <td>content22</td>
+            <td>content22</td>
+          </tr>
+          <tr>
+            <td>content23</td>
+            <td>content23</td>
+            <td>content23</td>
+            <td>content23</td>
+            <td>content23</td>
+            <td>content23</td>
+            <td>content23</td>
+            <td>content23</td>
+            <td>content23</td>
+            <td>content23</td>
+            <td>content23</td>
+            <td>content23</td>
+            <td>content23</td>
+            <td>content23</td>
+            <td>content23</td>
+            <td>content23</td>
+            <td>content23</td>
+            <td>content23</td>
+            <td>content23</td>
+            <td>content23</td>
+            <td>content23</td>
+            <td>content23</td>
+            <td>content23</td>
+            <td>content23</td>
+            <td>content23</td>
+            <td>content23</td>
+            <td>content23</td>
+            <td>content23</td>
+            <td>content23</td>
+            <td>content23</td>
+          </tr>
+          <tr>
+            <td>content24</td>
+            <td>content24</td>
+            <td>content24</td>
+            <td>content24</td>
+            <td>content24</td>
+            <td>content24</td>
+            <td>content24</td>
+            <td>content24</td>
+            <td>content24</td>
+            <td>content24</td>
+            <td>content24</td>
+            <td>content24</td>
+            <td>content24</td>
+            <td>content24</td>
+            <td>content24</td>
+            <td>content24</td>
+            <td>content24</td>
+            <td>content24</td>
+            <td>content24</td>
+            <td>content24</td>
+            <td>content24</td>
+            <td>content24</td>
+            <td>content24</td>
+            <td>content24</td>
+            <td>content24</td>
+            <td>content24</td>
+            <td>content24</td>
+            <td>content24</td>
+            <td>content24</td>
+            <td>content24</td>
+          </tr>
+          <tr>
+            <td>content25</td>
+            <td>content25</td>
+            <td>content25</td>
+            <td>content25</td>
+            <td>content25</td>
+            <td>content25</td>
+            <td>content25</td>
+            <td>content25</td>
+            <td>content25</td>
+            <td>content25</td>
+            <td>content25</td>
+            <td>content25</td>
+            <td>content25</td>
+            <td>content25</td>
+            <td>content25</td>
+            <td>content25</td>
+            <td>content25</td>
+            <td>content25</td>
+            <td>content25</td>
+            <td>content25</td>
+            <td>content25</td>
+            <td>content25</td>
+            <td>content25</td>
+            <td>content25</td>
+            <td>content25</td>
+            <td>content25</td>
+            <td>content25</td>
+            <td>content25</td>
+            <td>content25</td>
+            <td>content25</td>
+          </tr>
+          <tr>
+            <td>content26</td>
+            <td>content26</td>
+            <td>content26</td>
+            <td>content26</td>
+            <td>content26</td>
+            <td>content26</td>
+            <td>content26</td>
+            <td>content26</td>
+            <td>content26</td>
+            <td>content26</td>
+            <td>content26</td>
+            <td>content26</td>
+            <td>content26</td>
+            <td>content26</td>
+            <td>content26</td>
+            <td>content26</td>
+            <td>content26</td>
+            <td>content26</td>
+            <td>content26</td>
+            <td>content26</td>
+            <td>content26</td>
+            <td>content26</td>
+            <td>content26</td>
+            <td>content26</td>
+            <td>content26</td>
+            <td>content26</td>
+            <td>content26</td>
+            <td>content26</td>
+            <td>content26</td>
+            <td>content26</td>
+          </tr>
+          <tr>
+            <td>content27</td>
+            <td>content27</td>
+            <td>content27</td>
+            <td>content27</td>
+            <td>content27</td>
+            <td>content27</td>
+            <td>content27</td>
+            <td>content27</td>
+            <td>content27</td>
+            <td>content27</td>
+            <td>content27</td>
+            <td>content27</td>
+            <td>content27</td>
+            <td>content27</td>
+            <td>content27</td>
+            <td>content27</td>
+            <td>content27</td>
+            <td>content27</td>
+            <td>content27</td>
+            <td>content27</td>
+            <td>content27</td>
+            <td>content27</td>
+            <td>content27</td>
+            <td>content27</td>
+            <td>content27</td>
+            <td>content27</td>
+            <td>content27</td>
+            <td>content27</td>
+            <td>content27</td>
+            <td>content27</td>
+          </tr>
+          <tr>
+            <td>content28</td>
+            <td>content28</td>
+            <td>content28</td>
+            <td>content28</td>
+            <td>content28</td>
+            <td>content28</td>
+            <td>content28</td>
+            <td>content28</td>
+            <td>content28</td>
+            <td>content28</td>
+            <td>content28</td>
+            <td>content28</td>
+            <td>content28</td>
+            <td>content28</td>
+            <td>content28</td>
+            <td>content28</td>
+            <td>content28</td>
+            <td>content28</td>
+            <td>content28</td>
+            <td>content28</td>
+            <td>content28</td>
+            <td>content28</td>
+            <td>content28</td>
+            <td>content28</td>
+            <td>content28</td>
+            <td>content28</td>
+            <td>content28</td>
+            <td>content28</td>
+            <td>content28</td>
+            <td>content28</td>
+          </tr>
+          <tr>
+            <td>content29</td>
+            <td>content29</td>
+            <td>content29</td>
+            <td>content29</td>
+            <td>content29</td>
+            <td>content29</td>
+            <td>content29</td>
+            <td>content29</td>
+            <td>content29</td>
+            <td>content29</td>
+            <td>content29</td>
+            <td>content29</td>
+            <td>content29</td>
+            <td>content29</td>
+            <td>content29</td>
+            <td>content29</td>
+            <td>content29</td>
+            <td>content29</td>
+            <td>content29</td>
+            <td>content29</td>
+            <td>content29</td>
+            <td>content29</td>
+            <td>content29</td>
+            <td>content29</td>
+            <td>content29</td>
+            <td>content29</td>
+            <td>content29</td>
+            <td>content29</td>
+            <td>content29</td>
+            <td>content29</td>
+          </tr>
+          <tr>
+            <td>content30</td>
+            <td>content30</td>
+            <td>content30</td>
+            <td>content30</td>
+            <td>content30</td>
+            <td>content30</td>
+            <td>content30</td>
+            <td>content30</td>
+            <td>content30</td>
+            <td>content30</td>
+            <td>content30</td>
+            <td>content30</td>
+            <td>content30</td>
+            <td>content30</td>
+            <td>content30</td>
+            <td>content30</td>
+            <td>content30</td>
+            <td>content30</td>
+            <td>content30</td>
+            <td>content30</td>
+            <td>content30</td>
+            <td>content30</td>
+            <td>content30</td>
+            <td>content30</td>
+            <td>content30</td>
+            <td>content30</td>
+            <td>content30</td>
+            <td>content30</td>
+            <td>content30</td>
+            <td>content30</td>
+          </tr>
+        </tbody>
+      </table>
+      <div id="test_width"></div>
+      <!--Test width div, @link http://stackoverflow.com/a/10692895 -->
     </div>
+    <!--/content scroll wrapper-->
   </div>
 </template>
 
 <script>
-  import {
-    Indicator
-  } from 'mint-ui';
-  import timepicker from './../components/datepicker/timepicker'
-  import DatePickerDaily from './../components/datepicker/DatePickerDaily'
   export default {
     data() {
       return {
-        date: timepicker.startTime,
-        tableData: [{
-            "jm": '111',
-            'dh': 'aaa'
-          },
-          {
-            "jm": '222',
-            'dh': 'bbb'
-          },
-          {
-            "jm": '333',
-            'dh': 'ccc'
-          },
-          {
-            "jm": '444',
-            'dh': 'ddd'
-          },
-          {
-            "jm": '555',
-            'dh': 'eee'
-          },
-        ]
       }
     },
     methods: {},
-    components: {
-      'oms2-date-picker-daily': DatePickerDaily
+    created() {
+      $(function() {
+        var sourceTable = $("#top_fix_table"); //table id
+        var sourceTableHeight = sourceTable.height();
+        var sourceTableHead = $("#table_head"); //table thead tr id
+        var headHeight = sourceTableHead.height(); //table thead tr height
+        var sourceTableWidth = sourceTable.outerWidth(); //get source table width
+        var testDiv = $("#test_width"); //測試獲取內容寬度
+        var wrapDiv = $("#scroll_wrap"); //滾動條外層div，用於獲取div距離頭部的距離
+        var tempTop = wrapDiv.offset().top - $(window).scrollTop(); //滾動頭部距離網頁頂部的距離
+        //copy table and thead html tag from source table,
+        $('body').append('<div id="shelter"><div id="fixed_table_wrap"><table id="fixed_table"  border="0" cellpadding="4" cellspacing="0" class="table table-hover"><thead></thead></table></div></div>');
+        var fixTopDiv = $("#shelter");
+        fixTopDiv.hide();
+        //only set top and left,beacuse i need the top bar can scroll left
+        fixTopDiv.css({
+          'height': headHeight,
+          'position': 'fixed',
+          'top': tempTop + "px",
+          'left': '0',
+          'width': testDiv.width() + "px",
+          'overflow': 'hidden'
+        });
+        //set target table width equal source table width
+        $("#fixed_table_wrap,#fixed_table").css({
+          'width': sourceTableWidth + "px"
+        });
+        //only clone tr html and change thead tr id attr
+        var targetHead = sourceTableHead.clone().attr('id', 'fix_head');
+        targetHead.appendTo('#fixed_table thead');
+        //mark target table thead td width,height equal source table thead td width,height
+        $("#table_head td").each(function(index, value) {
+          var tempWidth = $(value).outerWidth();
+          var tempHeight = $(value).outerHeight();
+          $("#fixed_table td").eq(index).css({
+            'width': tempWidth + "px",
+            'height': tempHeight + "px"
+          });
+        });
+        //Div中內容滾動
+        wrapDiv.scroll(function() {
+          //scroll left method
+          var sl = -Math.max(wrapDiv.scrollLeft(), $('document').scrollLeft());
+          if (isNaN(sl)) {
+            sl = -wrapDiv.scrollLeft();
+          }
+          fixTopDiv.css("left", sl + 'px');
+          var scroll_top = wrapDiv.scrollTop() - headHeight + $(window).scrollTop();
+          tempTop = wrapDiv.offset().top - $(window).scrollTop();
+          if (tempTop <= 0) {
+            tempTop = 0;
+          }
+          var baseWidth = testDiv.width() + wrapDiv.scrollLeft();
+          //control  show or hide
+          if (scroll_top >= 0) {
+            fixTopDiv.css({
+              'top': tempTop + "px",
+              'width': baseWidth + "px"
+            });
+            if (!fixTopDiv.is(':visible')) {
+              fixTopDiv.show();
+            }
+          } else {
+            if (fixTopDiv.is(':visible')) {
+              fixTopDiv.hide();
+            }
+          }
+        });
+        //瀏覽器srcoll
+        $(window).on('scroll', function() {
+          tempTop = wrapDiv.offset().top - $(window).scrollTop();
+          var scroll_top = wrapDiv.scrollTop() - headHeight + $(window).scrollTop();
+          var baseWidth = testDiv.width() + wrapDiv.scrollLeft();
+          if (tempTop <= 0) {
+            tempTop = 0;
+          }
+          console.log(scroll_top);
+          fixTopDiv.css({
+            'top': tempTop + "px",
+            'width': baseWidth + "px"
+          });
+          //control  show or hide
+          if (scroll_top >= 0) {
+            if (!fixTopDiv.is(':visible')) {
+              fixTopDiv.show();
+            }
+          } else {
+            if (fixTopDiv.is(':visible')) {
+              fixTopDiv.hide();
+            }
+          }
+        });
+      });
     }
   }
 </script>
 
 <style>
-  #Discussion {
-    margin-top: 50px;
+  #shelter {
+    box-shadow: 0px 3px 5px #888888;
   }
-  .center{
-    text-align: center;
+  #fixed_table #fix_head {
+    background: #FFFFFF;
+  }
+  #fixed_table {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    table-layout: fixed;
+  }
+  .scroll_table_content {
+    width: 100%;
+    height: 600px;
+    overflow: auto;
   }
 </style>

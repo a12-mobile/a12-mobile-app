@@ -63,8 +63,16 @@ Vue.prototype.$ruixinApi=ruixinApi
  * 用于报表展示
  */
 Vue.filter('ifNumberIsNull', function (value) {
-  if(value==-1){
+  if(!value||value==-1){
     return ''
+  }else{
+    return value
+  }
+})
+
+Vue.filter('ifStringIsNull', function (value) {
+  if(!value||value==''){
+    return '空'
   }else{
     return value
   }

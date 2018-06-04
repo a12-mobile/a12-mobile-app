@@ -3,7 +3,7 @@
         <!--<h4>录井分队日报</h4>-->
         <!--引入日期控件-->
         <div class="oms2-fixed">
-            <oms2-date-picker-daily :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce" @date-change="handleChange">
+            <oms2-date-picker-daily :date="date" @date-change="handleChange">
             </oms2-date-picker-daily>
         </div>
         <div class="main-body" ref="wrapper" :style="{'-webkit-overflow-scrolling': scrollMode,'overflow':'auto',height: wrapperHeight + 'px'}">
@@ -324,18 +324,7 @@
                 }
                 window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
             },
-            handleDateAdd(param) {
-                this.tableData = []
-                if (param.canAdd) {
-                    this.loadingDate();
-                }
-            },
-            handleDateReduce(param) {
-                this.tableData = []
-                if (param.canReduce) {
-                    this.loadingDate()
-                }
-            },
+            
             handleChange(date) {
                 this.tableData = []
                 this.loadingDate();

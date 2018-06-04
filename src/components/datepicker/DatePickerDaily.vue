@@ -2,9 +2,7 @@
     <div class="oms2-date-picker-daily">
         <slot></slot>
         <a class="oms2-icon-left" @click="handleDateReduce"><i class="fa fa-chevron-left"></i></a>
-        <!-- <button v-if="!hiddenButton" type="button" class="btn btn-sm btn-outline-primary margin" @click="handleDateReduce">前一天</button> -->
         <date-picker :date="date" :option="option" @change="handleChange" :limit="limit"></date-picker>
-        <!-- <button v-if="!hiddenButton" type="button" class="btn btn-sm btn-outline-primary margin" @click="handleDateAdd">后一天</button> -->
         <a class="oms2-icon-right" @click="handleDateAdd"><i class="fa fa-chevron-right"></i></a>
     </div>
 </template>
@@ -17,9 +15,7 @@
      * @param {object} [defaultDate] - 输入框默认显示的日期
      * @param {string} [limitStartDate] - 时间选择限制的起始日期   默认 2000-01-01 （包含2000-01-01当天）
      * @param {string} [limitEndDate] - 时间选择限制的终止日期   默认为当前日期 (包含当天日期)
-     * @param {function} [handleDateReduce] - 前一天的回掉函数  （参数前一天的日期  格式：yyyy-MM-dd）
-     * @param {function} [handleDateAdd] - 后一天的回掉函数  （参数后一天的日期  格式：yyyy-MM-dd）
-     * @param {function} [handleChange] - 选择日期后的回调函数  （参数后一天的日期  格式：yyyy-MM-dd）
+     * @param {function} [handleChange] - 日期改变后的回调函数  （参数后一天的日期  格式：yyyy-MM-dd）
      *
      * 
      * Props:
@@ -30,8 +26,6 @@
      * 
      * 
      * 事件：
-     *   @param {function}  date-add 增加日期回掉函数 
-     *   @param {function}  date-reduce 减少日期回掉函数 
      *   @param {function}  date-change 改变日期回掉函数 
      * 
      * 
@@ -55,7 +49,7 @@
             }
      * 
      * @example
-     * <oms2-daily-date-picker :date="defaultDate" :limitStartDate="limitStartDate" :limitEndDate="limitEndDate" @date-add="handleDateAdd" @date-reduce="handleDateReduce"  @date-change="handleChange"></oms2-daily-date-picker>
+     * <oms2-daily-date-picker :date="defaultDate" :limitStartDate="limitStartDate" :limitEndDate="limitEndDate" @date-change="handleChange"></oms2-daily-date-picker>
      * 
      * 
      *<script>
@@ -72,15 +66,6 @@
           }
         },
         methods: {
-          handleDateAdd(param) {   //与上面定义的defaultDate不同，此处参数date为String型，例如 2018-05-17
-            //param参数为一个数组，包含两个属性，date为加一天后的日期，canAdd为boolean型，表示是否可以增加，默认如果为当前日期则不可增加
-            console.log("加一天后的日期:" + param.date)
-            console.log("是否可以增加日期"+param.canAdd)
-          },
-          handleDateReduce(param) {
-            console.log("减一天后的日期:" + param.date)
-            console.log("是否可以增加日期"+ param.canReduce) //默认任何时候都可以减少
-          },
           handleChange(date){
             console.log("选择日期的回掉结果："+date)
           },
@@ -168,7 +153,6 @@
              * 后一天回调函数
              */
             handleDateAdd() {
-                let canAdd = false;
                 let compare = compareDate(this.date.time, this.limitEndDate)
                 if (compare >= 0) {
                     Toast({
@@ -177,19 +161,14 @@
                         duration: 3000,
                     })
                 } else {
-                    canAdd = true;
                     this.date.time = addDate(this.date.time, 1)
+                    this.$emit("date-change",this.date.time)
                 }
-                this.$emit("date-add", {
-                    date: this.date.time,
-                    canAdd: canAdd
-                })
             },
             /**
              * 前一天回调函数
              */
             handleDateReduce() {
-                let canReduce = false;
                 let compare = compareDate(this.limitStartDate,this.date.time)
                 if (compare >= 0) {
                     Toast({
@@ -198,13 +177,9 @@
                         duration: 3000,
                     })
                 } else {
-                    canReduce = true;
                     this.date.time = addDate(this.date.time, -1)
+                    this.$emit("date-change",this.date.time)
                 }
-                this.$emit("date-reduce", {
-                    date:this.date.time,
-                    canReduce:canReduce
-                })
             },
             /**
              * 选择日期回调函数

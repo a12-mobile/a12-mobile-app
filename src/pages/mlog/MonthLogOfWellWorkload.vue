@@ -5,7 +5,7 @@
         <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
       </mt-header>
     </header>
-    <oms2-date-picker-daily :date="date" @date-add="handleDateAdd" @date-reduce="handleDateReduce" @change="change"></oms2-date-picker-daily>
+    <oms2-date-picker-daily :date="date" @change="change"></oms2-date-picker-daily>
 
     <v-table
       is-horizontal-resizenpm
@@ -219,22 +219,6 @@
       methods:{
         handleBack(){
           window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
-        },
-
-        handleDateAdd(param){
-          if(param.canAdd){
-            Indicator.open('加载中...')
-            setTimeout(()=>{
-              Indicator.close()
-            },1000)
-          }
-        },
-
-        handleDateReduce(date){
-          Indicator.open('加载中...')
-          setTimeout(()=>{
-            Indicator.close()
-          },1000)
         },
 
         //设置列单元格样式

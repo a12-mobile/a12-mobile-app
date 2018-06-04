@@ -5,7 +5,7 @@
     <div class="container">
       <div class="row">
           <div class="col-4 oms2-grid-cell" >
-            <a href="http://61.158.56.6:8030/websocket/echarts/demo.html">
+            <a href="http://11.10.97.109:9493/websocket/echarts/demo.html">
             <img class='oms2-grid-cell-image' src="./../assets/img/shishishuju.png">
             </a>
             <h6>实时监测</h6>
@@ -22,9 +22,15 @@
           </router-link>
           <h6>钻井综合日报</h6>
         </div>
-      </div>
 
-      <div class="row">
+        <div class="col-4 oms2-grid-cell">
+          <router-link to="/dRDailyOfRigDynamic">
+            <img class='oms2-grid-cell-image' src="./../assets/img/wellList.png">
+          </router-link>
+          <h6>钻机动态日报</h6>
+        </div>
+        
+
         <div class="col-4 oms2-grid-cell">
           <router-link to="/mlogMonthOfTeam">
             <img class='oms2-grid-cell-image' src="./../assets/img/mlogFDW.png">
@@ -43,9 +49,8 @@
           </router-link>
           <h6>录井分市场月报</h6>
         </div>
-      </div>
+        
 
-      <div class="row">
         <div class="col-4 oms2-grid-cell">
           <router-link to="/log/Monthly/workload">
             <img class='oms2-grid-cell-image' src="./../assets/img/logMonthlyWorkload.png">
@@ -60,18 +65,25 @@
         </div>
         <div class="col-4 oms2-grid-cell">
           <router-link to="/dh/monthly/workload/gn">
-            <img class='oms2-grid-cell-image' src="./../assets/img/wellList.png">
+            <img class='oms2-grid-cell-image' src="./../assets/img/dhMonthlyWorkload.png">
           </router-link>
           <h6>井下工作量月报国内</h6>
         </div>
-      </div>
-      <div class="row">
+
         <div class="col-4 oms2-grid-cell">
-          <router-link to="/dRDailyOfRigDynamic">
+          <router-link to="/well/list">
             <img class='oms2-grid-cell-image' src="./../assets/img/wellList.png">
           </router-link>
-          <h6>钻机动态日报</h6>
+          <h6>井列表</h6>
         </div>
+        <div class="col-4 oms2-grid-cell">
+          <router-link to="/drill/project/data/list2">
+            <img class='oms2-grid-cell-image' src="./../assets/img/shishishuju.png">
+          </router-link>
+          <h6>工程数据列表</h6>
+        </div>
+
+        
       </div>
     </div>
 
@@ -105,12 +117,6 @@
 <script>
   export default {
     created(){
-      // var w=$('.oms2-grid-cell').width();
-      // console.log(w)
-      // $('.oms2-grid-cell').attr('height',w);
-//       var w=document.getElementById("oms2-grid-cell").style.width;
-// document.getElementById("oms2-grid-cell").style.height=
-// document.getElementById("oms2-grid-cell").offsetWidth+"px";
     },
     methods: {
     }

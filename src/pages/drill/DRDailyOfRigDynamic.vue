@@ -6,8 +6,6 @@
       </mt-header>-->
       <!--<h4>钻机动态日报</h4>-->
       <oms2-date-picker-daily :date="date"
-                              @date-add="handleDateAdd"
-                              @date-reduce="handleDateReduce"
                               @date-change="handleChange">
       </oms2-date-picker-daily>
     </header>
@@ -153,16 +151,7 @@
           }
           window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
-        handleDateAdd(param) {
-          if (param.canAdd) {
-            this.requestDate();
-          }
-        },
-        handleDateReduce(param) {
-          if (param.canReduce) {
-            this.requestDate();
-          }
-        },
+        
         //设置列单元格样式
         columnCellClass(rowIndex, columnName, rowData) {
           if(columnName=='sgdw'&&this.tableData[rowIndex].remark=='Not exist'){
