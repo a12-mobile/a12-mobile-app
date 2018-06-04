@@ -1,24 +1,29 @@
 import httpService from './../http/httpService'
 
+
 /**
- * 向服务器获取录井分井动态（日报）数据
+ * 向服务器通过分页查询获取录井分队动态（日报）数据
  * @param {*} date
  */
-export function getDailyOfMlogWell(date) {
-  return httpService('GET', '/mlog/daily/findByDate', {
-    'date': date
+export function getDailyOfMlogByPage(date,page,pageSize) {
+  return httpService('GET', '/mlog/daily/findByPage', {
+      date,
+      page,
+      pageSize
   })
 }
 
 /**
- * 向服务器通过分页查询获取录井分井动态（日报）数据
+ * 向服务器通过条件获取录井分队动态（日报）数据
  * @param {*} date
  */
-export function getDailyOfMlogByPage(date,page,pageSize) {
-  return httpService('GET', '/mlog/daily/page', {
-      date,
-      page,
-      pageSize
+export function getMlogByCondition(date,page,pageSize,wellName,sgdw) {
+  return httpService('GET', '/mlog/daily/findByCondition', {
+    date,
+    page,
+    pageSize,
+    wellName,
+    sgdw
   })
 }
 

@@ -9,6 +9,7 @@
             <!--引入日期控件-->
             <div class="oms2-fixed">
               <oms2-date-picker-daily :date="date"
+
                         @date-change="handleChange">
               </oms2-date-picker-daily><span class='oms2-search' @click="handleShowSelect"><i class="fa fa-search"></i></span>
             </div>
@@ -84,7 +85,7 @@
     import { Indicator } from 'mint-ui';//导入加载动画插件
     import timepicker from './../../components/datepicker/timepicker' //导入时间插件，获取当前时间
     import { showToast,POSITION } from "./../../service/utils/toast/toast.js"
-    import {getDailyOfMlogByPage} from './../../service/mlog/mlogGetData'//导入axios封装函数，包含请求后台路径
+    import {getMlogByCondition} from './../../service/mlog/mlogGetData'//导入axios封装函数，包含请求后台路径
     import { Toast } from "mint-ui"
 
     export default{
@@ -164,55 +165,29 @@
         },
         created(){
           this.loadingDate();
-          this.tableHeight=window.innerHeight-80
+          this.tableHeight=window.innerHeight
         },
         methods:{
                 loadingDate() {
                   Indicator.open('加载中...')
-                  //this.$axios.get("http://10.88.123.10:8080/mobile/logging/loggingWell?token=a735579b-93fa-4719-aa92-968191372004&rx_token=a735579b-93fa-4719-aa92-968191372004&date="+this.date.time)
-                getDailyOfMlogByPage(this.date.time,this.searchCondition.pageNo,this.searchCondition.pageSize)
+                getMlogByCondition(this.date.time,this.searchCondition.pageNo,this.searchCondition.pageSize,this.selectedJM,this.selectedSGDW)
                   .then((data)=> {
-                    Indicator.close()
-                    if(data){
-                      if (data.body) {
-                        this.tableData=this.tableData.concat(data.body)
-                        this.baseData=this.baseData.concat(data.body)
-                        //console.log(this.baseData.length)
+                      Indicator.close()
+                      if(data){
+                        if (data.body) {
+                          this.tableData=this.tableData.concat(data.body);
+                          this.baseData=this.baseData.concat(data.body)
+                          //console.log(this.baseData.length)
+                        }
+                        this.isHaveMore(data.isHaveMore)
+                      }else{
+                        this.tableData=[]
                       }
-                      // if(data.baseData){
-                      //   this.baseData=data.baseData
-                      //   console.log(this.baseData.length)
-                      // }
-                      // this.tableData=data.body
-                      // this.baseData=data.body
-                      //判断是否还有数据
-                      this.isHaveMore(data.isHaveMore)
-                    }else{
-                      this.tableData=[]
-                    }
                   })
                   .catch(function(error) {
                     Indicator.close()
                     console.log(error)
                   })
-                // getMlogByCondition(this.date.time,this.searchCondition.pageNo,this.searchCondition.pageSize,this.selectedJM.trim(),this.selectedSGDW().trim())
-                //   .then((data)=> {
-                //       Indicator.close()
-                //       if(data){
-                //         if (data.body) {
-                //           this.tableData=this.tableData.concat(data.body)
-                //           this.baseData=this.baseData.concat(data.body)
-                //           //console.log(this.baseData.length)
-                //         }
-                //         this.isHaveMore(data.isHaveMore)
-                //       }else{
-                //         this.tableData=[]
-                //       }
-                //   })
-                //   .catch(function(error) {
-                //     Indicator.close()
-                //     console.log(error)
-                //   })
               },
               handleBack(){
                   if(Indicator){
@@ -220,6 +195,12 @@
                   }
                   window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
               },
+
+              handleChange(date){
+                  this.tableData=[];
+                  this.loadingDate();
+              },
+
               //上拉加载
               loadBottom: function() {
                 // 上拉加载
@@ -246,40 +227,14 @@
                   // }
               },
 
-              handleChange(date){
-                this.tableData=[];
-                  this.loadingDate();
-              },
+
               /**
                * 点击查询按钮后的方法
                * 设计初衷：之所以用四个判断是为了减少baseData循环时判断的次数
                */
               handleSelect(){
-                if(this.selectedJM.trim()!=''&&this.selectedSGDW=='全部'){
-                  //this.loadingDate();
-                  //搜索井名
-                  this.tableData=this.baseData.filter((item)=>{
-                    return item.wellName.toLowerCase().includes(this.selectedJM.toLowerCase())
-                  })
-                }else if(this.selectedJM.trim()!=''&&this.selectedSGDW!='全部'){
-                  //搜索该单位下的井名
-                  this.tableData=this.baseData.filter((item)=>{
-                    return item.wellName.toLowerCase().includes(this.selectedJM.toLowerCase())&&item.jujname==this.selectedSGDW
-                  })
-                }else if(this.selectedJM.trim()==''&&this.selectedSGDW!='全部'){
-                  //搜索某单位下的井
-                  this.tableData=this.baseData.filter((item)=>{
-                    return item.jujname==this.selectedSGDW
-                  })
-                }else{
-                  //没有搜索
-                  // this.baseData=[];
-                  // this.loadingDate();
-                  this.tableData=this.baseData
-                }
-                if(this.tableData.length==0){
-                  showToast("没有该井的数据",POSITION.middle,3000)
-                }
+                this.tableData=[];
+                this.loadingDate();
               },
               /**
                * 显示查询模态框时的方法
@@ -289,10 +244,11 @@
                 this.selectedJM=''
                 //获取施工单位的列表
                 let jujnames=new Set();
+                jujnames.add('大庆钻探').add('西部钻探').add('长城钻探').add('渤海钻探').add('川庆钻探').add('中油测井');
                 if(this.baseData.length>0){
-                  this.baseData.forEach((item)=>{
-                    jujnames.add(item.jujname)
-                  })
+                  // this.baseData.forEach((item)=>{
+                  //   jujnames.add(item.jujname)
+                  // })
                   this.jujnameList=[]
                   for(var jujname of jujnames){
                     this.jujnameList.push(jujname)
