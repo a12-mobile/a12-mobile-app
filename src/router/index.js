@@ -22,6 +22,8 @@ import DhMonthlyOfWorkloadZ from '@/pages/dh/DhMonthlyOfWorkloadZ'
 //测井
 import LogFormList from '@/pages/log/LogFormList'
 import LogMonthlyOfWorkload from '@/pages/log/LogMonthlyOfWorkload'
+import LogDailyOfWorkload from '@/pages/log/LogDailyOfWorkload'
+
 
 // //录井
 import MonthLogOfLogWellByCompany from '@/pages/mlog/MonthLogOfLogWellByCompany'
@@ -155,6 +157,12 @@ export default new Router({
       name: 'LogMonthlyOfWorkload',
       component: LogMonthlyOfWorkload,
       meta:{ navShow: false, title: '统计月报'}
+    },
+    {
+      path: '/log/daily/workload',
+      name: 'LogDailyOfWorkload',
+      component: LogDailyOfWorkload,
+      meta:{ navShow: false, title: '测井工作量日报'}
     },
 
     //测井end

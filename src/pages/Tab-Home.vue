@@ -17,7 +17,7 @@
           <h6>重点井日报</h6>
         </div>
         <div class="col-4 oms2-grid-cell">
-          <router-link to="/horizontal/drill/daily/zh">
+          <router-link to="/dailyOfDrilling">
             <img class='oms2-grid-cell-image' src="./../assets/img/mlogFJDT.png">
           </router-link>
           <h6>钻井综合日报</h6>
@@ -29,7 +29,7 @@
           </router-link>
           <h6>钻机动态日报</h6>
         </div>
-        
+
 
         <div class="col-4 oms2-grid-cell">
           <router-link to="/mlogMonthOfTeam">
@@ -49,13 +49,19 @@
           </router-link>
           <h6>录井分市场月报</h6>
         </div>
-        
+
 
         <div class="col-4 oms2-grid-cell">
           <router-link to="/log/Monthly/workload">
             <img class='oms2-grid-cell-image' src="./../assets/img/logMonthlyWorkload.png">
           </router-link>
           <h6>测井工作量月报</h6>
+        </div>
+        <div class="col-4 oms2-grid-cell">
+          <router-link to="/log/daily/workload">
+            <img class='oms2-grid-cell-image' src="./../assets/img/logMonthlyWorkload.png">
+          </router-link>
+          <h6>测井工作量日报</h6>
         </div>
         <div class="col-4 oms2-grid-cell">
           <router-link to="/dh/monthly/workload/total">
@@ -83,7 +89,7 @@
           <h6>工程数据列表</h6>
         </div>
 
-        
+
       </div>
     </div>
 
