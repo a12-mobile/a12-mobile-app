@@ -64,7 +64,7 @@
             //调用websocket获取实时数据
             threadPoxi() {
                 //参数
-                const agentData = "getMessage";
+                const agentData = "0001";
                 //若是ws开启状态
                 if (this.websock.readyState === this.websock.OPEN) {
                     this.websocketsend(agentData)
@@ -87,30 +87,34 @@
             },
             initWebSocket() { //初始化weosocket
                 //ws地址
-                const wsuri = "ws:/10.88.123.11:8080/oms2-mobile/websocket";
+                const wsuri = "ws://61.158.56.6:8030/websocket/websocket";
+                // const wsuri = "ws://10.88.123.11:8080/a12-mobile/websocket";
                 this.websock = new WebSocket(wsuri);
                 this.websock.onmessage = this.websocketonmessage;
                 this.websock.onclose = this.websocketclose;
             },
             //数据发送
             websocketsend(agentData) {
+                console.log('发送消息')
                 this.websock.send(agentData);
             },
             //接受数据
             websocketonmessage(e) {
                 const redata = JSON.parse(e.data);
-                var item = convertJsonToBean(redata);
+                var item = this.convertJsonToBean(redata);
+                console.log(e)
                 this.tableData.splice(0, 0, item)
             },
             //关闭
             websocketclose(e) {
-                if (e["code"] == "1006") {
-                    Toast({
-                        message: '获取数据失败',
-                        position: 'bottom',
-                        duration: 3000
-                    });
-                }
+                // if (e["code"] == "1006") {
+                //     Toast({
+                //         message: '获取数据失败',
+                //         position: 'bottom',
+                //         duration: 3000
+                //     });
+                // }
+                console.log(e)
                 console.log("connection closed ");
             },
             /**

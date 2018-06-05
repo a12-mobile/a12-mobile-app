@@ -2,21 +2,21 @@
     <div id="wellList">
         <form class="oms2-search-bar">
             <div class="form-group row" style="padding-left:5px;padding-right:5px;">
-                <label class="col-2 col-form-label"  style="padding-right:0px;">油区:</label>
-                <div class="col-4"  style="padding-left:0px;padding-right:5px;">
+                <label class="col-2 col-form-label" style="padding-right:0px;">油区:</label>
+                <div class="col-4" style="padding-left:0px;padding-right:5px;">
                     <select id="inputState" class="form-control" v-model="selectedWellBlock">
-                        <option>全部</option>
-                        <option v-for="item in wellBlockList">{{item}}</option>
-                    </select>
+                            <option>全部</option>
+                            <option v-for="item in wellBlockList">{{item}}</option>
+                        </select>
                 </div>
-                <label class="col-2 col-form-label"  style="padding-right:0px;">井名:</label>
+                <label class="col-2 col-form-label" style="padding-right:0px;">井名:</label>
                 <div class="col-4 input-group" style="padding-left:0px">
-                    <input type="text" class="form-control" placeholder="井名"  v-model="selectedJM">
+                    <input type="text" class="form-control" placeholder="井名" v-model="selectedJM">
                 </div>
             </div>
         </form>
         <div class="list-group" style="margin-top:60px;">
-            <a v-for="(item,index) of tableData" class="list-group-item list-group-item-action flex-column align-items-start" @click="handleClickItem(index)">
+            <div v-for="(item,index) of tableData" class="list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">
                         <i class="fa fa-circle" v-if="item.clientStatus==0" style="color:red;font-size:16px;margin-right:5px;"></i>
@@ -27,19 +27,35 @@
                     <small>{{item.wellBlock | ifStringIsNull}}</small>
                 </div>
                 <div class="row">
-                    <label class="mb-1 col-4" style="padding-right:0px;text-align:right;">设计井深：</label>
-                    <div class="col-8" style="padding-left:0px">{{item.authorizedMd | ifStringIsNull}}</div>
-                </div>
-                <div class="row">
-                    <label class="mb-1 col-4" style="padding-right:0px;text-align:right;">当前井深：</label>
-                    <div class="col-8" style="padding-left:0px">{{item.bHMd | ifStringIsNull}}</div>
-                </div>
-                <div class="row">
-                    <label class="mb-1 col-4" style="padding-right:0px;text-align:right;">作业内容：</label>
-                    <div class="col-8" style="padding-left:0px">{{item.workContent | ifStringIsNull}}</div>
+                    <div class="col-11"  @click="handleClickItem(index)">
+                        <div class="row">
+                            <label class="mb-1 col-4" style="padding-right:0px;text-align:right;">设计井深：</label>
+                            <div class="col-8" style="padding-left:0px">
+                                <p>{{item.authorizedMd | ifStringIsNull}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="mb-1 col-4" style="padding-right:0px;text-align:right;">当前井深：</label>
+                            <div class="col-8" style="padding-left:0px">
+                                <p>{{item.bHMd | ifStringIsNull}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="mb-1 col-4" style="padding-right:0px;text-align:right;">作业内容：</label>
+                            <div class="col-8" style="padding-left:0px">
+                                <p>{{item.workContent | ifStringIsNull}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='oms2-star-content col-1'>
+                        <div  @click="handleCareFor(index)">
+                            <i v-if="!item.isCare   " style="color:red" class="fa fa-star-o oms2-star"></i>
+                            <i v-if="item.isCare==true" style="color:red" class="fa fa-star oms2-star"></i>
+                        </div>
+                    </div>
                 </div>
                 <!-- <small>Donec id elit non mi porta.</small> -->
-            </a>
+            </div>
         </div>
     </div>
 </template>
@@ -79,22 +95,21 @@
                             this.baseData = []
                         }
                         this.tableData = this.baseData
-
                         //获取施工单位的列表
-                let sgdws = new Set();
-                if (this.baseData.length > 0) {
-                    this.baseData.forEach((item) => {
-                        sgdws.add(item.wellBlock)
-                    })
-                    this.wellBlockList = []
-                    for (var sgdw of sgdws) {
-                        this.wellBlockList.push(sgdw)
-                    }
-                    this.wellBlockList.sort(
-                        function compareFunction(param1, param2) {
-                            return param1.localeCompare(param2,"zh");
-                        });
-                }
+                        let sgdws = new Set();
+                        if (this.baseData.length > 0) {
+                            this.baseData.forEach((item) => {
+                                sgdws.add(item.wellBlock)
+                            })
+                            this.wellBlockList = []
+                            for (var sgdw of sgdws) {
+                                this.wellBlockList.push(sgdw)
+                            }
+                            this.wellBlockList.sort(
+                                function compareFunction(param1, param2) {
+                                    return param1.localeCompare(param2, "zh");
+                                });
+                        }
                     })
                     .catch(function(error) {
                         Indicator.close()
@@ -111,6 +126,19 @@
                 //     }
                 // })
             },
+            handleCareFor(index){
+                if(this.tableData[index].isCare){
+                    this.tableData[index].isCare=false
+                    showToast("取消关注", POSITION.bottom, 1500)
+                }else if(this.tableData[index].isCare==false){
+                    this.tableData[index].isCare=true
+                    showToast("关注成功", POSITION.bottom, 1500)
+                }else{
+                    this.$set(this.tableData[index],'isCare',true)
+                    showToast("关注成功", POSITION.bottom, 1500)
+                }
+            },
+            
             /**
              * 点击查询按钮后的方法
              * 设计初衷：之所以用四个判断是为了减少baseData循环时判断的次数
@@ -140,12 +168,11 @@
                 }
             },
         },
-
-        watch:{
-            selectedJM:function(){
+        watch: {
+            selectedJM: function() {
                 this.handleSelect()
             },
-            selectedWellBlock:function(){
+            selectedWellBlock: function() {
                 this.handleSelect()
             }
         }
@@ -155,25 +182,30 @@
 <style lang="scss" scoped>
     #wellList {
         text-align: left;
+        .oms2-star-content {
+            width: 100%;
+            padding: 0px;
+        }
+        .oms2-star {
+            height: 30px;
+            font-size: 22px;
+            margin-top: 2.5rem;
+            padding:3px;
+        }
     }
-    .oms2-search-bar{
+    .oms2-search-bar {
         width: 100%;
-        position:fixed;
-        z-index:2;
-        top:0px;
-        padding-top:10px;
-        background-color:#fff;
+        position: fixed;
+        z-index: 2;
+        top: 0px;
+        padding-top: 10px;
+        background-color: #fff;
         box-shadow: 0px 1px 5px #e4e4e4;
     }
     .oms2-search {
         position: absolute;
         right: 10px;
         top: 5px;
-    }
-    .oms2-table-header-fixed {
-        /* position: fixed;
-                top:20px;
-                z-index: 2; */
     }
 </style>
 

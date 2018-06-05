@@ -4,13 +4,13 @@
 
 
         <!-- 查询 Modal -->
-        <div class="modal fade" id="ModalSelect" tabindex="-1" role="dialog" aria-labelledby="ModalSelectTitle" aria-hidden="true">
+        <div class="modal fade oms2-font-size" id="ModalSelect" tabindex="-1" role="dialog" aria-labelledby="ModalSelectTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">数据查询</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span style="font-size:16px" aria-hidden="true">&times;</span>
+                                      <span style="font-size:32px" aria-hidden="true">&times;</span>
                                   </button>
                     </div>
                     <div class="modal-body">
@@ -18,7 +18,7 @@
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">施工单位:</label>
                                 <div class="col-7">
-                                    <select id="inputState" class="form-control" v-model="selectedSGDW">
+                                    <select id="inputState" class="form-control  oms2-font-size" v-model="selectedSGDW">
                                         <option>全部</option>
                                         <option v-for="item in sgdwList">{{item}}</option>
                                     </select>
@@ -27,7 +27,7 @@
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">井号:</label>
                                 <div class="col-7 input-group">
-                                    <input type="text" class="form-control" placeholder="井号" v-model="selectedJM">
+                                    <input type="text" class="form-control  oms2-font-size" placeholder="井号" v-model="selectedJM">
                                     <div class="input-group-append" @click="handleInputClean">
                                         <i class="fa fa-times input-group-text"></i>
                                         <!-- <span class="" id="basic-addon2">m</span> -->
@@ -36,8 +36,8 @@
                             </div>
                         </form>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                            <button type="button" @click="handleSelect" data-dismiss="modal" class="btn btn-primary">查询</button>
+                            <button type="button" class="btn btn-secondary  oms2-font-size" data-dismiss="modal">取消</button>
+                            <button type="button" @click="handleSelect" data-dismiss="modal" class="btn btn-primary  oms2-font-size">查询</button>
                         </div>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
 
 
         <!-- Modal 具体数据信息 -->
-        <div class="modal fade" id="ModalWellMessage" tabindex="-1" role="dialog" aria-labelledby="ModalWellMessageTitle" aria-hidden="true">
+        <div class="modal fade oms2-font-size" id="ModalWellMessage" tabindex="-1" role="dialog" aria-labelledby="ModalWellMessageTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">

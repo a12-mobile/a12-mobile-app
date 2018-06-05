@@ -18,11 +18,17 @@
 
 //设置字体样式
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 ,p, i, button,.fa, label,select , option, input,
-small,div{
-    font-size:16px !important;
+small{
+    font-size:16px;
 }
 select{
     height:auto !important;
+}
+
+//文字默认大小：16px 为了屏幕适配造成某些文字不合适时调用，可以直接使用
+.oms2-font-size{
+    font-size:16px !important;
+
 }
 
 

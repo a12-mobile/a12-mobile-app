@@ -15,11 +15,9 @@
  * 1.js中引入
  * import {transToHorizontalScreen} from './../../service/utils/system/screen'
  * 
- * 2.在create()方法中使用
- * created() {
-        this.$nextTick(()=>{
-            transToHorizontalScreen("#DrillDailyOfZH")
-        })
+ * 2.mounted()方法中使用
+ * mounted() {
+        transToHorizontalScreen("#DrillDailyOfZH")
     }
  * 
  */

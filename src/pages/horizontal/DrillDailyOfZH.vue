@@ -171,11 +171,9 @@
             this.requestDate()
             this.tableHeight = window.innerHeight*0.94
             this.$ruixinApi.hideWebViewTitle({});
-            this.$nextTick(()=>{
-                transToHorizontalScreen("#DrillDailyOfZH")
-            })
-            
-
+        },
+        mounted(){
+            transToHorizontalScreen("#DrillDailyOfZH")
         },
         methods: {
             requestDate() {
