@@ -5,6 +5,8 @@
         <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
       </mt-header>-->
       <!--<h4>钻机动态日报</h4>-->
+      <h5>钻机动态日报</h5>
+      <div class='oms2-report-float-right' style="top:40px">数据来源于A7集团系统钻机动态日报</div>
       <oms2-date-picker-daily :date="date"
                               @date-change="handleChange">
       </oms2-date-picker-daily>
@@ -31,7 +33,7 @@
 </template>
 
 <script>
-     import { transToHorizontalScreen } from './../../service/utils/system/screen'
+    import { transToHorizontalScreen } from './../../service/utils/system/screen'
     import DatePickerDaily from './../../components/datepicker/DatePickerDaily'
     import { Indicator } from 'mint-ui';
     import timepicker from './../../components/datepicker/timepicker'

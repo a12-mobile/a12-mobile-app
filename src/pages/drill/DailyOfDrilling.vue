@@ -1,10 +1,12 @@
 <template>
-  <div>
+  <div id="dailyOfDrilling">
     <header>
       <!--<mt-header :title="$route.meta.title" fixed>
         <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
       </mt-header>-->
       <!--<h4>中油油服钻井工作量日报</h4>-->
+      <h5>钻井综合日报</h5>
+      <div class='oms2-report-float-right' style="top:40px">数据来源于A7集团系统钻井综合日报</div>
       <oms2-date-picker-daily :date="date"
                   @date-change="handleChange">
         </oms2-date-picker-daily>
@@ -13,6 +15,7 @@
       is-horizontal-resize
       is-vertical-resize
       style="width:100%;font-size:12px"
+      :height="tableheight"
       :title-row-height=20
       :row-height=30
       :columns="columns"
@@ -29,6 +32,7 @@
 </template>
 
 <script>
+  import { transToHorizontalScreen } from './../../service/utils/system/screen'
   import DatePickerDaily from './../../components/datepicker/DatePickerDaily'
   import { Indicator } from 'mint-ui';
   import timepicker from './../../components/datepicker/timepicker'
@@ -36,6 +40,7 @@
   export default {
     data() {
       return {
+        tableheight:0,
         date: timepicker.startTime,
         tableData: [],
         columns: [
@@ -92,9 +97,13 @@
     },
     created() {
       this.requestDate();
+      this.tableheight = window.innerHeight*0.94;
       // this.$ruixinApi.setWebViewTitle({ //设置导航条标题
       //   title:'钻井分井动态'
       // })
+    },
+    mounted(){
+      transToHorizontalScreen('#dailyOfDrilling')
     },
     methods: {
       requestDate() {
@@ -141,7 +150,7 @@
         }
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
       },
-      
+
       //设置列单元格样式
       columnCellClass(rowIndex, columnName, rowData) {
         if(columnName=='sgdw'&&this.tableData[rowIndex].remark=='Not exist'){
