@@ -175,13 +175,6 @@
 </script>
 
 <style lang="scss">
-    .oms2-datepicker-content{
-        margin-bottom:10px;
-    }
-    .oms2-date-picker-monthly-input{
-        width:100px !important;
-        font-size: 10px;
-    }
     .oms2-item-not-exict{
         color:#f00;
     }

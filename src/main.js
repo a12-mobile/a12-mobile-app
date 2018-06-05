@@ -6,6 +6,8 @@ import router from './router'
 import axios from 'axios'
 import httpServer from './service/http/httpService'
 
+import './config/rem'
+
 
 //引入jquery
 import $ from 'jquery' 

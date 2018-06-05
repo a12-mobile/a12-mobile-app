@@ -12,10 +12,10 @@ let imgBaseUrl = ''
 
 //吴同本地测试地址
 // baseUrl="http://10.88.123.11:8080/mobile"
-// baseUrl="/api/mobile"
+baseUrl="/api/mobile"
 
 //集成到后台
-baseUrl="/mobile"
+// baseUrl="/mobile"
 
 export {
 	baseUrl,
