@@ -2,7 +2,7 @@
     <div id="DrillDailyOfZH">
         <header>
             <h5>钻井综合日报</h5>
-            <div class='oms2-report-float-right' style="top:40px">数据来源于A7集团系统中油油服钻井工作量日报</div>
+            <div class='oms2-report-float-right' style="top:40px">数据来源于A7集团系统钻井工作量日报</div>
             <oms2-date-picker-daily :date="date" @date-change="handleChange">
             </oms2-date-picker-daily>
         </header>
@@ -170,7 +170,7 @@
         created() {
             this.requestDate()
             this.tableHeight = window.innerHeight*0.94
-            // this.$ruixinApi.hideWebViewTitle({});
+            this.$ruixinApi.hideWebViewTitle({});
             this.$nextTick(()=>{
                 transToHorizontalScreen("#DrillDailyOfZH")
             })

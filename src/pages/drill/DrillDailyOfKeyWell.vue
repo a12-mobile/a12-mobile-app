@@ -2,6 +2,7 @@
     <div id="DailyOfKeyWell">
         <oms2-date-picker-daily :date="date" @date-change="handleDateChange"></oms2-date-picker-daily><span class='oms2-search' @click="handleShowSelect"><i class="fa fa-search"></i></span>
 
+
         <!-- 查询 Modal -->
         <div class="modal fade" id="ModalSelect" tabindex="-1" role="dialog" aria-labelledby="ModalSelectTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -9,7 +10,7 @@
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">数据查询</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
+                                      <span style="font-size:16px" aria-hidden="true">&times;</span>
                                   </button>
                     </div>
                     <div class="modal-body">
@@ -64,7 +65,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">{{selectedRow.jm}}<span style="padding-left:20px;font-size:14px">(
+                        <h5 class="modal-title" id="exampleModalLongTitle">{{selectedRow.jm}}<span style="padding-left:2rem;font-size:14px">(
                             {{date.time}})</span></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                       <span aria-hidden="true">&times;</span>
@@ -437,19 +438,19 @@
 <style lang="scss">
     .oms2-search{
         position:absolute;
-        right:10px;
-        top:10px;
+        right:1rem;
+        top:1rem;
     }
     .oms2-list-item-content{
         text-align: left;
-        padding-left:0px;
+        padding-left:0rem;
         padding-bottom:1rem;
     }
     .oms2-list-divider{
         text-align: center;
-        padding-top:0px !important;
-        padding-bottom:0px !important;
-        margin-bottom:10px;
+        padding-top:0rem !important;
+        padding-bottom:0rem !important;
+        margin-bottom:1rem;
     }
     .oms2-right{
         text-align: right;
@@ -463,10 +464,10 @@
         display: none;
     }
     .sbx-google__input{
-        padding-right:11px;
+        padding-right:1.1rem;
     }
     .sbx-google__reset{
-        right:10px;
+        right:1rem;
     }
     //改变搜索框样式  end
 

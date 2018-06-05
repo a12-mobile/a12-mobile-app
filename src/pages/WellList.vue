@@ -157,6 +157,7 @@
         text-align: left;
     }
     .oms2-search-bar{
+        width: 100%;
         position:fixed;
         z-index:2;
         top:0px;
