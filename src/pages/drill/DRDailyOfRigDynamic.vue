@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="dRDailyOfRigDynamic">
     <header>
       <!--<mt-header :title="$route.meta.title" fixed>
         <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
@@ -13,12 +13,12 @@
       is-horizontal-resize
       is-vertical-resize
       style="width:100%;font-size:12px"
-      :title-row-height=20
+      :height="tableheight"
+      :title-row-height=40
       :row-height=30
       :columns="columns"
       :title-rows="titleRows"
       :table-data="tableData"
-      :height=tableHeight
       :cellMerge="cellMerge"
       :column-cell-class-name="columnCellClass"
       title-bg-color="#F6F6F6"
@@ -26,11 +26,12 @@
       row-hover-color="#eee"
       row-click-color="#edf7ff"
     ></v-table>
-    <div class='oms2-report-float-right'>数据来源于A7集团系统库钻机动态日报</div>
+    <!--<div class='oms2-report-float-right'>数据来源于A7集团系统库钻机动态日报</div>-->
   </div>
 </template>
 
 <script>
+     import { transToHorizontalScreen } from './../../service/utils/system/screen'
     import DatePickerDaily from './../../components/datepicker/DatePickerDaily'
     import { Indicator } from 'mint-ui';
     import timepicker from './../../components/datepicker/timepicker'
@@ -38,8 +39,8 @@
     export default {
       data() {
         return {
-          tableHeight:0,
           date: timepicker.startTime,
+          tableheight:0,
           tableData: [],
           columns: [
             {field: 'sgdw', width: 80, columnAlign: 'left', isFrozen: true,isResize: true},
@@ -66,45 +67,36 @@
 
           titleRows: [ //第一行
             [
-              {fields: ['sgdw'], title: '施工单位', titleAlign: 'center', rowspan: 2},
-              {fields: ['rigTotal'], title: '钻机总数', titleAlign: 'center', rowspan: 2},
-              {fields: ['workStop'], title: '停工数量', titleAlign: 'center', rowspan: 2},
-              {fields: ['complex'], title: '复杂数量', titleAlign: 'center', rowspan: 2},
-              {fields: ['accident'], title: '事故数量', titleAlign: 'center', rowspan: 2},
-              {fields: ['removal'], title: '搬迁数量', titleAlign: 'center', rowspan: 2},
-              {fields: ['moveto'], title: '搬安数量', titleAlign: 'center', rowspan: 2},
-              {fields: ['wellFinsh'], title: '完井数量', titleAlign: 'center', rowspan: 2},
-              {fields: ['drilling'], title: '钻进数量', titleAlign: 'center', rowspan: 2},
-              {fields: ['overhaul'], title: '大修数量', titleAlign: 'center', rowspan: 2},
-              {fields: ['sidetrack'], title: '侧钻数量', titleAlign: 'center', rowspan: 2},
-              {fields: ['testNum'], title: '测试数量', titleAlign: 'center', rowspan: 2},
-              {fields: ['productionStop'], title: '停产数量', titleAlign: 'center', rowspan: 2},
-              {fields: ['otherNum'], title: '其他数量', titleAlign: 'center', rowspan: 2},
-              {fields: ['movedown'], title: '拆搬数量', titleAlign: 'center', rowspan: 2},
-              {fields: ['minorRepair'], title: '小修数量', titleAlign: 'center', rowspan: 2},
-              {fields: ['mlog'], title: '测井数量', titleAlign: 'center', rowspan: 2},
-              {fields: ['wellCementation'], title: '固井数量', titleAlign: 'center', rowspan: 2},
-              {fields: ['assist'], title: '辅助数量', titleAlign: 'center', rowspan: 2},
-              {fields: ['rigTest'], title: '原钻机试油数量', titleAlign: 'center', rowspan: 2},
+              {fields: ['sgdw'], title: '施工单位', titleAlign: 'center', rowspan: 1},
+              {fields: ['rigTotal'], title: '钻机总数', titleAlign: 'center', rowspan:1},
+              {fields: ['workStop'], title: '停工数量', titleAlign: 'center', rowspan:1},
+              {fields: ['complex'], title: '复杂数量', titleAlign: 'center', rowspan:1},
+              {fields: ['accident'], title: '事故数量', titleAlign: 'center', rowspan: 1},
+              {fields: ['removal'], title: '搬迁数量', titleAlign: 'center', rowspan:1},
+              {fields: ['moveto'], title: '搬安数量', titleAlign: 'center', rowspan: 1},
+              {fields: ['wellFinsh'], title: '完井数量', titleAlign: 'center', rowspan:1},
+              {fields: ['drilling'], title: '钻进数量', titleAlign: 'center', rowspan:1},
+              {fields: ['overhaul'], title: '大修数量', titleAlign: 'center', rowspan:1},
+              {fields: ['sidetrack'], title: '侧钻数量', titleAlign: 'center', rowspan: 1},
+              {fields: ['testNum'], title: '测试数量', titleAlign: 'center', rowspan: 1},
+              {fields: ['productionStop'], title: '停产数量', titleAlign: 'center', rowspan: 1},
+              {fields: ['otherNum'], title: '其他数量', titleAlign: 'center', rowspan: 1},
+              {fields: ['movedown'], title: '拆搬数量', titleAlign: 'center', rowspan: 1},
+              {fields: ['minorRepair'], title: '小修数量', titleAlign: 'center', rowspan: 1},
+              {fields: ['mlog'], title: '测井数量', titleAlign: 'center', rowspan: 1},
+              {fields: ['wellCementation'], title: '固井数量', titleAlign: 'center', rowspan: 1},
+              {fields: ['assist'], title: '辅助数量', titleAlign: 'center', rowspan: 1},
+              {fields: ['rigTest'], title: '原钻机试油数量', titleAlign: 'center', rowspan: 1},
             ]
-
-            //第二行
-            //基础信息
-            // [{fields: ['dailyDrilledFootage'], title: '当日', titleAlign: 'center'},
-            //   {fields: ['cumulMonthDrilledFootage'], title: '月累', titleAlign: 'center'},
-            //   {fields: ['cumulYearDrilledFootage'], title: '年累', titleAlign: 'center'},
-            //
-            // ]
           ],
-
         }
       },
       created() {
         this.requestDate();
-        this.tableHeight=window.innerHeight-388
-        // this.$ruixinApi.setWebViewTitle({ //设置导航条标题
-        //   title:'钻井分井动态'
-        // })
+        this.tableheight=window.innerHeight*0.94;
+      },
+      mounted(){
+        transToHorizontalScreen('#dRDailyOfRigDynamic')
       },
       methods: {
         requestDate() {
@@ -132,9 +124,9 @@
                 }
                 //排序
                 this.tableData.sort((pre,next)=>{
-                  let preIndex=sgdws.indexOf(pre.sgdw)
-                  let nextIndex=sgdws.indexOf(next.sgdw)
-                  return preIndex-nextIndex
+                    let preIndex=sgdws.indexOf(pre.sgdw)
+                    let nextIndex=sgdws.indexOf(next.sgdw)
+                    return preIndex-nextIndex
                 })
               } else {
                 this.tableData = []
@@ -151,7 +143,7 @@
           }
           window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
-        
+
         //设置列单元格样式
         columnCellClass(rowIndex, columnName, rowData) {
           if(columnName=='sgdw'&&this.tableData[rowIndex].remark=='Not exist'){
@@ -223,7 +215,9 @@
 </script>
 
 <style lang="scss">
-  .oms2-item-not-exict{
-    color: #ff0000;
+  .oms2-icon{
+    margin-left:20px;
+    margin-right:20px;
+    font-size:18px;
   }
 </style>
