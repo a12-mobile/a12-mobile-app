@@ -5,7 +5,7 @@
         <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
       </mt-header>-->
       <!--<h4>中油油服钻井工作量日报</h4>-->
-      <h5>钻井综合日报</h5>
+      <p>钻井综合日报</p>
       <div class='oms2-report-float-right' style="top:40px">数据来源于A7集团系统钻井综合日报</div>
       <oms2-date-picker-daily :date="date"
                   @date-change="handleChange">
