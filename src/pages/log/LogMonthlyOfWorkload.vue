@@ -3,10 +3,158 @@
         <!-- <h4>测井工作量统计表</h4> -->
         <oms2-date-picker-monthly :date=date @date-change="handleChange"></oms2-date-picker-monthly>
         <!-- Button trigger modal -->
-        
-        <v-table is-horizontal-resize :height=tableHeight is-vertical-resize :title-row-height=25 :row-height=30 title-bg-color="#F6F6F6" style="width:100%;font-size:12px"  :columns="columns" :title-rows="titleRows" :column-cell-class-name="columnCellClass" :table-data="tableData" :cell-merge="cellMerge" even-bg-color="#F4F4F4"
-            row-hover-color="#eee" row-click-color="#edF7FF"></v-table>
+
+        <v-table
+           is-horizontal-resize
+           is-vertical-resize
+           :height=tableHeight
+           :title-row-height=25
+           :row-height=30
+           :row-click="handleRowClick"
+           style="width:100%;font-size:12px"
+           :columns="columns"
+           :title-rows="titleRows"
+           :column-cell-class-name="columnCellClass"
+           :table-data="tableData"
+           :cell-merge="cellMerge"
+           title-bg-color="#F6F6F6"
+           even-bg-color="#F4F4F4"
+           row-hover-color="#eee"
+           row-click-color="#edF7FF"
+        ></v-table>
         <div class='oms2-report-float-right'>数据来源于A7集团系统测井工作量月报</div>
+        <!-- Modal 具体数据信息 -->
+        <div class="modal fade oms2-font-size" id="ModalWellMessage" tabindex="-1" role="dialog" aria-labelledby="ModalWellMessageTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">{{selectedRow.juOrgabb}} {{selectedRow.chuOrgabb}}<span style="padding-left:2rem;font-size:14px">(
+                              {{date.time}})</span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="oms2-list-divider list-group-item list-group-item-dark">指标名称</div>
+                  <div class="row">
+                    <label class="col-5 oms2-right">总井次:</label>
+                    <p>{{selectedRow.totalWellCount | ifNumberIsNull}}</p>
+                  </div>
+                  <div class="row">
+                    <label class="col-5 oms2-right">完成井次:</label>
+                    <p>{{selectedRow.completeWellCount | ifNumberIsNull}}</p>
+                  </div>
+                  <div class="oms2-list-divider list-group-item list-group-item-dark">裸眼测井(井次)</div>
+                  <div class="row">
+                    <label class="col-5 oms2-right">测井口数(口):</label>
+                    <p>{{selectedRow.wjcjCount | ifNumberIsNull}}</p>
+                  </div>
+                  <div class="row">
+                    <label class="col-5 oms2-right">合计:</label>
+                    <p>{{selectedRow.lyTotal | ifNumberIsNull}}</p>
+                  </div>
+                  <div class="row">
+                    <label class="col-5 oms2-right">测井井次:</label>
+                    <p>{{selectedRow.wjcjWellcount | ifNumberIsNull}}</p>
+                  </div>
+                  <div class="row">
+                    <label class="col-5 oms2-right">LWD:</label>
+                    <p>{{selectedRow.numberSpare2 | ifNumberIsNull}}</p>
+                  </div>
+                  <div class="row">
+                    <label class="col-5 oms2-right">其它:</label>
+                    <p>{{selectedRow.lyOther | ifNumberIsNull}}</p>
+                  </div>
+                  <div class="oms2-list-divider list-group-item list-group-item-dark ">生产测井(井次)</div>
+                  <div class="row">
+                    <label class="col-5 oms2-right">合计:</label>
+                    <p>{{selectedRow.scTotal | ifNumberIsNull}}</p>
+                  </div>
+                  <div class="row">
+                    <label class="col-5 oms2-right">产出剖面:</label>
+                    <p>{{selectedRow.ccCount | ifNumberIsNull}}</p>
+                  </div>
+                  <div class="row">
+                    <label class="col-5 oms2-right">注入剖面:</label>
+                    <p>{{selectedRow.zrCount | ifNumberIsNull}}</p>
+                  </div>
+                  <div class="row">
+                    <label class="col-5 oms2-right">储层参数:</label>
+                    <p>{{selectedRow.dcCount | ifNumberIsNull}}</p>
+                  </div>
+                  <div class="row">
+                    <label class="col-5 oms2-right">其它:</label>
+                    <p>{{selectedRow.sccjqt | ifNumberIsNull}}</p>
+                  </div>
+                  <div class="oms2-list-divider list-group-item list-group-item-dark ">工程测井(井次)</div>
+                  <div class="row">
+                    <label class="col-5 oms2-right">合计:</label>
+                    <p>{{selectedRow.gcTotal | ifNumberIsNull}}</p>
+                  </div>
+                  <div class="row">
+                    <label class="col-5 oms2-right">套损检测:</label>
+                    <p>{{selectedRow.tsTest | ifNumberIsNull}}</p>
+                  </div>
+                  <div class="row">
+                    <label class="col-5 oms2-right">固井质量检测:</label>
+                    <p>{{selectedRow.gjQualityTest | ifNumberIsNull}}</p>
+                  </div>
+                  <div class="row">
+                    <label class="col-5 oms2-right">其它:</label>
+                    <p>{{selectedRow.projectOther | ifNumberIsNull}}</p>
+                  </div>
+                  <div class="oms2-list-divider list-group-item list-group-item-dark ">射孔(井次)</div>
+                  <div class="row">
+                    <label class="col-5 oms2-right">合计:</label>
+                    <p>{{selectedRow.skTotal | ifNumberIsNull}}</p>
+                  </div>
+                  <div class="row">
+                    <label class="col-5 oms2-right">油管传输射孔:</label>
+                    <p>{{selectedRow.vittaTransfers | ifNumberIsNull}}</p>
+                  </div>
+                  <div class="row">
+                    <label class="col-5 oms2-right">电缆射孔:</label>
+                    <p>{{selectedRow.cableSk | ifNumberIsNull}}</p>
+                  </div>
+                  <div class="row">
+                    <label class="col-5 oms2-right">特殊作业:</label>
+                    <p>{{selectedRow.differentWork | ifNumberIsNull}}</p>
+                  </div>
+                  <div class="row">
+                    <label class="col-5 oms2-right">射孔厚度(m):</label>
+                    <p>{{selectedRow.thicknessSk | ifNumberIsNull}}</p>
+                  </div>
+                  <div class="row">
+                    <label class="col-5 oms2-right">用弹量(万发):</label>
+                    <p>{{selectedRow.bombCount | ifNumberIsNull}}</p>
+                  </div>
+                  <div class="list-group-item list-group-item-dark oms2-list-divider">无效井次</div>
+                  <div class="row">
+                    <label class="col-5 oms2-right">合计:</label>
+                    <p>{{selectedRow.wxTotal | ifNumberIsNull}}</p>
+                  </div>
+                  <div class="row">
+                    <label class="col-5 oms2-right">设备:</label>
+                    <p>{{selectedRow.nullityEquipment | ifNumberIsNull}}</p>
+                  </div>
+                  <div class="row">
+                    <label class="col-5 oms2-right">井况:</label>
+                    <p>{{selectedRow.nullityWell | ifNumberIsNull}}</p>
+                  </div>
+                  <div class="row">
+                    <label class="col-5 oms2-right">其它:</label>
+                    <div>{{selectedRow.nullityOther | ifNumberIsNull}}</div>
+                  </div>
+
+                </form>
+                <div class="modal-footer">
+                  <button type="button" data-dismiss="modal" class="btn btn-primary">返回</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
 </template>
 
@@ -18,10 +166,14 @@
     export default {
          data() {
             return {
+                tableHeight:0,   //表格高度
+                selectedRow:{},  //选中的行
+                selectedJuOrg:{},// 选中的局级单位
+                selectedChuOrg:{},//选中的初级单位
                 date: {
                     time:getCurrentDate('yyyy-MM')
                 },
-                tableHeight:0,   //表格高度
+
                 columns: [
                     {field: 'juOrgabb', width:60, columnAlign: 'center', isFrozen: true,isResize:true},
                     {field: 'chuOrgabb', width: 110, columnAlign: 'center', isFrozen: true,isResize:true},
@@ -79,7 +231,7 @@
                               {fields: ['wjcjWellcount'], title: '测井井次', titleAlign: 'center', rowspan:2},
                               {fields: ['numberSpare2'], title: 'LWD', titleAlign: 'center', rowspan:2},
                               {fields: ['lyOther'], title: '其它', titleAlign: 'center', rowspan:2},
-                              
+
                               //生产测井（井次）
                               {fields: ['scTotal'], title: '合计', titleAlign: 'center', rowspan:2},//////============//
                               {fields: ['ccCount'], title: '产出剖面', titleAlign: 'center', rowspan:2},
@@ -92,7 +244,7 @@
                               {fields: ['tsTest'], title: '套损检测', titleAlign: 'center', rowspan:2},
                               {fields: ['gjQualityTest'], title: '固井质量检测', titleAlign: 'center', rowspan:2},
                               {fields: ['projectOther'], title: '其它', titleAlign: 'center', rowspan:2},
-                              
+
 
                               //射孔
                               {fields: ['skTotal','vittaTransfers','cableSk','differentWork'], title: '射孔 (井次)', titleAlign: 'center', colspan:4},
@@ -175,7 +327,7 @@
                                 this.tableData.push(newItem)
                             }
                         }
-                        
+
                         //排序
                         this.tableData.sort((pre,next)=>{
                             let preIndex=-1
@@ -202,7 +354,7 @@
                 .catch(function(error) {
                     Indicator.close()
                     console.log(error)
-                    
+
                 })
 
             },
@@ -226,7 +378,7 @@
                 this.requestData()
             },
             //合并单元格
-            cellMerge(rowIndex,rowData,field){ 
+            cellMerge(rowIndex,rowData,field){
                 if(rowIndex==0&&field=="juOrgabb"){
                     return {
                         colSpan: 2,
@@ -270,6 +422,13 @@
                 if(this.tableData[rowIndex].remark=='Not exist'){
                     return 'oms2-item-not-exict'
                 }
+            },
+            /**
+             * 表格行点击回掉
+             */
+            handleRowClick(rowIndex, rowData, column){
+              this.selectedRow=rowData
+              $("#ModalWellMessage").modal('show')
             }
         },
         components: {
@@ -279,6 +438,20 @@
 </script>
 
 <style lang="scss">
+    .oms2-list-item-content{
+      text-align: left;
+      padding-left:0rem;
+      padding-bottom:1rem;
+    }
+    .oms2-list-divider{
+      text-align: center;
+      padding-top:0rem !important;
+      padding-bottom:0rem !important;
+      margin-bottom:1rem;
+    }
+    .oms2-right{
+      text-align: right;
+    }
 </style>
 
 
