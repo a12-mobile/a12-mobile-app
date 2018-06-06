@@ -10,79 +10,79 @@
             </a>
             <h6>实时监测</h6>
           </div>
-        <div class="col-4 oms2-grid-cell">
-          <router-link to="/drill/daily/well/key">
-            <img class='oms2-grid-cell-image' src="./../assets/img/drillDailyOfKeyWell.png">
-          </router-link>
-          <h6>重点井日报</h6>
-        </div>
-        <div class="col-4 oms2-grid-cell">
-          <router-link to="/dailyOfDrilling">
-            <img class='oms2-grid-cell-image' src="./../assets/img/mlogFJDT.png">
-          </router-link>
-          <h6>钻井综合日报</h6>
-        </div>
-
-        <div class="col-4 oms2-grid-cell">
-          <router-link to="/dRDailyOfRigDynamic">
-            <img class='oms2-grid-cell-image' src="./../assets/img/wellList.png">
-          </router-link>
-          <h6>钻机动态日报</h6>
-        </div>
-
-
-        <div class="col-4 oms2-grid-cell">
-          <router-link to="/mlogMonthOfTeam">
-            <img class='oms2-grid-cell-image' src="./../assets/img/mlogFDW.png">
-          </router-link>
-          <h6>录井队伍统计月报</h6>
-        </div>
-        <div class="col-4 oms2-grid-cell">
-          <router-link to="/mlogsOfRecordWell">
-            <img class='oms2-grid-cell-image' src="./../assets/img/mlogDaily.png">
-          </router-link>
-          <h6>录井分队动态</h6>
-        </div>
-        <div class="col-4 oms2-grid-cell">
-          <router-link to="/MonthLogOfLogWellByCompany">
-            <img class='oms2-grid-cell-image' src="./../assets/img/mlogMonthlyByMarket.png">
-          </router-link>
-          <h6>录井分市场月报</h6>
-        </div>
+          <div class="col-4 oms2-grid-cell">
+            <router-link to="/drill/daily/well/key">
+              <img class='oms2-grid-cell-image' src="./../assets/img/drillDailyOfKeyWell.png">
+            </router-link>
+            <h6>重点井日报</h6>
+          </div>
+          <div class="col-4 oms2-grid-cell">
+            <router-link to="/dailyOfDrilling">
+              <img class='oms2-grid-cell-image' src="./../assets/img/mlogFJDT.png">
+            </router-link>
+            <h6>钻井综合日报</h6>
+          </div>
+          <div class="col-4 oms2-grid-cell">
+            <router-link to="/dRDailyOfRigDynamic">
+              <img class='oms2-grid-cell-image' src="./../assets/img/wellList.png">
+            </router-link>
+            <h6>钻机动态日报</h6>
+          </div>
 
 
-        <div class="col-4 oms2-grid-cell">
-          <router-link to="/log/Monthly/workload">
-            <img class='oms2-grid-cell-image' src="./../assets/img/logMonthlyWorkload.png">
-          </router-link>
-          <h6>测井工作量月报</h6>
-        </div>
-        <div class="col-4 oms2-grid-cell">
-          <router-link to="/log/daily/workload">
-            <img class='oms2-grid-cell-image' src="./../assets/img/logMonthlyWorkload.png">
-          </router-link>
-          <h6>测井工作量日报</h6>
-        </div>
-        <div class="col-4 oms2-grid-cell">
-          <router-link to="/dh/monthly/workload/total">
-            <img class='oms2-grid-cell-image' src="./../assets/img/dhMonthlyWorkload.png">
-          </router-link>
-          <h6>井下工作量月报总</h6>
-        </div>
-        <div class="col-4 oms2-grid-cell">
-          <router-link to="/dh/monthly/workload/gn">
-            <img class='oms2-grid-cell-image' src="./../assets/img/dhMonthlyWorkload.png">
-          </router-link>
-          <h6>井下工作量月报国内</h6>
-        </div>
+          <div class="col-4 oms2-grid-cell">
+            <router-link to="/mlogMonthOfTeam">
+              <img class='oms2-grid-cell-image' src="./../assets/img/mlogFDW.png">
+            </router-link>
+            <h6>录井队伍统计月报</h6>
+          </div>
+          <div class="col-4 oms2-grid-cell">
+            <router-link to="/mlogsOfRecordWell">
+              <img class='oms2-grid-cell-image' src="./../assets/img/mlogDaily.png">
+            </router-link>
+            <h6>录井分队动态</h6>
+          </div>
+          <div class="col-4 oms2-grid-cell">
+            <router-link to="/MonthLogOfLogWellByCompany">
+              <img class='oms2-grid-cell-image' src="./../assets/img/mlogMonthlyByMarket.png">
+            </router-link>
+            <h6>录井分单位月报</h6>
+          </div>
 
-        <div class="col-4 oms2-grid-cell">
+
+          <div class="col-4 oms2-grid-cell">
+            <router-link to="/log/Monthly/workload">
+              <img class='oms2-grid-cell-image' src="./../assets/img/logMonthlyWorkload.png">
+            </router-link>
+            <h6>测井工作量月报</h6>
+          </div>
+          <div class="col-4 oms2-grid-cell">
+            <router-link to="/log/daily/workload">
+              <img class='oms2-grid-cell-image' src="./../assets/img/logMonthlyWorkload.png">
+            </router-link>
+            <h6>测井工作量日报</h6>
+          </div>
+
+          <div class="col-4 oms2-grid-cell">
+            <router-link to="/dh/monthly/workload/total">
+              <img class='oms2-grid-cell-image' src="./../assets/img/dhMonthlyWorkload.png">
+            </router-link>
+            <h6>井下工作量月报总</h6>
+          </div>
+          <div class="col-4 oms2-grid-cell">
+            <router-link to="/dh/monthly/workload/gn">
+              <img class='oms2-grid-cell-image' src="./../assets/img/dhMonthlyWorkload.png">
+            </router-link>
+            <h6>井下工作量月报国内</h6>
+          </div>
+
+          <div class="col-4 oms2-grid-cell">
           <router-link to="/well/list">
             <img class='oms2-grid-cell-image' src="./../assets/img/wellList.png">
           </router-link>
           <h6>井列表</h6>
         </div>
-        <div class="col-4 oms2-grid-cell">
+          <div class="col-4 oms2-grid-cell">
           <router-link to="/drill/project/data/list2">
             <img class='oms2-grid-cell-image' src="./../assets/img/shishishuju.png">
           </router-link>
