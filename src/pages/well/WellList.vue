@@ -26,48 +26,33 @@
                     </p>
                     <small>{{item.wellBlock | ifStringIsNull}}</small>
                 </div>
-                <div>
-                    <div @click="handleClickItem(index)">
+                <div class="row">
+                    <div class="col-11"  @click="handleClickItem(index)">
                         <div class="row">
-                            <div class="col-5">
-                                <label style="font-size:14px;">设计井深：{{item.authorizedMd | ifStringIsNull}}</label>
-                            </div>
-                            <div class="col-4 offset-1">
-                                <label style="font-size:14px;">当前井深：{{item.BHMd | ifStringIsNull}}</label>
-                            </div>
-                        </div>
-                        <div class="row oms2-flex">
-                            <div class="oms2-flex-item1">作业内容：</div >
-                            <div class="oms2-flex-item2">
-                                {{item.workContent | ifStringIsNull}}
-                            </div>
-                        </div>
-
-
-
-                        <!-- <div class="row">
-                            <label class="mb-1 col-3" style="padding-right:0px;text-align:right;font-size:14px;font-weight:blod">设计井深：</label>
-                            <div class="col-2" style="padding-left:0px;font-size:14px">
-                                {{item.authorizedMd | ifStringIsNull}}
-                            </div>
-                            <label class="mb-1 col-3" style="padding-right:0px;text-align:right;font-size:14px;font-weight:blod">当前井深：</label>
-                            <div class="col-3" style="padding-left:0px">
-                                {{item.BHMd | ifStringIsNull}}
+                            <label class="mb-1 col-4" style="padding-right:0px;text-align:right;">设计井深：</label>
+                            <div class="col-8" style="padding-left:0px">
+                                <p>{{item.authorizedMd | ifStringIsNull}}</p>
                             </div>
                         </div>
                         <div class="row">
-                            <label class="mb-1 col-3" style="padding-right:0px;text-align:right;">作业内容：</label>
-                            <div class="col-9" style="padding-left:0px">
+                            <label class="mb-1 col-4" style="padding-right:0px;text-align:right;">当前井深：</label>
+                            <div class="col-8" style="padding-left:0px">
+                                <p>{{item.bHMd | ifStringIsNull}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="mb-1 col-4" style="padding-right:0px;text-align:right;">作业内容：</label>
+                            <div class="col-8" style="padding-left:0px">
                                 <p>{{item.workContent | ifStringIsNull}}</p>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
-                    <!-- <div class='oms2-star-content col-1'>
+                    <div class='oms2-star-content col-1'>
                         <div  @click="handleCareFor(index)">
-                            <i v-if="!item.isCare" style="color:red" class="fa fa-star-o oms2-star"></i>
+                            <i v-if="!item.isCare   " style="color:red" class="fa fa-star-o oms2-star"></i>
                             <i v-if="item.isCare==true" style="color:red" class="fa fa-star oms2-star"></i>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
                 <!-- <small>Donec id elit non mi porta.</small> -->
             </div>
@@ -93,11 +78,11 @@
                 wellBlockList: [],
                 selectedJM: '',
                 baseData: [],
-                tableData: [{"BHMd":"","authorizedMd":"","workContent":"接单根 定向钻进 循环 提钻10柱 循环 下钻6柱 划眼1685-1783m（测深1768.30 垂深1356.9 井斜84.1 方位150 位移558.86）（共渗漏泥浆19.6方）","wellBlock":"车21井区","clientStatus":"2","wellName":"CHHW017"},{"BHMd":"","authorizedMd":"7461.0","workContent":"8:00--15:00下钻--16:00循环--8:00钻进","wellBlock":"塔里木油区","clientStatus":"2","wellName":"FY202-1X"},{"BHMd":"","authorizedMd":"7350.0","workContent":"8:00--20:30起钻--21:00试螺杆--0:30调试仪器、检保设备--1:00试定向仪器--1:30接钻头--8:00下钻","wellBlock":"塔里木油区","clientStatus":"2","wellName":"FY204-1X"}]
+                tableData: []
             }
         },
         created() {
-            // this.requestData();
+            this.requestData();
         },
         methods: {
             requestData() {
@@ -222,19 +207,6 @@
         position: absolute;
         right: 10px;
         top: 5px;
-    }
-    .oms2-flex{
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        align-items: flex-start;
-        .oms2-flex-item1{
-            width:12%
-        }
-        .oms2-flex-item2{
-            flex-grow:2;
-        }
     }
 </style>
 

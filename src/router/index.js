@@ -8,8 +8,6 @@ import Me from '@/pages/Tab-Me'
 import SubView from '@/pages/SubView'
 
 //钻井
-import DrillListOfProjectData from '@/pages/drill/DrillListOfProjectData'
-import DrillListOfProjectData2 from '@/pages/drill/DrillListOfProjectData2'
 import DrillFormList from '@/pages/drill/DrillFormList'
 import DrillDailyOfKeyWell from '@/pages/drill/DrillDailyOfKeyWell'
 import DailyOfDrilling from '@/pages/drill/DailyOfDrilling'
@@ -31,8 +29,10 @@ import MonthLogOfWellWorkload from '@/pages/mlog/MonthLogOfWellWorkload'
 import MlogsOfRecordWell from '@/pages/mlog/MlogsOfRecordWell'
 import MlogFormList from '@/pages/mlog/MlogFormList'
 import WellList from '@/pages/WellList'
-
 import MlogMonthOfTeam from '@/pages/mlog/MlogMonthOfTeam'
+
+//实时数据
+import RealtimeListOfProjectData from '@/pages/real-time/ListOfProjectData'
 
 //demo
 import HorizontalScreen from '@/pages/demo/HorizontalScreen'
@@ -91,18 +91,7 @@ export default new Router({
       component: DrillFormList,
       meta: { navShow: false, title: '钻井报表' }
     },
-    {
-      path: '/drill/project/data/list',
-      name: 'DrillListOfProjectData',
-      component: DrillListOfProjectData,
-      meta: { navShow: false, title: '工程数据列表' }
-    },
-    {
-      path: '/drill/project/data/list2',
-      name: 'DrillListOfProjectData2',
-      component: DrillListOfProjectData2,
-      meta: { navShow: false, title: '工程数据列表2' }
-    },
+    
     {
       path: '/drill/daily/well/key',
       name: 'DrillDailyOfKeyWell',
@@ -197,6 +186,16 @@ export default new Router({
       component: MlogMonthOfTeam,
       meta:{ navShow: false, title: '录井队伍统计月报'}
     },
+
+
+    //实时数据
+    {
+      path: '/real-time/list/project',
+      name: 'RealtimeListOfProjectData',
+      component: RealtimeListOfProjectData,
+      meta: { navShow: false, title: '工程数据列表' }
+    },
+    //实时数据 end
 
 
 

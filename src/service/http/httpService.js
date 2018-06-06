@@ -74,12 +74,6 @@ function successState(res){
                 duration: 3000,
             })
         }
-    }else{
-        Toast({
-            message: '请求失败',
-            position: 'bottom',
-            duration: 3000,
-        })
     }
 }
 
@@ -93,7 +87,7 @@ const httpServer=(method,url,data={})=>{
     let httpDefaultOpts={ //http默认配置
         method:requestMethod,
         url:baseUrl+url,
-        timeout:20*1000,
+        timeout:45*1000,
         params:Object.assign(Public,data),
         data:qs.stringify(Object.assign(Public,data)),
         headers:requestMethod=='GET'?{ 
@@ -113,6 +107,7 @@ const httpServer=(method,url,data={})=>{
 
     return new Promise((resolve,reject)=>{
         axios(httpDefaultOpts).then((res)=>{
+            console.log(res)
             successState(res)
             resolve(res.data)
         }).catch((response)=>{
