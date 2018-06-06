@@ -28,7 +28,7 @@
                         <i v-if="!item.isCare" @click="handleCareFor(index)" style="color:red" class="fa fa-star-o oms2-icon oms2-vertical-divider"></i>
                         <i v-if="item.isCare==true" @click="handleCareFor(index)" style="color:red" class="fa fa-star oms2-icon oms2-vertical-divider"></i>
                         <i @click="handleGoToList(item)" class="fa fa-list-alt oms2-icon oms2-vertical-divider"></i>
-                        <i @click="handleGoToChart(item)" class="fa fa-area-chart oms2-icon oms2-vertical-divider"></i>
+                        <i @click="handleGoToChart(item)" class="fa fa-area-chart oms2-icon"></i>
                     </div>
                 </div>
                 <div>
