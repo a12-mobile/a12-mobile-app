@@ -45,7 +45,7 @@
           tableheight:0,
           tableData: [],
           columns: [
-            {field: 'sgdw', width: 80, columnAlign: 'left', isFrozen: true,isResize: true},
+            {field: 'sgdw', width: 60, columnAlign: 'left', isFrozen: true,isResize: true},
             {field: 'rigTotal', width: 40, columnAlign: 'right', isResize: true},
             {field: 'workStop', width: 40, columnAlign: 'right', isResize: true},
             {field: 'complex', width: 40, columnAlign: 'right', isResize: true},
@@ -96,6 +96,7 @@
       created() {
         this.requestDate();
         this.tableheight=window.innerHeight*0.94;
+        this.$ruixinApi.hideWebViewTitle({});
       },
       mounted(){
         transToHorizontalScreen('#dRDailyOfRigDynamic')
@@ -197,7 +198,7 @@
             return {
               colSpan: 1,
               rowSpan: 1,
-              content: '海洋工程公司',
+              content: '海洋工程',
               componentName: ''
             }
           }else if (field === 'sgdw' && rowData[field] === '中油') {
