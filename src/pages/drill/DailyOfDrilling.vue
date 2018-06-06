@@ -21,6 +21,7 @@
       :columns="columns"
       :title-rows="titleRows"
       :table-data="tableData"
+      :cellMerge="cellMerge"
       :column-cell-class-name="columnCellClass"
       title-bg-color="#F6F6F6"
       even-bg-color="#f2f2f2"
@@ -44,10 +45,10 @@
         date: timepicker.startTime,
         tableData: [],
         columns: [
-          {field: 'sgdw', width: 80, columnAlign: 'left', isFrozen: true,isResize: true},
+          {field: 'sgdw', width: 60, columnAlign: 'left', isFrozen: true,isResize: true},
           {field: 'dailyDrilledFootage', width: 80, columnAlign: 'right', isResize: true},
           {field: 'cumulMonthDrilledFootage', width: 80, columnAlign: 'right', isResize: true},
-          {field: 'cumulYearDrilledFootage', width: 80, columnAlign: 'right', isResize: true},
+          {field: 'cumulYearDrilledFootage', width: 100, columnAlign: 'right', isResize: true},
           {field: 'spuddedDayCumul', width: 50, columnAlign: 'right', isResize: true},
           {field: 'spuddedMonthCumul', width: 50, columnAlign: 'right', isResize: true},
           {field: 'spuddedYearCumul', width: 50, columnAlign: 'right', isResize: true},
@@ -98,6 +99,7 @@
     created() {
       this.requestDate();
       this.tableheight = window.innerHeight*0.94;
+      this.$ruixinApi.hideWebViewTitle({});
       // this.$ruixinApi.setWebViewTitle({ //设置导航条标题
       //   title:'钻井分井动态'
       // })
@@ -114,7 +116,7 @@
             if (data) {
               this.tableData = data.body
               //检查是否含有所有地区
-              let sgdws=['总计','大庆','西部','长城','渤海','川庆','海洋']
+              let sgdws=['总计','大庆钻探','西部钻探','长城钻探','渤海钻探','川庆钻探','海洋工程']
               let sgdwsFromDate=[]
               for(var date of this.tableData){
                 sgdwsFromDate.push(date.sgdw)
@@ -150,7 +152,16 @@
         }
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
       },
-
+      cellMerge(rowIndex, rowData, field) {
+        // if (field === 'sgdw' && rowData[field] === '海洋钻探') {
+        //   return {
+        //     colSpan: 1,
+        //     rowSpan: 1,
+        //     content: '海洋工程',
+        //     componentName: ''
+        //   }
+        // }
+      },
       //设置列单元格样式
       columnCellClass(rowIndex, columnName, rowData) {
         if(columnName=='sgdw'&&this.tableData[rowIndex].remark=='Not exist'){
@@ -162,16 +173,7 @@
         this.requestDate();
       },
       //合并单位
-      // cellMerge(rowIndex, rowData, field) {
-      //   if (field === 'sgdw' && rowData[field] === '大庆') {
-      //     return {
-      //       colSpan: 1,
-      //       rowSpan: 2,
-      //       content: '<span >大庆钻探</span>',
-      //       componentName: ''
-      //     }
-      //   }
-      // }
+
     },
     components: {
       'oms2-date-picker-daily': DatePickerDaily
