@@ -16,7 +16,7 @@
             </div>
         </form>
         <div class="list-group" style="margin-top:60px;">
-            <div v-for="(item,index) of tableData" class="list-group-item oms2-list-item">
+            <div v-for="(item,index) of tableData" class="list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-between">
                     <p class="mb-1">
                         <i class="fa fa-circle" v-if="item.clientStatus==0" style="color:red;font-size:16px;margin-right:5px;"></i>
@@ -24,40 +24,33 @@
                         <i class="fa fa-circle-thin" v-if="item.clientStatus==''||!item.clientStatus" style="font-size:16px;margin-right:5px;"></i>
                         <b>{{item.wellName}}</b>
                     </p>
-                    <div>
-                        <i v-if="!item.isCare" @click="handleCareFor(index)" style="color:red" class="fa fa-star-o oms2-icon oms2-vertical-divider"></i>
-                        <i v-if="item.isCare==true" @click="handleCareFor(index)" style="color:red" class="fa fa-star oms2-icon oms2-vertical-divider"></i>
-                        <i @click="handleGoToList(item)" class="fa fa-list-alt oms2-icon oms2-vertical-divider"></i>
-                        <i @click="handleGoToChart(item)" class="fa fa-area-chart oms2-icon"></i>
-                    </div>
+                    <small>{{item.wellBlock | ifStringIsNull}}</small>
                 </div>
-                <div>
-                    <div @click="handleClickItem(index)" style="padding-right:15px;">
+                <div class="row">
+                    <div class="col-11"  @click="handleClickItem(index)">
                         <div class="row">
-                            <div class="col-3">
-                                <label style="font-size:12px;font-weight:bold;float:right;">油区：</label>
-                            </div>
-                            <div class="col-9">
-                                <label style="font-size:12px;">{{item.wellBlock | ifStringIsNull}}</label>
-                            </div>
-                            <div class="col-3">
-                                <label style="font-size:12px;font-weight:bold;float:right">设计井深：</label>
-                            </div>
-                            <div class="col-3">
-                                <label style="font-size:12px;">{{item.authorizedMd | ifStringIsNull}}</label>
-                            </div>
-                            <div class="col-3">
-                                <label style="font-size:12px;font-weight:bold;float:right">当前井深：</label>
-                            </div>
-                            <div class="col-3">
-                                <label style="font-size:12px;">{{item.BHMd | ifStringIsNull}}</label>
+                            <label class="mb-1 col-4" style="padding-right:0px;text-align:right;">设计井深：</label>
+                            <div class="col-8" style="padding-left:0px">
+                                <p>{{item.authorizedMd | ifStringIsNull}}</p>
                             </div>
                         </div>
                         <div class="row">
-                            <label class="mb-1 col-3" style="text-align:right;font-weight:bold;font-size:12px;">作业内容：</label>
-                            <div class="col-9" style="font-size:12px;">
-                                {{item.workContent | ifStringIsNull}}
+                            <label class="mb-1 col-4" style="padding-right:0px;text-align:right;">当前井深：</label>
+                            <div class="col-8" style="padding-left:0px">
+                                <p>{{item.bHMd | ifStringIsNull}}</p>
                             </div>
+                        </div>
+                        <div class="row">
+                            <label class="mb-1 col-4" style="padding-right:0px;text-align:right;">作业内容：</label>
+                            <div class="col-8" style="padding-left:0px">
+                                <p>{{item.workContent | ifStringIsNull}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='oms2-star-content col-1'>
+                        <div  @click="handleCareFor(index)">
+                            <i v-if="!item.isCare   " style="color:red" class="fa fa-star-o oms2-star"></i>
+                            <i v-if="item.isCare==true" style="color:red" class="fa fa-star oms2-star"></i>
                         </div>
                     </div>
                 </div>
@@ -134,7 +127,6 @@
                 //     }
                 // })
             },
-            //关注/取消关注
             handleCareFor(index){
                 if(this.tableData[index].isCare){
                     this.tableData[index].isCare=false
@@ -147,16 +139,7 @@
                     showToast("关注成功", POSITION.bottom, 1500)
                 }
             },
-            //进入实时数据列表
-            handleGoToList(item){
-                alert("进入"+item.wellName+"井实时数据列表")
-
-            },
-            //进入实时曲线列表
-            handleGoToChart(item){
-                alert("进入"+item.wellName+"井实时曲线列表")
-
-            },
+            
             /**
              * 点击查询按钮后的方法
              * 设计初衷：之所以用四个判断是为了减少baseData循环时判断的次数
@@ -200,24 +183,16 @@
 <style lang="scss" scoped>
     #wellList {
         text-align: left;
-        .oms2-list-item{
-            margin-bottom:10px;
-            width:96%;
-            margin-left:2%;
-            box-shadow: 3px 3px 5px #e4e4e4;
+        .oms2-star-content {
+            width: 100%;
+            padding: 0px;
         }
-        .oms2-icon {
-            font-size: 16px;
+        .oms2-star {
+            height: 30px;
+            font-size: 22px;
+            margin-top: 2.5rem;
             padding:3px;
         }
-        .col-3,.col-9{
-            padding-left:0px;
-            padding-right:0px;
-        }
-        .oms2-vertical-divider{
-    padding-right:15px;
-    // border-right:1px solid #000;
-}
     }
     .oms2-search-bar {
         width: 100%;
@@ -232,22 +207,6 @@
         position: absolute;
         right: 10px;
         top: 5px;
-    }
-    .oms2-flex{
-        display: inline-block;
-        
-        // flex-direction: row;
-        // flex-wrap: nowrap;
-        // justify-content: flex-start;
-        // align-items: flex-start;
-        .oms2-flex-item1{
-            // flex-grow:3;
-            width: 50%; 
-        }
-        .oms2-flex-item2{
-            // flex-grow:9;
-            width: 50%;
-        }
     }
 </style>
 

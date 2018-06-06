@@ -65,10 +65,10 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">{{selectedRow.jm}}<span style="padding-left:2rem;font-size:14px">(
-                            {{date.time}})</span></h5>
+                        <p class="modal-title" id="exampleModalLongTitle" style="font-size:18px;font-weight:blod">{{selectedRow.jm}}<span style="padding-left:2rem;font-size:14px">(
+                            {{date.time}})</span></p>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
+                                      <span aria-hidden="true" style="font-size:32px">&times;</span>
                                   </button>
                     </div>
                     <div class="modal-body">
@@ -445,6 +445,7 @@
         text-align: left;
         padding-left:0rem;
         padding-bottom:1rem;
+        
     }
     .oms2-list-divider{
         text-align: center;

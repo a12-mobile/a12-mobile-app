@@ -103,10 +103,15 @@
       // this.$ruixinApi.setWebViewTitle({ //设置导航条标题
       //   title:'钻井分井动态'
       // })
+      this.$ruixinApi.hideWebViewTitle({});
+      this.$nextTick(()=>{
+        transToHorizontalScreen('#dailyOfDrilling')
+
+      })
     },
-    mounted(){
-      transToHorizontalScreen('#dailyOfDrilling')
-    },
+    // beforeMount(){
+    //   transToHorizontalScreen('#dailyOfDrilling')
+    // },
     methods: {
       requestDate() {
         Indicator.open('加载中...')
