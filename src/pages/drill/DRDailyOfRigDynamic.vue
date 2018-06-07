@@ -217,7 +217,7 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .oms2-icon{
     margin-left:20px;
     margin-right:20px;

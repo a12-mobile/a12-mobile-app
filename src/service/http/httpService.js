@@ -1,7 +1,7 @@
 import axios from 'axios'
 import qs from 'qs'
 import { Toast } from "mint-ui"
-import {baseUrl} from './config'
+import {httpBaseUrl} from './config'
 
 
 /**
@@ -79,14 +79,17 @@ function successState(res){
 
 
 //请求方法
-const httpServer=(method,url,data={})=>{
+const httpServer=(method='GET',url,data={})=>{
     let requestMethod=method.toUpperCase()
+    if(url[0]!='/'){
+        url='/'+url
+    }
     let Public={  //存放公共参数
 
     }
     let httpDefaultOpts={ //http默认配置
         method:requestMethod,
-        url:baseUrl+url,
+        url:httpBaseUrl+url,
         timeout:45*1000,
         params:Object.assign(Public,data),
         data:qs.stringify(Object.assign(Public,data)),
@@ -107,7 +110,6 @@ const httpServer=(method,url,data={})=>{
 
     return new Promise((resolve,reject)=>{
         axios(httpDefaultOpts).then((res)=>{
-            console.log(res)
             successState(res)
             resolve(res.data)
         }).catch((response)=>{
@@ -117,3 +119,9 @@ const httpServer=(method,url,data={})=>{
     })
 }
 export default httpServer
+
+
+
+
+
+

@@ -2,7 +2,6 @@
     <div id="DailyOfKeyWell">
         <oms2-date-picker-daily :date="date" @date-change="handleDateChange"></oms2-date-picker-daily><span class='oms2-search' @click="handleShowSelect"><i class="fa fa-search"></i></span>
 
-
         <!-- 查询 Modal -->
         <div class="modal fade oms2-font-size" id="ModalSelect" tabindex="-1" role="dialog" aria-labelledby="ModalSelectTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -206,7 +205,6 @@
     import DatePickerDaily from './../../components/datepicker/DatePickerDaily'
     import { Indicator } from 'mint-ui';
     import timepicker from './../../components/datepicker/timepicker'
-    import { showToast,POSITION } from "./../../service/utils/toast/toast.js"
     import { getDaliyOfKeyWell } from './../../service/drill/drillGetData'
     export default {
          data() {
@@ -393,7 +391,7 @@
                     this.tableData=this.baseData
                 }
                 if(this.tableData.length==0){
-                    showToast("没有该井的数据",POSITION.middle,3000)
+                    this.$toast.showToast("没有该井的数据")
                 }
             },
             /**

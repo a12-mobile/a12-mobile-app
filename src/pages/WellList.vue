@@ -5,9 +5,9 @@
                 <label class="col-2 col-form-label" style="padding-right:0px;">油区:</label>
                 <div class="col-4" style="padding-left:0px;padding-right:5px;">
                     <select id="inputState" class="form-control" v-model="selectedWellBlock">
-                            <option>全部</option>
-                            <option v-for="item in wellBlockList">{{item}}</option>
-                        </select>
+                                <option>全部</option>
+                                <option v-for="item in wellBlockList">{{item}}</option>
+                            </select>
                 </div>
                 <label class="col-2 col-form-label" style="padding-right:0px;">井名:</label>
                 <div class="col-4 input-group" style="padding-left:0px">
@@ -16,6 +16,8 @@
             </div>
         </form>
         <div class="list-group" style="margin-top:60px;">
+            <div class="main-body" ref="wrapper" :style="{'-webkit-overflow-scrolling': 'auto','overflow':'auto',height: wrapperHeight + 'px'}">
+            <mt-loadmore :bottom-method="loadBottom" :bottom-all-loaded="false" :auto-fill="false" ref="loadmore">
             <div v-for="(item,index) of tableData" class="list-group-item oms2-list-item">
                 <div class="d-flex w-100 justify-content-between">
                     <p class="mb-1">
@@ -62,7 +64,9 @@
                     </div>
                 </div>
                 <!-- <small>Donec id elit non mi porta.</small> -->
-            </div>
+            </div> 
+            </mt-loadmore>      
+             </div>
         </div>
     </div>
 </template>
@@ -71,38 +75,66 @@
     import {
         getWellList
     } from './../service/well/wellGetData'
+    import db from './../service/utils/database/database'
     import {
         Indicator
     } from 'mint-ui';
-    import {
-        showToast,
-        POSITION
-    } from './../service/utils/toast/toast'
     export default {
         data() {
             return {
+                time:0,
+                wrapperHeight:0,
                 selectedWellBlock: '全部',
                 wellBlockList: [],
                 selectedJM: '',
-                baseData: [],
-                tableData: []
+                careData:[],
+                baseData: [], //用于初始数据备份
+                tableData: [
+                //     {
+                //     "BHMd": "",
+                //     "authorizedMd": "7461.0",
+                //     "workContent": "8:00--15:00下钻--16:00循环--8:00钻进",
+                //     "wellBlock": "塔里木油区",
+                //     "clientStatus": "2",
+                //     "wellName": "FY202-1X",'wellId':'1111'
+                // }, {
+                //     "BHMd": "",
+                //     "authorizedMd": "6802.0",
+                //     "workContent": "8:00～21:30钻塞～23:15循环～3:30投球，打开液压刮壁器，对井段6275-6570m反复刮壁3次～6:30循环～8:00起钻。",
+                //     "wellBlock": "塔里木油区",
+                //     "clientStatus": "2",
+                //     "wellName": "HA15-22X",'wellId':'2222'
+                // }, {
+                //     "BHMd": "",
+                //     "authorizedMd": "6762.0",
+                //     "workContent": "正在基础施工。",
+                //     "wellBlock": "塔里木油区",
+                //     "clientStatus": "2",
+                //     "wellName": "HA601-8C",'wellId':'3333'
+                // }, 
+                ]
             }
         },
         created() {
             this.requestData();
         },
+        mounted() {
+            this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top;
+        },
         methods: {
             requestData() {
                 Indicator.open('加载中...')
                 getWellList().then((data) => {
-                    console.log(data)
+                        console.log('获取')
                         Indicator.close()
                         if (data.body) {
                             this.baseData = data.body;
                         } else {
                             this.baseData = []
                         }
-                        this.tableData = this.baseData
+                        this.tableData=this.tableData.concat(this.baseData.slice(0,10))
+                        this.requestCare();
+
                         //获取施工单位的列表
                         let sgdws = new Set();
                         if (this.baseData.length > 0) {
@@ -116,7 +148,7 @@
                             this.wellBlockList.sort(
                                 function compareFunction(param1, param2) {
                                     return param1.localeCompare(param2, "zh");
-                                });
+                            });
                         }
                     })
                     .catch(function(error) {
@@ -124,8 +156,41 @@
                         console.log(error)
                     })
             },
+            requestCare(){
+                this.$entity.query('KeyWell',{
+                    userId:'1'
+                }).then((data)=>{
+                    if(data.total>0){
+                        console.log(data)
+                        this.careData=data.rows;
+                        data.rows.forEach((item)=>{
+                            for(let table of this.tableData){
+                                if(table.wellId==item.wellId&&!table.isCare){
+                                    console.log('关注了')
+                                    this.$set(table, 'isCare', true)
+                                    // eval("table.isCare="+true)
+                                    break
+                                }
+                            }
+                        })
+                    }
+                    console.log(this.tableData)
+
+                }).catch((err)=>{
+                    console.log(err)
+                })
+            },
+            //上拉加载
+            loadBottom: function() {
+                this.$toast.showToast('正在加载',1500,'top')
+                // 上拉加载  
+                // 分页查询 
+                // this.searchCondition.pageNo = parseInt(this.searchCondition.pageNo) + 1
+                // this.loadingDate()
+                this.$refs.loadmore.onBottomLoaded() // 固定方法，查询完要调用一次，用于重新定位  
+            },
             handleClickItem(item) {
-                showToast('选中得索引值为' + item)
+                this.$toast.showToast('选中得索引值为' + item)
                 // console.log("获取得index为" + item);
                 // this.$router.push({
                 //     path: '/sub',
@@ -135,27 +200,57 @@
                 // })
             },
             //关注/取消关注
-            handleCareFor(index){
-                if(this.tableData[index].isCare){
-                    this.tableData[index].isCare=false
-                    showToast("取消关注", POSITION.bottom, 1500)
-                }else if(this.tableData[index].isCare==false){
-                    this.tableData[index].isCare=true
-                    showToast("关注成功", POSITION.bottom, 1500)
-                }else{
-                    this.$set(this.tableData[index],'isCare',true)
-                    showToast("关注成功", POSITION.bottom, 1500)
+            handleCareFor(index) {
+                if (this.tableData[index].isCare) {
+                    this.tableData[index].isCare = false
+                    this.$toast.showToast("取消关注", 1500)
+                    let well=this.tableData[index]
+                    this.careData.forEach((item)=>{
+                        if(item.wellId==well.wellId){
+                            //找到井关注的列表中对应的信息
+                            this.cancelCare(index,item.keyWellId)
+                        }
+                    })
+                } else if (this.tableData[index].isCare == false) {
+                    this.tableData[index].isCare = true
+                    this.addCare(index)
+                } else {
+                    this.$set(this.tableData[index], 'isCare', true)
+                    this.addCare(index)
                 }
             },
-            //进入实时数据列表
-            handleGoToList(item){
-                alert("进入"+item.wellName+"井实时数据列表")
+            //向服务器添加关注井信息
+            addCare(index) {
+                this.$entity.add('KeyWell', {
+                    keyWellId: db.createUUID,
+                    userId: '1',
+                    wellId: this.tableData[index].wellId,
+                }).then((data) => {
+                    console.log(data)
+                    this.$toast.showToast("关注成功", 1000)
+                }).catch((err) => {
+                    this.$toast.showToast('关注失败', 2000)
+                })
+            },
+            //向服务器取消关注井信息
+            cancelCare(index,keyWellId){
+                this.$entity.delete('KeyWell',[{
+                    keyWellId:keyWellId
+                }]).then((data) => {
+                    console.log(data)
+                    this.$toast.showToast("取消关注", 1000)
+                }).catch((err) => {
+                    this.$toast.showToast('取消关注失败',2000)
+                })
 
             },
+            //进入实时数据列表
+            handleGoToList(item) {
+                alert("进入" + item.wellName + "井实时数据列表")
+            },
             //进入实时曲线列表
-            handleGoToChart(item){
-                alert("进入"+item.wellName+"井实时曲线列表")
-
+            handleGoToChart(item) {
+                alert("进入" + item.wellName + "井实时曲线列表")
             },
             /**
              * 点击查询按钮后的方法
@@ -182,7 +277,7 @@
                     this.tableData = this.baseData
                 }
                 if (this.tableData.length == 0) {
-                    showToast("没有该井的数据", POSITION.middle, 3000)
+                    this.$toast.showToast("没有该井的数据")
                 }
             },
         },
@@ -200,24 +295,24 @@
 <style lang="scss" scoped>
     #wellList {
         text-align: left;
-        .oms2-list-item{
-            margin-bottom:10px;
-            width:96%;
-            margin-left:2%;
+        .oms2-list-item {
+            margin-bottom: 10px;
+            width: 96%;
+            margin-left: 2%;
             box-shadow: 3px 3px 5px #e4e4e4;
         }
         .oms2-icon {
             font-size: 16px;
-            padding:3px;
+            padding: 3px;
         }
-        .col-3,.col-9{
-            padding-left:0px;
-            padding-right:0px;
+        .col-3,
+        .col-9 {
+            padding-left: 0px;
+            padding-right: 0px;
         }
-        .oms2-vertical-divider{
-    padding-right:15px;
-    // border-right:1px solid #000;
-}
+        .oms2-vertical-divider {
+            padding-right: 15px; // border-right:1px solid #000;
+        }
     }
     .oms2-search-bar {
         width: 100%;
@@ -233,18 +328,16 @@
         right: 10px;
         top: 5px;
     }
-    .oms2-flex{
-        display: inline-block;
-        
-        // flex-direction: row;
+    .oms2-flex {
+        display: inline-block; // flex-direction: row;
         // flex-wrap: nowrap;
         // justify-content: flex-start;
         // align-items: flex-start;
-        .oms2-flex-item1{
+        .oms2-flex-item1 {
             // flex-grow:3;
-            width: 50%; 
+            width: 50%;
         }
-        .oms2-flex-item2{
+        .oms2-flex-item2 {
             // flex-grow:9;
             width: 50%;
         }

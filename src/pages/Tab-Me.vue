@@ -3,12 +3,10 @@
     <mt-header :title="$route.meta.title" fixed>
     </mt-header>
     <button class="btn btn-info" @click="requestTest">获取用户信息</button>
+    <button class="btn btn-info" @click="addTest">添加重点井信息</button>
     <br/>
     <br/>
     <br/>
-
-
-
   </div>
 </template>
 
@@ -18,28 +16,38 @@
       return {}
     },
     methods: {
-      requestTest(){
-        this.$http('GET','/user',)
-                .then((data)=> {
-                    if(data.body){
-                      console.log();
-                      alert("用户名为："+data.body.userName)
-                    }else{
-                      alert("返回值没有body")
-                    }
-                })
-                .catch(function(error) {
-                    alert("出错"+error)
-                })
-      }
+      requestTest() {
+        this.$http('GET', '/user', )
+          .then((data) => {
+            if (data.body) {
+              console.log();
+              alert("用户名为：" + data.body.userName)
+            } else {
+              alert("返回值没有body")
+            }
+          })
+          .catch(function(error) {
+            alert("出错" + error)
+          })
+      },
+      addTest(){
+        console.log(this.$entity)
+        this.$entity.add('KeyWell/e25fb50aa5d6445da26025c4311adecb',{
+          userId:'1',
+          wellId:'111'
+        }).then((data)=>{
+          console.log(data)
 
+        }).catch((err)=>{
+          console.log(err)
+        })
+      }
     }
   }
 </script>
 
 <style>
-  #Me{
+  #Me {
     margin-top: 50px;
   }
-
 </style>

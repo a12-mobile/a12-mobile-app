@@ -5,6 +5,8 @@ import App from './App'
 import router from './router'
 import axios from 'axios'
 import httpServer from './service/http/httpService'
+import entityServer from './service/http/entityService'
+import toastServer from './service/utils/toast/toast'
 
 import './config/rem'
 
@@ -54,9 +56,11 @@ Vue.component(VPagination.name, VPagination)
 let ruixinApi=new RuixinApi()
 //全局注册
 Vue.config.productionTip = false
-Vue.prototype.$axios = axios
-Vue.prototype.$http = httpServer
-Vue.prototype.$ruixinApi=ruixinApi
+Vue.prototype.$axios = axios          //http请求
+Vue.prototype.$http = httpServer      //封装axios
+Vue.prototype.$entity = entityServer  //实体服务，用于服务器对实体进行增删改查
+Vue.prototype.$ruixinApi=ruixinApi    //瑞信API
+Vue.prototype.$toast=toastServer      //土司
 
 
 //定义全局过滤器

@@ -299,7 +299,7 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     .oms2-datepicker-content{
       margin-bottom:10px;
     }

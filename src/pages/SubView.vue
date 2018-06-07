@@ -8,7 +8,6 @@
     import DatePickerDaily from './../components/datepicker/DatePickerDaily'
     import { Indicator } from 'mint-ui';
     import timepicker from './../components/datepicker/timepicker'
-    import { showToast,POSITION } from "./../service/utils/toast/toast.js"
     import { getDaliyOfKeyWell } from './../service/drill/drillGetData'
     export default {
          data() {
@@ -185,7 +184,7 @@
                         return item.jm.toLowerCase()==this.selectedJM.toLowerCase()
                     })
                     if(this.tableData.length==0){
-                        showToast("没有该井的数据",POSITION.middle,3000)
+                        this.$toast.showToast("没有该井的数据",POSITION.middle,3000)
                     }
                 }else{
                     this.tableData=this.baseData

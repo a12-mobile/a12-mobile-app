@@ -168,7 +168,7 @@
             websocketonmessage(e) {
                 const redata = JSON.parse(e.data);
                 var item = this.convertJsonToBean(redata);
-                this.tableData.splice(0, 0, item)
+                this.tableData.unshift(item)
             },
             //关闭
             websocketclose(e) {
