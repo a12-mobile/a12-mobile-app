@@ -12,6 +12,7 @@
         is-vertical-resize
         :title-row-height=25
         :row-height=30
+        :height=tableheight
         title-bg-color="#F6F6F6"
         style="width:100%;font-size:12px"
         :columns="columns"
@@ -37,7 +38,8 @@
         data() {
           return {
             date: timepicker.startTime,
-
+            tableData: [],
+            tableheight:0,
             columns: [
               {field: 'jjOrgAbb', width:60, columnAlign: 'left', isFrozen: true,isResize:true},
               {field: 'orgAbb', width: 80, columnAlign: 'left', isFrozen: true,isResize:true},
@@ -135,12 +137,12 @@
                 {fields: ['dldccjNums'], title: '特殊作业', titleAlign: 'center', rowspan:1},
               ]
             ],
-            tableData: [],
+
           }
         },
         created(){
-          this.requestData()
-
+          this.requestData();
+          this.tableheight = window.innerHeight-80
         },
         methods:{
           //请求数据方法
