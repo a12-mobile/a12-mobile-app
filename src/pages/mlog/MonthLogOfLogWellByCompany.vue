@@ -21,7 +21,8 @@
       is-vertical-resize
       style="width:100%;font-size:12px"
       :title-row-height=25
-      :row-height=30
+      :row-height=40
+      :height=tableheight
       title-bg-color="#F6F6F6"
       :columns="columns"
       :table-data="tableData"
@@ -34,8 +35,6 @@
       even-bg-color="#f4f4f4"
     ></v-table>
     <div class='oms2-report-float-right'>数据来源于集团A7库录井工作量分单位月报</div>
-
-
   </div>
 </template>
 
@@ -48,11 +47,12 @@
       name: "MonthLogOfLogWellByCompany",
       data: function () {
         return {
+          tableheight:0,
           date: {time:getCurrentDate('yyyy-MM')},
           tableData: [],
           columns: [
             {field: 'jujorgNam', width: 70, columnAlign: 'left', isResize: true, isFrozen: true},
-            {field: 'cjorgName', width: 70, columnAlign: 'left',  isFrozen: true},
+            {field: 'cjorgName', width: 80, columnAlign: 'left',  isFrozen: true},
             {field: 'logWellTotalNum', width: 50, columnAlign: 'right', isResize: true},
             {field: 'logWellTotalNum2', width: 50, columnAlign: 'right', isResize: true},
             {field: 'ewellNum', width: 50, columnAlign: 'right', isResize: true},
@@ -108,6 +108,7 @@
       },
       created(){
         this.requestData()
+        this.tableheight=window.innerHeight-80
         // this.$ruixinApi.setWebViewTitle({ //设置导航条标题
         //   title:'录井分单位月报'
         // })
@@ -199,6 +200,13 @@
               window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
           },
         columnCellClass(rowIndex, columnName, rowData) {
+            console.log(rowData['cjorgName']+"    "+rowData['cjorgName'].length)
+          if(rowData['cjorgName'].length>6&&columnName=='cjorgName'&&this.tableData[rowIndex].remark=='Not exist'){
+            return 'column-cell-class-name-test-not-exist'
+          }
+          if(rowData['cjorgName'].length>6){
+            return 'column-cell-class-name-test'
+          }
           if(columnName=='jujorgNam'&&this.tableData[rowIndex].remark=='Not exist'){
             return 'oms2-item-not-exict'
           }
@@ -219,12 +227,20 @@
                 componentName: ''
               }
             }
+            // if (field === 'cjorgName' && rowData[field] === '克拉玛依录井工程公司') {
+            //   return {
+            //     colSpan: 1,
+            //     rowSpan: 1,
+            //     content: '<span style="word-warp:break-word;word-break:break-all" >克拉玛依录井工程公司</span>',
+            //     componentName: ''
+            //   }
+            // }
             if(field==='jujorgNam'){
             let jujorgNam=rowData[field]
             let jujorgNamList=[]
             if(jujorgNamList.indexOf(jujorgNam)==-1){
               //还没有合并该局级单位
-              let num=0  //记录这个局级单位有多少个
+              let num=0;  //记录这个局级单位有多少个
               for(let i=rowIndex;i<this.tableData.length;i++){
                 if(this.tableData[i].jujorgNam==jujorgNam){
                   num++
@@ -252,38 +268,53 @@
 </script>
 
 <style lang="scss">
-    .oms2-title-cell-duijiao:before {
-      content: "";
-      position: absolute;
-      width: 1px;
-      height: 215.9px;
-      top: 0;
-      left: 0;
-      background-color: #E3E3E3;
-      display: block;
-      transform: rotate(-70.35deg);
-      transform-origin: top;
-      -ms-transform: rotate(-70.35deg);
-      -ms-transform-origin: top;
+  /*解决列数据过长换行问题 v-table-body-cell*/
+  .column-cell-class-name-test {
+   div{
+      white-space: normal !important;
+      line-height: 20px !important;
     }
-    .title1{
-      position: absolute;
-      top: 5px;
-      right:10px;
+  }
+  .column-cell-class-name-test-not-exist {
+    color: #ff0000;
+    div{
+      white-space: normal !important;
+      line-height: 20px !important;
     }
-    .title2{
-      position: absolute;
-      top: 30px;
-      left:10px;
-    }
-    .oms2-datepicker-content{
-      margin-bottom:10px;
-    }
-    .oms2-date-picker-monthly-input{
-      width:100px !important;
-      font-size: 10px;
-    }
-    .oms2-item-not-exict{
-      color: #ff0000;
-    }
+  }
+
+.oms2-title-cell-duijiao:before {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 158.1px;
+    top: 0;
+    left: 0;
+    background-color: #E3E3E3;
+    display: block;
+    transform: rotate(-71.57deg);
+    transform-origin: top;
+    -ms-transform: rotate(-71.57deg);
+    -ms-transform-origin: top;
+  }
+  .title1{
+    position: absolute;
+    top: 10px;
+    right:10px;
+  }
+  .title2{
+    position: absolute;
+    top: 25px;
+    left:10px;
+  }
+  .oms2-datepicker-content{
+    margin-bottom:10px;
+  }
+  .oms2-date-picker-monthly-input{
+    width:100px !important;
+    font-size: 10px;
+  }
+  .oms2-item-not-exict{
+    color: #ff0000;
+  }
 </style>

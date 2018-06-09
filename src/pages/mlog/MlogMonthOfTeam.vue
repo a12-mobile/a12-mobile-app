@@ -12,7 +12,7 @@
       is-vertical-resize
       :height=tablehight
       :title-row-height=30
-      :row-height=30
+      :row-height=40
       title-bg-color="#F6F6F6"
       style="width:100%;font-size:12px"
       :columns="columns" :title-rows="titleRows"
@@ -41,7 +41,7 @@
             tableData: [],
             columns: [
               {field: 'jujorgName', width: 60, columnAlign: 'left', isFrozen: true},
-              {field: 'cjorgName', width: 140, columnAlign: 'left',isFrozen: true},
+              {field: 'cjorgName', width: 80, columnAlign: 'left',isFrozen: true},
               {field: 'totalActual', width: 40, columnAlign: 'right',isResize:true},
               {field: 'totalEmploy', width: 50, columnAlign: 'right',isResize:true},
               {field: 'totalRate', width: 60, columnAlign: 'right',isResize:true},
@@ -208,6 +208,12 @@
            }
         },
         columnCellClass(rowIndex, columnName, rowData) {
+          if(rowData['cjorgName'].length>6&&columnName=='cjorgName'&&this.tableData[rowIndex].remark=='Not exist'){
+            return 'column-cell-class-name-test-not-exist'
+          }
+          if(rowData['cjorgName'].length>6){
+            return 'column-cell-class-name-test'
+          }
           if(columnName=='jujorgName'&&this.tableData[rowIndex].remark=='Not exist'){
             return 'oms2-item-not-exict'
           }
@@ -224,6 +230,20 @@
 </script>
 
 <style lang="scss">
+    /*解决列数据过长换行问题 v-table-body-cell*/
+    .column-cell-class-name-test {
+      div{
+        white-space: normal !important;
+        line-height: 20px !important;
+      }
+    }
+    .column-cell-class-name-test-not-exist {
+      color: #ff0000;
+      div{
+        white-space: normal !important;
+        line-height: 20px !important;
+      }
+    }
     .oms2-datepicker-content{
       margin-bottom:10px;
     }
@@ -238,14 +258,14 @@
       content: "";
       position: absolute;
       width: 1px;
-      height: 208.8px;
+      height: 152.3px;
       top: 0;
       left: 0;
       background-color: #E3E3E3;
       display: block;
-      transform: rotate(-73.3deg);
+      transform: rotate(-66.8deg);
       transform-origin: top;
-      -ms-transform: rotate(-73.3deg);
+      -ms-transform: rotate(-66.8deg);
       -ms-transform-origin: top;
     }
     .title1{
