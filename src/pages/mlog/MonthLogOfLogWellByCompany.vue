@@ -200,10 +200,10 @@
           },
         columnCellClass(rowIndex, columnName, rowData) {
           if(columnName=='jujorgNam'&&this.tableData[rowIndex].remark=='Not exist'){
-            return 'oms2-item-not-exict'
+            return 'oms2-item-not-exist'
           }
           if(columnName=='cjorgName'&&this.tableData[rowIndex].remark=='Not exist'){
-            return 'oms2-item-not-exict'
+            return 'oms2-item-not-exist'
           }
 
         },
@@ -283,7 +283,7 @@
       width:100px !important;
       font-size: 10px;
     }
-    .oms2-item-not-exict{
+    .oms2-item-not-exist{
       color: #ff0000;
     }
 </style>

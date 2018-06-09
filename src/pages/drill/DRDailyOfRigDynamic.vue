@@ -150,7 +150,7 @@
         //设置列单元格样式
         columnCellClass(rowIndex, columnName, rowData) {
           if(columnName=='sgdw'&&this.tableData[rowIndex].remark=='Not exist'){
-            return 'oms2-item-not-exict'
+            return 'oms2-item-not-exist'
           }
 
         },

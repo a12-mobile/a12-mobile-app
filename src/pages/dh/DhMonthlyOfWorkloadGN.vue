@@ -164,7 +164,7 @@
             },
             columnCellClass(rowIndex,columnName,rowData){
                 if(columnName=='jujiorgname'&&this.tableData[rowIndex].remark=='Not exist'){
-                    return 'oms2-item-not-exict'
+                    return 'oms2-item-not-exist'
                 }
             }
         },
@@ -175,7 +175,7 @@
 </script>
 
 <style lang="scss">
-    .oms2-item-not-exict{
+    .oms2-item-not-exist{
         color:#f00;
     }
 

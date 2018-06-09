@@ -30,7 +30,7 @@ $entity      实体服务，用于服务器对实体进行增删改查
 
 $ruixin      瑞信API
     |——详情请见瑞信api文档
-    
+
 $toast       土司
     |——$toast.showToast()
 
@@ -95,7 +95,7 @@ $toast       土司
     /global.scss        全局样式入口文件，用于当有多个scss样式文件时可以提供统一的出口
     /reportForm.scss    关于报表的样式
         |—— .oms2-report-float-right  报表底部显示数据来源 
-        |—— .oms2-item-not-exict      列表不存在时显示红色
+        |—— .oms2-item-not-exist      列表不存在时显示红色
         |—— .oms2-horizontal-back     不显示瑞信标题时返回按钮的位置
 
     /theme.scss        提供自定义样式

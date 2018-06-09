@@ -10,10 +10,10 @@ let baseUrl = ''
 let imgBaseUrl = ''
 
 // baseUrl="http://10.88.123.11:8080/mobile"
-// baseUrl="/api"
+baseUrl="/api"
 
 //集成到后台
-baseUrl=""
+// baseUrl=""
 
 let httpBaseUrl=baseUrl+'/mobile'
 let entityBaseUrl=baseUrl+'/report/comm/entity'
