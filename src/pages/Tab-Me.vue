@@ -11,9 +11,14 @@
 </template>
 
 <script>
+  import user from './../service/comm/user'
   export default {
     data() {
       return {}
+    },
+    created(){
+      console.log(user.getUser())
+
     },
     methods: {
       requestTest() {

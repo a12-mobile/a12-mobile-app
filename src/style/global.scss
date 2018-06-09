@@ -1,3 +1,8 @@
 @import "./theme.scss";
 @import './reportForm.scss';
 
+
+html,body,#app {
+    height: 100%;
+}
+

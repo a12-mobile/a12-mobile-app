@@ -18,3 +18,9 @@ export function getWellListByPage(page,pageSize) {
 export function getWellList() {
   return httpService('GET', '/well/list')
 }
+/**
+ * 向服务器获取所有重点井列表
+ */
+export function getKeyWellList() {
+  return httpService('GET', '/well/key')
+}

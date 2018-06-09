@@ -98,12 +98,10 @@
     },
     created() {
       this.requestDate();
+      this.$ruixin.hideWebViewTitle({
+        
+      });
       this.tableheight = window.innerHeight*0.94;
-      this.$ruixinApi.hideWebViewTitle({});
-      // this.$ruixinApi.setWebViewTitle({ //设置导航条标题
-      //   title:'钻井分井动态'
-      // })
-      this.$ruixinApi.hideWebViewTitle({});
       this.$nextTick(()=>{
         transToHorizontalScreen('#dailyOfDrilling')
 

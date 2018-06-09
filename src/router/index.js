@@ -28,7 +28,6 @@ import MonthLogOfLogWellByCompany from '@/pages/mlog/MonthLogOfLogWellByCompany'
 import MonthLogOfWellWorkload from '@/pages/mlog/MonthLogOfWellWorkload'
 import MlogsOfRecordWell from '@/pages/mlog/MlogsOfRecordWell'
 import MlogFormList from '@/pages/mlog/MlogFormList'
-import WellList from '@/pages/WellList'
 import MlogMonthOfTeam from '@/pages/mlog/MlogMonthOfTeam'
 
 //实时数据
@@ -42,6 +41,10 @@ import Mlogs from '@/pages/demo/MlogsOfRecordWell'
 //horizontal
 import DrillDailyOfZH from '@/pages/horizontal/DrillDailyOfZH'
 
+//well
+import WellList from '@/pages/well/WellList'
+import KeyWellList from '@/pages/well/KeyWellList'
+
 Vue.use(Router)
 
 export default new Router({
@@ -51,12 +54,6 @@ export default new Router({
       name: 'Home',
       component: Home,
       meta: { navShow: false, title: '首页' },
-    },
-    {
-      path: '/well/list',
-      name: 'WellList',
-      component: WellList,
-      meta: { navShow: false, title: '井列表' },
     },
     {
       path: '/multiWellList',
@@ -229,6 +226,20 @@ export default new Router({
       name: 'DrillDailyOfZH',
       component: DrillDailyOfZH,
       meta:{ navShow: false, title: '横屏效果'}
+    },
+
+    //well
+    {
+      path: '/well/list',
+      name: 'WellList',
+      component: WellList,
+      meta: { navShow: false, title: '井列表' },
+    },
+    {
+      path: '/well/list/key',
+      name: 'KeyWellList',
+      component: KeyWellList,
+      meta: { navShow: false, title: '关注井列表' },
     },
 
   ]

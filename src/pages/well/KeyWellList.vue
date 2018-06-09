@@ -15,10 +15,7 @@
                 </div>
             </div>
         </form>
-        <div class="list-group" style="padding-top:60px;">
-            <div class="main-body" ref="wrapper" :style="{'-webkit-overflow-scrolling': 'auto','overflow':'auto',height: wrapperHeight + 'px'}">
-                <mt-loadmore :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
-                    <div>
+        <div class="list-group" style="padding-top:60px;"><div>
                         <div v-for="(item,index) of tableData" class="list-group-item oms2-list-item">
                             <div class="d-flex w-100 justify-content-between" style="border-bottom:1px solid #e4e4e4">
                                 <p class="mb-1">
@@ -67,15 +64,13 @@
                             <!-- <small>Donec id elit non mi porta.</small> -->
                         </div>
                     </div>
-                </mt-loadmore>
-            </div>
         </div>
     </div>
 </template>
 
 <script>
     import {
-        getWellList
+        getKeyWellList
     } from './../../service/well/wellGetData'
     import db from './../../service/utils/database/database'
     import user from './../../service/comm/user'
@@ -85,12 +80,10 @@
     export default {
         data() {
             return {
-                wrapperHeight: 0, //调整屏幕高度
                 searchCondition: { //分页属性  
                     pageNo: 1,
                     pageSize: 30
                 },
-                allLoaded: false, //是否加载完毕
                 selectedWellBlock: '全部',
                 wellBlockList: [], //油区列表
                 selectedJM: '', //筛选的井名
@@ -104,9 +97,6 @@
             user.getUser().then((user) => {
                 this.user = user
             })
-        },
-        mounted() {
-            this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top;
         },
         methods: {
             handleClickItem(item) {
@@ -198,14 +188,14 @@
             },
             requestData() {
                 Indicator.open('加载中...')
-                getWellList().then((data) => {
+                getKeyWellList().then((data) => {
                         Indicator.close()
                         if (data.body) {
                             this.baseData = data.body;
                         } else {
-                            this.baseData = []
+                            this.baseData = []  
                         }
-                        this.tableData = this.tableData.concat(this.baseData.slice(0, this.searchCondition.pageSize))
+                        this.tableData = this.baseData
                         //获取施工单位的列表
                         let sgdws = new Set();
                         if (this.baseData.length > 0) {
@@ -224,18 +214,11 @@
                     })
                     .catch((error) => {
                         Indicator.close()
-                        this.$toast.showToast('获取井列表失败')
+                        console.log(error)
+                        this.$toast.showToast('获取关注井列表失败')
                     })
             },
-            //上拉加载
-            loadBottom: function() {
-                this.tableData = this.tableData.concat(this.baseData.slice(this.searchCondition.pageNo * this.searchCondition.pageSize, (this.searchCondition.pageNo + 1) * this.searchCondition.pageSize))
-                this.searchCondition.pageNo = parseInt(this.searchCondition.pageNo) + 1
-                if (this.tableData.length >= this.baseData.length) {
-                    this.allLoaded = true;
-                }
-                this.$refs.loadmore.onBottomLoaded() // 固定方法，查询完要调用一次，用于重新定位  
-            },
+            
         },
         watch: {
             selectedJM: function() {

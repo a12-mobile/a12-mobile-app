@@ -108,7 +108,7 @@
       },
       created(){
         this.requestData()
-        // this.$ruixinApi.setWebViewTitle({ //设置导航条标题
+        // this.$ruixin.setWebViewTitle({ //设置导航条标题
         //   title:'录井分单位月报'
         // })
       },

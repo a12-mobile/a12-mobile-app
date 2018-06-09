@@ -1,5 +1,6 @@
 <template>
     <div id="DrillDailyOfZH">
+        <i @click='handleBack' class='fa fa-arrow-left oms2-horizontal-back'></i>
         <header>
             <h5>钻井综合日报</h5>
             <div class='oms2-report-float-right' style="top:40px">数据来源于A7集团系统钻井工作量日报</div>
@@ -27,12 +28,12 @@
             return {
                 date: timepicker.startTime,
                 tableData: [],
-                tableHeight: 0,
+                tableHeight: 1000,
                 columns: [{
                         field: 'sgdw',
                         width: 60,
                         columnAlign: 'left',
-                        isFrozen: false,
+                        isFrozen: true,
                         isResize: true
                     },
                     {
@@ -169,13 +170,11 @@
         },
         created() {
             this.requestDate()
+            this.$ruixin.hideWebViewTitle({});
             this.tableHeight = window.innerHeight*0.94
-            this.$ruixinApi.hideWebViewTitle({});
-            this.$nextTick(()=>{
-                transToHorizontalScreen("#DrillDailyOfZH")
-            })
         },
         mounted(){
+            transToHorizontalScreen("#DrillDailyOfZH")
         },
         methods: {
             requestDate() {
@@ -227,6 +226,7 @@
                     Indicator.close()
                 }
                 window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+                this.$ruixin.closePage({});
             },
             
             //设置列单元格样式

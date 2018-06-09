@@ -325,7 +325,7 @@
         created(){
             //首次进入页面获取数据
             this.requestDate();
-            this.$ruixinApi.hideWebViewTitle({});
+            this.$ruixin.hideWebViewTitle({});
             this.tableHeight=window.innerHeight
         },
         methods:{

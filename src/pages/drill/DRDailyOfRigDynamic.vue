@@ -96,7 +96,7 @@
       created() {
         this.requestDate();
         this.tableheight=window.innerHeight*0.94;
-        this.$ruixinApi.hideWebViewTitle({});
+        this.$ruixin.hideWebViewTitle({});
       },
       mounted(){
         transToHorizontalScreen('#dRDailyOfRigDynamic')

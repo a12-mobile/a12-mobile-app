@@ -36,7 +36,6 @@ const entityServer = {
     }
     return new Promise((resolve, reject) => {
       axios(httpDefaultOpts).then((res) => {
-          console.log(res)
         if(successState(res)){
             resolve(res.data)
         }
@@ -96,7 +95,6 @@ const entityServer = {
                 resolve(res.data)
             }
         }).catch((response)=>{
-            console.log(response)
             errorState(response)
             reject(response)
         })
