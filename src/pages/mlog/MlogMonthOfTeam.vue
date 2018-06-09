@@ -10,6 +10,7 @@
     <v-table
       is-horizontal-resize
       is-vertical-resize
+      :height=tablehight
       :title-row-height=30
       :row-height=30
       title-bg-color="#F6F6F6"
@@ -33,6 +34,7 @@
     export default {
         data(){
           return{
+            tablehight:0,
             date: {
               time:formatDate(new Date(),'yyyy-MM')
             },
@@ -71,7 +73,8 @@
           }
         },
         created(){
-          this.requestData()
+          this.requestData();
+          this.tablehight=window.innerHeight-80
         },
         methods:{
           //请求数据方法
