@@ -195,6 +195,9 @@
                         } else {
                             this.baseData = []  
                         }
+                        if(this.baseData.length==0){
+                            this.$toast.showToast("没有关注井")
+                        }
                         this.tableData = this.baseData
                         //获取施工单位的列表
                         let sgdws = new Set();
