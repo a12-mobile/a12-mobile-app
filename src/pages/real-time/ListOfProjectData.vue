@@ -1,29 +1,41 @@
 <template>
-    <div>
-        <div>
-            <nav class="navs">
-                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link col active" id="nav-page1-tab" data-toggle="tab" href="#nav-page1" role="tab" aria-controls="nav-page1" aria-selected="false" @click="handleSelect('GC')">工程数据列表</a>
-                    <a class="nav-item nav-link col" id="nav-page2-tab" data-toggle="tab" href="#nav-page2" role="tab" aria-controls="nav-page2" aria-selected="false" @click="handleSelect('QK')">气测数据列表</a>
-                </div>
-            </nav>
-        </div>
-        <div v-if="selectNav=='GC'" class="content" style="margin-top:10px">
-            <v-table 
-                is-horizontal-resize 
-                is-vertical-resize 
-                style="width:100%;font-size:12px;color:#fff" 
-                :columns="columns" 
-                :table-data="tableData" 
-                title-bg-color="#212529"
-                odd-bg-color="#2C3034"
-                even-bg-color="#212529" 
-                row-hover-color="#323539" 
-                row-click-color="#323539"></v-table>
-        </div>
-        <div v-if="selectNav=='QK'">
-            这是气测数据列表
-        </div>
+    <div id='ListOfProjectData'>
+        <div class="oms2-well-name"><i @click="handleBack" class="fa fa-chevron-left oms2-icon-back"></i> ( {{wellName}} ) </div>
+        <mt-navbar v-model="selected" style="background-color:#0E4F83;color:#fff">
+            <mt-tab-item id="GC">工程数据列表</mt-tab-item>
+            <mt-tab-item id="QK">气测数据列表</mt-tab-item>
+        </mt-navbar>
+        <!-- tab-container -->
+        <mt-tab-container v-model="selected">
+            <mt-tab-container-item id="GC">
+                <v-table 
+                    is-horizontal-resize 
+                    is-vertical-resize 
+                    style="width:100%;font-size:12px;color:#fff;background-color:#0E4F83;margin-top:3px" 
+                    :row-height=30
+                    :columns="columnsGC" 
+                    :table-data="tableDataGC" 
+                    title-bg-color="#0E4F83" 
+                    odd-bg-color="#165A92" 
+                    even-bg-color="#0E4F83" 
+                    row-hover-color="#3177B1"
+                    row-click-color="#34383C"></v-table>
+            </mt-tab-container-item>
+            <mt-tab-container-item id="QK">
+                <v-table 
+                    is-horizontal-resize 
+                    is-vertical-resize 
+                    style="width:100%;font-size:12px;color:#fff;background-color:#0E4F83;margin-top:3px" 
+                    :row-height=30
+                    :columns="columnsQK" 
+                    :table-data="tableDataQK" 
+                    title-bg-color="#0E4F83" 
+                    odd-bg-color="#165A92" 
+                    even-bg-color="#0E4F83" 
+                    row-hover-color="#3177B1"
+                    row-click-color="#34383C"></v-table>
+            </mt-tab-container-item>
+        </mt-tab-container>
     </div>
 </template>
 
@@ -35,13 +47,16 @@
     import {
         Toast
     } from "mint-ui"
+
     export default {
         data() {
             return {
-                tableData: [],
-                selectNav: "GC",
+                tableDataGC: [],
+                tableDataQK: [],
+                selected: "GC",
+                wellName:'',
                 websock: null,
-                columns: [{
+                columnsGC: [{
                         field: 'time',
                         title: '时间',
                         width: 60,
@@ -133,22 +148,116 @@
                         titleAlign: 'center',
                         columnAlign: 'center'
                     },
+                ],
+                columnsQK: [{
+                        field: 'time',
+                        title: '时间',
+                        width: 60,
+                        titleAlign: 'center',
+                        columnAlign: 'center',
+                        isFrozen: true
+                    },
+                    {
+                        field: 'quanting',
+                        title: '全烃(%)',
+                        width: 60,
+                        titleAlign: 'center',
+                        columnAlign: 'center'
+                    },
+                    {
+                        field: 'jiawan',
+                        title: '甲烷(%)',
+                        width: 60,
+                        titleAlign: 'center',
+                        columnAlign: 'center'
+                    },
+                    {
+                        field: 'yiwan',
+                        title: '乙烷(%)',
+                        width: 60,
+                        titleAlign: 'center',
+                        columnAlign: 'center'
+                    },
+                    {
+                        field: 'bingwan',
+                        title: '丙烷(%)',
+                        width: 60,
+                        titleAlign: 'center',
+                        columnAlign: 'center'
+                    },
+                    {
+                        field: 'zhengdingwan',
+                        title: '正丁烷(%)',
+                        width: 70,
+                        titleAlign: 'center',
+                        columnAlign: 'center'
+                    },
+                    {
+                        field: 'yidingwan',
+                        title: '异丁烷(%)',
+                        width: 70,
+                        titleAlign: 'center',
+                        columnAlign: 'center'
+                    },
+                    {
+                        field: 'zhengwuwan',
+                        title: '正戊烷(%)',
+                        width: 70,
+                        titleAlign: 'center',
+                        columnAlign: 'center'
+                    },
+                    {
+                        field: 'yiwuwan',
+                        title: '异戊烷(%)',
+                        width: 70,
+                        titleAlign: 'center',
+                        columnAlign: 'center'
+                    },
+                    {
+                        field: 'co2',
+                        title: '二氧化碳(%)',
+                        width: 80,
+                        titleAlign: 'center',
+                        columnAlign: 'center'
+                    },
+                    {
+                        field: 'h',
+                        title: '氢(%)',
+                        width: 60,
+                        titleAlign: 'center',
+                        columnAlign: 'center'
+                    },
+                    {
+                        field: 'he',
+                        title: '氦(%)',
+                        width: 60,
+                        titleAlign: 'center',
+                        columnAlign: 'center'
+                    },
+                    {
+                        field: 'liuhuaqing1',
+                        title: '硫化氢1(ppm)',
+                        width: 90,
+                        titleAlign: 'center',
+                        columnAlign: 'center'
+                    },
+                    {
+                        field: 'liuhuaqing2',
+                        title: '硫化氢2(ppm)',
+                        width: 90,
+                        titleAlign: 'center',
+                        columnAlign: 'center'
+                    },
                 ]
             }
         },
+        beforeDestroy(){
+            this.websock.close()
+        },
         methods: {
-            handleBack() {
-                //关闭web socket通信
-                this.websock.close();
-                //返回路由
-                window.history.length > 1 ?
-                    this.$router.go(-1) :
-                    this.$router.push('/')
-            },
             initWebSocket() { //初始化weosocket
                 //ws地址
                 const wsuri = "ws://61.158.56.6:8030/websocket/websocket";
-                // const wsuri = "ws://10.88.123.11:8080/a12-mobile/websocket";
                 this.websock = new WebSocket(wsuri);
                 // var interval = setInterval(() => {
                 //     if (this.websock.readyState == 1) {
@@ -168,7 +277,7 @@
             websocketonmessage(e) {
                 const redata = JSON.parse(e.data);
                 var item = this.convertJsonToBean(redata);
-                this.tableData.splice(0, 0, item)
+                this.tableDataGC.unshift(item)
             },
             //关闭
             websocketclose(e) {
@@ -201,13 +310,28 @@
             handleSelect(item) {
                 this.selectNav = item;
             },
+            handleBack() {
+                window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+                this.$ruixin.closePage({});
+            },
         },
         created() {
             this.initWebSocket()
+            this.wellName=this.$route.query.wellName
+            // let wellId=this.$route.query.wellId
+            if(!this.wellName||this.wellName==''){
+                this.wellName='未获取井名'
+            }
+            this.$ruixin.hideWebViewTitle({});
         },
-        computed: {
-            filterData() {
-                return this.tableData.slice(0, 10)
+        watch:{
+            selected:function(val,oldval){
+                if(val=='QK'){
+                    this.tableDataQK=[]
+                    this.$toast.showToast('暂无数据')
+                }else{
+                    this.tableDataGC=[]=this.tableDataGC.slice(0,20)
+                }
             }
         },
         components: {
@@ -216,6 +340,44 @@
     }
 </script>
 
-<style>
-
+<style lang="scss" >
+    #ListOfProjectData {
+        background: linear-gradient(to bottom,#0E4F83,#0E4F83,#0272CF);
+        height: 100%;
+        .oms2-icon-back{
+            position:absolute;
+            top:1.5rem;
+            left:10px;
+            font-size:20px;
+        }
+        .oms2-well-name{
+            font-size:20px;
+            padding-top:1rem;
+            padding-bottom:.5rem;
+            text-align:center;
+            color:aliceblue;
+            border-bottom: 1px solid #e4e4e4;
+        }
+        .mint-tab-item{
+            padding-top:1rem;
+            padding-bottom:1rem;
+            .mint-tab-item-label{
+                font-size:14px !important;
+            }
+        }
+        .mint-navbar .mint-tab-item.is-selected{
+            color:#26a2ff !important;
+        }
+        
+        .v-table-body-cell {
+            border-style: none;
+        }
+        .v-table-title-cell{
+            border-style: none;
+        }
+        .v-table-views{
+            border-style: none;
+        }
+        
+    }
 </style>

@@ -138,7 +138,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     .oms2-date-picker-monthly {
         margin: 10px;
         text-align: center;

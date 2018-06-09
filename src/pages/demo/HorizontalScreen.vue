@@ -213,7 +213,6 @@
     import DatePickerDaily from './../../components/datepicker/DatePickerDaily'
     import { Indicator } from 'mint-ui';
     import timepicker from './../../components/datepicker/timepicker'
-    import { showToast,POSITION } from "./../../service/utils/toast/toast.js"
     import { getDaliyOfKeyWell } from './../../service/drill/drillGetData'
     export default {
          data() {
@@ -326,7 +325,7 @@
         created(){
             //首次进入页面获取数据
             this.requestDate();
-            this.$ruixinApi.hideWebViewTitle({});
+            this.$ruixin.hideWebViewTitle({});
             this.tableHeight=window.innerHeight
         },
         methods:{
@@ -389,7 +388,7 @@
                         return item.jm.toLowerCase()==this.selectedJM.toLowerCase()
                     })
                     if(this.tableData.length==0){
-                        showToast("没有该井的数据",POSITION.middle,3000)
+                        this.$toast.showToast("没有该井的数据")
                     }
                 }else{
                     this.tableData=this.baseData

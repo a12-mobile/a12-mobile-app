@@ -420,7 +420,7 @@
             },
             columnCellClass(rowIndex,columnName,rowData){
                 if(this.tableData[rowIndex].remark=='Not exist'){
-                    return 'oms2-item-not-exict'
+                    return 'oms2-item-not-exist'
                 }
             },
             /**

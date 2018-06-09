@@ -25,9 +25,6 @@
     import {
         getDailyOfMlogByPage
     } from './../../service/mlog/mlogGetData' //导入axios封装函数，包含请求后台路径
-    import {
-        showToast
-    } from './../../service/utils/toast/toast'
     export default {
         data() {
             return {
@@ -344,7 +341,7 @@
                 if (isHaveMore) {
                     this.allLoaded = false;
                 } else if (isHaveMore == false) {
-                    showToast('数据加载完毕')
+                    this.$toast.showToast('数据加载完毕')
                 }
             }
         },

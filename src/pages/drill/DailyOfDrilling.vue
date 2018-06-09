@@ -98,12 +98,10 @@
     },
     created() {
       this.requestDate();
+      this.$ruixin.hideWebViewTitle({
+        
+      });
       this.tableheight = window.innerHeight*0.94;
-      this.$ruixinApi.hideWebViewTitle({});
-      // this.$ruixinApi.setWebViewTitle({ //设置导航条标题
-      //   title:'钻井分井动态'
-      // })
-      this.$ruixinApi.hideWebViewTitle({});
       this.$nextTick(()=>{
         transToHorizontalScreen('#dailyOfDrilling')
 
@@ -170,7 +168,7 @@
       //设置列单元格样式
       columnCellClass(rowIndex, columnName, rowData) {
         if(columnName=='sgdw'&&this.tableData[rowIndex].remark=='Not exist'){
-          return 'oms2-item-not-exict'
+          return 'oms2-item-not-exist'
         }
 
       },
@@ -189,7 +187,7 @@
 </script>
 
 <style lang="scss">
-  .oms2-item-not-exict{
+  .oms2-item-not-exist{
     color: #ff0000;
   }
 </style>

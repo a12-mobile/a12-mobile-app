@@ -96,7 +96,7 @@
       created() {
         this.requestDate();
         this.tableheight=window.innerHeight*0.94;
-        this.$ruixinApi.hideWebViewTitle({});
+        this.$ruixin.hideWebViewTitle({});
       },
       mounted(){
         transToHorizontalScreen('#dRDailyOfRigDynamic')
@@ -150,7 +150,7 @@
         //设置列单元格样式
         columnCellClass(rowIndex, columnName, rowData) {
           if(columnName=='sgdw'&&this.tableData[rowIndex].remark=='Not exist'){
-            return 'oms2-item-not-exict'
+            return 'oms2-item-not-exist'
           }
 
         },
@@ -217,7 +217,7 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .oms2-icon{
     margin-left:20px;
     margin-right:20px;

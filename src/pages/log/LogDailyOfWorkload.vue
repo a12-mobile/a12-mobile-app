@@ -291,7 +291,7 @@
           },
           columnCellClass(rowIndex,columnName,rowData){
             if(this.tableData[rowIndex].remark=='Not exist'){
-              return 'oms2-item-not-exict'
+              return 'oms2-item-not-exist'
             }
           }
         },
@@ -301,7 +301,7 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     .oms2-datepicker-content{
       margin-bottom:10px;
     }

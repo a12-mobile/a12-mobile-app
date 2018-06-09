@@ -2,9 +2,7 @@
   <div id="app">
     <!-- 下面是底部标签 -->
     <Tabs></Tabs>
-    <div>
-      <router-view></router-view>
-    </div>
+    <router-view></router-view>
   </div>
 </template>
 

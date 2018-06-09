@@ -215,10 +215,10 @@
             return 'column-cell-class-name-test'
           }
           if(columnName=='jujorgName'&&this.tableData[rowIndex].remark=='Not exist'){
-            return 'oms2-item-not-exict'
+            return 'oms2-item-not-exist'
           }
           if(columnName=='cjorgName'&&this.tableData[rowIndex].remark=='Not exist'){
-            return 'oms2-item-not-exict'
+            return 'oms2-item-not-exist'
           }
 
         },
@@ -251,7 +251,7 @@
       width:100px !important;
       font-size: 10px;
     }
-    .oms2-item-not-exict{
+    .oms2-item-not-exist{
       color:#f00;
     }
     .oms2-title-cell-duijiao:before {
