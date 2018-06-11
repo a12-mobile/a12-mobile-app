@@ -64,6 +64,7 @@
             {field: 'mlog', width: 40, columnAlign: 'right', isResize: true},
             {field: 'wellCementation', width: 40, columnAlign: 'right', isResize: true},
             {field: 'assist', width: 40, columnAlign: 'right', isResize: true},
+            {field: 'tomake', width: 40, columnAlign: 'right', isResize: true},
             {field: 'rigTest', width: 70, columnAlign: 'right', isResize: true},
           ],
 
@@ -88,6 +89,7 @@
               {fields: ['mlog'], title: '测井数量', titleAlign: 'center', rowspan: 1},
               {fields: ['wellCementation'], title: '固井数量', titleAlign: 'center', rowspan: 1},
               {fields: ['assist'], title: '辅助数量', titleAlign: 'center', rowspan: 1},
+              {fields: ['tomake'], title: '待令数量', titleAlign: 'center', rowspan: 1},
               {fields: ['rigTest'], title: '原钻机试油数量', titleAlign: 'center', rowspan: 1},
             ]
           ],
