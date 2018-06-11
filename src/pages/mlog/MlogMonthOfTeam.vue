@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div id="MonthOfTeam">
     <header>
       <!-- <mt-header :title="$route.meta.title" fixed>
               <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
@@ -52,7 +52,7 @@
             ],
 
             titleRows: [ //第一行
-              [{fields: ['jujorgName','cjorgName'], title: '<span class="title1-team">队伍类型</span><span class="title2-team">单位</span>', titleAlign: 'center', rowspan: 2,colspan: 2,titleCellClassName:'oms2-title-team-cell-duijiao'},
+              [{fields: ['jujorgName','cjorgName'], title: '<span class="title1">队伍类型</span><span class="title2">单位</span>', titleAlign: 'center', rowspan: 2,colspan: 2,titleCellClassName:'oms2-title-cell-duijiao'},
                 //[{fields: ['jujorgName','cjorgName'], title: '单位', titleAlign: 'center', rowspan: 2,colspan: 2},
                 {fields: ['totalActual','totalEmploy','totalRate'], title: '合计', titleAlign: 'center', colspan: 3},
                 {fields: ['synthesizeWellActual','synthesizeWellEmploy'], title: '综合录井队', titleAlign: 'center', colspan: 2},
@@ -230,6 +230,7 @@
 </script>
 
 <style lang="scss">
+  #MonthOfTeam{
     /*解决列数据过长换行问题 v-table-body-cell*/
     .column-cell-class-name-test {
       div{
@@ -254,7 +255,7 @@
     .oms2-item-not-exist{
       color:#f00;
     }
-    .oms2-title-team-cell-duijiao:before {
+    .oms2-title-cell-duijiao:before {
       content: "";
       position: absolute;
       width: 1px;
@@ -268,15 +269,15 @@
       -ms-transform: rotate(-66.8deg);
       -ms-transform-origin: top;
     }
-    .title1-team{
+    .title1{
       position: absolute;
       top: 5px;
       right:10px;
     }
-    .title2-team{
+    .title2{
       position: absolute;
       top: 40px;
       left:10px;
     }
-
+  }
 </style>
