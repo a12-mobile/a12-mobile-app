@@ -205,8 +205,8 @@
 
 <style>
     .oms2-date-picker-daily {
-        margin-top: 10px;
-        margin-bottom: 5px;
+        padding-top: 10px;
+        padding-bottom: 5px;
         text-align: center;
     }
     .oms2-icon-left{
