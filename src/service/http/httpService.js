@@ -60,13 +60,13 @@ function errorState(response){
 //对正确返回数据进行处理
 function successState(res){
     if(res.data.body&&res.data.status){
-        if(res.data.body.length==0){
-            Toast({
-                message: '暂无数据',
-                position: 'bottom',
-                duration: 1000,
-            })
-        }
+        // if(res.data.body.length==0){
+        //     Toast({
+        //         message: '暂无数据',
+        //         position: 'bottom',
+        //         duration: 1000,
+        //     })
+        // }
         if(res.data.status.code == '1001'){
             Toast({
                 message: '后台报错了',

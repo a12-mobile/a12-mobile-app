@@ -96,8 +96,9 @@
              * * oldDate  改变之前的值
              */
             time: function(newDate, oldDate) {
-                let compare = compareDate(this.time, formatDate(new Date(),'yyyy-MM-dd'))
+                let compare = compareDate(this.time, formatDate(new Date(),'yyyy-MM'))
                 if (compare > 0) {
+                    this.time=new Date(formatDate(new Date(),'yyyy-MM'))
                     Toast({
                         message: '尚未到达该月份',
                         position: 'bottom',
@@ -140,7 +141,7 @@
 
 <style scoped>
     .oms2-date-picker-monthly {
-        margin: 10px;
+        padding: 10px;
         text-align: center;
     }
     .oms2-date-picker-monthly-input {

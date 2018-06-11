@@ -200,7 +200,7 @@
               window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
           },
         columnCellClass(rowIndex, columnName, rowData) {
-            console.log(rowData['cjorgName']+"    "+rowData['cjorgName'].length)
+            // console.log(rowData['cjorgName']+"    "+rowData['cjorgName'].length)
           if(rowData['cjorgName'].length>6&&columnName=='cjorgName'&&this.tableData[rowIndex].remark=='Not exist'){
             return 'column-cell-class-name-test-not-exist'
           }
@@ -270,7 +270,7 @@
 <style lang="scss">
   /*解决列数据过长换行问题 v-table-body-cell*/
   .column-cell-class-name-test {
-   div{
+    div{
       white-space: normal !important;
       line-height: 20px !important;
     }

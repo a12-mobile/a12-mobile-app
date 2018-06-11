@@ -23,15 +23,15 @@
                             <div class="d-flex w-100 justify-content-between" style="border-bottom:1px solid #e4e4e4">
                                 <p class="mb-1">
                                     <i class="fa fa-circle" v-if="item.clientStatus==0" style="color:red;font-size:16px;margin-right:5px;"></i>
-                                    <i class="fa fa-circle" v-if="item.clientStatus==1||item.clientStatus==2" style="color:green;font-size:16px;margin-right:5px;"></i>
-                                    <i class="fa fa-circle-thin" v-if="item.clientStatus==''||!item.clientStatus" style="font-size:16px;margin-right:5px;"></i>
+                                    <i class="fa fa-circle" v-else-if="item.clientStatus==1||item.clientStatus==2" style="color:green;font-size:16px;margin-right:5px;"></i>
+                                    <i class="fa fa-circle-thin" v-else="item.clientStatus==''||(!item.clientStatus&&item.clientStatus!=0)" style="font-size:16px;margin-right:5px;"></i>
                                     <b>{{item.wellName}}</b>
                                 </p>
                                 <div>
-                                    <i v-if="!item.isCare" @click="handleCareFor(item)" style="color:red" class="fa fa-star-o oms2-icon oms2-vertical-divider"></i>
-                                    <i v-if="item.isCare==true" @click="handleCareFor(item)" style="color:red" class="fa fa-star oms2-icon oms2-vertical-divider"></i>
+                                    <i @click="handleGoToChart(item)" class="fa fa-area-chart oms2-icon oms2-vertical-divider"></i>
                                     <i @click="handleGoToList(item)" class="fa fa-list-alt oms2-icon oms2-vertical-divider"></i>
-                                    <i @click="handleGoToChart(item)" class="fa fa-area-chart oms2-icon"></i>
+                                    <i v-if="!item.isCare" @click="handleCareFor(item)" style="color:red" class="fa fa-star-o oms2-icon"></i>
+                                    <i v-if="item.isCare==true" @click="handleCareFor(item)" style="color:red" class="fa fa-star oms2-icon"></i>
                                 </div>
                             </div>
                             <div>
@@ -107,6 +107,11 @@
         },
         mounted() {
             this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top;
+        },
+        beforeDestroy(){
+            if (Indicator) {
+                Indicator.close()
+            }
         },
         methods: {
             handleClickItem(item) {
@@ -199,6 +204,7 @@
             requestData() {
                 Indicator.open('加载中...')
                 getWellList().then((data) => {
+                    console.log(data)
                         Indicator.close()
                         if (data.body) {
                             this.baseData = data.body;
