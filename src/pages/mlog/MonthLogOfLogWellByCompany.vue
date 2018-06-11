@@ -76,7 +76,7 @@
           ],
           titleRows: [
             //第一行
-            [{fields: ['jujorgNam','cjorgName'], title: '<span class="title1">项目</span><span class="title2">单位</span>', titleAlign: 'center', rowspan: 2,colspan: 2,titleCellClassName:'oms2-title-cell-duijiao'},
+            [{fields: ['jujorgNam','cjorgName'], title: '<span class="title1-company">项目</span><span class="title2-company">单位</span>', titleAlign: 'center', rowspan: 2,colspan: 2,titleCellClassName:'oms2-title-company-cell-duijiao'},
              // {fields: ['jujorgNam', 'cjorgName'], title: '单位', titleAlign: 'center', rowspan:2, colspan: 2},
               {fields: ['logWellTotalNum'], title: '录井总井次', titleAlign: 'center', rowspan: 2},
               {fields: ['logWellTotalNum2'], title: '录井总口数', titleAlign: 'center', rowspan: 2},
@@ -267,7 +267,7 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="scss" >
   /*解决列数据过长换行问题 v-table-body-cell*/
   .column-cell-class-name-test {
     div{
@@ -283,7 +283,7 @@
     }
   }
 
-.oms2-title-cell-duijiao:before {
+  .oms2-title-company-cell-duijiao:before {
     content: "";
     position: absolute;
     width: 1px;
@@ -297,12 +297,12 @@
     -ms-transform: rotate(-71.57deg);
     -ms-transform-origin: top;
   }
-  .title1{
+  .title1-company {
     position: absolute;
     top: 10px;
     right:10px;
   }
-  .title2{
+  .title2-company {
     position: absolute;
     top: 25px;
     left:10px;

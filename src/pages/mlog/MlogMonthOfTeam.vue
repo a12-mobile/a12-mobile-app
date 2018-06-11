@@ -52,7 +52,7 @@
             ],
 
             titleRows: [ //第一行
-              [{fields: ['jujorgName','cjorgName'], title: '<span class="title1">队伍类型</span><span class="title2">单位</span>', titleAlign: 'center', rowspan: 2,colspan: 2,titleCellClassName:'oms2-title-cell-duijiao'},
+              [{fields: ['jujorgName','cjorgName'], title: '<span class="title1-team">队伍类型</span><span class="title2-team">单位</span>', titleAlign: 'center', rowspan: 2,colspan: 2,titleCellClassName:'oms2-title-team-cell-duijiao'},
                 //[{fields: ['jujorgName','cjorgName'], title: '单位', titleAlign: 'center', rowspan: 2,colspan: 2},
                 {fields: ['totalActual','totalEmploy','totalRate'], title: '合计', titleAlign: 'center', colspan: 3},
                 {fields: ['synthesizeWellActual','synthesizeWellEmploy'], title: '综合录井队', titleAlign: 'center', colspan: 2},
@@ -254,7 +254,7 @@
     .oms2-item-not-exist{
       color:#f00;
     }
-    .oms2-title-cell-duijiao:before {
+    .oms2-title-team-cell-duijiao:before {
       content: "";
       position: absolute;
       width: 1px;
@@ -268,12 +268,12 @@
       -ms-transform: rotate(-66.8deg);
       -ms-transform-origin: top;
     }
-    .title1{
+    .title1-team{
       position: absolute;
       top: 5px;
       right:10px;
     }
-    .title2{
+    .title2-team{
       position: absolute;
       top: 40px;
       left:10px;
