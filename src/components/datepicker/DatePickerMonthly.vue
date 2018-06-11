@@ -1,11 +1,11 @@
 <template>
     <div class="oms2-date-picker-monthly">
-        <a class="oms2-icon" @click="handleMonthReduce"><i class="fa fa-chevron-left"></i></a>
+        <a class="oms2-date-picker-monthly-icon" @click="handleMonthReduce"><i class="fa fa-chevron-left"></i></a>
         <vue-datepicker-local 
             v-model="time" 
             inputClass='oms2-date-picker-monthly-input' 
             format="YYYY-MM" />
-        <a class="oms2-icon" @click="handleMonthAdd"><i class="fa fa-chevron-right"></i></a>
+        <a class="oms2-date-picker-monthly-icon" @click="handleMonthAdd"><i class="fa fa-chevron-right"></i></a>
     </div>
 </template>
 
@@ -139,7 +139,7 @@
     }
 </script>
 
-<style scoped>
+<style>
     .oms2-date-picker-monthly {
         padding: 10px;
         text-align: center;
@@ -148,7 +148,7 @@
         width: 100px !important;
         font-size: 10px;
     }
-    .oms2-icon{
+    .oms2-date-picker-monthly-icon{
         margin-left:20px;
         margin-right:20px;
         font-size:18px;
