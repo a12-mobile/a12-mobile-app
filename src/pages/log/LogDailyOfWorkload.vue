@@ -65,7 +65,7 @@
 
               {field: 'skTimes', width: 40, columnAlign: 'right',isResize:true},
               {field: 'spjcjNums', width: 80, columnAlign: 'right',isResize:true},
-              {field: 'qphcjNums', width: 40, columnAlign: 'right',isResize:true},
+              {field: 'qphcjNums', width: 60, columnAlign: 'right',isResize:true},
               {field: 'dldccjNums', width: 60, columnAlign: 'right',isResize:true},
               {field: 'xzsqxNums', width: 50, columnAlign: 'right',isResize:true},
               {field: 'zjsqxNums', width: 50, columnAlign: 'right',isResize:true},
@@ -133,7 +133,7 @@
               [//射孔（井次）
                 {fields: ['skTimes'], title: '合计', titleAlign: 'center', rowspan:1},//
                 {fields: ['spjcjNums'], title: '油管传输射孔', titleAlign: 'center', rowspan:1},
-                {fields: ['qphcjNums'], title: '电缆', titleAlign: 'center', rowspan:1},
+                {fields: ['qphcjNums'], title: '电缆射孔', titleAlign: 'center', rowspan:1},
                 {fields: ['dldccjNums'], title: '特殊作业', titleAlign: 'center', rowspan:1},
               ]
             ],
