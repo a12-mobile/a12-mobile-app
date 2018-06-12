@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="MonthlyOfCompany">
     <header>
       <!--<mt-header :title="$route.meta.title" fixed>
         <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
@@ -267,54 +267,57 @@
     }
 </script>
 
-<style lang="scss">
-  /*解决列数据过长换行问题 v-table-body-cell*/
-  .column-cell-class-name-test {
-    div{
-      white-space: normal !important;
-      line-height: 20px !important;
+<style lang="scss" >
+  #MonthlyOfCompany{
+    /*解决列数据过长换行问题 v-table-body-cell*/
+    .column-cell-class-name-test {
+      div{
+        white-space: normal !important;
+        line-height: 20px !important;
+      }
     }
-  }
-  .column-cell-class-name-test-not-exist {
-    color: #ff0000;
-    div{
-      white-space: normal !important;
-      line-height: 20px !important;
+    .column-cell-class-name-test-not-exist {
+      color: #ff0000;
+      div{
+        white-space: normal !important;
+        line-height: 20px !important;
+      }
+    }
+
+    .oms2-title-cell-duijiao:before {
+      content: "";
+      position: absolute;
+      width: 1px;
+      height: 158.1px;
+      top: 0;
+      left: 0;
+      background-color: #E3E3E3;
+      display: block;
+      transform: rotate(-71.57deg);
+      transform-origin: top;
+      -ms-transform: rotate(-71.57deg);
+      -ms-transform-origin: top;
+    }
+    .title1 {
+      position: absolute;
+      top: 10px;
+      right:10px;
+    }
+    .title2 {
+      position: absolute;
+      top: 25px;
+      left:10px;
+    }
+    .oms2-datepicker-content{
+      margin-bottom:10px;
+    }
+    .oms2-date-picker-monthly-input{
+      width:100px !important;
+      font-size: 10px;
+    }
+    .oms2-item-not-exict{
+      color: #ff0000;
     }
   }
 
-.oms2-title-cell-duijiao:before {
-    content: "";
-    position: absolute;
-    width: 1px;
-    height: 158.1px;
-    top: 0;
-    left: 0;
-    background-color: #E3E3E3;
-    display: block;
-    transform: rotate(-71.57deg);
-    transform-origin: top;
-    -ms-transform: rotate(-71.57deg);
-    -ms-transform-origin: top;
-  }
-  .title1{
-    position: absolute;
-    top: 10px;
-    right:10px;
-  }
-  .title2{
-    position: absolute;
-    top: 25px;
-    left:10px;
-  }
-  .oms2-datepicker-content{
-    margin-bottom:10px;
-  }
-  .oms2-date-picker-monthly-input{
-    width:100px !important;
-    font-size: 10px;
-  }
-  .oms2-item-not-exict{
-    color: #ff0000;
-  }
 </style>

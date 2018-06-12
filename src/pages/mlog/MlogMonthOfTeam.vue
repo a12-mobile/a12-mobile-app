@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div id="MonthOfTeam">
     <header>
       <!-- <mt-header :title="$route.meta.title" fixed>
               <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
@@ -230,6 +230,7 @@
 </script>
 
 <style lang="scss">
+  #MonthOfTeam{
     /*解决列数据过长换行问题 v-table-body-cell*/
     .column-cell-class-name-test {
       div{
@@ -278,5 +279,5 @@
       top: 40px;
       left:10px;
     }
-
+  }
 </style>
