@@ -316,6 +316,7 @@
             //首次进入页面获取数据
             this.requestDate();
             this.tableHeight=window.innerHeight-80
+            this.$ruixin.supportAutorotate({});
         },
         methods:{
             /**

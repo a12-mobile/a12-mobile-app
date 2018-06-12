@@ -171,7 +171,7 @@
             },
             //进入实时曲线列表
             handleGoToChart(item) {
-                location.href = 'http://11.10.97.109:9493/websocket/echarts/demo.html'
+                location.href = 'http://11.10.97.109:9493/websocket/echarts/demo.html?wellBoreId='+item.wellId+"&wellName="+item.wellName
             },
             /**
              * 点击查询按钮后的方法

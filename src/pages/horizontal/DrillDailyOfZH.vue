@@ -1,5 +1,5 @@
 <template>
-    <div id="DrillDailyOfZH">
+    <div id="horizontal">
         <i @click='handleBack' class='fa fa-arrow-left oms2-horizontal-back'></i>
         <header>
             <h5>钻井综合日报</h5>
@@ -7,7 +7,7 @@
             <oms2-date-picker-daily :date="date" @date-change="handleChange">
             </oms2-date-picker-daily>
         </header>
-            <v-table is-horizontal-resize is-vertical-resize style="width:100%;font-size:12px" :title-row-height=20 :row-height=30 :columns="columns" :title-rows="titleRows" :table-data="tableData" :column-cell-class-name="columnCellClass" :height=tableHeight title-bg-color="#F6F6F6"
+            <v-table is-horizontal-resize is-vertical-resize style="width:100%;font-size:12px" :title-row-height=20 :row-height=30 :columns="columns" :title-rows="titleRows" :table-data="tableData" :column-cell-class-name="columnCellClass" :height=tableHeight  title-bg-color="#F6F6F6"
                 even-bg-color="#f2f2f2" row-hover-color="#eee" row-click-color="#edf7ff"></v-table>
     </div>
 </template>
@@ -174,7 +174,7 @@
             this.tableHeight = window.innerHeight*0.94
         },
         mounted(){
-            transToHorizontalScreen("#DrillDailyOfZH")
+            transToHorizontalScreen("#horizontal")
         },
         methods: {
             requestDate() {
@@ -246,6 +246,32 @@
 </script>
 
 <style lang="scss">
+    #horizontal{
+        .cov-date-body{
+            height:300px!important;
+                font-size: 14px;
+        }
+        .cov-date-body[data-v-2537a1f8]{
+            top:25%;
+        }
+        .cov-date-monthly > div[data-v-2537a1f8]{
+            height:80px !important;
+
+        }
+        .cov-date-caption[data-v-2537a1f8]{
+            padding:0px !important;
+        }
+        .cov-picker-box[data-v-2537a1f8]{
+            padding:10px !important;
+
+        }
+        .day[data-v-2537a1f8]{
+            height:28px !important;
+        }
+        .cov-date-monthly[data-v-2537a1f8]{
+            height:auto !important;
+        }
+    }
     .oms2-item-not-exist {
         color: #ff0000;
     }
