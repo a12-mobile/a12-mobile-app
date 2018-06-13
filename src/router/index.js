@@ -45,6 +45,9 @@ import DrillDailyOfZH from '@/pages/horizontal/DrillDailyOfZH'
 import WellList from '@/pages/well/WellList'
 import KeyWellList from '@/pages/well/KeyWellList'
 
+//物探
+import GPFormList from '@/pages/gp/GPFormList'
+
 Vue.use(Router)
 
 export default new Router({
@@ -133,7 +136,7 @@ export default new Router({
     //井下 end
     //测井
     {
-      path: '/log/monthly',
+      path: '/log/form/list',
       name: 'LogFormList',
       component: LogFormList,
       meta:{ navShow: false, title: '测井报表'},
@@ -240,6 +243,15 @@ export default new Router({
       name: 'KeyWellList',
       component: KeyWellList,
       meta: { navShow: false, title: '关注井列表' },
+    },
+
+
+    //物探
+    {
+      path: '/gp/form/list',
+      name: 'GPFormList',
+      component: GPFormList,
+      meta:{ navShow: false, title: '物探专业'}
     },
 
   ]

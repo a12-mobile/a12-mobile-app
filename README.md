@@ -97,6 +97,7 @@ $toast       土司
         |—— .oms2-report-float-right  报表底部显示数据来源 
         |—— .oms2-item-not-exist      列表不存在时显示红色
         |—— .oms2-horizontal-back     不显示瑞信标题时返回按钮的位置
+        |—— .oms2-grid-cell           各专业索引表格
 
     /theme.scss        提供自定义样式
         |—— .cov-date-body            设置timepicker的样式 宽度最大为屏幕宽度的80%

@@ -44,6 +44,7 @@
     import {
         getCurrentTime
     } from './../../service/utils/date/date'
+    import { setwellboreId} from './../../service/well/wellService'
     import {
         Toast
     } from "mint-ui"
@@ -55,6 +56,9 @@
                 tableDataQK: [],
                 selected: "GC",
                 wellName:'',
+                wellboreId:'',
+                isReceive:false,  //是否接收数据
+                sessionId:'',   //sessionId
                 websock: null,
                 columnsGC: [{
                         field: 'time',
@@ -257,7 +261,7 @@
         methods: {
             initWebSocket() { //初始化weosocket
                 //ws地址
-                const wsuri = "ws://61.158.56.6:8030/websocket/websocket";
+                const wsuri = "ws://localhost:8080/mobile/websocket";
                 this.websock = new WebSocket(wsuri);
                 // var interval = setInterval(() => {
                 //     if (this.websock.readyState == 1) {
@@ -275,9 +279,16 @@
             },
             //接受数据
             websocketonmessage(e) {
-                const redata = JSON.parse(e.data);
-                var item = this.convertJsonToBean(redata);
-                this.tableDataGC.unshift(item)
+                if(this.sessionId==''&&!this.isReceive){
+                    this.sessionId=e.data
+                    setwellboreId(this.wellboreId,this.sessionId)
+                    this.isReceive=true
+                }
+                if(this.isReceive&&e.data[0]=='{'){
+                    const redata = JSON.parse(e.data);
+                    var item = this.convertJsonToBean(redata);
+                    this.tableDataGC.unshift(item)
+                }
             },
             //关闭
             websocketclose(e) {
@@ -292,33 +303,43 @@
                 var time = getCurrentTime();
                 var item = {
                     "time": time,
-                    "jingshen": data["8004"]["1526031312000"],
-                    "zuantouweizhi": data["8005"]["1526031312000"],
-                    "chidaojingshen": data["8006"]["1526031641000"],
-                    "chidaoshijian": data["8486"]["1526031314000"].toFixed(2),
-                    "dagougaodu": data["8008"]["1526031312000"].toFixed(2),
-                    "dagoufuhe": data["8010"]["1526031312000"],
-                    "zuanya": data["8011"]["1526031312000"],
-                    "zhuanpanzhuansu": data["8012"]["1526031312000"],
-                    "niuju": data["8013"]["1526031312000"],
-                    "liguanyali": data["8018"]["1526031312000"],
-                    "taoguanyali": data["8019"]["1526031312000"],
-                    "zuanshi": data["8020"]["1526031312000"]
+                    "jingshen": this.getPropertityData(data["8004"]),
+                    "zuantouweizhi": this.getPropertityData(data["8005"]),
+                    "chidaojingshen": this.getPropertityData(data["8006"]),
+                    "chidaoshijian": this.getPropertityData(data["8486"]),
+                    "dagougaodu": this.getPropertityData(data["8008"]),
+                    "dagoufuhe": this.getPropertityData(data["8010"]),
+                    "zuanya": this.getPropertityData(data["8011"]),
+                    "zhuanpanzhuansu": this.getPropertityData(data["8012"]),
+                    "niuju": this.getPropertityData(data["8013"]),
+                    "liguanyali": this.getPropertityData(data["8018"]),
+                    "taoguanyali": this.getPropertityData(data["8019"]),
+                    "zuanshi": this.getPropertityData(data["8020"])
                 }
                 return item;
+            },
+            //获取对象属性结果
+            getPropertityData(object){
+                for(var key in object){
+                    if(object[key]){
+                        return object[key].toFixed(2)
+                    }else{
+                        return 0
+                    }
+                }
             },
             handleSelect(item) {
                 this.selectNav = item;
             },
             handleBack() {
                 window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
-                this.$ruixin.closePage({});
+                // this.$ruixin.closePage({});
             },
         },
         created() {
             this.initWebSocket()
             this.wellName=this.$route.query.wellName
-            // let wellId=this.$route.query.wellId
+            this.wellboreId=this.$route.query.wellboreId
             if(!this.wellName||this.wellName==''){
                 this.wellName='未获取井名'
             }

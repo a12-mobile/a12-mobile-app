@@ -105,8 +105,8 @@
                 let nextMonth=addMonth(this.date.time,1,'yyyy-MM')
                 getMonthlyOfWorkloadGN(this.date.time+'-01 00:00:00',nextMonth+'-01 00:00:00').then((data)=>{
                     Indicator.close()
-                    if(data.body){
-                        this.tableData=data.body
+                    if(data.data){
+                        this.tableData=data.data
 
                         //检查是否含有所有地区
                         let jujiorgnames=['集团合计','川庆钻探','大庆钻探','长城钻探','渤海钻探','西部钻探','海洋工程公司','大庆油田','吉林油田','辽河油田','冀东油田','大港油田',

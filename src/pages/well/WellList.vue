@@ -115,7 +115,7 @@
         },
         methods: {
             handleClickItem(item) {
-                this.$toast.showToast('选中得索引值为' + item)
+                // this.$toast.showToast('选中得索引值为' + item)
                 // console.log("获取得index为" + item);
                 // this.$router.push({
                 //     path: '/sub',
@@ -164,14 +164,14 @@
                 this.$router.push({
                     path: '/real-time/list/project',
                     query: {
-                        wellId: item.wellId,
+                        wellboreId: item.wellboreId,
                         wellName: item.wellName
                     }
                 })
             },
             //进入实时曲线列表
             handleGoToChart(item) {
-                location.href = 'http://11.10.97.109:9493/websocket/echarts/demo.html?wellBoreId='+item.wellId+"&wellName="+item.wellName
+                location.href = 'http://11.10.97.109:9493/websocket/echarts/demo.html?wellBoreId='+item.wellboreId+"&wellName="+item.wellName
             },
             /**
              * 点击查询按钮后的方法
@@ -204,10 +204,9 @@
             requestData() {
                 Indicator.open('加载中...')
                 getWellList().then((data) => {
-                    console.log(data)
                         Indicator.close()
-                        if (data.body) {
-                            this.baseData = data.body;
+                        if (data.data) {
+                            this.baseData = data.data;
                         } else {
                             this.baseData = []
                         }
@@ -223,13 +222,14 @@
                                 this.wellBlockList.push(sgdw)
                             }
                             this.wellBlockList.sort(
-                                function compareFunction(param1, param2) {
-                                    return param1.localeCompare(param2, "zh");
-                                });
+                                function compareFunction(param1='空', param2) {
+                                    return param1.localeCompare(param2, "zh")
+                                })
                         }
                     })
                     .catch((error) => {
                         Indicator.close()
+                        console.log(error)
                         this.$toast.showToast('获取井列表失败')
                     })
             },

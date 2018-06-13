@@ -1,34 +1,34 @@
 <template>
   <div id="DhFormList">
-    <mt-header :title="$route.meta.title" fixed>
-      <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
-    </mt-header>
-    <router-link to="/dh/monthly/workload/gn">
-      <button type="button" class="btn btn-primary">井下作业工作量统计月报（国内）</button>
-    </router-link>
-    <br>
-    <br>
-    <router-link to="/dh/monthly/workload/total">
-      <button type="button" class="btn btn-primary">井下作业工作量统计月报（总）</button>
-    </router-link>
+    <div class="container">
+      <div class="row">
+          <div class="col-4 oms2-grid-cell">
+            <router-link to="/dh/monthly/workload/total">
+              <img class='oms2-grid-cell-image' src="./../../assets/img/dhMonthlyWorkload.png">
+            </router-link>
+            <p>井下工作量月报总</p>
+          </div>
+          <div class="col-4 oms2-grid-cell">
+            <router-link to="/dh/monthly/workload/gn">
+              <img class='oms2-grid-cell-image' src="./../../assets/img/dhMonthlyWorkload.png">
+            </router-link>
+            <p>井下工作量月报国内</p>
+          </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
   export default {
     methods: {
-      handleBack() {
-        window.history.length > 1 ?
-          this.$router.go(-1) :
-          this.$router.push('/')
-      }
     }
   }
 </script>
 
 <style>
   #DhFormList{
-    margin-top:50px;
+    padding-top:10px;
   }
 
 </style>

@@ -279,8 +279,8 @@
                 Indicator.open('加载中...')
                 getMonthlyOfWorkload(this.date.time).then((data)=>{
                     Indicator.close()
-                    if(data.body){
-                        this.tableData=data.body
+                    if(data.data){
+                        this.tableData=data.data
                         //检查是否含有所有地区
                         let jujiorgnames=[{'juOrgabb':'集团总计','chuOrgabb':''},
                                         {'juOrgabb':'长城钻探','chuOrgabb':'合计'},

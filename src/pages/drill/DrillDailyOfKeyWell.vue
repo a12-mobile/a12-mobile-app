@@ -328,8 +328,8 @@
                 .then((data)=> {
                     Indicator.close()
                     if(data){
-                        this.tableData=data.body
-                        this.baseData=data.body
+                        this.tableData=data.data
+                        this.baseData=data.data
                     }else{
                         this.tableData=[]
                     }

@@ -1,24 +1,27 @@
 <template>
   <div id="MlogFormList">
-    <mt-header :title="$route.meta.title" fixed>
-      <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
-    </mt-header>
-    <router-link to="/mlogsOfRecordWell">
-      <button type="button" class="btn btn-primary">录井分队动态</button>
-    </router-link>
-    <br/>
-    <br/>
-    <router-link to="/MonthLogOfLogWellByCompany">
-      <button type="button" class="btn btn-primary">录井分市场月报</button>
-    </router-link>
-    <br/>
-    <br/>
-    <!--<router-link to="/monthLogOfWellWorkload">
-      <button type="button" class="btn btn-primary">录井工作量月报</button>
-    </router-link>-->
-    <router-link to="/mlogMonthOfTeam">
-      <button type="button" class="btn btn-primary">录井队伍统计月报</button>
-    </router-link>
+    <div class="container">
+      <div class="row">
+          <div class="col-4 oms2-grid-cell">
+            <router-link to="/mlogMonthOfTeam">
+              <img class='oms2-grid-cell-image' src="./../../assets/img/mlogFDW.png">
+            </router-link>
+            <p>录井队伍统计月报</p>
+          </div>
+          <div class="col-4 oms2-grid-cell">
+            <router-link to="/mlogsOfRecordWell">
+              <img class='oms2-grid-cell-image' src="./../../assets/img/mlogDaily.png">
+            </router-link>
+            <p>录井分队动态</p>
+          </div>
+          <div class="col-4 oms2-grid-cell">
+            <router-link to="/MonthLogOfLogWellByCompany">
+              <img class='oms2-grid-cell-image' src="./../../assets/img/mlogMonthlyByMarket.png">
+            </router-link>
+            <p>录井分单位月报</p>
+          </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -37,7 +40,7 @@
 
 <style scoped>
   #MlogFormList{
-    margin-top:50px;
+    padding-top:10px;
   }
 
 

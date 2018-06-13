@@ -38,7 +38,7 @@ module.exports = {
     //配置跨域代理
     proxyTable: {
       '/api': {
-        target: 'http://10.88.123.11:8080/',//设置你调用的接口域名和端口号 别忘了加http
+        target: 'http://localhost:8080/',//设置你调用的接口域名和端口号 别忘了加http
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/'
