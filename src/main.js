@@ -64,7 +64,7 @@ Vue.config.productionTip = false
 Vue.prototype.$axios = axios          //http请求
 Vue.prototype.$http = httpServer      //封装axios
 Vue.prototype.$entity = entityServer  //实体服务，用于服务器对实体进行增删改查
-Vue.prototype.$ruixin=ruixinApi    //瑞信API
+Vue.prototype.$ruixin=ruixinApi       //瑞信API
 Vue.prototype.$toast=toastServer      //土司
 
 

@@ -28,7 +28,13 @@
     import timepicker from './../../components/datepicker/timepicker'
     import { Toast } from "mint-ui"
     export default {
-        name: "MonthLogOfWellWorkload",
+      name: "MonthLogOfWellWorkload",
+      created(){
+        this.$ruixin.supportAutorotate({});
+      },
+      mounted(){
+        this.$ruixin.setWebViewTitle({title:'录井分单位月报'});
+      },
       data: function () {
         return {
           date: timepicker.startTime,

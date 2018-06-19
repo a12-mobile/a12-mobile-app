@@ -12,7 +12,6 @@
         is-vertical-resize
         :title-row-height=25
         :row-height=30
-        :height=tableheight
         title-bg-color="#F6F6F6"
         style="width:100%;font-size:12px"
         :columns="columns"
@@ -39,7 +38,6 @@
           return {
             date: timepicker.startTime,
             tableData: [],
-            tableheight:0,
             columns: [
               {field: 'jjOrgAbb', width:60, columnAlign: 'left', isFrozen: true,isResize:true},
               {field: 'orgAbb', width: 80, columnAlign: 'left', isFrozen: true,isResize:true},
@@ -142,7 +140,12 @@
         },
         created(){
           this.requestData();
-          this.tableheight = window.innerHeight-80
+        },
+        mounted(){
+          this.$ruixin.setWebViewTitle({title:'测井工作量日报'});
+          setTimeout(()=>{
+            this.$ruixin.supportAutorotate({});
+          },200)
         },
         methods:{
           //请求数据方法

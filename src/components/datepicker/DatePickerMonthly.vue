@@ -146,7 +146,7 @@
     }
     .oms2-date-picker-monthly-input {
         width: 100px !important;
-        font-size: 10px;
+        font-size:14px;
     }
     .oms2-date-picker-monthly-icon{
         margin-left:20px;

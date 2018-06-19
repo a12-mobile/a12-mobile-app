@@ -5,7 +5,7 @@
         <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
       </mt-header>-->
       <!--<h4>中油油服钻井工作量日报</h4>-->
-      <p>钻井综合日报</p>
+      <!-- <p>钻井综合日报</p> -->
       <div class='oms2-report-float-right' style="top:40px">数据来源于A7集团系统钻井综合日报</div>
       <oms2-date-picker-daily :date="date"
                   @date-change="handleChange">
@@ -15,7 +15,6 @@
       is-horizontal-resize
       is-vertical-resize
       style="width:100%;font-size:12px"
-      :height="tableheight"
       :title-row-height=20
       :row-height=30
       :columns="columns"
@@ -41,7 +40,6 @@
   export default {
     data() {
       return {
-        tableheight:0,
         date: timepicker.startTime,
         tableData: [],
         columns: [
@@ -98,18 +96,11 @@
     },
     created() {
       this.requestDate();
-      this.$ruixin.hideWebViewTitle({
-        
-      });
-      this.tableheight = window.innerHeight*0.94;
-      this.$nextTick(()=>{
-        transToHorizontalScreen('#dailyOfDrilling')
-
-      })
+      this.$ruixin.supportAutorotate({});
     },
-    // beforeMount(){
-    //   transToHorizontalScreen('#dailyOfDrilling')
-    // },
+    mounted(){
+      this.$ruixin.setWebViewTitle({title:'钻井综合日报'});
+    },
     methods: {
       requestDate() {
         Indicator.open('加载中...')
@@ -187,9 +178,6 @@
 </script>
 
 <style lang="scss">
-  .oms2-item-not-exist{
-    color: #ff0000;
-  }
 </style>
 
 

@@ -81,15 +81,19 @@ function successState(res){
 //请求方法
 const httpServer=(method='GET',url,data={})=>{
     let requestMethod=method.toUpperCase()
-    if(url[0]!='/'){
-        url='/'+url
+    if(url.indexOf("://")>0){
+        url=url
+    }else if(url[0]!='/'){
+        url=httpBaseUrl+'/'+url
+    }else{
+        url=httpBaseUrl+url
     }
     let Public={  //存放公共参数
 
     }
     let httpDefaultOpts={ //http默认配置
         method:requestMethod,
-        url:httpBaseUrl+url,
+        url:url,
         timeout:45*1000,
         params:Object.assign(Public,data),
         data:qs.stringify(Object.assign(Public,data)),

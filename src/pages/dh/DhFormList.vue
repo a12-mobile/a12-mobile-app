@@ -4,15 +4,15 @@
       <div class="row">
           <div class="col-4 oms2-grid-cell">
             <router-link to="/dh/monthly/workload/total">
-              <img class='oms2-grid-cell-image' src="./../../assets/img/dhMonthlyWorkload.png">
+              <img class='oms2-grid-cell-image' src="./../../assets/icon/dh/monthlyOfWorkload.png">
             </router-link>
-            <p>井下工作量月报总</p>
+            <p>工作量月报总</p>
           </div>
           <div class="col-4 oms2-grid-cell">
             <router-link to="/dh/monthly/workload/gn">
-              <img class='oms2-grid-cell-image' src="./../../assets/img/dhMonthlyWorkload.png">
+              <img class='oms2-grid-cell-image' src="./../../assets/icon/log/monthlyOfWorkload.png">
             </router-link>
-            <p>井下工作量月报国内</p>
+            <p>工作量月报国内</p>
           </div>
       </div>
     </div>
@@ -21,6 +21,9 @@
 
 <script>
   export default {
+    created(){
+      this.$ruixin.setWebViewTitle({title:'井下专业'})
+    },
     methods: {
     }
   }

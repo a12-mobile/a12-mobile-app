@@ -48,6 +48,7 @@
     import {
         Toast
     } from "mint-ui"
+    import { webSocketUrl } from './../../service/http/config'
 
     export default {
         data() {
@@ -261,7 +262,7 @@
         methods: {
             initWebSocket() { //初始化weosocket
                 //ws地址
-                const wsuri = "ws://localhost:8080/mobile/websocket";
+                const wsuri = webSocketUrl;
                 this.websock = new WebSocket(wsuri);
                 // var interval = setInterval(() => {
                 //     if (this.websock.readyState == 1) {
@@ -279,10 +280,18 @@
             },
             //接受数据
             websocketonmessage(e) {
-                if(this.sessionId==''&&!this.isReceive){
-                    this.sessionId=e.data
-                    setwellboreId(this.wellboreId,this.sessionId)
+                if(!this.isReceive&&(this.wellboreId==''||this.wellboreId==undefined)){
+                    //如果没有井id则显示默认值
                     this.isReceive=true
+                }else if(this.sessionId==''&&!this.isReceive){
+                    this.sessionId=e.data
+                    setwellboreId(this.wellboreId,this.sessionId).then((data)=>{
+                        if(data.result=='success'){
+                            this.isReceive=true
+                        }else{
+                            this.$toast.showToast("设置井信息失败")
+                        }
+                    })
                 }
                 if(this.isReceive&&e.data[0]=='{'){
                     const redata = JSON.parse(e.data);
@@ -332,7 +341,7 @@
                 this.selectNav = item;
             },
             handleBack() {
-                window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+                window.history.length > 1 ? this.$router.go(-1) : this.$ruixin.closePage({});
                 // this.$ruixin.closePage({});
             },
         },
@@ -341,7 +350,7 @@
             this.wellName=this.$route.query.wellName
             this.wellboreId=this.$route.query.wellboreId
             if(!this.wellName||this.wellName==''){
-                this.wellName='未获取井名'
+                this.wellName='克深21'
             }
             this.$ruixin.hideWebViewTitle({});
         },

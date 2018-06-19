@@ -114,7 +114,7 @@
                                 return index + 1
                             }, isFrozen: true
                         },
-                        {field: 'wellName', width: 90, columnAlign: 'left',isResize:true, isFrozen: true},
+                        {field: 'wellName', width: 100, columnAlign: 'left',isResize:true, isFrozen: true},
                         {field: 'orgAbb', width: 80, columnAlign: 'left',isResize:true},
                         {field: 'wellSortName', width: 60, columnAlign: 'left',isResize:true},
                         {field: 'drillTeamId', width: 80, columnAlign: 'left',isResize:true},
@@ -165,6 +165,10 @@
         created(){
           this.loadingDate();
           this.tableHeight=window.innerHeight
+          this.$ruixin.supportAutorotate({});
+        },
+        mounted(){
+          this.$ruixin.setWebViewTitle({title:'录井分队动态'});
         },
         methods:{
                 loadingDate() {

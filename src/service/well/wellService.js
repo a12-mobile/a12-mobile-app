@@ -1,14 +1,14 @@
 import httpService from './../http/httpService'
+import { webSocketHttpUrl } from './../http/config'
 
-export function setwellboreId(wellboreId,sessionId){
-    return new Promise((resolve,reject)=>{
-        if(wellboreId==''||wellboreId==undefined||sessionId==''||sessionId==undefined){
-            return resolve(false);
-        }else{
-            return httpService('POST','/websocket/wellbore/'+wellboreId,{
-                    'SESSION_ID':sessionId
-                    })
-        }
+export function setwellboreId (wellboreId, sessionId) {
+  if (wellboreId == '' || wellboreId == undefined || sessionId == '' || sessionId == undefined) {
+    return new Promise((resolve, reject) => {
+      resolve(false)
     })
-
+  }else {
+    return httpService('POST', webSocketHttpUrl + '/wellbore/' + wellboreId, {
+      'SESSION_ID': sessionId
+    })
+  }
 }

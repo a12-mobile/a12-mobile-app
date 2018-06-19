@@ -113,8 +113,8 @@
                         headerText: '#fff'
                     },
                     buttons: {
-                        ok: '确定',
-                        cancel: '取消'
+                        // ok: '确定',
+                        // cancel: '取消'
                     },
                     overlayOpacity: 0.5, // 0.5 as default
                     dismissible: true // as true as default

@@ -206,7 +206,9 @@
     import { Indicator } from 'mint-ui';
     import timepicker from './../../components/datepicker/timepicker'
     import { getDaliyOfKeyWell } from './../../service/drill/drillGetData'
+    import mixin from './../../service/utils/system/mixin'
     export default {
+         mixins:[mixin.mixin_ruixin],
          data() {
             return {
                 tableHeight:0,   //表格高度
@@ -316,7 +318,10 @@
             //首次进入页面获取数据
             this.requestDate();
             this.tableHeight=window.innerHeight-80
-            this.$ruixin.supportAutorotate({});
+            this.$ruixin.supportAutorotate({})
+        },
+        mounted(){
+            this.$ruixin.setWebViewTitle({title:'重点井日报'});
         },
         methods:{
             /**

@@ -75,6 +75,10 @@
         created(){
           this.requestData();
           this.tablehight=window.innerHeight-80
+          this.$ruixin.supportAutorotate({});
+        },
+        mounted(){
+          this.$ruixin.setWebViewTitle({title:'录井队伍统计月报'});
         },
         methods:{
           //请求数据方法
@@ -244,13 +248,6 @@
         white-space: normal !important;
         line-height: 20px !important;
       }
-    }
-    .oms2-datepicker-content{
-      margin-bottom:10px;
-    }
-    .oms2-date-picker-monthly-input{
-      width:100px !important;
-      font-size: 10px;
     }
     .oms2-item-not-exist{
       color:#f00;

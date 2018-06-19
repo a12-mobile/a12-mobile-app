@@ -109,9 +109,10 @@
       created(){
         this.requestData()
         this.tableheight=window.innerHeight-80
-        // this.$ruixinApi.setWebViewTitle({ //设置导航条标题
-        //   title:'录井分单位月报'
-        // })
+        this.$ruixin.supportAutorotate({});
+      },
+      mounted(){
+        this.$ruixin.setWebViewTitle({title:'录井分单位月报'});
       },
       methods: {
           requestData(){
@@ -307,16 +308,6 @@
       position: absolute;
       top: 25px;
       left:10px;
-    }
-    .oms2-datepicker-content{
-      margin-bottom:10px;
-    }
-    .oms2-date-picker-monthly-input{
-      width:100px !important;
-      font-size: 10px;
-    }
-    .oms2-item-not-exict{
-      color: #ff0000;
     }
   }
 

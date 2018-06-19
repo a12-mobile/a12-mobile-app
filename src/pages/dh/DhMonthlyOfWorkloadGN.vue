@@ -98,6 +98,12 @@
             this.requestData()
             this.tableHeight=window.innerHeight-80
         },
+        mounted(){
+            this.$ruixin.supportAutorotate({});
+            this.$ruixin.setWebViewTitle({title:'井下工作量月报国内'});
+        },
+        
+        
         methods:{
             //请求数据方法
             requestData(){

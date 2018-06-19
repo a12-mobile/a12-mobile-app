@@ -78,6 +78,7 @@
     import {
         Indicator
     } from 'mint-ui';
+    import {dataMonitorUrl} from './../../service/http/config'
     export default {
         data() {
             return {
@@ -94,6 +95,7 @@
             }
         },
         created() {
+            this.$ruixin.setWebViewTitle({title:'关注井列表'});
             this.requestData();
             user.getUser().then((user) => {
                 this.user = user
@@ -162,7 +164,7 @@
             },
             //进入实时曲线列表
             handleGoToChart(item) {
-                location.href = 'http://11.10.97.109:9493/websocket/echarts/demo.html?wellBoreId='+item.wellboreId+"&wellName="+item.wellName
+                location.href = dataMonitorUrl+'?wellBoreId='+item.wellboreId+"&wellName="+ encodeURI(encodeURI(item.wellName))
             },
             /**
              * 点击查询按钮后的方法
