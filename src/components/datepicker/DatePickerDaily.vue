@@ -186,7 +186,7 @@
              */
             handleChange(time) {
                 let compare = compareDate(this.date.time, this.currentDate)
-                if (compare >= 0) {
+                if (compare > 0) {
                     this.date.time=this.currentDate
                     Toast({
                         message: '最新日期为：'+this.currentDate,
