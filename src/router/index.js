@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 import Home from '@/pages/Tab-Home'
 import MultiWellList from '@/pages/Tab-MultiWellList'
 import Discussion from '@/pages/Tab-Discussion'
@@ -96,7 +95,7 @@ export default new Router({
       path: '/drill/daily/well/key',
       name: 'DrillDailyOfKeyWell',
       component: DrillDailyOfKeyWell,
-      meta: { navShow: false, title: '钻井日报' }
+      meta: { navShow: false, title: '重点井日报' }
     },
     {
       path:'/dailyOfDrilling',

@@ -39,7 +39,6 @@
 </template>
 
 <script>
-    import DatePickerMonthly from './../../components/datepicker/DatePickerMonthly'
     import { Indicator } from 'mint-ui';
     import { getMonthLogOfMlogWellByCompany } from './../../service/mlog/mlogGetData'
     import { getCurrentDate } from '../../service/utils/date/date'
@@ -261,9 +260,6 @@
 
         }
       },
-      components: {
-        'oms2-date-picker-monthly':DatePickerMonthly
-      }
 
     }
 </script>

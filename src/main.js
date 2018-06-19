@@ -55,6 +55,17 @@ import {VTable,VPagination} from 'vue-easytable'
 Vue.component(VTable.name, VTable)
 Vue.component(VPagination.name, VPagination)
 
+
+//自定义组件
+import Oms2Header from './components/Header.vue'
+import DatePickerDaily from './components/datepicker/DatePickerDaily'
+import DatePickerMonthly from './components/datepicker/DatePickerMonthly'
+
+
+Vue.component(Oms2Header.name,Oms2Header)
+Vue.component(DatePickerDaily.name,DatePickerDaily)
+Vue.component(DatePickerMonthly.name,DatePickerMonthly)
+
 // require("./assets/css/style.css")
 
 

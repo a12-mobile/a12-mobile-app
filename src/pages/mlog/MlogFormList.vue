@@ -15,18 +15,19 @@
           </a>
           <p>实时曲线监测</p>
         </div>
+        <div class="col-4 oms2-grid-cell">
+            <router-link to="/mlogsOfRecordWell">
+              <img class='oms2-grid-cell-image' src="./../../assets/icon/mlog/daily.png">
+            </router-link>
+            <p>分队动态</p>
+          </div>
           <div class="col-4 oms2-grid-cell">
             <router-link to="/mlogMonthOfTeam">
               <img class='oms2-grid-cell-image' src="./../../assets/icon/mlog/monthlyByTeam.png">
             </router-link>
             <p>队伍统计月报</p>
           </div>
-          <div class="col-4 oms2-grid-cell">
-            <router-link to="/mlogsOfRecordWell">
-              <img class='oms2-grid-cell-image' src="./../../assets/icon/mlog/daily.png">
-            </router-link>
-            <p>分队动态</p>
-          </div>
+          
           <div class="col-4 oms2-grid-cell">
             <router-link to="/MonthLogOfLogWellByCompany">
               <img class='oms2-grid-cell-image' src="./../../assets/icon/mlog/monthlyByMarket.png">

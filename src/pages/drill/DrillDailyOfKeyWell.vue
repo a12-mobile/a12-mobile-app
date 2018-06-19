@@ -1,6 +1,10 @@
 <template>
+<div>
+        <oms2-header :title="$route.meta.title">
+    </oms2-header>
     <div id="DailyOfKeyWell">
-        <oms2-date-picker-daily :date="date" @date-change="handleDateChange"></oms2-date-picker-daily><span class='oms2-search' @click="handleShowSelect"><i class="fa fa-search"></i></span>
+        <oms2-date-picker-daily :date="date" @date-change="handleDateChange"></oms2-date-picker-daily>
+        <!-- <span class='oms2-search' @click="handleShowSelect"><i class="fa fa-search"></i></span> -->
 
         <!-- 查询 Modal -->
         <div class="modal fade oms2-font-size" id="ModalSelect" tabindex="-1" role="dialog" aria-labelledby="ModalSelectTitle" aria-hidden="true">
@@ -199,10 +203,10 @@
             </div>
         </div>
     </div>
+    </div>
 </template>
 
 <script>
-    import DatePickerDaily from './../../components/datepicker/DatePickerDaily'
     import { Indicator } from 'mint-ui';
     import timepicker from './../../components/datepicker/timepicker'
     import { getDaliyOfKeyWell } from './../../service/drill/drillGetData'
@@ -316,12 +320,13 @@
         },
         created(){
             //首次进入页面获取数据
-            this.requestDate();
+            this.requestDate()
             this.tableHeight=window.innerHeight-80
-            this.$ruixin.supportAutorotate({})
         },
         mounted(){
-            this.$ruixin.setWebViewTitle({title:'重点井日报'});
+            // this.$ruixin.setWebViewTitle({title:'重点井日报'})
+            this.$ruixin.supportAutorotate({})
+            this.$ruixin.hideWebViewTitle({});
         },
         methods:{
             /**
@@ -433,48 +438,50 @@
                 $("#ModalWellMessage").modal('show')
             }
         },
-        components: {
-            'oms2-date-picker-daily': DatePickerDaily
-        }
     }
 </script>
 
 <style lang="scss">
-    .oms2-search{
-        position:absolute;
-        right:1rem;
-        top:1rem;
-    }
-    .oms2-list-item-content{
-        text-align: left;
-        padding-left:0rem;
-        padding-bottom:1rem;
+    #DailyOfKeyWell{
+        padding-top:$header-height;
         
-    }
-    .oms2-list-divider{
-        text-align: center;
-        padding-top:0rem !important;
-        padding-bottom:0rem !important;
-        margin-bottom:1rem;
-    }
-    .oms2-right{
-        text-align: right;
-    }
+        .oms2-search{
+            position:absolute;
+            right:1rem;
+            top:1rem;
+        }
+        .oms2-list-item-content{
+            text-align: left;
+            padding-left:0rem;
+            padding-bottom:1rem;
+            
+        }
+        .oms2-list-divider{
+            text-align: center;
+            padding-top:0rem !important;
+            padding-bottom:0rem !important;
+            margin-bottom:1rem;
+        }
+        .oms2-right{
+            text-align: right;
+        }
 
-    //改变搜索框样式
-    .sbx-google{
-        width:100% !important;
+        //改变搜索框样式
+        .sbx-google{
+            width:100% !important;
+        }
+        .sbx-google__submit{
+            display: none;
+        }
+        .sbx-google__input{
+            padding-right:1.1rem;
+        }
+        .sbx-google__reset{
+            right:1rem;
+        }
+        //改变搜索框样式  end
+    
     }
-    .sbx-google__submit{
-        display: none;
-    }
-    .sbx-google__input{
-        padding-right:1.1rem;
-    }
-    .sbx-google__reset{
-        right:1rem;
-    }
-    //改变搜索框样式  end
 
 </style>
 

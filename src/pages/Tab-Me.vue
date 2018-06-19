@@ -1,58 +1,24 @@
 <template>
   <div id="Me">
-    <mt-header :title="$route.meta.title" fixed>
-    </mt-header>
-    <button class="btn btn-info" @click="requestTest">获取用户信息</button>
-    <button class="btn btn-info" @click="addTest">添加重点井信息</button>
-    <br/>
-    <br/>
-    <br/>
+    <oms2-header :title="$route.meta.title">
+    </oms2-header>
   </div>
 </template>
 
 <script>
-  import user from './../service/comm/user'
   export default {
     data() {
       return {}
     },
     created(){
-      console.log(user.getUser())
 
     },
-    methods: {
-      requestTest() {
-        this.$http('GET', '/user', )
-          .then((data) => {
-            if (data.body) {
-              console.log();
-              alert("用户名为：" + data.body.userName)
-            } else {
-              alert("返回值没有body")
-            }
-          })
-          .catch(function(error) {
-            alert("出错" + error)
-          })
-      },
-      addTest(){
-        console.log(this.$entity)
-        this.$entity.add('KeyWell/e25fb50aa5d6445da26025c4311adecb',{
-          userId:'1',
-          wellId:'111'
-        }).then((data)=>{
-          console.log(data)
-
-        }).catch((err)=>{
-          console.log(err)
-        })
-      }
-    }
+    methods: {},
   }
 </script>
 
 <style>
   #Me {
-    margin-top: 50px;
+    /* margin-top: 50px; */
   }
 </style>

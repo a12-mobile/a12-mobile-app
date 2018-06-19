@@ -33,7 +33,6 @@
 
 <script>
     import { transToHorizontalScreen } from './../../service/utils/system/screen'
-    import DatePickerDaily from './../../components/datepicker/DatePickerDaily'
     import { Indicator } from 'mint-ui';
     import timepicker from './../../components/datepicker/timepicker'
     import {getDaliyOfRigDynamic} from './../../service/drill/drillGetData'
@@ -94,11 +93,11 @@
         }
       },
       created() {
-        this.requestDate();
-        this.$ruixin.supportAutorotate({});
+        this.requestDate()
       },
       mounted(){
-        this.$ruixin.setWebViewTitle({title:'钻机动态日报'});
+        this.$ruixin.setWebViewTitle({title:'工作量动态日报'})
+        this.$ruixin.supportAutorotate({})
       },
       methods: {
         requestDate() {
@@ -209,9 +208,6 @@
             }
           }
         }
-      },
-      components: {
-        'oms2-date-picker-daily': DatePickerDaily
       },
     }
 </script>

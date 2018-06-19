@@ -10,10 +10,10 @@ const comm = {
           resolve(JSON.parse(user))
       }else {
         httpService('GET', '/user').then((data) => {
-          if (data.data.length > 0) {
+          if (data.data) {
             let user = {
-              userName: data.data[0].userName,
-              userId: data.data[0].userId
+              userName: data.data.userName,
+              userId: data.data.userId
             }
             sessionStorage.setItem('user', JSON.stringify(user))
             resolve(user)

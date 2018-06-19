@@ -76,7 +76,7 @@
         getCurrentDate
     } from './../../service/utils/date/date'
     export default {
-        name: 'DatePickerMonthly',
+        name: 'oms2-date-picker-monthly',
         data() {
             return {
                 time:new Date(this.date.time)
@@ -141,7 +141,8 @@
 
 <style>
     .oms2-date-picker-monthly {
-        padding: 10px;
+        padding-top: 10px;
+        padding-bottom: 5px;
         text-align: center;
     }
     .oms2-date-picker-monthly-input {

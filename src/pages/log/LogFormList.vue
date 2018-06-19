@@ -10,7 +10,7 @@
         </div>
         <div class="col-4 oms2-grid-cell">
           <router-link to="/log/Monthly/workload">
-            <img class='oms2-grid-cell-image' src="./../../assets/icon/log/monthlyOfWorkload.png">
+            <img class='oms2-grid-cell-image' src="./../../assets/icon/wellList.png">
           </router-link>
           <p>工作量月报</p>
         </div>

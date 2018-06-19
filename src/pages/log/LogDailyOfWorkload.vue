@@ -28,7 +28,6 @@
 </template>
 
 <script>
-    import DatePickerDaily from './../../components/datepicker/DatePickerDaily'
     import { Indicator } from 'mint-ui';
     import timepicker from './../../components/datepicker/timepicker'
     import { getDailyOfWorkload } from './../../service/log/logGetData'
@@ -153,10 +152,10 @@
             Indicator.open('加载中...')
             getDailyOfWorkload(this.date.time).then((data)=>{
               Indicator.close()
-              if(data.body){
-                this.tableData=data.body
+              if(data.data){
+                this.tableData=data.data
                 //检查是否含有所有地区
-                let jjOrgAbbnames=[{'jjOrgAbb':'集团总计','orgAbb':''},
+                let jjOrgAbbnames=[{'jjOrgAbb':'集团总计','orgAbb':null},
                   // {'jjOrgAbb':'长城钻探','orgAbb':'合计'},
                   // {'jjOrgAbb':'长城钻探','orgAbb':'国际测井公司'},
                   // {'jjOrgAbb':'渤海钻探','orgAbb':'合计'},
@@ -298,20 +297,10 @@
             }
           }
         },
-        components: {
-          'oms2-date-picker-daily': DatePickerDaily
-        }
     }
 </script>
 
 <style lang="scss" scoped>
-    .oms2-datepicker-content{
-      margin-bottom:10px;
-    }
-    .oms2-date-picker-monthly-input{
-      width:100px !important;
-      font-size: 10px;
-    }
     .oms2-icon{
       margin-left:20px;
       margin-right:20px;

@@ -28,7 +28,6 @@
 
 
 <script>
-    import DatePickerMonthly from './../../components/datepicker/DatePickerMonthly'
     import { Indicator } from 'mint-ui';
     import { getMonthlyOfWorkloadGN } from './../../service/dh/dhGetData'
     import { getCurrentDate,addMonth } from '../../service/utils/date/date'
@@ -173,9 +172,6 @@
                     return 'oms2-item-not-exist'
                 }
             }
-        },
-        components: {
-            'oms2-date-picker-monthly':DatePickerMonthly
         }
     }
 </script>

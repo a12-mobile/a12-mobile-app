@@ -86,7 +86,7 @@
         Toast
     } from "mint-ui"
     export default {
-        name: 'DatePickerDaily',
+        name: 'oms2-date-picker-daily',
         data() {
             return {
                 currentDate: getCurrentDate(),

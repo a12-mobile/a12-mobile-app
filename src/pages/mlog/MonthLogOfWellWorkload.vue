@@ -239,9 +239,6 @@
         }
 
       },
-      components: {
-     //   'oms2-daily-date-picker': DailyDatePicker
-      }
     }
 </script>
 

@@ -28,10 +28,10 @@
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">{{selectedRow.juOrgabb}} {{selectedRow.chuOrgabb}}<span style="padding-left:2rem;font-size:14px">(
+                <h5 class="modal-title" style="font-size:14px" id="exampleModalLongTitle">{{selectedRow.juOrgabb}} <b>/</b> {{selectedRow.chuOrgabb}}<span style="padding-left:2rem;font-size:14px">(
                               {{date.time}})</span></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
+                  <span style="font-size:20px;" aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
@@ -159,7 +159,6 @@
 </template>
 
 <script>
-    import DatePickerMonthly from './../../components/datepicker/DatePickerMonthly'
     import { Indicator } from 'mint-ui';
     import { getMonthlyOfWorkload } from './../../service/log/logGetData'
     import {formatDate,addMonth,getCurrentDate} from './../../service/utils/date/date'
@@ -177,8 +176,8 @@
                 columns: [
                     {field: 'juOrgabb', width:60, columnAlign: 'center', isFrozen: true,isResize:true},
                     {field: 'chuOrgabb', width: 110, columnAlign: 'center', isFrozen: true,isResize:true},
-                    {field: 'totalWellCount', width: 40, columnAlign: 'right',isResize:true},
-                    {field: 'completeWellCount', width: 40, columnAlign: 'right',isResize:true},
+                    {field: 'totalWellCount', width: 50, columnAlign: 'right',isResize:true},
+                    {field: 'completeWellCount', width: 50, columnAlign: 'right',isResize:true},
                     {field: 'wjcjCount', width: 40, columnAlign: 'right',isResize:true},
                     {field: 'lyTotal', width: 40, columnAlign: 'right',isResize:true},
                     {field: 'wjcjWellcount', width: 40, columnAlign: 'right',isResize:true},
@@ -288,7 +287,7 @@
                     if(data.data){
                         this.tableData=data.data
                         //检查是否含有所有地区
-                        let jujiorgnames=[{'juOrgabb':'集团总计','chuOrgabb':''},
+                        let jujiorgnames=[{'juOrgabb':'集团总计','chuOrgabb':null},
                                         {'juOrgabb':'长城钻探','chuOrgabb':'合计'},
                                         {'juOrgabb':'长城钻探','chuOrgabb':'国际测井公司'},
                                         {'juOrgabb':'渤海钻探','chuOrgabb':'合计'},
@@ -437,9 +436,6 @@
               $("#ModalWellMessage").modal('show')
             }
         },
-        components: {
-            'oms2-date-picker-monthly':DatePickerMonthly
-        }
     }
 </script>
 

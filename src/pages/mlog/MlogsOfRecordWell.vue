@@ -80,8 +80,6 @@
 </template>
 
 <script>
-
-    import DatePickerDaily from './../../components/datepicker/DatePickerDaily'//导入日期控件
     import { Indicator } from 'mint-ui';//导入加载动画插件
     import timepicker from './../../components/datepicker/timepicker' //导入时间插件，获取当前时间
     import {getMlogByCondition} from './../../service/mlog/mlogGetData'//导入axios封装函数，包含请求后台路径
@@ -286,9 +284,6 @@
         mounted() {
           this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top-60;
         },
-        components: {
-            'oms2-date-picker-daily': DatePickerDaily
-        }
     }
 </script>
 
