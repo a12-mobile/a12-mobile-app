@@ -14,7 +14,7 @@ let dataMonitorUrl='http://61.158.56.6:8030/websocket/rtdata/echarts/demo.html'
 let webSocketUrl='ws://61.158.56.6:8030/websocket/websocket'
 let webSocketHttpUrl='http://61.158.56.6:8030/websocket'
 
-baseUrl="/api"
+// baseUrl="/api"
 
 
 let httpBaseUrl=baseUrl+'/mobile'

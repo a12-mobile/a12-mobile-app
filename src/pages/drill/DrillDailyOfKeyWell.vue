@@ -1,10 +1,10 @@
 <template>
 <div>
         <oms2-header :title="$route.meta.title">
+        <span slot="right" class='oms2-search' @click="handleShowSelect"><i class="fa fa-search"></i></span>
     </oms2-header>
     <div id="DailyOfKeyWell">
         <oms2-date-picker-daily :date="date" @date-change="handleDateChange"></oms2-date-picker-daily>
-        <!-- <span class='oms2-search' @click="handleShowSelect"><i class="fa fa-search"></i></span> -->
 
         <!-- 查询 Modal -->
         <div class="modal fade oms2-font-size" id="ModalSelect" tabindex="-1" role="dialog" aria-labelledby="ModalSelectTitle" aria-hidden="true">
