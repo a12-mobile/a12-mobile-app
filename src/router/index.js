@@ -1,51 +1,58 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/pages/Tab-Home'
-import MultiWellList from '@/pages/Tab-MultiWellList'
-import Discussion from '@/pages/Tab-Discussion'
-import Me from '@/pages/Tab-Me'
-import SubView from '@/pages/SubView'
+import { request } from 'https';
+
+
+//按需加载
+const Home = r => require.ensure([], () => r(require('@/pages/Tab-Home')), 'tab')
+const MultiWellList = r => require.ensure([], () => r(require('@/pages/Tab-MultiWellList')), 'tab')
+const Discussion = r => require.ensure([], () => r(require('@/pages/Tab-Discussion')), 'tab')
+const Me = r => require.ensure([], () => r(require('@/pages/Tab-Me')), 'tab')
+const SubView = r => require.ensure([], () => r(require('@/pages/SubView')), 'tab')
 
 //钻井
-import DrillFormList from '@/pages/drill/DrillFormList'
-import DrillDailyOfKeyWell from '@/pages/drill/DrillDailyOfKeyWell'
-import DailyOfDrilling from '@/pages/drill/DailyOfDrilling'
-import DRDailyOfRigDynamic from '@/pages/drill/DRDailyOfRigDynamic'
+const DrillFormList = r => require.ensure([], () => r(require('@/pages/drill/DrillFormList')), 'drill')
+const DrillDailyOfKeyWell = r => require.ensure([], () => r(require('@/pages/drill/DrillDailyOfKeyWell')), 'drill')
+const DailyOfDrilling = r => require.ensure([], () => r(require('@/pages/drill/DailyOfDrilling')), 'drill')
+const DRDailyOfRigDynamic = r => require.ensure([], () => r(require('@/pages/drill/DRDailyOfRigDynamic')), 'drill')
+
+
 //井下
-import DhFormList from '@/pages/dh/DhFormList'
-import DhMonthlyOfWorkloadGN from '@/pages/dh/DhMonthlyOfWorkloadGN'
-import DhMonthlyOfWorkloadZ from '@/pages/dh/DhMonthlyOfWorkloadZ'
+const DhFormList = r => require.ensure([], () => r(require('@/pages/dh/DhFormList')), 'dh')
+const DhMonthlyOfWorkloadGN = r => require.ensure([], () => r(require('@/pages/dh/DhMonthlyOfWorkloadGN')), 'dh')
+const DhMonthlyOfWorkloadZ = r => require.ensure([], () => r(require('@/pages/dh/DhMonthlyOfWorkloadZ')), 'dh')
 
 //测井
-import LogFormList from '@/pages/log/LogFormList'
-import LogMonthlyOfWorkload from '@/pages/log/LogMonthlyOfWorkload'
-import LogDailyOfWorkload from '@/pages/log/LogDailyOfWorkload'
+const LogFormList = r => require.ensure([], () => r(require('@/pages/log/LogFormList')), 'log')
+const LogMonthlyOfWorkload = r => require.ensure([], () => r(require('@/pages/log/LogMonthlyOfWorkload')), 'log')
+const LogDailyOfWorkload = r => require.ensure([], () => r(require('@/pages/log/LogDailyOfWorkload')), 'log')
 
 
 // //录井
-import MonthLogOfLogWellByCompany from '@/pages/mlog/MonthLogOfLogWellByCompany'
-import MonthLogOfWellWorkload from '@/pages/mlog/MonthLogOfWellWorkload'
-import MlogsOfRecordWell from '@/pages/mlog/MlogsOfRecordWell'
-import MlogFormList from '@/pages/mlog/MlogFormList'
-import MlogMonthOfTeam from '@/pages/mlog/MlogMonthOfTeam'
+const MonthLogOfLogWellByCompany = r => require.ensure([], () => r(require('@/pages/mlog/MonthLogOfLogWellByCompany')), 'mlog')
+const MonthLogOfWellWorkload = r => require.ensure([], () => r(require('@/pages/mlog/MonthLogOfWellWorkload')), 'mlog')
+const MlogsOfRecordWell = r => require.ensure([], () => r(require('@/pages/mlog/MlogsOfRecordWell')), 'mlog')
+const MlogFormList = r => require.ensure([], () => r(require('@/pages/mlog/MlogFormList')), 'mlog')
+const MlogMonthOfTeam = r => require.ensure([], () => r(require('@/pages/mlog/MlogMonthOfTeam')), 'mlog')
 
 //实时数据
-import RealtimeListOfProjectData from '@/pages/real-time/ListOfProjectData'
+const RealtimeListOfProjectData = r => require.ensure([], () => r(require('@/pages/real-time/ListOfProjectData')), 'real-time')
 
 //demo
-import HorizontalScreen from '@/pages/demo/HorizontalScreen'
-import LoadMore from '@/pages/demo/LoadMore'
-import Mlogs from '@/pages/demo/MlogsOfRecordWell'
+const HorizontalScreen = r => require.ensure([], () => r(require('@/pages/demo/HorizontalScreen')), 'demo')
+const LoadMore = r => require.ensure([], () => r(require('@/pages/demo/LoadMore')), 'demo')
+const Mlogs = r => require.ensure([], () => r(require('@/pages/demo/MlogsOfRecordWell')), 'demo')
 
 //horizontal
-import DrillDailyOfZH from '@/pages/horizontal/DrillDailyOfZH'
+const DrillDailyOfZH = r => require.ensure([], () => r(require('@/pages/horizontal/DrillDailyOfZH')), 'demo')
 
 //well
-import WellList from '@/pages/well/WellList'
-import KeyWellList from '@/pages/well/KeyWellList'
+const WellList = r => require.ensure([], () => r(require('@/pages/well/WellList')), 'well')
+const KeyWellList = r => require.ensure([], () => r(require('@/pages/well/KeyWellList')), 'well')
 
 //物探
-import GPFormList from '@/pages/gp/GPFormList'
+const GPFormList = r => require.ensure([], () => r(require('@/pages/gp/GPFormList')), 'gp')
+
 
 Vue.use(Router)
 

@@ -30,10 +30,12 @@
     export default {
       name: "MonthLogOfWellWorkload",
       created(){
-        this.$ruixin.supportAutorotate({});
       },
       mounted(){
         this.$ruixin.setWebViewTitle({title:'录井分单位月报'});
+        setTimeout(()=>{
+                this.$ruixin.supportAutorotate({});
+            },200)
       },
       data: function () {
         return {

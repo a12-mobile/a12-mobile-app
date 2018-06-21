@@ -1,7 +1,7 @@
 <template>
-<div>
-        <oms2-header :title="$route.meta.title">
-        <span slot="right" class='oms2-search' @click="handleShowSelect"><i class="fa fa-search"></i></span>
+  <div>
+    <oms2-header :title="$route.meta.title">
+        <span slot="right" class='' @click="handleShowSelect"><i class="fa fa-search oms2-title-icon"></i></span>
     </oms2-header>
     <div id="DailyOfKeyWell">
         <oms2-date-picker-daily :date="date" @date-change="handleDateChange"></oms2-date-picker-daily>
@@ -325,7 +325,9 @@
         },
         mounted(){
             // this.$ruixin.setWebViewTitle({title:'重点井日报'})
-            this.$ruixin.supportAutorotate({})
+            setTimeout(()=>{
+                this.$ruixin.supportAutorotate({});
+            },200)
             this.$ruixin.hideWebViewTitle({});
         },
         methods:{
@@ -442,14 +444,15 @@
 </script>
 
 <style lang="scss">
+    .oms2-title-icon{
+        font-size:22px !important;
+            // position:absolute;
+            // right:1rem;
+            // top:1rem;
+    }
     #DailyOfKeyWell{
         padding-top:$header-height;
         
-        .oms2-search{
-            position:absolute;
-            right:1rem;
-            top:1rem;
-        }
         .oms2-list-item-content{
             text-align: left;
             padding-left:0rem;

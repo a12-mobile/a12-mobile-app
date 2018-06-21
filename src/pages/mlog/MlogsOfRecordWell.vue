@@ -163,7 +163,9 @@
         created(){
           this.loadingDate();
           this.tableHeight=window.innerHeight
-          this.$ruixin.supportAutorotate({});
+          setTimeout(()=>{
+                this.$ruixin.supportAutorotate({});
+            },200)
         },
         mounted(){
           this.$ruixin.setWebViewTitle({title:'录井分队动态'});

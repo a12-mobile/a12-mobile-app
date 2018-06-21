@@ -99,7 +99,9 @@
     },
     mounted(){
       this.$ruixin.setWebViewTitle({title:'钻井综合日报'})
-      this.$ruixin.supportAutorotate({})
+      setTimeout(()=>{
+                this.$ruixin.supportAutorotate({});
+            },200)
     },
     methods: {
       requestDate() {

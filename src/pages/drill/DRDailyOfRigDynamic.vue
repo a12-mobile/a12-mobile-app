@@ -97,7 +97,9 @@
       },
       mounted(){
         this.$ruixin.setWebViewTitle({title:'工作量动态日报'})
-        this.$ruixin.supportAutorotate({})
+        setTimeout(()=>{
+                this.$ruixin.supportAutorotate({});
+            },200)
       },
       methods: {
         requestDate() {

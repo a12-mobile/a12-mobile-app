@@ -99,7 +99,9 @@
             this.tableHeight=window.innerHeight-80
         },
         mounted(){
-            this.$ruixin.supportAutorotate({});
+            setTimeout(()=>{
+                this.$ruixin.supportAutorotate({});
+            },200)
             this.$ruixin.setWebViewTitle({title:'井下工作量月报总'});
         },
         methods:{

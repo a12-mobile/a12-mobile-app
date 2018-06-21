@@ -108,7 +108,9 @@
       created(){
         this.requestData()
         this.tableheight=window.innerHeight-80
-        this.$ruixin.supportAutorotate({});
+        setTimeout(()=>{
+                this.$ruixin.supportAutorotate({});
+            },200)
       },
       mounted(){
         this.$ruixin.setWebViewTitle({title:'录井分单位月报'});

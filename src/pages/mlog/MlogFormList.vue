@@ -3,6 +3,18 @@
     <div class="container">
       <div class="row">
         <div class="col-4 oms2-grid-cell">
+          <router-link to="/well/list">
+            <img class='oms2-grid-cell-image' src="./../../assets/icon/wellList.png">
+          </router-link>
+          <p>井列表</p>
+        </div>
+        <div class="col-4 oms2-grid-cell">
+          <router-link to="/well/list/key">
+            <img class='oms2-grid-cell-image' src="./../../assets/icon/careWellList.png">
+          </router-link>
+          <p>关注井列表</p>
+        </div>
+        <div class="col-4 oms2-grid-cell">
           <router-link to="/real-time/list/project">
             <img class='oms2-grid-cell-image' src="./../../assets/icon/realtimeData.png">
           </router-link>

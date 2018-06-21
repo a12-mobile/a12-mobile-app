@@ -74,7 +74,9 @@
         created(){
           this.requestData();
           this.tablehight=window.innerHeight-80
-          this.$ruixin.supportAutorotate({});
+          setTimeout(()=>{
+                this.$ruixin.supportAutorotate({});
+            },200)
         },
         mounted(){
           this.$ruixin.setWebViewTitle({title:'录井队伍统计月报'});
