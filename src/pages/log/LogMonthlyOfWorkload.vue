@@ -273,7 +273,7 @@
             this.tableHeight=window.innerHeight-80
         },
         mounted(){
-            this.$ruixin.setWebViewTitle({title:'测井工作量月报'});
+            this.$ruixin.setWebViewTitle({title:this.$route.meta.title});
             setTimeout(()=>{
                 this.$ruixin.supportAutorotate({});
             },200)

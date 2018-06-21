@@ -7,6 +7,12 @@ const mixin={
             // console.log("混入")
             // console.log(this.$ruixin)
         },
+        mounted(){
+            this.$ruixin.setWebViewTitle({title:this.$route.meta.title});
+            setTimeout(()=>{
+                this.$ruixin.supportAutorotate({});
+            },200)
+        },
         methods:{
             /**
              * 添加标题

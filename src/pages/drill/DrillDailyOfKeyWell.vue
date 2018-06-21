@@ -212,7 +212,7 @@
     import { getDaliyOfKeyWell } from './../../service/drill/drillGetData'
     import mixin from './../../service/utils/system/mixin'
     export default {
-         mixins:[mixin.mixin_ruixin],
+        //  mixins:[mixin.mixin_ruixin],
          data() {
             return {
                 tableHeight:0,   //表格高度

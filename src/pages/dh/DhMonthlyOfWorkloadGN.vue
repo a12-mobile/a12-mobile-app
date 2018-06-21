@@ -31,7 +31,9 @@
     import { Indicator } from 'mint-ui';
     import { getMonthlyOfWorkloadGN } from './../../service/dh/dhGetData'
     import { getCurrentDate,addMonth } from '../../service/utils/date/date'
+    import mixin from './../../service/utils/system/mixin'
     export default {
+         mixins:[mixin.mixin_ruixin],
          data() {
             return {
                 date: {
@@ -96,12 +98,6 @@
         created(){
             this.requestData()
             this.tableHeight=window.innerHeight-80
-        },
-        mounted(){
-            setTimeout(()=>{
-                this.$ruixin.supportAutorotate({});
-            },200)
-            this.$ruixin.setWebViewTitle({title:'井下工作量月报国内'});
         },
         
         

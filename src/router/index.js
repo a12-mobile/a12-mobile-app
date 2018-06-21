@@ -129,7 +129,7 @@ export default new Router({
       path: '/dh/monthly/workload/gn',
       name: 'DhMonthlyOfWorkloadGN',
       component: DhMonthlyOfWorkloadGN,
-      meta:{ navShow: false, title: '统计月报'}
+      meta:{ navShow: false, title: '井下工作量月报国内'}
     },
 
 
@@ -137,7 +137,7 @@ export default new Router({
       path: '/dh/monthly/workload/total',
       name: 'DhMonthlyOfWorkloadZ',
       component: DhMonthlyOfWorkloadZ,
-      meta:{ navShow: false, title: '统计月报'}
+      meta:{ navShow: false, title: '井下工作量月报总'}
     },
     //井下 end
     //测井
@@ -151,7 +151,7 @@ export default new Router({
       path: '/log/monthly/workload',
       name: 'LogMonthlyOfWorkload',
       component: LogMonthlyOfWorkload,
-      meta:{ navShow: false, title: '统计月报'}
+      meta:{ navShow: false, title: '测井工作量月报'}
     },
     {
       path: '/log/daily/workload',
