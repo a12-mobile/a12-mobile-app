@@ -4,6 +4,10 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import axios from 'axios'
+//解决ie兼容问题
+import 'babel-polyfill'
+
+
 import httpServer from './service/http/httpService'
 import entityServer from './service/http/entityService'
 import toastServer from './service/utils/toast/toast'

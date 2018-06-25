@@ -108,7 +108,7 @@ export default new Router({
       path:'/dailyOfDrilling',
       name:'DailyOfDrilling',
       component:DailyOfDrilling,
-      meta:{navShow:false,title:'钻井综合日报'}
+      meta:{navShow:false,title:'工作量日报'}
     },
     {
       path:'/dRDailyOfRigDynamic',
