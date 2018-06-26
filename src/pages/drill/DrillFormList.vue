@@ -39,13 +39,13 @@
             <router-link to="/dRDailyOfRigDynamic">
               <img class='oms2-grid-cell-image' src="./../../assets/icon/dh/monthlyOfWorkload.png">
             </router-link>
-            <p>工作量动态日报</p>
+            <p>钻机动态日报</p>
           </div>
           <div class="col-4 oms2-grid-cell">
             <router-link to="/dailyOfDrilling">
               <img class='oms2-grid-cell-image' src="./../../assets/icon/wellList.png">
             </router-link>
-            <p>综合日报</p>
+            <p>工作量日报</p>
           </div>
       </div>
     </div>

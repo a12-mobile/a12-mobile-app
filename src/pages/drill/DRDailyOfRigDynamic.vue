@@ -96,7 +96,8 @@
         this.requestDate()
       },
       mounted(){
-        this.$ruixin.setWebViewTitle({title:'工作量动态日报'})
+        console.log(this.$route.meta.title)
+        this.$ruixin.setWebViewTitle({title:this.$route.meta.title})
         setTimeout(()=>{
                 this.$ruixin.supportAutorotate({});
             },200)

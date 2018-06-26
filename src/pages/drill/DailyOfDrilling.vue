@@ -98,7 +98,7 @@
       this.requestDate()
     },
     mounted(){
-      this.$ruixin.setWebViewTitle({title:'钻井综合日报'})
+      this.$ruixin.setWebViewTitle({title:this.$route.meta.title})
       setTimeout(()=>{
                 this.$ruixin.supportAutorotate({});
             },200)
