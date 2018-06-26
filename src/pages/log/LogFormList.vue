@@ -16,7 +16,7 @@
         </div>
         <div class="col-4 oms2-grid-cell">
           <router-link to="/log/Monthly/workloadOfBlock">
-            <img class='oms2-grid-cell-image' src="./../../assets/icon/wellList.png">
+            <img class='oms2-grid-cell-image' src="./../../assets/icon/log/monthlyOfWorkload.png">
           </router-link>
           <p>工作量油区分布</p>
         </div>
