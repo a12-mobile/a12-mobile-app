@@ -26,6 +26,7 @@ const DhMonthlyOfWorkloadZ = r => require.ensure([], () => r(require('@/pages/dh
 const LogFormList = r => require.ensure([], () => r(require('@/pages/log/LogFormList')), 'log')
 const LogMonthlyOfWorkload = r => require.ensure([], () => r(require('@/pages/log/LogMonthlyOfWorkload')), 'log')
 const LogDailyOfWorkload = r => require.ensure([], () => r(require('@/pages/log/LogDailyOfWorkload')), 'log')
+const LogWorkloadOfBlock = r => require.ensure([], () => r(require('@/pages/log/LogWorkloadOfBlock')), 'log')
 
 
 // //录井
@@ -97,7 +98,6 @@ export default new Router({
       component: DrillFormList,
       meta: { navShow: false, title: '钻井报表' }
     },
-    
     {
       path: '/drill/daily/well/key',
       name: 'DrillDailyOfKeyWell',
@@ -158,6 +158,12 @@ export default new Router({
       name: 'LogDailyOfWorkload',
       component: LogDailyOfWorkload,
       meta:{ navShow: false, title: '测井工作量日报'}
+    },
+    {
+      path: '/log/monthly/workloadOfBlock',
+      name: 'LogWorkloadOfBlock',
+      component: LogWorkloadOfBlock,
+      meta:{ navShow: false, title: '测井工作量油区分布表'}
     },
 
     //测井end
