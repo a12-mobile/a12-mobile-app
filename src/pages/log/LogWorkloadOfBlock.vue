@@ -198,12 +198,12 @@
               {field: 'jtnother', width: 40, columnAlign: 'right',isResize:true},
 
               {field: 'subtotal2', width: 40, columnAlign: 'right',isResize:true},
-              {field: 'sinopec', width: 80, columnAlign: 'right',isResize:true},
-              {field: 'cnooc', width: 60, columnAlign: 'right',isResize:true},
-              {field: 'reverseContract', width: 60, columnAlign: 'right',isResize:true},
-              {field: 'jtwother', width: 50, columnAlign: 'right',isResize:true},
+              {field: 'sinopec', width: 40, columnAlign: 'right',isResize:true},
+              {field: 'cnooc', width: 40, columnAlign: 'right',isResize:true},
+              {field: 'reverseContract', width: 40, columnAlign: 'right',isResize:true},
+              {field: 'jtwother', width: 40, columnAlign: 'right',isResize:true},
 
-              {field: 'subtotal3', width: 50, columnAlign: 'right',isResize:true},
+              {field: 'subtotal3', width: 40, columnAlign: 'right',isResize:true},
               {field: 'incompany', width: 40, columnAlign: 'right',isResize:true},
               {field: 'outcompany', width: 40, columnAlign: 'right',isResize:true},
             ],
@@ -276,10 +276,10 @@
           this.tableHeight=window.innerHeight-80
         },
         mounted(){
-          // this.$ruixin.setWebViewTitle({title:'测井工作量日报'});
-          // setTimeout(()=>{
-          //   this.$ruixin.supportAutorotate({});
-          // },200)
+          this.$ruixin.setWebViewTitle({title:'测井工作量油区分布统计表'});
+          setTimeout(()=>{
+            this.$ruixin.supportAutorotate({});
+          },200)
         },
         methods:{
           //请求数据方法
