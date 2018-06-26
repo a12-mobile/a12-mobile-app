@@ -19,3 +19,13 @@ export function getDailyOfWorkload(date) {
     'date': date
   })
 }
+
+/**
+ * 向服务器获取测井工作量油区分布统计表
+ * @param {*} date
+ */
+export function getWorkloadOfBlock(date) {
+  return httpService('GET', '/log/month/findWorkloadByBlock', {
+    'date': date
+  })
+}
