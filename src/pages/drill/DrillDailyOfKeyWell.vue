@@ -54,7 +54,7 @@
             :row-click="handleRowClick"
             title-bg-color="#F6F6F6" 
             :height=tableHeight
-            style="width:100%;font-size:12px"
+            style="width:100%;font-size:12px;"
             :columns="columns" 
             :title-rows="titleRows" 
             :table-data="tableData" 
@@ -196,7 +196,8 @@
                         
                         </form>
                         <div class="modal-footer">
-                            <button type="button" data-dismiss="modal" class="btn btn-primary">返回</button>
+                            <!-- <button type="button" data-dismiss="modal" class="btn btn-primary">返回</button> -->
+                            <button type="button" @click="closeModel" class="btn btn-primary">返回</button>
                         </div>
                     </div>
                 </div>
@@ -321,7 +322,12 @@
         created(){
             //首次进入页面获取数据
             this.requestDate()
-            this.tableHeight=window.innerHeight-80
+            this.tableHeight=window.innerHeight-130;
+
+            $(function(){
+                $("#ModalWellMessage").on("hidden.bs.modal",()=>{
+                })
+            })
         },
         mounted(){
             // this.$ruixin.setWebViewTitle({title:'重点井日报'})
@@ -438,6 +444,9 @@
             handleRowClick(rowIndex, rowData, column){
                 this.selectedRow=rowData
                 $("#ModalWellMessage").modal('show')
+            },
+            closeModel(){
+                $("#ModalWellMessage").modal('hide')
             }
         },
     }
@@ -455,15 +464,14 @@
         
         .oms2-list-item-content{
             text-align: left;
-            padding-left:0rem;
-            padding-bottom:1rem;
-            
+            padding-left:0px;
+            padding-bottom:10px; 
         }
         .oms2-list-divider{
             text-align: center;
             padding-top:0rem !important;
             padding-bottom:0rem !important;
-            margin-bottom:1rem;
+            margin-bottom:10px;
         }
         .oms2-right{
             text-align: right;
@@ -477,10 +485,10 @@
             display: none;
         }
         .sbx-google__input{
-            padding-right:1.1rem;
+            padding-right:11px;
         }
         .sbx-google__reset{
-            right:1rem;
+            right:10px;
         }
         //改变搜索框样式  end
     

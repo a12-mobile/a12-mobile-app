@@ -50,6 +50,7 @@ const DrillDailyOfZH = r => require.ensure([], () => r(require('@/pages/horizont
 //well
 const WellList = r => require.ensure([], () => r(require('@/pages/well/WellList')), 'well')
 const KeyWellList = r => require.ensure([], () => r(require('@/pages/well/KeyWellList')), 'well')
+const WellDaily = r => require.ensure([], () => r(require('@/pages/well/WellDaily')), 'well')
 
 //物探
 const GPFormList = r => require.ensure([], () => r(require('@/pages/gp/GPFormList')), 'gp')
@@ -255,6 +256,12 @@ export default new Router({
       name: 'KeyWellList',
       component: KeyWellList,
       meta: { navShow: false, title: '关注井列表' },
+    },
+    {
+      path: '/well/daily',
+      name: 'WellDaily',
+      component: WellDaily,
+      meta: { navShow: false, title: '井日报' },
     },
 
 

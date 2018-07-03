@@ -89,7 +89,7 @@ Vue.prototype.$toast=toastServer      //土司
  * 用于报表展示
  */
 Vue.filter('ifNumberIsNull', function (value) {
-  if(!value||value==-1){
+  if(value!=0&&!value||value==-1){
     return ''
   }else{
     return value

@@ -24,3 +24,12 @@ export function getWellList() {
 export function getKeyWellList() {
   return httpService('GET', '/well/key')
 }
+/**
+ * 向服务器获取所有重点井列表
+ */
+export function getWellDaily(wellId,date) {
+  return httpService('GET', '/drill/daily/well',{
+    date,
+    wellId
+  })
+}

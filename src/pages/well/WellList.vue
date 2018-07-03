@@ -35,30 +35,32 @@
                                 </div>
                             </div>
                             <div>
-                                <div @click="handleClickItem(index)" style="padding-right:15px;padding-top:1rem">
+                                <div @click="handleClickItem(item)" style="padding-right:15px;padding-top:10px">
                                     <div class="row">
                                         <div class="col-3">
-                                            <label style="font-size:12px;font-weight:bold;float:right;">油区：</label>
+                                            <label class="oms2-list-item-label">油区：</label>
                                         </div>
                                         <div class="col-9">
-                                            <label style="font-size:12px;">{{item.wellBlock | ifStringIsNull}}</label>
+                                            <label class="oms2-list-item-body">{{item.wellBlock | ifStringIsNull}}</label>
                                         </div>
                                         <div class="col-3">
-                                            <label style="font-size:12px;font-weight:bold;float:right">设计井深：</label>
+                                            <label class="oms2-list-item-label">设计井深：</label>
                                         </div>
                                         <div class="col-3">
-                                            <label style="font-size:12px;">{{item.authorizedMd | ifStringIsNull}}</label>
+                                            <label class="oms2-list-item-body">{{item.authorizedMd | ifStringIsNull}}</label>
                                         </div>
                                         <div class="col-3">
-                                            <label style="font-size:12px;font-weight:bold;float:right">当前井深：</label>
+                                            <label class="oms2-list-item-label">当前井深：</label>
                                         </div>
                                         <div class="col-3">
-                                            <label style="font-size:12px;">{{item.BHMd | ifStringIsNull}}</label>
+                                            <label class="oms2-list-item-body">{{item.currentMd | ifStringIsNull}}</label>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <label class="mb-1 col-3" style="text-align:right;font-weight:bold;font-size:12px;">作业内容：</label>
-                                        <div class="col-9" style="font-size:12px;">
+                                        <div class="mb-1 col-3">
+                                            <label class="oms2-list-item-label" >作业内容：</label>
+                                        </div>
+                                        <div class="col-9 oms2-list-item-body">
                                             {{item.workContent | ifStringIsNull}}
                                         </div>
                                     </div>
@@ -75,13 +77,14 @@
 
 <script>
     import {
-        getWellList
+        getWellList,getWellDaily
     } from './../../service/well/wellGetData'
     import db from './../../service/utils/database/database'
     import user from './../../service/comm/user'
     import {
         Indicator
     } from 'mint-ui';
+    import {getCurrentDate} from './../../service/utils/date/date'
     import {dataMonitorUrl} from './../../service/http/config'
     export default {
         data() {
@@ -117,14 +120,25 @@
         },
         methods: {
             handleClickItem(item) {
-                // this.$toast.showToast('选中得索引值为' + item)
-                // console.log("获取得index为" + item);
-                // this.$router.push({
-                //     path: '/sub',
-                //     query: {
-                //         username: '我是那边扔过来的'
-                //     }
-                // })
+                if(item.wellId){
+                    getWellDaily(item.wellId,getCurrentDate()).then((data)=>{
+                        let well=data.data
+                        if(well){
+                            well.time=getCurrentDate()
+                            this.$router.push({
+                                path:'/well/daily',
+                                query:{
+                                    well:well
+                                }
+                            })
+
+                        }else{
+                            this.$toast.showToast("无当日井日报")
+                        }
+                    })
+                }else{
+                    this.$toast.showToast("无井ID")
+                }
             },
             //关注/取消关注
             handleCareFor(item) {
@@ -264,6 +278,15 @@
             width: 96%;
             margin-left: 2%;
             box-shadow: 3px 3px 5px #e4e4e4;
+        }
+        .oms2-list-item-label{
+            font-size:12px;
+            font-weight:bold;
+            float:right;
+        }
+        .oms2-list-item-body{
+            font-size:12px;
+            float:left;
         }
         .oms2-icon {
             font-size: 16px;

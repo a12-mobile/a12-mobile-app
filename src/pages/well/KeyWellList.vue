@@ -33,7 +33,7 @@
                         </div>
                     </div>
                     <div>
-                        <div @click="handleClickItem(index)" style="padding-right:15px;padding-top:1rem">
+                        <div @click="handleClickItem(item)" style="padding-right:15px;padding-top:10px">
                             <div class="row">
                                 <div class="col-3">
                                     <label style="font-size:12px;font-weight:bold;float:right;">油区：</label>
@@ -51,7 +51,7 @@
                                     <label style="font-size:12px;font-weight:bold;float:right">当前井深：</label>
                                 </div>
                                 <div class="col-3">
-                                    <label style="font-size:12px;">{{item.BHMd | ifStringIsNull}}</label>
+                                    <label style="font-size:12px;">{{item.currentMd | ifStringIsNull}}</label>
                                 </div>
                             </div>
                             <div class="row">
@@ -71,7 +71,7 @@
 
 <script>
     import {
-        getKeyWellList
+        getKeyWellList,getWellDaily
     } from './../../service/well/wellGetData'
     import db from './../../service/utils/database/database'
     import user from './../../service/comm/user'
@@ -79,6 +79,7 @@
         Indicator
     } from 'mint-ui';
     import {dataMonitorUrl} from './../../service/http/config'
+    import {getCurrentDate} from './../../service/utils/date/date'
     export default {
         data() {
             return {
@@ -108,14 +109,25 @@
         },
         methods: {
             handleClickItem(item) {
-                // this.$toast.showToast('选中得索引值为' + item)
-                // console.log("获取得index为" + item);
-                // this.$router.push({
-                //     path: '/sub',
-                //     query: {
-                //         username: '我是那边扔过来的'
-                //     }
-                // })
+                if(item.wellId){
+                    getWellDaily(item.wellId,getCurrentDate()).then((data)=>{
+                        let well=data.data
+                        if(well){
+                            well.time=getCurrentDate()
+                            this.$router.push({
+                                path:'/well/daily',
+                                query:{
+                                    well:well
+                                }
+                            })
+
+                        }else{
+                            this.$toast.showToast("无当日井日报")
+                        }
+                    })
+                }else{
+                    this.$toast.showToast("无井ID")
+                }
             },
             //关注/取消关注
             handleCareFor(item) {

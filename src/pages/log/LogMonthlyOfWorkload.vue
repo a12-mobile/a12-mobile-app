@@ -161,7 +161,7 @@
 <script>
     import { Indicator } from 'mint-ui';
     import { getMonthlyOfWorkload } from './../../service/log/logGetData'
-    import {formatDate,addMonth,getCurrentDate} from './../../service/utils/date/date'
+    import {getCurrentDate} from './../../service/utils/date/date'
     export default {
          data() {
             return {
@@ -361,15 +361,6 @@
                     console.log(error)
 
                 })
-
-            },
-            handleMonthReduce(){
-                console.log("月减少一天")
-                this.date=new Date(addMonth(this.date,-1));
-            },
-            handleMonthAdd(){
-                console.log("月增加一天")
-                this.date=new Date(addMonth(this.date,1));
 
             },
             //返回按钮
