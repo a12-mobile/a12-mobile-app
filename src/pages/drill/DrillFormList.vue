@@ -1,7 +1,7 @@
 <template>
   <div id="DrillFormList">
     <div class="container">
-      
+
       <div class="row">
         <div class="col-4 oms2-grid-cell">
           <router-link to="/well/list">
@@ -34,7 +34,7 @@
             </router-link>
             <p>重点井日报</p>
           </div>
-          
+
           <div class="col-4 oms2-grid-cell">
             <router-link to="/dRDailyOfRigDynamic">
               <img class='oms2-grid-cell-image' src="./../../assets/icon/dh/monthlyOfWorkload.png">
@@ -46,6 +46,30 @@
               <img class='oms2-grid-cell-image' src="./../../assets/icon/wellList.png">
             </router-link>
             <p>工作量日报</p>
+          </div>
+          <div class="col-4 oms2-grid-cell">
+            <router-link to="/years/rigstatistics">
+              <img class='oms2-grid-cell-image' src="./../../assets/icon/wellList.png">
+            </router-link>
+            <p>钻机统计表(年报)</p>
+          </div>
+          <div class="col-4 oms2-grid-cell">
+            <router-link to="/years/drillTeam">
+              <img class='oms2-grid-cell-image' src="./../../assets/icon/wellList.png">
+            </router-link>
+            <p>钻井队伍分布统计表(年报)</p>
+          </div>
+          <div class="col-4 oms2-grid-cell">
+            <router-link to="/years/footage">
+              <img class='oms2-grid-cell-image' src="./../../assets/icon/wellList.png">
+            </router-link>
+            <p>钻井工作量-钻井进尺统计表(年报)</p>
+          </div>
+          <div class="col-4 oms2-grid-cell">
+            <router-link to="/years/drillNum">
+              <img class='oms2-grid-cell-image' src="./../../assets/icon/wellList.png">
+            </router-link>
+            <p>钻井工作量-开钻口数统计表(年报)</p>
           </div>
       </div>
     </div>
