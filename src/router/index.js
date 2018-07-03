@@ -1,58 +1,62 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from 'vue';
+import Router from 'vue-router';
 import { request } from 'https';
 
 
 //按需加载
-const Home = r => require.ensure([], () => r(require('@/pages/Tab-Home')), 'tab')
-const MultiWellList = r => require.ensure([], () => r(require('@/pages/Tab-MultiWellList')), 'tab')
-const Discussion = r => require.ensure([], () => r(require('@/pages/Tab-Discussion')), 'tab')
-const Me = r => require.ensure([], () => r(require('@/pages/Tab-Me')), 'tab')
-const SubView = r => require.ensure([], () => r(require('@/pages/SubView')), 'tab')
+const Home = r => require.ensure([], () => r(require('@/pages/Tab-Home')), 'tab');
+const MultiWellList = r => require.ensure([], () => r(require('@/pages/Tab-MultiWellList')), 'tab');
+const Discussion = r => require.ensure([], () => r(require('@/pages/Tab-Discussion')), 'tab');
+const Me = r => require.ensure([], () => r(require('@/pages/Tab-Me')), 'tab');
+const SubView = r => require.ensure([], () => r(require('@/pages/SubView')), 'tab');
 
 //钻井
-const DrillFormList = r => require.ensure([], () => r(require('@/pages/drill/DrillFormList')), 'drill')
-const DrillDailyOfKeyWell = r => require.ensure([], () => r(require('@/pages/drill/DrillDailyOfKeyWell')), 'drill')
-const DailyOfDrilling = r => require.ensure([], () => r(require('@/pages/drill/DailyOfDrilling')), 'drill')
-const DRDailyOfRigDynamic = r => require.ensure([], () => r(require('@/pages/drill/DRDailyOfRigDynamic')), 'drill')
+const DrillFormList = r => require.ensure([], () => r(require('@/pages/drill/DrillFormList')), 'drill');
+const DrillDailyOfKeyWell = r => require.ensure([], () => r(require('@/pages/drill/DrillDailyOfKeyWell')), 'drill');
+const DailyOfDrilling = r => require.ensure([], () => r(require('@/pages/drill/DailyOfDrilling')), 'drill');
+const DRDailyOfRigDynamic = r => require.ensure([], () => r(require('@/pages/drill/DRDailyOfRigDynamic')), 'drill');
+const DrillOfRigstatistics = r => require.ensure([], () => r(require('@/pages/drill/DrillOfRigstatistics')), 'drill');
+const DrillOfTeamYearly = r => require.ensure([], () => r(require('@/pages/drill/DrillOfTeamYearly')), 'drill');
+const DrillOfFootageYearly = r => require.ensure([], () => r(require('@/pages/drill/DrillOfFootageYearly')), 'drill');
+const DrillOfNumYearly = r => require.ensure([], () => r(require('@/pages/drill/DrillOfNumYearly')), 'drill');
 
 
 //井下
-const DhFormList = r => require.ensure([], () => r(require('@/pages/dh/DhFormList')), 'dh')
-const DhMonthlyOfWorkloadGN = r => require.ensure([], () => r(require('@/pages/dh/DhMonthlyOfWorkloadGN')), 'dh')
-const DhMonthlyOfWorkloadZ = r => require.ensure([], () => r(require('@/pages/dh/DhMonthlyOfWorkloadZ')), 'dh')
+const DhFormList = r => require.ensure([], () => r(require('@/pages/dh/DhFormList')), 'dh');
+const DhMonthlyOfWorkloadGN = r => require.ensure([], () => r(require('@/pages/dh/DhMonthlyOfWorkloadGN')), 'dh');
+const DhMonthlyOfWorkloadZ = r => require.ensure([], () => r(require('@/pages/dh/DhMonthlyOfWorkloadZ')), 'dh');
 
 //测井
-const LogFormList = r => require.ensure([], () => r(require('@/pages/log/LogFormList')), 'log')
-const LogMonthlyOfWorkload = r => require.ensure([], () => r(require('@/pages/log/LogMonthlyOfWorkload')), 'log')
-const LogDailyOfWorkload = r => require.ensure([], () => r(require('@/pages/log/LogDailyOfWorkload')), 'log')
-const LogWorkloadOfBlock = r => require.ensure([], () => r(require('@/pages/log/LogWorkloadOfBlock')), 'log')
+const LogFormList = r => require.ensure([], () => r(require('@/pages/log/LogFormList')), 'log');
+const LogMonthlyOfWorkload = r => require.ensure([], () => r(require('@/pages/log/LogMonthlyOfWorkload')), 'log');
+const LogDailyOfWorkload = r => require.ensure([], () => r(require('@/pages/log/LogDailyOfWorkload')), 'log');
+const LogWorkloadOfBlock = r => require.ensure([], () => r(require('@/pages/log/LogWorkloadOfBlock')), 'log');
 
 
 // //录井
-const MonthLogOfLogWellByCompany = r => require.ensure([], () => r(require('@/pages/mlog/MonthLogOfLogWellByCompany')), 'mlog')
-const MonthLogOfWellWorkload = r => require.ensure([], () => r(require('@/pages/mlog/MonthLogOfWellWorkload')), 'mlog')
-const MlogsOfRecordWell = r => require.ensure([], () => r(require('@/pages/mlog/MlogsOfRecordWell')), 'mlog')
-const MlogFormList = r => require.ensure([], () => r(require('@/pages/mlog/MlogFormList')), 'mlog')
-const MlogMonthOfTeam = r => require.ensure([], () => r(require('@/pages/mlog/MlogMonthOfTeam')), 'mlog')
+const MonthLogOfLogWellByCompany = r => require.ensure([], () => r(require('@/pages/mlog/MonthLogOfLogWellByCompany')), 'mlog');
+const MonthLogOfWellWorkload = r => require.ensure([], () => r(require('@/pages/mlog/MonthLogOfWellWorkload')), 'mlog');
+const MlogsOfRecordWell = r => require.ensure([], () => r(require('@/pages/mlog/MlogsOfRecordWell')), 'mlog');
+const MlogFormList = r => require.ensure([], () => r(require('@/pages/mlog/MlogFormList')), 'mlog');
+const MlogMonthOfTeam = r => require.ensure([], () => r(require('@/pages/mlog/MlogMonthOfTeam')), 'mlog');
 
 //实时数据
-const RealtimeListOfProjectData = r => require.ensure([], () => r(require('@/pages/real-time/ListOfProjectData')), 'real-time')
+const RealtimeListOfProjectData = r => require.ensure([], () => r(require('@/pages/real-time/ListOfProjectData')), 'real-time');
 
 //demo
-const HorizontalScreen = r => require.ensure([], () => r(require('@/pages/demo/HorizontalScreen')), 'demo')
-const LoadMore = r => require.ensure([], () => r(require('@/pages/demo/LoadMore')), 'demo')
-const Mlogs = r => require.ensure([], () => r(require('@/pages/demo/MlogsOfRecordWell')), 'demo')
+const HorizontalScreen = r => require.ensure([], () => r(require('@/pages/demo/HorizontalScreen')), 'demo');
+const LoadMore = r => require.ensure([], () => r(require('@/pages/demo/LoadMore')), 'demo');
+const Mlogs = r => require.ensure([], () => r(require('@/pages/demo/MlogsOfRecordWell')), 'demo');
 
 //horizontal
-const DrillDailyOfZH = r => require.ensure([], () => r(require('@/pages/horizontal/DrillDailyOfZH')), 'demo')
+const DrillDailyOfZH = r => require.ensure([], () => r(require('@/pages/horizontal/DrillDailyOfZH')), 'demo');
 
 //well
-const WellList = r => require.ensure([], () => r(require('@/pages/well/WellList')), 'well')
-const KeyWellList = r => require.ensure([], () => r(require('@/pages/well/KeyWellList')), 'well')
+const WellList = r => require.ensure([], () => r(require('@/pages/well/WellList')), 'well');
+const KeyWellList = r => require.ensure([], () => r(require('@/pages/well/KeyWellList')), 'well');
 
 //物探
-const GPFormList = r => require.ensure([], () => r(require('@/pages/gp/GPFormList')), 'gp')
+const GPFormList = r => require.ensure([], () => r(require('@/pages/gp/GPFormList')), 'gp');
 
 
 Vue.use(Router)
@@ -115,6 +119,30 @@ export default new Router({
       name:'DRDailyOfRigDynamic',
       component:DRDailyOfRigDynamic,
       meta:{navShow:false,title:'钻机动态日报'}
+    },
+    {
+      path:'/years/rigstatistics',
+      name:'DrillOfRigstatistics',
+      component:DrillOfRigstatistics,
+      meta:{navShow:false,title:'钻机统计表(年报)'}
+    },
+    {
+      path:'/years/drillTeam',
+      name:'DrillOfTeamYearly',
+      component:DrillOfTeamYearly,
+      meta:{navShow:false,title:'钻井队伍分布统计表(年报)'}
+    },
+    {
+      path:'/years/footage',
+      name:'DrillOfFootageYearly',
+      component:DrillOfFootageYearly,
+      meta:{navShow:false,title:'钻井工作量-钻井进尺统计表(年报)'}
+    },
+    {
+      path:'/years/drillNum',
+      name:'DrillOfNumYearly',
+      component:DrillOfNumYearly,
+      meta:{navShow:false,title:'钻井工作量-开钻口数统计表(年报)'}
     },
     //钻井end
 
