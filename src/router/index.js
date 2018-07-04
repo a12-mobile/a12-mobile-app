@@ -33,6 +33,10 @@ const LogFormList = r => require.ensure([], () => r(require('@/pages/log/LogForm
 const LogMonthlyOfWorkload = r => require.ensure([], () => r(require('@/pages/log/LogMonthlyOfWorkload')), 'log');
 const LogDailyOfWorkload = r => require.ensure([], () => r(require('@/pages/log/LogDailyOfWorkload')), 'log');
 const LogWorkloadOfBlock = r => require.ensure([], () => r(require('@/pages/log/LogWorkloadOfBlock')), 'log');
+const LogOfTeamByTeamtype = r => require.ensure([], () => r(require('@/pages/log/LogOfTeamByTeamtype')), 'log');
+const LogOfTeamByDevicetype = r => require.ensure([], () => r(require('@/pages/log/LogOfTeamByDevicetype')), 'log');
+const LogOfForeignTeamByTeamtype = r => require.ensure([], () => r(require('@/pages/log/LogOfForeignTeamByTeamtype')), 'log');
+const LogOfForeignTeamByDevicetype = r => require.ensure([], () => r(require('@/pages/log/LogOfForeignTeamByDevicetype')), 'log');
 
 
 // //录井
@@ -208,6 +212,30 @@ export default new Router({
       name: 'LogWorkloadOfBlock',
       component: LogWorkloadOfBlock,
       meta:{ navShow: false, title: '测井工作量油区分布表'}
+    },
+    {
+      path: '/log/Monthly/TeamByTeamType',
+      name: 'LogOfTeamByTeamtype',
+      component: LogOfTeamByTeamtype,
+      meta:{ navShow: false, title: '测井专业队伍分布表(按队伍类型)'}
+    },
+    {
+      path: '/log/Monthly/TeamByDeviceType',
+      name: 'LogOfTeamByDevicetype',
+      component: LogOfTeamByDevicetype,
+      meta:{ navShow: false, title: '测井专业队伍分布表(按设备类型)'}
+    },
+    {
+      path: '/log/Monthly/ForeignTeamByTeamType',
+      name: 'LogOfForeignTeamByTeamtype',
+      component: LogOfForeignTeamByTeamtype,
+      meta:{ navShow: false, title: '测井专业队伍国外分布表(按队伍类型)'}
+    },
+    {
+      path: '/log/Monthly/ForeignTeamByDeviceType',
+      name: 'LogOfForeignTeamByDevicetype',
+      component: LogOfForeignTeamByDevicetype,
+      meta:{ navShow: false, title: '测井专业队伍国外分布表(按设备类型)'}
     },
 
     //测井end
