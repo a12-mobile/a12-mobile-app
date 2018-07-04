@@ -134,6 +134,12 @@
             if(!this.well){
                 this.well=[]
             }
+            this.$ruixin.hideWebViewTitle({});
+        },
+        mounted(){
+            setTimeout(()=>{
+                this.$ruixin.supportAutorotate({});
+            },200)
         },
         data() {
             return {

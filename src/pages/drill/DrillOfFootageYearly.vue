@@ -6,7 +6,7 @@
       </mt-header> -->
       <!--<h4>中油油服钻井工作量日报</h4>-->
       <!-- <p>钻机统计表</p> -->
-      <!-- <div class='oms2-report-float-right' style="top:40px">数据来源于A7集团系统钻井综合日报</div> -->
+      <!-- <div class='oms2-g-report-float-right' style="top:40px">数据来源于A7集团系统钻井综合日报</div> -->
       <oms2-date-picker-daily :date="date"
                               @date-change="handleChange">
       </oms2-date-picker-daily>
@@ -27,7 +27,7 @@
       row-hover-color="#eee"
       row-click-color="#edf7ff"
     ></v-table>
-    <div class='oms2-report-float-right'>数据来源于A7集团系统库钻井工作量--钻井进尺统计表</div>
+    <div class='oms2-g-report-float-right'>数据来源于A7集团系统库钻井工作量--钻井进尺统计表</div>
   </div>
 </template>
 

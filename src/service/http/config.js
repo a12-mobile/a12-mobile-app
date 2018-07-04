@@ -10,12 +10,12 @@ let baseUrl = ''
 let imgBaseUrl = ''
 // let dataMonitorUrl='http://'+window.location.hostname+":"+window.location.port+'/mobile/server/rtDataMonitor/echarts/demo.html'
 // let webSocketUrl='ws://'+window.location.hostname+":"+window.location.port+'/mobile/websocket'
-let socket='11.59.0.177:8030/websocket'
+let socket='1.85.51.153:7005/websocket'
 let dataMonitorUrl=`http://${socket}/rtdata/echarts/demo.html`
 let webSocketUrl=`ws://${socket}/websocket`
 let webSocketHttpUrl=`http://${socket}`
 
-// baseUrl="/api"
+baseUrl="/api"
 
 
 let httpBaseUrl=baseUrl+'/mobile'

@@ -4,6 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import axios from 'axios'
+
+import mixin from './service/utils/system/mixin'
 //解决ie兼容问题
 import 'babel-polyfill'
 
@@ -81,6 +83,7 @@ Vue.prototype.$http = httpServer      //封装axios
 Vue.prototype.$entity = entityServer  //实体服务，用于服务器对实体进行增删改查
 Vue.prototype.$ruixin=ruixinApi       //瑞信API
 Vue.prototype.$toast=toastServer      //土司
+Vue.prototype.$mixin=mixin            //混入
 
 
 //定义全局过滤器

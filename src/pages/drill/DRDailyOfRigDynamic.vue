@@ -6,7 +6,7 @@
       </mt-header>-->
       <!--<h4>钻机动态日报</h4>-->
       <!-- <p>钻机动态日报</p> -->
-      <div class='oms2-report-float-right' style="top:40px">数据来源于A7集团系统钻机动态日报</div>
+      <div class='oms2-g-report-float-right' style="top:40px">数据来源于A7集团系统钻机动态日报</div>
       <oms2-date-picker-daily :date="date"
                               @date-change="handleChange">
       </oms2-date-picker-daily>
@@ -27,7 +27,7 @@
       row-hover-color="#eee"
       row-click-color="#edf7ff"
     ></v-table>
-    <!--<div class='oms2-report-float-right'>数据来源于A7集团系统库钻机动态日报</div>-->
+    <!--<div class='oms2-g-report-float-right'>数据来源于A7集团系统库钻机动态日报</div>-->
   </div>
 </template>
 
@@ -151,7 +151,7 @@
         //设置列单元格样式
         columnCellClass(rowIndex, columnName, rowData) {
           if(columnName=='sgdw'&&this.tableData[rowIndex].remark=='Not exist'){
-            return 'oms2-item-not-exist'
+            return 'oms2-g-item-not-exist'
           }
 
         },
