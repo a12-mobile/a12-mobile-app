@@ -3,7 +3,7 @@
     <oms2-header :title="$route.meta.title">
         <span slot="right" class='' @click="handleShowSelect"><i class="fa fa-search oms2-title-icon"></i></span>
     </oms2-header>
-    <div id="DailyOfKeyWell">
+    <div id="DailyOfWell">
         <oms2-date-picker-daily :date="date" @date-change="handleDateChange"></oms2-date-picker-daily>
 
         <!-- 查询 Modal -->
@@ -211,7 +211,7 @@
 <script>
     import { Indicator } from 'mint-ui';
     import timepicker from './../../components/datepicker/timepicker'
-    import { getDaliyOfKeyWell } from './../../service/drill/drillGetData'
+    import { getDaliyOfWell } from './../../service/drill/drillGetData'
     import mixin from './../../service/utils/system/mixin'
     export default {
         //  mixins:[mixin.mixin_ruixin],
@@ -338,7 +338,7 @@
              */
             requestDate() {
                 Indicator.open('加载中...')
-                getDaliyOfKeyWell(this.date.time)
+                getDaliyOfWell(this.date.time)
                 .then((data)=> {
                     Indicator.close()
                     if(data){
@@ -455,7 +455,7 @@
             // right:1rem;
             // top:1rem;
     }
-    #DailyOfKeyWell{
+    #DailyOfWell{
         padding-top:$header-height;
         
         .oms2-list-item-content{

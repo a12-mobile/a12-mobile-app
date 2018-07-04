@@ -1,12 +1,33 @@
 import httpService from './../http/httpService'
 
+
 /**
  * 向服务器获取钻井重点井日报数据
  * @param {*} date
  */
 export function getDaliyOfKeyWell(date) {
-  return httpService('GET', '/drill/daily/keyWell', {
+  return httpService('GET', '/drill/daily/list/keyWell', {
     'date': date
+  })
+}
+
+/**
+ * 向服务器获取分井动态数据
+ * @param {*} date
+ */
+export function getDaliyOfWell(date) {
+  return httpService('GET', '/drill/daily/list/well', {
+    'date': date
+  })
+}
+
+/**
+ * 向服务器获取某井的日报列表
+ * @param {*} wellId
+ */
+export function getWellDaliyListByWellId(wellId) {
+  return httpService('GET', '/drill/daily/well', {
+    'wellId': wellId
   })
 }
 

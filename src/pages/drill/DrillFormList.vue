@@ -15,19 +15,6 @@
           </router-link>
           <p>关注井列表</p>
         </div>
-        <div class="col-4 oms2-g-grid-cell">
-          <router-link to="/real-time/list/project">
-            <img class='oms2-g-grid-cell-image' src="./../../assets/icon/realtimeData.png">
-          </router-link>
-          <p>实时数据监测</p>
-        </div>
-        <div class="col-4 oms2-g-grid-cell">
-          <!-- <a href="http://11.10.97.109:9493/websocket/echarts/demo.html"> -->
-          <a :href="dataMonitor">
-            <img class='oms2-g-grid-cell-image' src="./../../assets/icon/realtimeCharts.png">
-          </a>
-          <p>实时曲线监测</p>
-        </div>
           <div class="col-4 oms2-g-grid-cell">
             <router-link to="/drill/daily/well/key">
               <img class='oms2-g-grid-cell-image' src="./../../assets/icon/drill/dailyOfKeyWell.png">
@@ -35,18 +22,25 @@
             <p>重点井日报</p>
           </div>
 
-          <div class="col-4 oms2-g-grid-cell">
+          <!-- <div class="col-4 oms2-g-grid-cell">
             <router-link to="/dRDailyOfRigDynamic">
               <img class='oms2-g-grid-cell-image' src="./../../assets/icon/dh/monthlyOfWorkload.png">
             </router-link>
             <p>钻机动态日报</p>
-          </div>
+          </div> -->
           <div class="col-4 oms2-g-grid-cell">
+            <router-link to="/drill/daily/well">
+              <img class='oms2-g-grid-cell-image' src="./../../assets/icon/drill/dailyOfKeyWell.png">
+            </router-link>
+            <p>分井动态</p>
+          </div>
+
+          <!-- <div class="col-4 oms2-g-grid-cell">
             <router-link to="/dailyOfDrilling">
               <img class='oms2-g-grid-cell-image' src="./../../assets/icon/wellList.png">
             </router-link>
             <p>工作量日报</p>
-          </div>
+          </div> -->
           <div class="col-4 oms2-g-grid-cell">
             <router-link to="/years/rigstatistics">
               <img class='oms2-g-grid-cell-image' src="./../../assets/icon/wellList.png">

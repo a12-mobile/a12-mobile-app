@@ -1,10 +1,56 @@
 <template>
   <div>
     <oms2-header :title="$route.meta.title">
-        <span slot="right" class='' @click="handleShowSelect"><i class="fa fa-search oms2-title-icon"></i></span>
+        <span slot="right" class=''>
+            <i @click="handleGoToChart()" class="fa fa-area-chart oms2-icon oms2-vertical-divider"></i>
+            <i @click="handleGoToList()" class="fa fa-list-alt oms2-icon"></i>
+        </span>
     </oms2-header>
-    <div id="DailyOfKeyWell">
-        <oms2-date-picker-daily :date="date" @date-change="handleDateChange"></oms2-date-picker-daily>
+    <div id="DrillDailyList">
+        <div class="card">
+            <div class="card-body">
+                <div style="display:inline">
+                    <h5 class="card-title">{{wellName}}</h5>
+                </div>
+                <div class="card-content row">
+                
+                <p class="col-6">
+                    <b>队号：</b>{{well.dh}}
+                </p>
+                <p class="col-6">
+                    <b>施工单位：</b>{{well.sgdw}}
+                </p>
+                <p class="col-6">
+                    <b>井型：</b>{{well.wellType}}
+                </p>
+                <p class="col-6">
+                    <b>开钻日期：</b>{{well.start1Date}}
+                </p>
+                <p class="col-6">
+                    <b>井别：</b>{{well.wellSort}}
+                </p>
+                <p class="col-6">
+                    <b>施工区域：</b>{{well.shigongquyu}}
+                </p>
+                </div>
+            </div>
+        </div>
+        <v-table 
+            is-horizontal-resize 
+            is-vertical-resize 
+            :title-row-height=20 
+            :row-height=30
+            :row-click="handleRowClick"
+            title-bg-color="#F6F6F6" 
+            :height=tableHeight
+            style="width:100%;font-size:12px;"
+            :columns="columns" 
+            :title-rows="titleRows" 
+            :table-data="tableData" 
+            :cell-merge="cellMerge"
+            even-bg-color="#F4F4F4" row-hover-color="#eee" row-click-color="#edF7FF"></v-table>
+        <div class='oms2-g-report-float-right'>数据来源于A7集团系统钻井重点井日报</div>
+
 
         <!-- 查询 Modal -->
         <div class="modal fade oms2-font-size" id="ModalSelect" tabindex="-1" role="dialog" aria-labelledby="ModalSelectTitle" aria-hidden="true">
@@ -46,30 +92,17 @@
                 </div>
             </div>
         </div>
-        <v-table 
-            is-horizontal-resize 
-            is-vertical-resize 
-            :title-row-height=20 
-            :row-height=30
-            :row-click="handleRowClick"
-            title-bg-color="#F6F6F6" 
-            :height=tableHeight
-            style="width:100%;font-size:12px;"
-            :columns="columns" 
-            :title-rows="titleRows" 
-            :table-data="tableData" 
-            :cell-merge="cellMerge"
-            even-bg-color="#F4F4F4" row-hover-color="#eee" row-click-color="#edF7FF"></v-table>
-        <div class='oms2-g-report-float-right'>数据来源于A7集团系统钻井重点井日报</div>
-
+        
 
         <!-- Modal 具体数据信息 -->
         <div class="modal fade oms2-font-size" id="ModalWellMessage" tabindex="-1" role="dialog" aria-labelledby="ModalWellMessageTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <p class="modal-title" id="exampleModalLongTitle" style="font-size:18px;font-weight:blod">{{selectedRow.jm}}<span style="padding-left:2rem;font-size:14px">(
-                            {{date.time}})</span></p>
+                        <p class="modal-title" id="exampleModalLongTitle" style="font-size:18px;font-weight:blod">{{selectedRow.jm}}
+                            <span style="padding-left:2rem;font-size:14px">(
+                            {{selectedRow.dailyDate}})</span>
+                            </p>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                       <span aria-hidden="true" style="font-size:32px">&times;</span>
                                   </button>
@@ -209,30 +242,33 @@
 </template>
 
 <script>
+    import {dataMonitorUrl} from './../../service/http/config'
     import { Indicator } from 'mint-ui';
-    import timepicker from './../../components/datepicker/timepicker'
-    import { getDaliyOfKeyWell } from './../../service/drill/drillGetData'
+    import { getWellDaliyListByWellId } from './../../service/drill/drillGetData'
     import mixin from './../../service/utils/system/mixin'
     export default {
         //  mixins:[mixin.mixin_ruixin],
          data() {
             return {
                 tableHeight:0,   //表格高度
-                date: timepicker.startTime,  //时间选择器使用
                 baseData:[],     //对从服务器获取的数据进行备份，方便查询等操作，不许重复向服务器查询
                 tableData: [],   //表格中显示的数据
                 sgdwList:[],     //施工单位列表  用于查询使用
                 selectedRow:{},  //选中的行
                 selectedJM:'',   //查询的井名
                 selectedSGDW:'全部', //查询的施工单位
+                well:{},      //该井信息
+                wellId:undefined,
+                wellName:"",
+                wellboreId:"",
                 columns: [
-                    {field: 'sgdw', width: 40, columnAlign: 'left', isFrozen: true},
-                    {field: 'jm', width: 85, columnAlign: 'left', isFrozen: true},
-                    {field: 'dh', width: 70, columnAlign: 'left', isFrozen: false},
-                    {field: 'wellSort', width: 70, columnAlign: 'left',isResize:true},
-                    {field: 'wellType', width: 90, columnAlign: 'left',isResize:true},
-                    {field: 'shigongquyu', width: 70, columnAlign: 'left',isResize:true},
-                    {field: 'start1Date', width: 60, columnAlign: 'right',isResize:true},
+                    // {field: 'jm', width: 85, columnAlign: 'left', isFrozen: true},
+                    {field: 'dailyDate', width: 80, columnAlign: 'left', isFrozen: true},
+                    // {field: 'dh', width: 70, columnAlign: 'left', isFrozen: false},
+                    // {field: 'wellSort', width: 70, columnAlign: 'left',isResize:true},
+                    // {field: 'wellType', width: 90, columnAlign: 'left',isResize:true},
+                    // {field: 'shigongquyu', width: 70, columnAlign: 'left',isResize:true},
+                    // {field: 'start1Date', width: 60, columnAlign: 'right',isResize:true},
                     {field: 'designWellDepth', width: 60, columnAlign: 'right',isResize:true},
                     {field: 'actualWellDepth', width: 60, columnAlign: 'right',isResize:true},
                     {field: 'layername', width: 80, columnAlign: 'left',isResize:true},
@@ -259,10 +295,11 @@
                 ],
 
                 titleRows: [ //第一行
-                             [{fields: ['sgdw'], title: '施工单位', titleAlign: 'center', rowspan: 3},
-                              {fields: ['jm'], title: '井号', titleAlign: 'center', rowspan: 3},
-                              {fields: ['dh'], title: '队号', titleAlign: 'center', rowspan: 3},
-                              {fields: ['wellSort', 'wellType', 'shigongquyu','start1Date'], title: '基础信息', titleAlign: 'center', colspan: 4},
+                             [
+                                //  {fields: ['jm'], title: '井号', titleAlign: 'center', rowspan: 3},
+                              {fields: ['dailyDate'], title: '日期', titleAlign: 'center', rowspan: 3},
+                            //   {fields: ['dh'], title: '队号', titleAlign: 'center', rowspan: 3},
+                            //   {fields: ['wellSort', 'wellType', 'shigongquyu','start1Date'], title: '基础信息', titleAlign: 'center', colspan: 4},
                               {fields: ['designWellDepth', 'actualWellDepth','layername','project','workContent'], title: '当日动态', titleAlign: 'center', colspan: 5},
                               {fields: ['dailyDrilledFootage','monthPlannedDrillingFootage','cumulMonthDrilledFootage','cumulYearDrilledFootage','monthCompletion','yearFinish'], title: '工作量', titleAlign: 'center', colspan: 6},
                               {fields: ['bitSizeModel','woba','deliveryVolume','onlydrill','drillRotateSpeed','pumpPressure'], title: '钻头及钻井参数', titleAlign: 'center', colspan: 6},
@@ -272,10 +309,11 @@
 
                              //第二行
                              //基础信息
-                             [{fields: ['wellSort'], title: '井别', titleAlign: 'center',rowspan: 2},
-                              {fields: ['wellType'], title: '井型', titleAlign: 'center', rowspan: 2},
-                              {fields: ['shigongquyu'], title: '施工区域', titleAlign: 'center', rowspan: 2},
-                              {fields: ['start1Date'], title: '开钻日期', titleAlign: 'center', rowspan: 2},
+                             [
+                            //      {fields: ['wellSort'], title: '井别', titleAlign: 'center',rowspan: 2},
+                            //   {fields: ['wellType'], title: '井型', titleAlign: 'center', rowspan: 2},
+                            //   {fields: ['shigongquyu'], title: '施工区域', titleAlign: 'center', rowspan: 2},
+                            //   {fields: ['start1Date'], title: '开钻日期', titleAlign: 'center', rowspan: 2},
 
                               //当日动态
                               {fields: ['designWellDepth'], title: '设计井深(m)', titleAlign: 'center',rowspan: 2},
@@ -322,15 +360,20 @@
         },
         created(){
             //首次进入页面获取数据
+            this.tableHeight=window.innerHeight*0.6;
+
+            this.wellId=this.$route.query.wellId
+            this.wellName=decodeURI(this.$route.query.wellName)
+            this.wellboreId=decodeURI(this.$route.query.wellboreId)
             this.requestDate()
-            this.tableHeight=window.innerHeight-130;
-        },
-        mounted(){
-            // this.$ruixin.setWebViewTitle({title:'重点井日报'})
-            setTimeout(()=>{
-                this.$ruixin.supportAutorotate({});
-            },200)
-            this.$ruixin.hideWebViewTitle({});
+            if(!this.wellId||this.wellId==''){
+                this.$toast.showToast("获取井ID失败")
+            }else{
+                //请求数据
+                
+
+            }
+
         },
         methods:{
             /**
@@ -338,11 +381,12 @@
              */
             requestDate() {
                 Indicator.open('加载中...')
-                getDaliyOfKeyWell(this.date.time)
+                getWellDaliyListByWellId(this.wellId)
                 .then((data)=> {
                     Indicator.close()
                     if(data){
                         this.tableData=data.data
+                        this.well=this.tableData[0]
                         this.baseData=data.data
                     }else{
                         this.tableData=[]
@@ -361,12 +405,6 @@
                     Indicator.close()
                 }
                 window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
-            },
-            /**
-             * 时间选择器时间发生改变时调用的方法
-             */
-            handleDateChange(date){
-                this.requestDate();
             },
             /**
              * 设置表格列单元格样式
@@ -443,7 +481,22 @@
             },
             closeModel(){
                 $("#ModalWellMessage").modal('hide')
-            }
+            },
+
+            //进入实时数据列表
+            handleGoToList() {
+                this.$router.push({
+                    path: '/real-time/list/project',
+                    query: {
+                        wellboreId: this.wellboreId,
+                        wellName: this.wellName
+                    }
+                })
+            },
+            //进入实时曲线列表
+            handleGoToChart() {
+                location.href = dataMonitorUrl+'?wellBoreId='+this.wellboreId+"&wellName="+encodeURI(encodeURI(this.wellName))
+            },
         },
     }
 </script>
@@ -455,8 +508,29 @@
             // right:1rem;
             // top:1rem;
     }
-    #DailyOfKeyWell{
+    .oms2-vertical-divider {
+            padding-right: 15px; // border-right:1px solid #000;
+        }
+    .oms2-icon{
+        font-size: 16px;
+        padding: 3px;
+    }
+    #DrillDailyList{
         padding-top:$header-height;
+
+        .card{
+            box-shadow: 3px 3px 5px #e4e4e4;
+            text-align: left;
+            // margin-bottom:10px;
+            .card-title{
+                font-size:24px;
+                font-weight: bold;
+            }
+            .card-content{
+                // padding:10px;
+                width: 99%
+            }
+        }
         
         .oms2-list-item-content{
             text-align: left;
@@ -491,7 +565,3 @@
     }
 
 </style>
-
-
-
-

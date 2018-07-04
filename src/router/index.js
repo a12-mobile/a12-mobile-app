@@ -12,7 +12,9 @@ const SubView = r => require.ensure([], () => r(require('@/pages/SubView')), 'ta
 
 //钻井
 const DrillFormList = r => require.ensure([], () => r(require('@/pages/drill/DrillFormList')), 'drill');
+const DrillDailyList = r => require.ensure([], () => r(require('@/pages/drill/DrillDailyList')), 'drill');
 const DrillDailyOfKeyWell = r => require.ensure([], () => r(require('@/pages/drill/DrillDailyOfKeyWell')), 'drill');
+const DrillDailyOfWell = r => require.ensure([], () => r(require('@/pages/drill/DrillDailyOfWell')), 'drill');
 const DailyOfDrilling = r => require.ensure([], () => r(require('@/pages/drill/DailyOfDrilling')), 'drill');
 const DRDailyOfRigDynamic = r => require.ensure([], () => r(require('@/pages/drill/DRDailyOfRigDynamic')), 'drill');
 const DrillOfRigstatistics = r => require.ensure([], () => r(require('@/pages/drill/DrillOfRigstatistics')), 'drill');
@@ -42,6 +44,7 @@ const MlogMonthOfTeam = r => require.ensure([], () => r(require('@/pages/mlog/Ml
 
 //实时数据
 const RealtimeListOfProjectData = r => require.ensure([], () => r(require('@/pages/real-time/ListOfProjectData')), 'real-time');
+// const RealtimeChartsOfDataMonitoring = r => require.ensure([], () => r(require('@/pages/real-time/ChartsOfDataMonitoring')), 'real-time');
 
 //demo
 const HorizontalScreen = r => require.ensure([], () => r(require('@/pages/demo/HorizontalScreen')), 'demo');
@@ -104,10 +107,22 @@ export default new Router({
       meta: { navShow: false, title: '钻井报表' }
     },
     {
+      path: '/drill/daily/list',
+      name: 'DrillDailyList',
+      component: DrillDailyList,
+      meta: { navShow: false, title: '单井日报列表' }
+    },
+    {
       path: '/drill/daily/well/key',
       name: 'DrillDailyOfKeyWell',
       component: DrillDailyOfKeyWell,
       meta: { navShow: false, title: '重点井日报' }
+    },
+    {
+      path: '/drill/daily/well',
+      name: 'DrillDailyOfWell',
+      component: DrillDailyOfWell,
+      meta: { navShow: false, title: '分井动态' }
     },
     {
       path:'/dailyOfDrilling',
@@ -236,6 +251,12 @@ export default new Router({
       component: RealtimeListOfProjectData,
       meta: { navShow: false, title: '工程数据列表' }
     },
+    // {
+    //   path: '/real-time/charts/monitoring',
+    //   name: 'RealtimeChartsOfDataMonitoring',
+    //   component: RealtimeChartsOfDataMonitoring,
+    //   meta: { navShow: false, title: '工程数据列表' }
+    // },
     //实时数据 end
 
 
