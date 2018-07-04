@@ -22,7 +22,7 @@
       row-hover-color="#eee"
       row-click-color="#edF7FF"
     ></v-table>
-    <div class='oms2-report-float-right'>数据来源于A7集团系统测井专业队伍国外分布(按队伍类型)表</div>
+    <div class='oms2-g-report-float-right'>数据来源于A7集团系统测井专业队伍国外分布(按队伍类型)表</div>
     <!-- Modal 具体数据信息 -->
     <div class="modal fade oms2-font-size" id="ModalWellMessage" tabindex="-1" role="dialog" aria-labelledby="ModalWellMessageTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -397,18 +397,18 @@
       columnCellClass(rowIndex,columnName,rowData){
         if(columnName=='juOrgabb'){
           if(this.tableData[rowIndex].remark=='Not exist'){
-            return 'column-cell-class-name-test oms2-item-not-exist'
+            return 'column-cell-class-name-test oms2-g-item-not-exist'
           }
           return 'column-cell-class-name-test'
         }
         if(columnName=='chuOrgabb'){
           if(this.tableData[rowIndex].remark=='Not exist'){
-            return 'column-cell-class-name-test oms2-item-not-exist'
+            return 'column-cell-class-name-test oms2-g-item-not-exist'
           }
           return 'column-cell-class-name-test'
         }
         if(this.tableData[rowIndex].remark=='Not exist'){
-          return 'oms2-item-not-exist'
+          return 'oms2-g-item-not-exist'
         }
         // if(columnName=='zhibiao'&&&rowData.marketTotal==null){
         //   return 'column-cell-class-name-test-not-exist'
