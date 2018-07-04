@@ -24,15 +24,18 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 $axios       http请求  (function)
 $http        封装axios (function)
 $entity      实体服务，用于服务器对实体进行增删改查
-    |——$entity.add()
-    |——$entity.query()
-    |——$entity.delete()
+    |——$entity.add(url, data = {})
+    |——$entity.query(url,data={})
+    |——$entity.delete(url,body=[])
 
 $ruixin      瑞信API
     |——详情请见瑞信api文档
 
 $toast       土司
-    |——$toast.showToast()
+    |——$toast.showToast(message,duration='3000',position='bottom')
+
+$mixin        混入
+    |——$mixin.mixin_ruixin()  设置瑞信标题头、调用横屏API接口
 
 
 #文件目录说明
@@ -94,10 +97,10 @@ $toast       土司
 /style    为页面提供全局样式
     /global.scss        全局样式入口文件，用于当有多个scss样式文件时可以提供统一的出口
     /reportForm.scss    关于报表的样式
-        |—— .oms2-report-float-right  报表底部显示数据来源 
-        |—— .oms2-item-not-exist      列表不存在时显示红色
-        |—— .oms2-horizontal-back     不显示瑞信标题时返回按钮的位置
-        |—— .oms2-grid-cell           各专业索引表格
+        |—— .oms2-g-report-float-right  报表底部显示数据来源 
+        |—— .oms2-g-item-not-exist      列表不存在时显示红色
+        |—— .oms2-g-horizontal-back     不显示瑞信标题时返回按钮的位置
+        |—— .oms2-g-grid-cell           各专业索引表格
 
     /theme.scss        提供自定义样式
         |—— .cov-date-body            设置timepicker的样式 宽度最大为屏幕宽度的80%

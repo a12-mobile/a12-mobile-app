@@ -22,7 +22,7 @@
       even-bg-color="#F4F4F4"
       row-hover-color="#eee"
       row-click-color="#edF7FF"></v-table>
-    <div class='oms2-report-float-right'>数据来源于A7集团系统库录井服务队伍统计月报</div>
+    <div class='oms2-g-report-float-right'>数据来源于A7集团系统库录井服务队伍统计月报</div>
   </div>
 </template>
 
@@ -220,10 +220,10 @@
             return 'column-cell-class-name-test'
           }
           if(columnName=='jujorgName'&&this.tableData[rowIndex].remark=='Not exist'){
-            return 'oms2-item-not-exist'
+            return 'oms2-g-item-not-exist'
           }
           if(columnName=='cjorgName'&&this.tableData[rowIndex].remark=='Not exist'){
-            return 'oms2-item-not-exist'
+            return 'oms2-g-item-not-exist'
           }
 
         },
@@ -247,7 +247,7 @@
         line-height: 20px !important;
       }
     }
-    .oms2-item-not-exist{
+    .oms2-g-item-not-exist{
       color:#f00;
     }
     .oms2-title-cell-duijiao:before {

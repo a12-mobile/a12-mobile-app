@@ -1,5 +1,5 @@
 //报表底部显示数据来源
-.oms2-report-float-right{
+.oms2-g-report-float-right{
     position:absolute;
     right:0px;
     font-size: 10px;
@@ -8,12 +8,12 @@
 }
 
 //列表不存在时显示红色
-.oms2-item-not-exist{
+.oms2-g-item-not-exist{
     color:#f00;
 }
 
 //不显示瑞信标题时返回按钮的位置
-.oms2-horizontal-back{
+.oms2-g-horizontal-back{
     font-size:24px;
     position:absolute;
     left:10px;
@@ -21,7 +21,7 @@
 }
 
 //各专业索引表格
-.oms2-grid-cell{
+.oms2-g-grid-cell{
     border:1px solid #F4F4F4;
     img{
       margin-top:10px;

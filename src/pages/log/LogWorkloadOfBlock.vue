@@ -22,7 +22,7 @@
       row-hover-color="#eee"
       row-click-color="#edF7FF"
     ></v-table>
-    <div class='oms2-report-float-right'>数据来源于A7集团系统测井工作量油区分布统计表</div>
+    <div class='oms2-g-report-float-right'>数据来源于A7集团系统测井工作量油区分布统计表</div>
     <!-- Modal 具体数据信息 -->
     <div class="modal fade oms2-font-size" id="ModalWellMessage" tabindex="-1" role="dialog" aria-labelledby="ModalWellMessageTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">

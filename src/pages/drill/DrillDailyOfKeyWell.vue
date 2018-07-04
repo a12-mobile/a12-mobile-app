@@ -60,7 +60,7 @@
             :table-data="tableData" 
             :cell-merge="cellMerge"
             even-bg-color="#F4F4F4" row-hover-color="#eee" row-click-color="#edF7FF"></v-table>
-        <div class='oms2-report-float-right'>数据来源于A7集团系统钻井重点井日报</div>
+        <div class='oms2-g-report-float-right'>数据来源于A7集团系统钻井重点井日报</div>
 
 
         <!-- Modal 具体数据信息 -->
@@ -323,11 +323,6 @@
             //首次进入页面获取数据
             this.requestDate()
             this.tableHeight=window.innerHeight-130;
-
-            $(function(){
-                $("#ModalWellMessage").on("hidden.bs.modal",()=>{
-                })
-            })
         },
         mounted(){
             // this.$ruixin.setWebViewTitle({title:'重点井日报'})
