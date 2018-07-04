@@ -49,27 +49,27 @@
           </div>
           <div class="col-4 oms2-grid-cell">
             <router-link to="/years/rigstatistics">
-              <img class='oms2-grid-cell-image' src="./../../assets/icon/wellList.png">
+              <img class='oms2-grid-cell-image' src="./../../assets/icon/log/workloadOfBlock.png">
             </router-link>
             <p>钻机统计表(年报)</p>
           </div>
           <div class="col-4 oms2-grid-cell">
             <router-link to="/years/drillTeam">
-              <img class='oms2-grid-cell-image' src="./../../assets/icon/wellList.png">
+              <img class='oms2-grid-cell-image' src="./../../assets/icon/log/teamOfTeamType.png">
             </router-link>
-            <p>钻井队伍分布统计表(年报)</p>
+            <p>钻井队伍分布表(年报)</p>
           </div>
           <div class="col-4 oms2-grid-cell">
             <router-link to="/years/footage">
-              <img class='oms2-grid-cell-image' src="./../../assets/icon/wellList.png">
+              <img class='oms2-grid-cell-image' src="./../../assets/icon/log/teamOfDeviceType.png">
             </router-link>
-            <p>钻井工作量-钻井进尺统计表(年报)</p>
+            <p>钻井工作量-钻井进尺表(年报)</p>
           </div>
           <div class="col-4 oms2-grid-cell">
             <router-link to="/years/drillNum">
-              <img class='oms2-grid-cell-image' src="./../../assets/icon/wellList.png">
+              <img class='oms2-grid-cell-image' src="./../../assets/icon/log/foreignOfTeamType.png">
             </router-link>
-            <p>钻井工作量-开钻口数统计表(年报)</p>
+            <p>钻井工作量-开钻口数表(年报)</p>
           </div>
       </div>
     </div>
