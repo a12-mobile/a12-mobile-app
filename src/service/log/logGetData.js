@@ -29,3 +29,43 @@ export function getWorkloadOfBlock(date) {
     'date': date
   })
 }
+
+/**
+ * 向服务器获取测井专业队伍分布情况统计表（按队伍类型）
+ * @param {*} date
+ */
+export function getTeamByTeamtype(date) {
+  return httpService('GET', '/log/logTeam/findByTeamtype', {
+    'date': date
+  })
+}
+
+/**
+ * 向服务器获取测井专业队伍分布情况统计表（按设备类型）
+ * @param {*} date
+ */
+export function getTeamByDevicetype(date) {
+  return httpService('GET', '/log/logTeam/findByDevicetype', {
+    'date': date
+  })
+}
+
+/**
+ * 向服务器获取测井专业队伍国外分布情况统计表（按队伍类型）
+ * @param {*} date
+ */
+export function getForeignTeamByTeamtype(date) {
+  return httpService('GET', '/log/ForeignTeam/findByTeamtype', {
+    'date': date
+  })
+}
+
+/**
+ * 向服务器获取测井专业队伍国外分布情况统计表（按设备类型）
+ * @param {*} date
+ */
+export function getForeignTeamByDevicetype(date) {
+  return httpService('GET', '/log/ForeignTeam/findByDevicetype', {
+    'date': date
+  })
+}
