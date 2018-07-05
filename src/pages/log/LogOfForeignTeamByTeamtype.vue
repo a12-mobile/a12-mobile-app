@@ -200,10 +200,10 @@
         Indicator.open('加载中...');
         getForeignTeamByTeamtype(this.date.time).then((data)=>{
           Indicator.close();
-          if(data.body){
-            this.tableData=data.body;
+          if(data.data){
+            this.tableData=data.data;
             //检查是否含有所有地区
-            let juOrgabbnames=[{'juOrgabb':'集团总计','chuOrgabb':'','p2Name':'合计'},
+            let juOrgabbnames=[{'juOrgabb':'集团总计','chuOrgabb':null,'p2Name':'合计'},
               {'juOrgabb':'集团总计','chuOrgabb':'综合测井','p2Name':'综合测井'},
               {'juOrgabb':'集团总计','chuOrgabb':'裸眼测井','p2Name':'裸眼测井'},
               {'juOrgabb':'集团总计','chuOrgabb':'生产测井','p2Name':'生产测井'},
@@ -220,8 +220,18 @@
               {'juOrgabb':'中油测井','chuOrgabb':'合计','p2Name':'生产测井'},
               {'juOrgabb':'中油测井','chuOrgabb':'合计','p2Name':'射孔'},
               {'juOrgabb':'中油测井','chuOrgabb':'合计','p2Name':'LWD'},
-              // {'juOrgabb':'中油测井','chuOrgabb':'长庆分公司'},
-              // {'juOrgabb':'中油测井','chuOrgabb':'西南分公司'},
+              {'juOrgabb':'中油测井','chuOrgabb':'长庆分公司','p2Name':'合计'},
+              {'juOrgabb':'中油测井','chuOrgabb':'长庆分公司','p2Name':'综合测井'},
+              {'juOrgabb':'中油测井','chuOrgabb':'长庆分公司','p2Name':'裸眼测井'},
+              {'juOrgabb':'中油测井','chuOrgabb':'长庆分公司','p2Name':'生产测井'},
+              {'juOrgabb':'中油测井','chuOrgabb':'长庆分公司','p2Name':'射孔'},
+              {'juOrgabb':'中油测井','chuOrgabb':'长庆分公司','p2Name':'LWD'},
+              {'juOrgabb':'中油测井','chuOrgabb':'西南分公司','p2Name':'合计'},
+              {'juOrgabb':'中油测井','chuOrgabb':'西南分公司','p2Name':'综合测井'},
+              {'juOrgabb':'中油测井','chuOrgabb':'西南分公司','p2Name':'裸眼测井'},
+              {'juOrgabb':'中油测井','chuOrgabb':'西南分公司','p2Name':'生产测井'},
+              {'juOrgabb':'中油测井','chuOrgabb':'西南分公司','p2Name':'射孔'},
+              {'juOrgabb':'中油测井','chuOrgabb':'西南分公司','p2Name':'LWD'},
               {'juOrgabb':'中油测井','chuOrgabb':'新疆分公司','p2Name':'合计'},
               {'juOrgabb':'中油测井','chuOrgabb':'新疆分公司','p2Name':'综合测井'},
               {'juOrgabb':'中油测井','chuOrgabb':'新疆分公司','p2Name':'裸眼测井'},

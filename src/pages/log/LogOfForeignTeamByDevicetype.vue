@@ -200,10 +200,10 @@
         Indicator.open('加载中...');
         getForeignTeamByDevicetype(this.date.time).then((data)=>{
           Indicator.close();
-          if(data.body){
-            this.tableData=data.body;
+          if(data.data){
+            this.tableData=data.data;
             //检查是否含有所有地区
-            let juOrgabbnames=[{'juOrgabb':'集团总计','chuOrgabb':'','p2Name':'合计'},
+            let juOrgabbnames=[{'juOrgabb':'集团总计','chuOrgabb':null,'p2Name':'合计'},
               {'juOrgabb':'集团总计','chuOrgabb':'成像系列','p2Name':'成像系列'},
               {'juOrgabb':'集团总计','chuOrgabb':'高精度系列','p2Name':'高精度系列'},
               {'juOrgabb':'集团总计','chuOrgabb':'国产数控系列','p2Name':'国产数控系列'},
@@ -218,8 +218,16 @@
               {'juOrgabb':'中油测井','chuOrgabb':'合计','p2Name':'高精度系列'},
               {'juOrgabb':'中油测井','chuOrgabb':'合计','p2Name':'国产数控系列'},
               {'juOrgabb':'中油测井','chuOrgabb':'合计','p2Name':'LWD'},
-              // {'juOrgabb':'中油测井','chuOrgabb':'长庆分公司'},
-              // {'juOrgabb':'中油测井','chuOrgabb':'西南分公司'},
+              {'juOrgabb':'中油测井','chuOrgabb':'长庆分公司','p2Name':'合计'},
+              {'juOrgabb':'中油测井','chuOrgabb':'长庆分公司','p2Name':'成像系列'},
+              {'juOrgabb':'中油测井','chuOrgabb':'长庆分公司','p2Name':'高精度系列'},
+              {'juOrgabb':'中油测井','chuOrgabb':'长庆分公司','p2Name':'国产数控系列'},
+              {'juOrgabb':'中油测井','chuOrgabb':'长庆分公司','p2Name':'LWD'},
+              {'juOrgabb':'中油测井','chuOrgabb':'西南分公司','p2Name':'合计'},
+              {'juOrgabb':'中油测井','chuOrgabb':'西南分公司','p2Name':'成像系列'},
+              {'juOrgabb':'中油测井','chuOrgabb':'西南分公司','p2Name':'高精度系列'},
+              {'juOrgabb':'中油测井','chuOrgabb':'西南分公司','p2Name':'国产数控系列'},
+              {'juOrgabb':'中油测井','chuOrgabb':'西南分公司','p2Name':'LWD'},
               {'juOrgabb':'中油测井','chuOrgabb':'新疆分公司','p2Name':'合计'},
               {'juOrgabb':'中油测井','chuOrgabb':'新疆分公司','p2Name':'成像系列'},
               {'juOrgabb':'中油测井','chuOrgabb':'新疆分公司','p2Name':'高精度系列'},
