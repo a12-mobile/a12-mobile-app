@@ -173,8 +173,8 @@
             selectedRow:{},  //选中的行
             columns: [
               {field: 'juOrgabb', width:20, columnAlign: 'left', isFrozen: true,isResize:true},
-              {field: 'chuOrgabb', width: 35, columnAlign: 'left', isFrozen: true,isResize:true},
-              {field: 'zhibiao', width: 60, columnAlign: 'left',isFrozen: true,},
+              {field: 'chuOrgabb', width: 38, columnAlign: 'left', isFrozen: true,isResize:true},
+              {field: 'zhibiao', width: 70, columnAlign: 'left',isFrozen: true,},
 
               {field: 'marketTotal', width: 42, columnAlign: 'right',isResize:true},
               {field: 'subtotal1', width: 42, columnAlign: 'right',isResize:true},
@@ -327,6 +327,14 @@
                 componentName: ''
               }
             }
+            if(field=="zhibiao"&&rowData[field]=='VSP'){
+              return {
+                colSpan: 1,
+                rowSpan: 1,
+                content: '其中：VSP',
+                componentName: ''
+              }
+            }
             if(rowData[field]<=0){
               return {
                 colSpan: 1,
@@ -381,11 +389,18 @@
             }
           },
           columnCellClass(rowIndex,columnName,rowData){
+
             if(this.tableData[rowIndex].flag=='0'&&(columnName=='juOrgabb'||columnName=='chuOrgabb')){
               return 'column-cell-class-name-test not-exist'
             }
             if(this.tableData[rowIndex].flag=='0'&&columnName=='zhibiao'){
+              if(columnName=="zhibiao"&&this.tableData[rowIndex].zhibiao=='LWD'){
+                return 'column-cell-class-name-lwd not-exist'
+              }
               return 'not-exist'
+            }
+            if(columnName=="zhibiao"&&this.tableData[rowIndex].zhibiao=='LWD'){
+              return 'column-cell-class-name-lwd'
             }
             if(columnName=='juOrgabb'){
               return 'column-cell-class-name-test'
@@ -421,6 +436,11 @@
     }
     .not-exist{
       color: #ff0000;
+    }
+    .column-cell-class-name-lwd {
+      div{
+        text-align: right!important;
+      }
     }
     .oms2-list-item-content{
       text-align: left;
