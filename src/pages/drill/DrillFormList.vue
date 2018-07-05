@@ -51,19 +51,19 @@
             <router-link to="/years/drillTeam">
               <img class='oms2-g-grid-cell-image' src="./../../assets/icon/log/teamOfTeamType.png">
             </router-link>
-            <p>钻井队伍分布表(年报)</p>
+            <p>队伍分布表(年报)</p>
           </div>
           <div class="col-4 oms2-g-grid-cell">
             <router-link to="/years/footage">
               <img class='oms2-g-grid-cell-image' src="./../../assets/icon/log/teamOfDeviceType.png">
             </router-link>
-            <p>钻井工作量-钻井进尺表(年报)</p>
+            <p>工作量-钻井进尺表(年报)</p>
           </div>
           <div class="col-4 oms2-g-grid-cell">
             <router-link to="/years/drillNum">
               <img class='oms2-g-grid-cell-image' src="./../../assets/icon/log/foreignOfTeamType.png">
             </router-link>
-            <p>钻井工作量-开钻口数表(年报)</p>
+            <p>工作量-开钻口数表(年报)</p>
           </div>
       </div>
     </div>

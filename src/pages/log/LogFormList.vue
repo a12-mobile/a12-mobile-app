@@ -24,25 +24,25 @@
           <router-link to="/log/Monthly/TeamByTeamType">
             <img class='oms2-g-grid-cell-image' src="./../../assets/icon/log/teamOfTeamType.png">
           </router-link>
-          <p>专业队伍分布表(按队伍类型)</p>
+          <p>专业队伍分布表(队伍类型)</p>
         </div>
         <div class="col-4 oms2-g-grid-cell">
           <router-link to="/log/Monthly/TeamByDeviceType">
             <img class='oms2-g-grid-cell-image' src="./../../assets/icon/log/teamOfDeviceType.png">
           </router-link>
-          <p>专业队伍分布表(按设备类型)</p>
+          <p>专业队伍分布表(设备类型)</p>
         </div>
         <div class="col-4 oms2-g-grid-cell">
           <router-link to="/log/Monthly/ForeignTeamByTeamType">
             <img class='oms2-g-grid-cell-image' src="./../../assets/icon/log/foreignOfTeamType.png">
           </router-link>
-          <p>专业队伍国外分布表(按队伍类型)</p>
+          <p>专业队伍国外分布表(队伍类型)</p>
         </div>
         <div class="col-4 oms2-g-grid-cell">
           <router-link to="/log/Monthly/ForeignTeamByDeviceType">
             <img class='oms2-g-grid-cell-image' src="./../../assets/icon/log/foreignOfDeviceType.png">
           </router-link>
-          <p>专业队伍国外分布表(按设备类型)</p>
+          <p>专业队伍国外分布表(设备类型)</p>
         </div>
       </div>
     </div>
