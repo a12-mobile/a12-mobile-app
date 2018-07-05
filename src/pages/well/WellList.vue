@@ -21,7 +21,7 @@
                     <div>
                         <div v-for="(item,index) of tableData" class="list-group-item oms2-list-item">
                             <div class="d-flex w-100 justify-content-between" style="border-bottom:1px solid #e4e4e4">
-                                <p class="mb-1" @click="handleClickItem(item)">
+                                <p class="mb-1">
                                     <i class="fa fa-circle" v-if="item.clientStatus==0" style="color:red;font-size:16px;margin-right:5px;"></i>
                                     <i class="fa fa-circle" v-else-if="item.clientStatus==1||item.clientStatus==2" style="color:green;font-size:16px;margin-right:5px;"></i>
                                     <i class="fa fa-circle-thin" v-else="item.clientStatus==''||(!item.clientStatus&&item.clientStatus!=0)" style="font-size:16px;margin-right:5px;"></i>
@@ -34,7 +34,7 @@
                                     <i v-if="item.isCare==true" @click="handleCareFor(item)" style="color:red" class="fa fa-star oms2-icon"></i>
                                 </div>
                             </div>
-                            <div>
+                            <div @click="handleClickItem(item)">
                                 <div style="padding-right:15px;padding-top:10px">
                                     <div class="row">
                                         <div class="col-3">

@@ -186,7 +186,7 @@
                                 <p>{{selectedRow.mudPropWaterLose | ifNumberIsNull}}</p>
                             </div>
                             <div class="row">
-                                <label class="col-6 oms2-right">含沙(%):</label>
+                                <label class="col-6 oms2-right">含砂(%):</label>
                                 <p>{{selectedRow.mudPropGrittyConsistence | ifNumberIsNull}}</p>
                             </div>
                             <div class="list-group-item list-group-item-dark oms2-list-divider">套管及钻具</div>

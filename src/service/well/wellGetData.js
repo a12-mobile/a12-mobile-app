@@ -33,3 +33,12 @@ export function getWellDaily(wellId,date) {
     wellId
   })
 }
+
+/**
+ * 向服务器获取所有重点井列表
+ */
+export function getWellboreIdByWellId(wellId) {
+  return httpService('GET', '/well/query/wellboreId',{
+    wellId
+  })
+}

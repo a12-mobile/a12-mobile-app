@@ -2,15 +2,18 @@
   <div>
     <oms2-header :title="$route.meta.title">
         <span slot="right" class=''>
-            <i @click="handleGoToChart()" class="fa fa-area-chart oms2-icon oms2-vertical-divider"></i>
-            <i @click="handleGoToList()" class="fa fa-list-alt oms2-icon"></i>
+            
         </span>
     </oms2-header>
     <div id="DrillDailyList">
         <div class="card">
             <div class="card-body">
-                <div style="display:inline">
-                    <h5 class="card-title">{{wellName}}</h5>
+                <div class="card-title">
+                    <p>{{wellName}}</p>
+                    <div>
+                        <i @click="handleGoToChart()" class="fa fa-area-chart oms2-icon oms2-vertical-divider"></i>
+                        <i @click="handleGoToList()" class="fa fa-list-alt oms2-icon"></i>
+                    </div>
                 </div>
                 <div class="card-content row">
                 
@@ -219,7 +222,7 @@
                                 <p>{{selectedRow.mudPropWaterLose | ifNumberIsNull}}</p>
                             </div>
                             <div class="row">
-                                <label class="col-6 oms2-right">含沙(%):</label>
+                                <label class="col-6 oms2-right">含砂(%):</label>
                                 <p>{{selectedRow.mudPropGrittyConsistence | ifNumberIsNull}}</p>
                             </div>
                             <div class="list-group-item list-group-item-dark oms2-list-divider">套管及钻具</div>
@@ -247,7 +250,7 @@
     import { getWellDaliyListByWellId } from './../../service/drill/drillGetData'
     import mixin from './../../service/utils/system/mixin'
     export default {
-        //  mixins:[mixin.mixin_ruixin],
+         mixins:[mixin.mixin_ruixin],
          data() {
             return {
                 tableHeight:0,   //表格高度
@@ -365,13 +368,11 @@
             this.wellId=this.$route.query.wellId
             this.wellName=decodeURI(this.$route.query.wellName)
             this.wellboreId=decodeURI(this.$route.query.wellboreId)
-            this.requestDate()
             if(!this.wellId||this.wellId==''){
                 this.$toast.showToast("获取井ID失败")
             }else{
                 //请求数据
-                
-
+                this.requestDate()
             }
 
         },
@@ -384,12 +385,21 @@
                 getWellDaliyListByWellId(this.wellId)
                 .then((data)=> {
                     Indicator.close()
-                    if(data){
+                    if(data&&data.data.length>0){
                         this.tableData=data.data
                         this.well=this.tableData[0]
                         this.baseData=data.data
                     }else{
                         this.tableData=[]
+                        this.well={
+                            dh:"",
+                            sgdw:"",
+                            wellType:"",
+                            start1Date:"",
+                            wellSort:"",
+                            shigongquyu:""
+
+                        }
                     }
                 })
                 .catch(function(error) {
@@ -517,19 +527,33 @@
     }
     #DrillDailyList{
         padding-top:$header-height;
-
         .card{
             box-shadow: 3px 3px 5px #e4e4e4;
             text-align: left;
             // margin-bottom:10px;
             .card-title{
-                font-size:24px;
-                font-weight: bold;
+                width:100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                p{
+                    font-size:24px;
+                    font-weight: bold;
+                    margin:0px;
+                }
+                div{
+                    i{
+                        font-size:20px;
+                    }
+                }
             }
             .card-content{
                 // padding:10px;
                 width: 99%
             }
+        }
+        .oms2-vertical-divider {
+            padding-right: 15px; // border-right:1px solid #000;
         }
         
         .oms2-list-item-content{
