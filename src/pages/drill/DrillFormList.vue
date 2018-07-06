@@ -71,6 +71,30 @@
             </router-link>
             <p>钻井工作量-开钻口数统计表(年报)</p>
           </div>
+          <div class="col-4 oms2-grid-cell">
+            <router-link to="/years/drillFinishNum">
+              <img class='oms2-grid-cell-image' src="./../../assets/icon/wellList.png">
+            </router-link>
+            <p>钻井工作量-完井口数统计表(年报)</p>
+          </div>
+          <div class="col-4 oms2-grid-cell">
+            <router-link to="/years/drillKeyIndicators">
+              <img class='oms2-grid-cell-image' src="./../../assets/icon/wellList.png">
+            </router-link>
+            <p>钻井主要指标统计表(年报)</p>
+          </div>
+          <div class="col-4 oms2-grid-cell">
+            <router-link to="/years/shamTsengFinish">
+              <img class='oms2-grid-cell-image' src="./../../assets/icon/wellList.png">
+            </router-link>
+            <p>深井完成井(4000米以上)统计表（年报）</p>
+          </div>
+          <div class="col-4 oms2-grid-cell">
+            <router-link to="/years/engineeringAccidents">
+              <img class='oms2-grid-cell-image' src="./../../assets/icon/wellList.png">
+            </router-link>
+            <p>钻井工程事故统计表（年报）</p>
+          </div>
       </div>
     </div>
   </div>

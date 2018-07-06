@@ -19,6 +19,10 @@ const DrillOfRigstatistics = r => require.ensure([], () => r(require('@/pages/dr
 const DrillOfTeamYearly = r => require.ensure([], () => r(require('@/pages/drill/DrillOfTeamYearly')), 'drill');
 const DrillOfFootageYearly = r => require.ensure([], () => r(require('@/pages/drill/DrillOfFootageYearly')), 'drill');
 const DrillOfNumYearly = r => require.ensure([], () => r(require('@/pages/drill/DrillOfNumYearly')), 'drill');
+const DrillOfFinishNumYearly = r => require.ensure([], () => r(require('@/pages/drill/DrillOfFinishNumYearly')), 'drill');
+const DrillKeyIndicatorsYearly = r => require.ensure([], () => r(require('@/pages/drill/DrillKeyIndicatorsYearly')), 'drill');
+const ShamTsengFinishYearly = r => require.ensure([], () => r(require('@/pages/drill/ShamTsengFinishYearly')), 'drill');
+const EngineeringAccidentsYearly = r => require.ensure([], () => r(require('@/pages/drill/EngineeringAccidentsYearly')), 'drill');
 
 
 //井下
@@ -144,6 +148,30 @@ export default new Router({
       name:'DrillOfNumYearly',
       component:DrillOfNumYearly,
       meta:{navShow:false,title:'钻井工作量-开钻口数统计表(年报)'}
+    },
+    {
+      path:'/years/drillFinishNum',
+      name:'DrillOfFinishNumYearly',
+      component:DrillOfFinishNumYearly,
+      meta:{navShow:false,title:'钻井工作量-完井口数统计表(年报)'}
+    },
+    {
+      path:'/years/drillKeyIndicators',
+      name:'DrillKeyIndicatorsYearly',
+      component:DrillKeyIndicatorsYearly,
+      meta:{navShow:false,title:'钻井主要指标统计表(年报)'}
+    },
+    {
+      path:'/years/shamTsengFinish',
+      name:'ShamTsengFinishYearly',
+      component:ShamTsengFinishYearly,
+      meta:{navShow:false,title:'深井完成井(4000米以上)统计表（年报）'}
+    },
+    {
+      path:'/years/engineeringAccidents',
+      name:'EngineeringAccidentsYearly',
+      component:EngineeringAccidentsYearly,
+      meta:{navShow:false,title:'钻井工程事故统计表（年报）'}
     },
     //钻井end
 
