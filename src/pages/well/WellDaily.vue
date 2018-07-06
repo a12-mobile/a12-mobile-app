@@ -116,7 +116,7 @@
                 <p>{{well.mudPropWaterLose | ifNumberIsNull}}<span v-if="well.mudPropWaterLose!='-1'">ml</span></p>
             </div>
             <div class="row">
-                <label class="col-5 oms2-right">含沙:</label>
+                <label class="col-5 oms2-right">含砂:</label>
                 <p>{{well.mudPropGrittyConsistence | ifNumberIsNull}}<span v-if="well.mudPropGrittyConsistence!='-1'">%</span></p>
             </div>
             <div class="list-group-item list-group-item-dark oms2-list-divider">套管及钻具</div>
@@ -134,6 +134,12 @@
             if(!this.well){
                 this.well=[]
             }
+            this.$ruixin.hideWebViewTitle({});
+        },
+        mounted(){
+            setTimeout(()=>{
+                this.$ruixin.supportAutorotate({});
+            },200)
         },
         data() {
             return {

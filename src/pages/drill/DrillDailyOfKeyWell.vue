@@ -60,7 +60,7 @@
             :table-data="tableData" 
             :cell-merge="cellMerge"
             even-bg-color="#F4F4F4" row-hover-color="#eee" row-click-color="#edF7FF"></v-table>
-        <div class='oms2-report-float-right'>数据来源于A7集团系统钻井重点井日报</div>
+        <div class='oms2-g-report-float-right'>数据来源于A7集团系统钻井重点井日报</div>
 
 
         <!-- Modal 具体数据信息 -->
@@ -70,9 +70,11 @@
                     <div class="modal-header">
                         <p class="modal-title" id="exampleModalLongTitle" style="font-size:18px;font-weight:blod">{{selectedRow.jm}}<span style="padding-left:2rem;font-size:14px">(
                             {{date.time}})</span></p>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true" style="font-size:32px">&times;</span>
-                                  </button>
+                        <div style="align-items: center;">
+                            <i @click="handleGoToChart(selectedRow)" class="fa fa-area-chart oms2-icon oms2-vertical-divider"></i>
+                            <i @click="handleGoToList(selectedRow)" class="fa fa-list-alt oms2-icon oms2-vertical-divider"></i>
+                            <i class="fa fa-close oms2-icon" data-dismiss="modal" aria-label="Close"></i>
+                        </div>
                     </div>
                     <div class="modal-body">
                         <form>
@@ -143,6 +145,7 @@
                                 <label class="col-5 oms2-right">完井-年累(口):</label>
                                 <p>{{selectedRow.yearFinish | ifNumberIsNull}}</p>
                             </div>
+                            <div class="oms2-list-divider list-group-item list-group-item-dark ">钻井参数</div>
                             <div class="row">
                                 <label class="col-5 oms2-right">钻头尺寸型号:</label>
                                 <p>{{selectedRow.bitSizeModel}}</p>
@@ -185,7 +188,7 @@
                                 <p>{{selectedRow.mudPropWaterLose | ifNumberIsNull}}</p>
                             </div>
                             <div class="row">
-                                <label class="col-6 oms2-right">含沙(%):</label>
+                                <label class="col-6 oms2-right">含砂(%):</label>
                                 <p>{{selectedRow.mudPropGrittyConsistence | ifNumberIsNull}}</p>
                             </div>
                             <div class="list-group-item list-group-item-dark oms2-list-divider">套管及钻具</div>
@@ -208,9 +211,11 @@
 </template>
 
 <script>
+import {dataMonitorUrl} from './../../service/http/config'
     import { Indicator } from 'mint-ui';
     import timepicker from './../../components/datepicker/timepicker'
     import { getDaliyOfKeyWell } from './../../service/drill/drillGetData'
+    import { getWellboreIdByWellId } from './../../service/well/wellGetData'
     import mixin from './../../service/utils/system/mixin'
     export default {
         //  mixins:[mixin.mixin_ruixin],
@@ -323,11 +328,6 @@
             //首次进入页面获取数据
             this.requestDate()
             this.tableHeight=window.innerHeight-130;
-
-            $(function(){
-                $("#ModalWellMessage").on("hidden.bs.modal",()=>{
-                })
-            })
         },
         mounted(){
             // this.$ruixin.setWebViewTitle({title:'重点井日报'})
@@ -437,6 +437,29 @@
             handleInputClean(){
                 this.selectedJM=''
             },
+
+            //进入实时数据列表
+            handleGoToList(item) {
+                getWellboreIdByWellId(item.wellId).then((data)=>{
+                    $("#ModalWellMessage").modal('hide')
+                    setTimeout(()=>{
+                        this.$router.push({
+                            path: '/real-time/list/project',
+                            query: {
+                                wellboreId: data.data,
+                                wellName: item.jm
+                            }
+                        })
+    
+                    },200)
+                })
+            },
+            //进入实时曲线列表
+            handleGoToChart(item) {
+                getWellboreIdByWellId(item.wellId).then((data)=>{
+                    location.href = dataMonitorUrl+'?wellBoreId='+data.data+"&wellName="+encodeURI(encodeURI(item.jm))
+                })
+            },
             
             /**
              * 表格行点击回掉
@@ -475,6 +498,17 @@
         }
         .oms2-right{
             text-align: right;
+        }
+        .oms2-list-item-body{
+            font-size:12px;
+            float:left;
+        }
+        .oms2-icon {
+            font-size: 18px;
+            padding: 3px;
+        }
+        .oms2-vertical-divider {
+            padding-right: 15px; // border-right:1px solid #000;
         }
 
         //改变搜索框样式

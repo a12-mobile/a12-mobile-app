@@ -32,8 +32,8 @@
                             <i v-if="item.isCare==true" @click="handleCareFor(item)" style="color:red" class="fa fa-star oms2-icon"></i>
                         </div>
                     </div>
-                    <div>
-                        <div @click="handleClickItem(item)" style="padding-right:15px;padding-top:10px">
+                    <div  @click="handleClickItem(item)">
+                        <div style="padding-right:15px;padding-top:10px">
                             <div class="row">
                                 <div class="col-3">
                                     <label style="font-size:12px;font-weight:bold;float:right;">油区：</label>
@@ -115,9 +115,11 @@
                         if(well){
                             well.time=getCurrentDate()
                             this.$router.push({
-                                path:'/well/daily',
+                                path:'/drill/daily/list',
                                 query:{
-                                    well:well
+                                    wellId:item.wellId,
+                                    wellName:encodeURI(item.wellName),
+                                    wellboreId:item.wellboreId
                                 }
                             })
 
@@ -231,7 +233,9 @@
                             }
                             this.wellBlockList.sort(
                                 function compareFunction(param1, param2) {
-                                    return param1.localeCompare(param2, "zh");
+                                    if(param1&&param2){
+                                        return param1.localeCompare(param2, "zh")
+                                    }
                                 });
                         }
                     })

@@ -6,6 +6,7 @@
  */
 
 import { Toast } from "mint-ui"
+import { Indicator } from 'mint-ui';
 
 const toastServer={
     POSITION:{
@@ -25,7 +26,15 @@ const toastServer={
             position,
             duration,
         })
-    }
+    },
+    showIndicator:{
+        open:function(msg){
+            Indicator.open(msg)
+        },
+        close:function(){
+            Indicator.close()
+        }
+    },
 }
 
 export default toastServer

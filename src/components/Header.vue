@@ -60,7 +60,7 @@
         box-shadow: 2px 2px 3px #e4e4e4;
         .oms2-header-title {
             margin:0px;
-            flex: 3;
+            flex: 5;
             color: inherit;
             font-size: inherit;
         }

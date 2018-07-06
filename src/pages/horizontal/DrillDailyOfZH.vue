@@ -1,9 +1,9 @@
 <template>
     <div id="horizontal">
-        <i @click='handleBack' class='fa fa-arrow-left oms2-horizontal-back'></i>
+        <i @click='handleBack' class='fa fa-arrow-left oms2-g-horizontal-back'></i>
         <header>
             <h5>钻井综合日报</h5>
-            <div class='oms2-report-float-right' style="top:40px">数据来源于A7集团系统钻井工作量日报</div>
+            <div class='oms2-g-report-float-right' style="top:40px">数据来源于A7集团系统钻井工作量日报</div>
             <oms2-date-picker-daily :date="date" @date-change="handleChange">
             </oms2-date-picker-daily>
         </header>
@@ -232,7 +232,7 @@
             //设置列单元格样式
             columnCellClass(rowIndex, columnName, rowData) {
                 if (columnName == 'sgdw' && this.tableData[rowIndex].remark == 'Not exist') {
-                    return 'oms2-item-not-exist'
+                    return 'oms2-g-item-not-exist'
                 }
             },
             handleChange(date) {
@@ -272,7 +272,7 @@
             height:auto !important;
         }
     }
-    .oms2-item-not-exist {
+    .oms2-g-item-not-exist {
         color: #ff0000;
     }
 </style>

@@ -1,15 +1,19 @@
 <template>
-    <div id="HorizontalScreen">
-        <oms2-date-picker-daily :date="date" @date-change="handleDateChange"></oms2-date-picker-daily><span class='oms2-search' @click="handleShowSelect"><i class="fa fa-search"></i></span>
+  <div>
+    <oms2-header :title="$route.meta.title">
+        <span slot="right" class='' @click="handleShowSelect"><i class="fa fa-search oms2-title-icon"></i></span>
+    </oms2-header>
+    <div id="DailyOfWell">
+        <oms2-date-picker-daily :date="date" @date-change="handleDateChange"></oms2-date-picker-daily>
 
         <!-- 查询 Modal -->
-        <div class="modal fade" id="ModalSelect" tabindex="-1" role="dialog" aria-labelledby="ModalSelectTitle" aria-hidden="true">
+        <div class="modal fade oms2-font-size" id="ModalSelect" tabindex="-1" role="dialog" aria-labelledby="ModalSelectTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">数据查询</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
+                                      <span style="font-size:32px" aria-hidden="true">&times;</span>
                                   </button>
                     </div>
                     <div class="modal-body">
@@ -17,7 +21,7 @@
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">施工单位:</label>
                                 <div class="col-7">
-                                    <select id="inputState" class="form-control" v-model="selectedSGDW">
+                                    <select id="inputState" class="form-control  oms2-font-size" v-model="selectedSGDW">
                                         <option>全部</option>
                                         <option v-for="item in sgdwList">{{item}}</option>
                                     </select>
@@ -25,57 +29,49 @@
                             </div>
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">井号:</label>
-                                <div class="col-7">
-                                    <vue-instant 
-                                        suggestion-attribute="original_title" 
-                                        v-model="selectedJM" 
-                                        :disabled="false"  
-                                        @input="handleInstantChange"
-                                        :show-autocomplete="true" 
-                                        :autofocus="false" 
-                                        :suggestions="suggestions" 
-                                        name="customName" 
-                                        placeholder="填写井名" 
-                                        type="google">
-                                    </vue-instant>
+                                <div class="col-7 input-group">
+                                    <input type="text" class="form-control  oms2-font-size" placeholder="井号" v-model="selectedJM">
+                                    <div class="input-group-append" @click="handleInputClean">
+                                        <i class="fa fa-times input-group-text"></i>
+                                        <!-- <span class="" id="basic-addon2">m</span> -->
+                                    </div>
                                 </div>
                             </div>
                         </form>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                            <button type="button" @click="handleSelect" data-dismiss="modal" class="btn btn-primary">查询</button>
+                            <button type="button" class="btn btn-secondary  oms2-font-size" data-dismiss="modal">取消</button>
+                            <button type="button" @click="handleSelect" data-dismiss="modal" class="btn btn-primary  oms2-font-size">查询</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
         <v-table 
             is-horizontal-resize 
             is-vertical-resize 
             :title-row-height=20 
-            :row-height=30 
+            :row-height=30
             :row-click="handleRowClick"
             title-bg-color="#F6F6F6" 
             :height=tableHeight
-            style="width:100%;font-size:12px"
+            style="width:100%;font-size:12px;"
             :columns="columns" 
             :title-rows="titleRows" 
             :table-data="tableData" 
             :cell-merge="cellMerge"
             even-bg-color="#F4F4F4" row-hover-color="#eee" row-click-color="#edF7FF"></v-table>
-        <div class='oms2-g-report-float-right'>数据来源于A7集团系统库钻井重点井日报</div>
+        <div class='oms2-g-report-float-right'>数据来源于A7集团系统钻井重点井日报</div>
 
 
         <!-- Modal 具体数据信息 -->
-        <div class="modal fade" id="ModalWellMessage" tabindex="-1" role="dialog" aria-labelledby="ModalWellMessageTitle" aria-hidden="true">
+        <div class="modal fade oms2-font-size" id="ModalWellMessage" tabindex="-1" role="dialog" aria-labelledby="ModalWellMessageTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">{{selectedRow.jm}}<span style="padding-left:20px;font-size:14px">(
-                            {{date.time}})</span></h5>
+                        <p class="modal-title" id="exampleModalLongTitle" style="font-size:18px;font-weight:blod">{{selectedRow.jm}}<span style="padding-left:2rem;font-size:14px">(
+                            {{date.time}})</span></p>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
+                                      <span aria-hidden="true" style="font-size:32px">&times;</span>
                                   </button>
                     </div>
                     <div class="modal-body">
@@ -147,6 +143,7 @@
                                 <label class="col-5 oms2-right">完井-年累(口):</label>
                                 <p>{{selectedRow.yearFinish | ifNumberIsNull}}</p>
                             </div>
+                            <div class="oms2-list-divider list-group-item list-group-item-dark ">钻井参数</div>
                             <div class="row">
                                 <label class="col-5 oms2-right">钻头尺寸型号:</label>
                                 <p>{{selectedRow.bitSizeModel}}</p>
@@ -200,30 +197,31 @@
                         
                         </form>
                         <div class="modal-footer">
-                            <button type="button" data-dismiss="modal" class="btn btn-primary">返回</button>
+                            <!-- <button type="button" data-dismiss="modal" class="btn btn-primary">返回</button> -->
+                            <button type="button" @click="closeModel" class="btn btn-primary">返回</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
 </template>
 
 <script>
-    import DatePickerDaily from './../../components/datepicker/DatePickerDaily'
     import { Indicator } from 'mint-ui';
     import timepicker from './../../components/datepicker/timepicker'
-    import { getDaliyOfKeyWell } from './../../service/drill/drillGetData'
+    import { getDaliyOfWell } from './../../service/drill/drillGetData'
+    import mixin from './../../service/utils/system/mixin'
     export default {
+        //  mixins:[mixin.mixin_ruixin],
          data() {
             return {
                 tableHeight:0,   //表格高度
-                suggestions:[],  //搜索井名时提示的数组
                 date: timepicker.startTime,  //时间选择器使用
                 baseData:[],     //对从服务器获取的数据进行备份，方便查询等操作，不许重复向服务器查询
                 tableData: [],   //表格中显示的数据
                 sgdwList:[],     //施工单位列表  用于查询使用
-                jmList:[],       //井名列表  用于查询使用
                 selectedRow:{},  //选中的行
                 selectedJM:'',   //查询的井名
                 selectedSGDW:'全部', //查询的施工单位
@@ -324,9 +322,15 @@
         },
         created(){
             //首次进入页面获取数据
-            this.requestDate();
+            this.requestDate()
+            this.tableHeight=window.innerHeight-130;
+        },
+        mounted(){
+            // this.$ruixin.setWebViewTitle({title:'重点井日报'})
+            setTimeout(()=>{
+                this.$ruixin.supportAutorotate({});
+            },200)
             this.$ruixin.hideWebViewTitle({});
-            this.tableHeight=window.innerHeight
         },
         methods:{
             /**
@@ -334,13 +338,12 @@
              */
             requestDate() {
                 Indicator.open('加载中...')
-                getDaliyOfKeyWell(this.date.time)
+                getDaliyOfWell(this.date.time)
                 .then((data)=> {
                     Indicator.close()
                     if(data){
-                        this.tableData=data.body
-                        this.baseData=data.body
-                        
+                        this.tableData=data.data
+                        this.baseData=data.data
                     }else{
                         this.tableData=[]
                     }
@@ -359,7 +362,6 @@
                 }
                 window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
             },
-            
             /**
              * 时间选择器时间发生改变时调用的方法
              */
@@ -381,17 +383,30 @@
             },
             /**
              * 点击查询按钮后的方法
+             * 设计初衷：之所以用四个判断是为了减少baseData循环时判断的次数
              */
             handleSelect(){
-                if(this.selectedJM.trim()!=''){
+                if(this.selectedJM.trim()!=''&&this.selectedSGDW=='全部'){
+                    //搜索井名
                     this.tableData=this.baseData.filter((item)=>{
-                        return item.jm.toLowerCase()==this.selectedJM.toLowerCase()
+                        return item.jm.toLowerCase().includes(this.selectedJM.toLowerCase())
                     })
-                    if(this.tableData.length==0){
-                        this.$toast.showToast("没有该井的数据")
-                    }
+                }else if(this.selectedJM.trim()!=''&&this.selectedSGDW!='全部'){
+                    //搜索该单位下的井名
+                    this.tableData=this.baseData.filter((item)=>{
+                        return item.jm.toLowerCase().includes(this.selectedJM.toLowerCase())&&item.sgdw==this.selectedSGDW
+                    })
+                }else if(this.selectedJM.trim()==''&&this.selectedSGDW!='全部'){
+                    //搜索某单位下的井
+                    this.tableData=this.baseData.filter((item)=>{
+                        return item.sgdw==this.selectedSGDW
+                    })
                 }else{
+                    //没有搜索
                     this.tableData=this.baseData
+                }
+                if(this.tableData.length==0){
+                    this.$toast.showToast("没有该井的数据")
                 }
             },
             /**
@@ -410,98 +425,73 @@
                     for(var sgdw of sgdws){
                         this.sgdwList.push(sgdw)
                     }
-                    this.jmList=this.baseData
                 }
             },
             /**
-             * 搜索框自动完成
+             * 输入框取消按钮
              */
-            handleInstantChange(){
-                this.suggestions=[]
-                if(this.jmList.length>0){
-                    this.jmList.forEach((item)=>{
-                        if(item.jm.toLowerCase().indexOf(this.selectedJM.toLowerCase())!=-1){
-                            this.suggestions.push({
-                                original_title:item.jm
-                            })
-                        }
-                    })
-                }
+            handleInputClean(){
+                this.selectedJM=''
             },
+            
             /**
              * 表格行点击回掉
              */
             handleRowClick(rowIndex, rowData, column){
                 this.selectedRow=rowData
                 $("#ModalWellMessage").modal('show')
+            },
+            closeModel(){
+                $("#ModalWellMessage").modal('hide')
             }
         },
-        watch:{
-            selectedSGDW:function(){
-                if(this.selectedSGDW=="全部"){
-                    this.jmList=this.baseData
-                }else{
-                    this.jmList=this.baseData.filter((item)=>{
-                        return item.sgdw==this.selectedSGDW
-                    })
-                    this.selectedJM=''
-                }
-            }
-        },
-        components: {
-            'oms2-date-picker-daily': DatePickerDaily
-        }
     }
 </script>
 
 <style lang="scss">
-    #HorizontalScreen{
-            width:640px;
-            height:360px;
-            transform:rotate(90deg);
-            -ms-transform:rotate(90deg); 	/* IE 9 */
-            -moz-transform:rotate(90deg); 	/* Firefox */
-            -webkit-transform:rotate(90deg); /* Safari 和 Chrome */
-            -o-transform:rotate(90deg); 	/* Opera */
+    .oms2-title-icon{
+        font-size:22px !important;
+            // position:absolute;
+            // right:1rem;
+            // top:1rem;
+    }
+    #DailyOfWell{
+        padding-top:$header-height;
+        
+        .oms2-list-item-content{
+            text-align: left;
+            padding-left:0px;
+            padding-bottom:10px; 
+        }
+        .oms2-list-divider{
+            text-align: center;
+            padding-top:0rem !important;
+            padding-bottom:0rem !important;
+            margin-bottom:10px;
+        }
+        .oms2-right{
+            text-align: right;
+        }
 
-            transform-origin:160px 160px;
-            position:absolute;
-            z-index:2000;
-
+        //改变搜索框样式
+        .sbx-google{
+            width:100% !important;
+        }
+        .sbx-google__submit{
+            display: none;
+        }
+        .sbx-google__input{
+            padding-right:11px;
+        }
+        .sbx-google__reset{
+            right:10px;
+        }
+        //改变搜索框样式  end
+    
     }
-    .oms2-search{
-        position:absolute;
-        right:10px;
-        top:10px;
-    }
-    .oms2-list-item-content{
-        text-align: left;
-        padding-left:0px;
-        padding-bottom:1rem;
-    }
-    .oms2-list-divider{
-        text-align: center;
-        padding-top:0px !important;
-        padding-bottom:0px !important;
-        margin-bottom:10px;
-    }
-    .oms2-right{
-        text-align: right;
-    }
-
-    //改变搜索框样式
-    .sbx-google{
-        width:100% !important;
-    }
-    .sbx-google__submit{
-        display: none;
-    }
-    .sbx-google__input{
-        padding-right:11px;
-    }
-    .sbx-google__reset{
-        right:10px;
-    }
-    //改变搜索框样式  end
 
 </style>
+
+
+
+

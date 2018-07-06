@@ -6,10 +6,10 @@
       </mt-header> -->
       <!--<h4>中油油服钻井工作量日报</h4>-->
       <!-- <p>钻机统计表</p> -->
-      <!-- <div class='oms2-report-float-right' style="top:40px">数据来源于A7集团系统钻井综合日报</div> -->
-      <oms2-date-picker-daily :date="date"
+      <!-- <div class='oms2-g-report-float-right' style="top:40px">数据来源于A7集团系统钻井综合日报</div> -->
+     <!-- <oms2-date-picker-daily :date="date"
                               @date-change="handleChange">
-      </oms2-date-picker-daily>
+      </oms2-date-picker-daily>-->
     </header>
     <v-table
       is-horizontal-resize
@@ -27,7 +27,7 @@
       row-hover-color="#eee"
       row-click-color="#edf7ff"
     ></v-table>
-    <div class='oms2-report-float-right'>数据来源于A7集团系统库钻井工作量--开钻口数统计表</div>
+    <div class='oms2-g-report-float-right'>数据来源于A7集团系统库钻井工作量--开钻口数统计表</div>
   </div>
 </template>
 
@@ -206,7 +206,7 @@
       this.tableHeight=window.innerHeight-80
     },
     mounted(){
-      this.$ruixin.setWebViewTitle({title:"2017钻井工作量统计-钻井进尺表"});
+      this.$ruixin.setWebViewTitle({title:"2017钻井工作量-钻井进尺表"});
       setTimeout(()=>{
         this.$ruixin.supportAutorotate({});
       },200)

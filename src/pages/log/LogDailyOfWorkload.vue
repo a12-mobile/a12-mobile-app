@@ -24,7 +24,7 @@
         row-hover-color="#eee"
         row-click-color="#edF7FF"
       ></v-table>
-      <div class='oms2-report-float-right'>数据来源于A7集团系统测井工作量日报</div>
+      <div class='oms2-g-report-float-right'>数据来源于A7集团系统测井工作量日报</div>
     </div>
 </template>
 
@@ -296,7 +296,7 @@
           },
           columnCellClass(rowIndex,columnName,rowData){
             if(this.tableData[rowIndex].remark=='Not exist'){
-              return 'oms2-item-not-exist'
+              return 'oms2-g-item-not-exist'
             }
           }
         },

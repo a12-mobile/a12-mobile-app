@@ -75,7 +75,7 @@
                 </div>
               </mt-loadmore>
             </div>
-      <div class='oms2-report-float-right'>数据来源于A7集团系统钻井综合日报</div>
+      <div class='oms2-g-report-float-right'>数据来源于A7集团系统钻井综合日报</div>
     </div>
 </template>
 

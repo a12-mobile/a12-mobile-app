@@ -4,8 +4,6 @@ const mixin={
 
         },
         created(){
-            // console.log("混入")
-            // console.log(this.$ruixin)
         },
         mounted(){
             this.$ruixin.setWebViewTitle({title:this.$route.meta.title});
