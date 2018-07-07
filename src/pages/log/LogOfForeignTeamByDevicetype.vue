@@ -1,108 +1,111 @@
 <template>
-  <div id="LogOfForeignTeamByDevicetype">
-    <!-- <h4>测井工作量油区分布统计表</h4> -->
-    <oms2-date-picker-monthly :date=date @date-change="handleChange"></oms2-date-picker-monthly>
-    <!-- Button trigger modal -->
+  <div>
+    <oms2-header :title="$route.meta.title"></oms2-header>
+    <div id="LogOfForeignTeamByDevicetype">
+      <!-- <h4>测井工作量油区分布统计表</h4> -->
+      <oms2-date-picker-monthly :date=date @date-change="handleChange"></oms2-date-picker-monthly>
+      <!-- Button trigger modal -->
 
-    <v-table
-      is-horizontal-resize
-      is-vertical-resize
-      :height=tableHeight
-      :title-row-height=30
-      :row-height=30
-      :row-click="handleRowClick"
-      style="width:100%;font-size:12px"
-      :columns="columns"
-      :title-rows="titleRows"
-      :cell-merge="cellMerge"
-      :column-cell-class-name="columnCellClass"
-      :table-data="tableData"
-      title-bg-color="#F6F6F6"
-      even-bg-color="#F4F4F4"
-      row-hover-color="#eee"
-      row-click-color="#edF7FF"
-    ></v-table>
-    <div class='oms2-g-report-float-right'>数据来源于A7集团系统测井专业队伍国外分布(按设备类型)表</div>
-    <!-- Modal 具体数据信息 -->
-    <div class="modal fade oms2-font-size" id="ModalWellMessage" tabindex="-1" role="dialog" aria-labelledby="ModalWellMessageTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" style="font-size:14px" id="exampleModalLongTitle">{{selectedRow.juOrgabb}} <b>/</b> {{selectedRow.chuOrgabb}} <b>/</b> {{selectedRow.p2Name}} <span style="padding-left:2rem;font-size:14px">(
-                              {{date.time}})</span></h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span style="font-size:20px;" aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="oms2-list-divider list-group-item list-group-item-dark">市场分布</div>
-              <div class="row">
-                <label class="col-5 oms2-right">总计:</label>
-                <p>{{selectedRow.marketTotal | ifNumberIsNull}}</p>
-              </div>
-              <div class="oms2-list-divider list-group-item list-group-item-dark">亚太</div>
-              <div class="row">
-                <label class="col-5 oms2-right">合计:</label>
-                <p>{{selectedRow.asiaTotal | ifNumberIsNull}}</p>
-              </div>
-              <div class="row">
-                <label class="col-5 oms2-right">印度尼西亚:</label>
-                <p>{{selectedRow.indonesia | ifNumberIsNull}}</p>
-              </div>
-              <div class="oms2-list-divider list-group-item list-group-item-dark ">中亚</div>
-              <div class="row">
-                <label class="col-5 oms2-right">合计:</label>
-                <p>{{selectedRow.centerAsiaTotal | ifNumberIsNull}}</p>
-              </div>
-              <div class="row">
-                <label class="col-5 oms2-right">哈萨克斯坦:</label>
-                <p>{{selectedRow.kazakhstan | ifNumberIsNull}}</p>
-              </div>
-              <div class="row">
-                <label class="col-5 oms2-right">乌兹别克斯坦:</label>
-                <p>{{selectedRow.uzbekistan | ifNumberIsNull}}</p>
-              </div>
-              <div class="row">
-                <label class="col-5 oms2-right">土库曼斯坦:</label>
-                <p>{{selectedRow.turkmenistan | ifNumberIsNull}}</p>
-              </div>
-              <div class="row">
-                <label class="col-5 oms2-right">阿富汗:</label>
-                <p>{{selectedRow.afghanistan | ifNumberIsNull}}</p>
-              </div>
-              <div class="list-group-item list-group-item-dark oms2-list-divider">非洲</div>
-              <div class="row">
-                <label class="col-5 oms2-right">合计:</label>
-                <p>{{selectedRow.africaTotal | ifNumberIsNull}}</p>
-              </div>
-              <div class="list-group-item list-group-item-dark oms2-list-divider">美洲</div>
-              <div class="row">
-                <label class="col-5 oms2-right">合计:</label>
-                <p>{{selectedRow.americaTotal | ifNumberIsNull}}</p>
-              </div>
-              <div class="list-group-item list-group-item-dark oms2-list-divider">中东</div>
-              <div class="row">
-                <label class="col-5 oms2-right">合计:</label>
-                <p>{{selectedRow.middleEastTotal | ifNumberIsNull}}</p>
-              </div>
-              <div class="row">
-                <label class="col-5 oms2-right">伊拉克:</label>
-                <p>{{selectedRow.iraq | ifNumberIsNull}}</p>
-              </div>
-              <div class="row">
-                <label class="col-5 oms2-right">伊朗:</label>
-                <p>{{selectedRow.iran | ifNumberIsNull}}</p>
-              </div>
-              <div class="list-group-item list-group-item-dark oms2-list-divider">其他区域</div>
-              <div class="row">
-                <label class="col-5 oms2-right">其它区域:</label>
-                <p>{{selectedRow.otherArea | ifNumberIsNull}}</p>
-              </div>
+      <v-table
+        is-horizontal-resize
+        is-vertical-resize
+        :height=tableHeight
+        :title-row-height=30
+        :row-height=30
+        :row-click="handleRowClick"
+        style="width:100%;font-size:12px"
+        :columns="columns"
+        :title-rows="titleRows"
+        :cell-merge="cellMerge"
+        :column-cell-class-name="columnCellClass"
+        :table-data="tableData"
+        title-bg-color="#F6F6F6"
+        even-bg-color="#F4F4F4"
+        row-hover-color="#eee"
+        row-click-color="#edF7FF"
+      ></v-table>
+      <div class='oms2-g-report-float-right'>数据来源于A7集团系统测井专业队伍国外分布(按设备类型)表</div>
+      <!-- Modal 具体数据信息 -->
+      <div class="modal fade oms2-font-size" id="ModalWellMessage" tabindex="-1" role="dialog" aria-labelledby="ModalWellMessageTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" style="font-size:14px" id="exampleModalLongTitle">{{selectedRow.juOrgabb}} <b>/</b> {{selectedRow.chuOrgabb}} <b>/</b> {{selectedRow.p2Name}} <span style="padding-left:2rem;font-size:14px">(
+                                {{date.time}})</span></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span style="font-size:20px;" aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="oms2-list-divider list-group-item list-group-item-dark">市场分布</div>
+                <div class="row">
+                  <label class="col-5 oms2-right">总计:</label>
+                  <p>{{selectedRow.marketTotal | ifNumberIsNull}}</p>
+                </div>
+                <div class="oms2-list-divider list-group-item list-group-item-dark">亚太</div>
+                <div class="row">
+                  <label class="col-5 oms2-right">合计:</label>
+                  <p>{{selectedRow.asiaTotal | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">印度尼西亚:</label>
+                  <p>{{selectedRow.indonesia | ifNumberIsNull}}</p>
+                </div>
+                <div class="oms2-list-divider list-group-item list-group-item-dark ">中亚</div>
+                <div class="row">
+                  <label class="col-5 oms2-right">合计:</label>
+                  <p>{{selectedRow.centerAsiaTotal | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">哈萨克斯坦:</label>
+                  <p>{{selectedRow.kazakhstan | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">乌兹别克斯坦:</label>
+                  <p>{{selectedRow.uzbekistan | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">土库曼斯坦:</label>
+                  <p>{{selectedRow.turkmenistan | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">阿富汗:</label>
+                  <p>{{selectedRow.afghanistan | ifNumberIsNull}}</p>
+                </div>
+                <div class="list-group-item list-group-item-dark oms2-list-divider">非洲</div>
+                <div class="row">
+                  <label class="col-5 oms2-right">合计:</label>
+                  <p>{{selectedRow.africaTotal | ifNumberIsNull}}</p>
+                </div>
+                <div class="list-group-item list-group-item-dark oms2-list-divider">美洲</div>
+                <div class="row">
+                  <label class="col-5 oms2-right">合计:</label>
+                  <p>{{selectedRow.americaTotal | ifNumberIsNull}}</p>
+                </div>
+                <div class="list-group-item list-group-item-dark oms2-list-divider">中东</div>
+                <div class="row">
+                  <label class="col-5 oms2-right">合计:</label>
+                  <p>{{selectedRow.middleEastTotal | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">伊拉克:</label>
+                  <p>{{selectedRow.iraq | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">伊朗:</label>
+                  <p>{{selectedRow.iran | ifNumberIsNull}}</p>
+                </div>
+                <div class="list-group-item list-group-item-dark oms2-list-divider">其他区域</div>
+                <div class="row">
+                  <label class="col-5 oms2-right">其它区域:</label>
+                  <p>{{selectedRow.otherArea | ifNumberIsNull}}</p>
+                </div>
 
-            </form>
-            <div class="modal-footer">
-              <button type="button" data-dismiss="modal" class="btn btn-primary">返回</button>
+              </form>
+              <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary">返回</button>
+              </div>
             </div>
           </div>
         </div>
@@ -186,10 +189,11 @@
     },
     created(){
       this.requestData();
-      this.tableHeight=window.innerHeight-80
+      this.tableHeight=window.innerHeight-130;
     },
     mounted(){
-      this.$ruixin.setWebViewTitle({title:'专业队伍国外分布表(按设备类型)'});
+      // this.$ruixin.setWebViewTitle({title:'专业队伍国外分布表(按设备类型)'});
+      this.$ruixin.hideWebViewTitle({});
       setTimeout(()=>{
         this.$ruixin.supportAutorotate({});
       },200)
@@ -299,12 +303,12 @@
               return preIndex-nextIndex
             })
           }else{
-            this.tableData=[]
+            this.tableData=[];
           }
         })
           .catch(function(error) {
             Indicator.close();
-            console.log(error)
+            console.log(error);
           })
 
       },
@@ -319,12 +323,12 @@
       //返回按钮
       handleBack(){
         if(Indicator){
-          Indicator.close()
+          Indicator.close();
         }
-        window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+        window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/');
       },
       handleChange(){
-        this.requestData()
+        this.requestData();
       },
       //合并单元格
       cellMerge(rowIndex,rowData,field){
@@ -407,18 +411,18 @@
       columnCellClass(rowIndex,columnName,rowData){
         if(columnName=='juOrgabb'){
           if(this.tableData[rowIndex].remark=='Not exist'){
-            return 'column-cell-class-name-test oms2-g-item-not-exist'
+            return 'column-cell-class-name-test oms2-g-item-not-exist';
           }
-          return 'column-cell-class-name-test'
+          return 'column-cell-class-name-test';
         }
         if(columnName=='chuOrgabb'){
           if(this.tableData[rowIndex].remark=='Not exist'){
-            return 'column-cell-class-name-test oms2-g-item-not-exist'
+            return 'column-cell-class-name-test oms2-g-item-not-exist';
           }
-          return 'column-cell-class-name-test'
+          return 'column-cell-class-name-test';
         }
         if(this.tableData[rowIndex].remark=='Not exist'){
-          return 'oms2-g-item-not-exist'
+          return 'oms2-g-item-not-exist';
         }
         // if(columnName=='zhibiao'&&&rowData.marketTotal==null){
         //   return 'column-cell-class-name-test-not-exist'
@@ -429,7 +433,7 @@
        */
       handleRowClick(rowIndex, rowData, column){
         this.selectedRow=rowData;
-        $("#ModalWellMessage").modal('show')
+        $("#ModalWellMessage").modal('show');
       }
     },
   }
@@ -438,6 +442,7 @@
 
 <style lang="scss" >
   #LogOfForeignTeamByDevicetype{
+    padding-top:$header-height;
     /*解决列数据过长换行问题 v-table-body-cell*/
     .column-cell-class-name-test {
       div{
