@@ -7,9 +7,9 @@
       <!--<h4>中油油服钻井工作量日报</h4>-->
       <!-- <p>钻机统计表</p> -->
       <!-- <div class='oms2-report-float-right' style="top:40px">数据来源于A7集团系统钻井综合日报</div> -->
-      <oms2-date-picker-daily :date="date"
+      <!--<oms2-date-picker-daily :date="date"
                               @date-change="handleChange">
-      </oms2-date-picker-daily>
+      </oms2-date-picker-daily> -->
     </header>
     <v-table
       is-horizontal-resize
@@ -26,8 +26,189 @@
       even-bg-color="#F4F4F4"
       row-hover-color="#eee"
       row-click-color="#edf7ff"
+      :row-click="handleRowClick"
     ></v-table>
-    <div class='oms2-report-float-right'>数据来源于A7集团系统库钻井工作量--完井口数统计表</div>
+    <div class='oms2-g-report-float-right'>数据来源于A7集团系统库钻井工作量--完井口数统计表</div>
+
+    <!-- Modal 具体数据信息 -->
+        <div class="modal fade oms2-font-size" id="ModalWellMessage" tabindex="-1" role="dialog" aria-labelledby="ModalWellMessageTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="modal-title" id="exampleModalLongTitle" style="font-size:25px;font-weight:blod">{{selectedRow.orgs}}({{selectedRow.total}})</p>
+                        <div style="align-items: center;">
+                            <i @click="handleGoToChart(selectedRow)" class="fa fa-area-chart oms2-icon oms2-vertical-divider"></i>
+                            <i @click="handleGoToList(selectedRow)" class="fa fa-list-alt oms2-icon oms2-vertical-divider"></i>
+                            <i class="fa fa-close oms2-icon" data-dismiss="modal" aria-label="Close"></i>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="oms2-list-divider list-group-item list-group-item-dark">国内集团内({{selectedRow.subtotal}})</div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">大庆:</label>
+                                <p>{{selectedRow.daqing}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">吉林:</label>
+                                <p>{{selectedRow.jilin}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">辽河:</label>
+                                <p>{{selectedRow.liaohe}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">华北:</label>
+                                <p>{{selectedRow.huabei}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">大港:</label>
+                                <p>{{selectedRow.dagang}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">冀东:</label>
+                                <p>{{selectedRow.jidong}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">西南:</label>
+                                <p>{{selectedRow.xinan}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">长庆:</label>
+                                <p>{{selectedRow.changqing}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">塔里木:</label>
+                                <p>{{selectedRow.talimu}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">新疆:</label>
+                                <p>{{selectedRow.xinjiang}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">吐哈:</label>
+                                <p>{{selectedRow.tuha}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">青海:</label>
+                                <p>{{selectedRow.qinghai}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">玉门:</label>
+                                <p>{{selectedRow.yumen}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">浙江:</label>
+                                <p>{{selectedRow.zhejiang}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">南方:</label>
+                                <p>{{selectedRow.nanfang}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">长庆(合作区块):</label>
+                                <p>{{selectedRow.changqing2}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">大港(合作区块):</label>
+                                <p>{{selectedRow.dagang2}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">其他(合作区块):</label>
+                                <p>{{selectedRow.other}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">山西(煤层气):</label>
+                                <p>{{selectedRow.shanxi}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">陕西(煤层气):</label>
+                                <p>{{selectedRow.shanxi2}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">其他(煤层气):</label>
+                                <p>{{selectedRow.other2}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">华北(储气库):</label>
+                                <p>{{selectedRow.huabei2}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">大港(储气库):</label>
+                                <p>{{selectedRow.dagang3}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">长庆(储气库):</label>
+                                <p>{{selectedRow.changqing3}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">西南(储气库):</label>
+                                <p>{{selectedRow.xinan2}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">新疆(储气库):</label>
+                                <p>{{selectedRow.xinjiang2}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">江苏(储气库):</label>
+                                <p>{{selectedRow.jiangsu}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">长宁(页岩气):</label>
+                                <p>{{selectedRow.changning}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">威远(页岩气):</label>
+                                <p>{{selectedRow.weiyuan}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">其他(页岩气):</label>
+                                <p>{{selectedRow.dagang3}}</p>
+                            </div>
+                            
+                            <div class="oms2-list-divider list-group-item list-group-item-dark">国内集团外({{selectedRow.subtotal2}})</div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">中石化:</label>
+                                <p>{{selectedRow.Sinopec}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">中海油:</label>
+                                <p>{{selectedRow.CNOOC}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">延长石油:</label>
+                                <p>{{selectedRow.yanchang}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">反承包:</label>
+                                <p>{{selectedRow.fanchengbao}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">其他:</label>
+                                <p>{{selectedRow.other4}}</p>
+                            </div>
+                            
+                            <div class="oms2-list-divider list-group-item list-group-item-dark ">国外({{selectedRow.subtotal3}})</div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">国外集团内:</label>
+                                <p>{{selectedRow.incompany}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">国外集团外:</label>
+                                <p>{{selectedRow.outcompany}}</p>
+                            </div>
+                            
+                        
+                        </form>
+                        <div class="modal-footer">
+                            <!-- <button type="button" data-dismiss="modal" class="btn btn-primary">返回</button> -->
+                            <button type="button" @click="closeModel" class="btn btn-primary">返回</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
   </div>
 </template>
 
@@ -40,6 +221,7 @@
     name: "DrillFinishOfNumYearly",
     data() {
       return {
+        selectedRow:{},  //选中的行
         date: {
           time:getCurrentDate('yyyy')-1,
         },
@@ -72,7 +254,7 @@
           {"part":"外部","orgs":"民营","total":"7542","subtotal":"7542","daqing":"","jilin":"24","liaohe":"","huabei":"7","dagang":"","jidong":"","xinan":"","changqing":"6120",'talimu':'25',"xinjiang":"859","tuha":"14",'qinghai':'28','yumen':'','zhejiang':'76','nanfang':'',
             'changqing2':'','dagang2':'','other':'','shanxi':'389', 'shanxi2':'','other2':'','huabei2':'','dagang3':'','changqing3':'','xinan2':'','xinjiang2':'','jiangsu':'','changning':'','weiyuan':'', 'other3':'',
             'subtotal2':'','Sinopec':'','CNOOC':'','yanchang':'','fanchengbao':'','other4':'','subtotal3':'','incompany':'','outcompany':''},
-          {"part":"集团公司","orgs":"","total":"19312","subtotal":"18368","daqing":"3672","jilin":"882","liaohe":"877","huabei":"365","dagang":"493","jidong":"148","xinan":"23","changqing":"8151",'talimu':'167',"xinjiang":"1654","tuha":"288",'qinghai':'685','yumen':'25','zhejiang':'117','nanfang':'45',
+          {"part":"集团公司","orgs":"集团公司","total":"19312","subtotal":"18368","daqing":"3672","jilin":"882","liaohe":"877","huabei":"365","dagang":"493","jidong":"148","xinan":"23","changqing":"8151",'talimu':'167',"xinjiang":"1654","tuha":"288",'qinghai':'685','yumen':'25','zhejiang':'117','nanfang':'45',
             'changqing2':'273','dagang2':'','other':'','shanxi':'444', 'shanxi2':'2','other2':'','huabei2':'','dagang3':'','changqing3':'','xinan2':'','xinjiang2':'','jiangsu':'','changning':'26','weiyuan':'21', 'other3':'10',
             'subtotal2':'64','Sinopec':'2','CNOOC':'','yanchang':'','fanchengbao':'40','other4':'22','subtotal3':'880','incompany':'350','outcompany':'530'},
 
@@ -248,8 +430,38 @@
           }
         }
       },
-
-      //合并单位
+      //进入实时数据列表
+            handleGoToList(item) {
+                getWellboreIdByWellId(item.wellId).then((data)=>{
+                    $("#ModalWellMessage").modal('hide')
+                    setTimeout(()=>{
+                        this.$router.push({
+                            path: '/real-time/list/project',
+                            query: {
+                                wellboreId: data.data,
+                                wellName: item.jm
+                            }
+                        })
+    
+                    },200)
+                })
+            },
+            //进入实时曲线列表
+            handleGoToChart(item) {
+                getWellboreIdByWellId(item.wellId).then((data)=>{
+                    location.href = dataMonitorUrl+'?wellBoreId='+data.data+"&wellName="+encodeURI(encodeURI(item.jm))
+                })
+            },
+    /**
+     * 表格行点击回掉
+     */
+      handleRowClick(rowIndex, rowData, column){
+          this.selectedRow=rowData
+          $("#ModalWellMessage").modal('show')
+            },
+          closeModel(){
+            $("#ModalWellMessage").modal('hide')
+            }  
 
     },
   }
