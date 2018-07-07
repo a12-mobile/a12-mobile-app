@@ -402,6 +402,7 @@
       },
       mounted(){
         // this.$ruixin.setWebViewTitle({title:"2017钻井工作量-钻井进尺表"});
+        this.$ruixin.hideWebViewTitle({});
         setTimeout(()=>{
           this.$ruixin.supportAutorotate({});
         },200)
