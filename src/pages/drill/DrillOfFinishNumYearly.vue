@@ -1,4 +1,6 @@
 <template>
+<div>
+  <oms2-header :title="$route.meta.title"></oms2-header>
   <div id="DrillOfFinishNumYearly">
     <header>
       <!-- <mt-header :title="$route.meta.title" fixed>
@@ -229,6 +231,7 @@
         </div>
 
   </div>
+</div>
 </template>
 
 <script>

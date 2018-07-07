@@ -1,4 +1,6 @@
 <template>
+<div>
+  <oms2-header :title="$route.meta.title"></oms2-header>
   <div id="ShamTsengFinishYearly">
     <header>
       <!-- <mt-header :title="$route.meta.title" fixed>
@@ -95,6 +97,7 @@
             </div>
         </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -157,8 +160,8 @@
           {"orgs":"川庆钻探","cityName":"小计","drillFinishNum":"244","drillCycle":"85.89","shaftBuildingCycle":"107.21","avgDeep":"4935","CoringNum":"41","avgCoringJinChi":"46.14","avgCoringHarvestRate":"97.94","mechanicalSpeed":"5.61","rigSpeed":"1605",'rigNum':"634.85"},
         ],
         columns: [
-          {field: 'orgs', width: 60, columnAlign: 'center',isResize: true},
-          {field: 'cityName', width: 60, columnAlign: 'center',isResize: true},
+          {field: 'orgs', width: 60, columnAlign: 'center',isFrozen: true,isResize: true},
+          {field: 'cityName', width: 60, columnAlign: 'center',isFrozen: true,isResize: true},
           {field: 'drillFinishNum', width: 60, columnAlign: 'right', isResize: true},
           {field: 'drillCycle', width: 50, columnAlign: 'right', isResize: true},
           {field: 'shaftBuildingCycle', width: 50, columnAlign: 'right', isResize: true},

@@ -1,4 +1,6 @@
 <template>
+<div>
+  <oms2-header :title="$route.meta.title"></oms2-header>
   <div id="EngineeringAccidentsYearly">
     <header>
       <!-- <mt-header :title="$route.meta.title" fixed>
@@ -117,6 +119,7 @@
             </div>
         </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -166,8 +169,8 @@
           {"orgs":"川庆钻探","cityName":"小计","accidentsHappenNum":"62","accidentLossTime":"6355","kzAccidentNum":"43","kzLossTime":"5299","ztAccidentNum":"4","ztLossTime":"470","zjAccidentNum":"10","zjLossTime":"360","lwAccidentNum":"1",'lwLossTime':"24","jpAccidentNum":"","jpLossTime":"","qtAccidentNum":"4",'qtLossTime':"202"},
         ],
         columns: [
-          {field: 'orgs', width: 60, columnAlign: 'center',isResize: true},
-          {field: 'cityName', width: 60, columnAlign: 'center',isResize: true},
+          {field: 'orgs', width: 60, columnAlign: 'center',isFrozen: true,isResize: true},
+          {field: 'cityName', width: 60, columnAlign: 'center',isFrozen: true,isResize: true},
           {field: 'accidentsHappenNum', width: 60, columnAlign: 'right', isResize: true},
           {field: 'accidentLossTime', width: 50, columnAlign: 'right', isResize: true},
           {field: 'kzAccidentNum', width: 50, columnAlign: 'right', isResize: true},

@@ -23,8 +23,8 @@ const DrillOfFootageYearly = r => require.ensure([], () => r(require('@/pages/dr
 const DrillOfNumYearly = r => require.ensure([], () => r(require('@/pages/drill/DrillOfNumYearly')), 'drill');
 const DrillOfFinishNumYearly = r => require.ensure([], () => r(require('@/pages/drill/DrillOfFinishNumYearly')), 'drill');
 const DrillKeyIndicatorsYearly = r => require.ensure([], () => r(require('@/pages/drill/DrillKeyIndicatorsYearly')), 'drill');
-const ShamTsengFinishYearly = r => require.ensure([], () => r(require('@/pages/drill/ShamTsengFinishYearly')), 'drill');
-const EngineeringAccidentsYearly = r => require.ensure([], () => r(require('@/pages/drill/EngineeringAccidentsYearly')), 'drill');
+const ShamTsengFinishYearly = r => require.ensure([], () => r(require('@/pages/drill/DrillShamTsengFinishYearly')), 'drill');
+const EngineeringAccidentsYearly = r => require.ensure([], () => r(require('@/pages/drill/DrillEngineeringAccidentsYearly')), 'drill');
 
 
 //井下
