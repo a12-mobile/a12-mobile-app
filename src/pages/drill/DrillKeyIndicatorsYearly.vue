@@ -1,5 +1,5 @@
 <template>
-  <div id="DrillOfNumYearly">
+  <div id="DrillKeyIndicatorsYearly">
     <header>
       <!-- <mt-header :title="$route.meta.title" fixed>
         <mt-button slot="left" @click="handleBack"><i class="fa fa-search"></i></mt-button>
@@ -26,8 +26,107 @@
       even-bg-color="#F4F4F4"
       row-hover-color="#eee"
       row-click-color="#edf7ff"
+      :row-click="handleRowClick"
     ></v-table>
     <div class='oms2-g-report-float-right'>数据来源于A7集团系统库钻井主要指标统计表（年报）</div>
+    <!-- Modal 具体数据信息 -->
+        <div class="modal fade oms2-font-size" id="ModalWellMessage" tabindex="-1" role="dialog" aria-labelledby="ModalWellMessageTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" style="font-size:18px" id="exampleModalLongTitle">{{selectedRow.orgs}} <b>/</b> {{selectedRow.cityName}} <b>/</b><span style="padding-left:1rem;font-size:14px">({{date.time}})</span></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span style="font-size:32px;" aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            
+                            <div class="oms2-list-divider list-group-item list-group-item-dark">指标信息</div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">动用钻井队(个):</label>
+                                <p>{{selectedRow.drillTeamNum}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">开钻(口):</label>
+                                <p>{{selectedRow.startDrillNum}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">完井(口):</label>
+                                <p>{{selectedRow.finishDrillNum}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">进尺(万米):</label>
+                                <p>{{selectedRow.jinChi}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">钻机月速(米/台月):</label>
+                                <p>{{selectedRow.rigSpeed}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">机械钻速(米/时):</label>
+                                <p>{{selectedRow.mechanicalSpeed}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">平均井深(米):</label>
+                                <p>{{selectedRow.avgDeep}}</p>
+                            </div>
+                            <div class="oms2-list-divider list-group-item list-group-item-dark" style="width: 100%;position: center;">井身质量</div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">合格(口):</label>
+                                <p>{{selectedRow.qualified}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">合格率(%):</label>
+                                <p>{{selectedRow.passRate}}</p>
+                            </div>
+                             <div class="oms2-list-divider list-group-item list-group-item-dark" style="width: 100%;position: center;">固井质量</div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">合格(口):</label>
+                                <p>{{selectedRow.qualified1}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">合格率(%):</label>
+                                <p>{{selectedRow.passRate1}}</p>
+                            </div>
+                             <div class="oms2-list-divider list-group-item list-group-item-dark" style="width: 100%;position: center;">取心</div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">进尺(米):</label>
+                                <p>{{selectedRow.jinchi1}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">收获率(%):</label>
+                                <p>{{selectedRow.harvestRate}}</p>
+                            </div>
+                            <div class="oms2-list-divider list-group-item list-group-item-dark" style="width: 100%;position: center;">取心</div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">进尺(米):</label>
+                                <p>{{selectedRow.jinchi1}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">收获率(%):</label>
+                                <p>{{selectedRow.harvestRate}}</p>
+                            </div>
+                            <div class="oms2-list-divider list-group-item list-group-item-dark" style="width: 100%;position: center;">施工周期(天)</div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">建井:</label>
+                                <p>{{selectedRow.jianjing}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">钻井:</label>
+                                <p>{{selectedRow.zuanjing}}</p>
+                            </div>
+                             
+                        
+                        </form>
+                        <div class="modal-footer">
+                            <!-- <button type="button" data-dismiss="modal" class="btn btn-primary">返回</button> -->
+                            <button type="button" @click="closeModel" class="btn btn-primary">返回</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
   </div>
 </template>
 
@@ -40,6 +139,7 @@
     name: "DrillKeyIndicatorsYearly",
     data() {
       return {
+        selectedRow:{},  //选中的行
         date: {
           time:getCurrentDate('yyyy')-1,
         },
@@ -219,13 +319,37 @@
           }
         }
       },
-      //合并单位
+      /**
+     * 表格行点击回掉
+     */
+      handleRowClick(rowIndex, rowData, column){
+          this.selectedRow=rowData
+          $("#ModalWellMessage").modal('show')
+            },
+          closeModel(){
+            $("#ModalWellMessage").modal('hide')
+            }
 
     },
   }
 
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+  #DrillKeyIndicatorsYearly{
+    .oms2-list-item-content{
+      text-align: left;
+      padding-left:0px;
+      padding-bottom:10px; 
+    }
+    .oms2-list-divider{
+      text-align: center;
+      padding-top:0rem !important;
+      padding-bottom:0rem !important;
+      margin-bottom:10px;
+    }
+    .oms2-right{
+      text-align: right;
+    }
+  }
 </style>

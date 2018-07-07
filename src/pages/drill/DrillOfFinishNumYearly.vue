@@ -1,5 +1,5 @@
 <template>
-  <div id="DrillOfNumYearly">
+  <div id="DrillOfFinishNumYearly">
     <header>
       <!-- <mt-header :title="$route.meta.title" fixed>
         <mt-button slot="left" @click="handleBack"><i class="fa fa-search"></i></mt-button>
@@ -35,16 +35,23 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <p class="modal-title" id="exampleModalLongTitle" style="font-size:25px;font-weight:blod">{{selectedRow.orgs}}({{selectedRow.total}})</p>
-                        <div style="align-items: center;">
-                            <i @click="handleGoToChart(selectedRow)" class="fa fa-area-chart oms2-icon oms2-vertical-divider"></i>
-                            <i @click="handleGoToList(selectedRow)" class="fa fa-list-alt oms2-icon oms2-vertical-divider"></i>
-                            <i class="fa fa-close oms2-icon" data-dismiss="modal" aria-label="Close"></i>
-                        </div>
+                        <h5 class="modal-title" style="font-size:18px" id="exampleModalLongTitle">{{selectedRow.part}} <b>/</b> {{selectedRow.orgs}} <b>/</b><span style="padding-left:1rem;font-size:14px">({{date.time}})</span></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span style="font-size:32px;" aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="modal-body">
                         <form>
-                            <div class="oms2-list-divider list-group-item list-group-item-dark">国内集团内({{selectedRow.subtotal}})</div>
+                            <div class="oms2-list-divider list-group-item list-group-item-dark" >市场分布</div>
+                                <div class="row">
+                                    <label class="col-5 oms2-right">合计:</label>
+                                    <p>{{selectedRow.total | ifNumberIsNull}}</p>
+                                 </div>
+                            <div class="oms2-list-divider list-group-item list-group-item-dark">国内集团内</div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">小计:</label>
+                                <p>{{selectedRow.subtotal}}</p>
+                            </div>
                             <div class="row">
                                 <label class="col-5 oms2-right">大庆:</label>
                                 <p>{{selectedRow.daqing}}</p>
@@ -105,68 +112,76 @@
                                 <label class="col-5 oms2-right">南方:</label>
                                 <p>{{selectedRow.nanfang}}</p>
                             </div>
+                            <div class="oms2-list-divider list-group-item list-group-item-dark" style="width: 80%;position: center;left: 10%">合作(自营)区块</div>
                             <div class="row">
-                                <label class="col-5 oms2-right">长庆(合作区块):</label>
+                                <label class="col-5 oms2-right">长庆:</label>
                                 <p>{{selectedRow.changqing2}}</p>
                             </div>
                             <div class="row">
-                                <label class="col-5 oms2-right">大港(合作区块):</label>
+                                <label class="col-5 oms2-right">大港:</label>
                                 <p>{{selectedRow.dagang2}}</p>
                             </div>
                             <div class="row">
-                                <label class="col-5 oms2-right">其他(合作区块):</label>
+                                <label class="col-5 oms2-right">其他:</label>
                                 <p>{{selectedRow.other}}</p>
                             </div>
+                            <div class="oms2-list-divider list-group-item list-group-item-dark" style="width: 80%;position: center;left: 10%">煤层气</div>
                             <div class="row">
-                                <label class="col-5 oms2-right">山西(煤层气):</label>
+                                <label class="col-5 oms2-right">山西:</label>
                                 <p>{{selectedRow.shanxi}}</p>
                             </div>
                             <div class="row">
-                                <label class="col-5 oms2-right">陕西(煤层气):</label>
+                                <label class="col-5 oms2-right">陕西:</label>
                                 <p>{{selectedRow.shanxi2}}</p>
                             </div>
                             <div class="row">
-                                <label class="col-5 oms2-right">其他(煤层气):</label>
+                                <label class="col-5 oms2-right">其他:</label>
                                 <p>{{selectedRow.other2}}</p>
                             </div>
+                            <div class="oms2-list-divider list-group-item list-group-item-dark" style="width: 80%;position: center;left: 10%">储气库</div>
                             <div class="row">
-                                <label class="col-5 oms2-right">华北(储气库):</label>
+                                <label class="col-5 oms2-right">华北:</label>
                                 <p>{{selectedRow.huabei2}}</p>
                             </div>
                             <div class="row">
-                                <label class="col-5 oms2-right">大港(储气库):</label>
+                                <label class="col-5 oms2-right">大港:</label>
                                 <p>{{selectedRow.dagang3}}</p>
                             </div>
                             <div class="row">
-                                <label class="col-5 oms2-right">长庆(储气库):</label>
+                                <label class="col-5 oms2-right">长庆:</label>
                                 <p>{{selectedRow.changqing3}}</p>
                             </div>
                             <div class="row">
-                                <label class="col-5 oms2-right">西南(储气库):</label>
+                                <label class="col-5 oms2-right">西南:</label>
                                 <p>{{selectedRow.xinan2}}</p>
                             </div>
                             <div class="row">
-                                <label class="col-5 oms2-right">新疆(储气库):</label>
+                                <label class="col-5 oms2-right">新疆:</label>
                                 <p>{{selectedRow.xinjiang2}}</p>
                             </div>
                             <div class="row">
-                                <label class="col-5 oms2-right">江苏(储气库):</label>
+                                <label class="col-5 oms2-right">江苏:</label>
                                 <p>{{selectedRow.jiangsu}}</p>
                             </div>
+                            <div class="oms2-list-divider list-group-item list-group-item-dark" style="width: 80%;position: center;left: 10%">页岩气</div>
                             <div class="row">
-                                <label class="col-5 oms2-right">长宁(页岩气):</label>
+                                <label class="col-5 oms2-right">长宁:</label>
                                 <p>{{selectedRow.changning}}</p>
                             </div>
                             <div class="row">
-                                <label class="col-5 oms2-right">威远(页岩气):</label>
+                                <label class="col-5 oms2-right">威远:</label>
                                 <p>{{selectedRow.weiyuan}}</p>
                             </div>
                             <div class="row">
-                                <label class="col-5 oms2-right">其他(页岩气):</label>
+                                <label class="col-5 oms2-right">其他:</label>
                                 <p>{{selectedRow.dagang3}}</p>
                             </div>
                             
-                            <div class="oms2-list-divider list-group-item list-group-item-dark">国内集团外({{selectedRow.subtotal2}})</div>
+                            <div class="oms2-list-divider list-group-item list-group-item-dark">国内集团外</div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">小计:</label>
+                                <p>{{selectedRow.subtotal2}}</p>
+                            </div>
                             <div class="row">
                                 <label class="col-5 oms2-right">中石化:</label>
                                 <p>{{selectedRow.Sinopec}}</p>
@@ -188,7 +203,11 @@
                                 <p>{{selectedRow.other4}}</p>
                             </div>
                             
-                            <div class="oms2-list-divider list-group-item list-group-item-dark ">国外({{selectedRow.subtotal3}})</div>
+                            <div class="oms2-list-divider list-group-item list-group-item-dark ">国外</div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">小计:</label>
+                                <p>{{selectedRow.subtotal3}}</p>
+                            </div>
                             <div class="row">
                                 <label class="col-5 oms2-right">国外集团内:</label>
                                 <p>{{selectedRow.incompany}}</p>
@@ -430,28 +449,6 @@
           }
         }
       },
-      //进入实时数据列表
-            handleGoToList(item) {
-                getWellboreIdByWellId(item.wellId).then((data)=>{
-                    $("#ModalWellMessage").modal('hide')
-                    setTimeout(()=>{
-                        this.$router.push({
-                            path: '/real-time/list/project',
-                            query: {
-                                wellboreId: data.data,
-                                wellName: item.jm
-                            }
-                        })
-    
-                    },200)
-                })
-            },
-            //进入实时曲线列表
-            handleGoToChart(item) {
-                getWellboreIdByWellId(item.wellId).then((data)=>{
-                    location.href = dataMonitorUrl+'?wellBoreId='+data.data+"&wellName="+encodeURI(encodeURI(item.jm))
-                })
-            },
     /**
      * 表格行点击回掉
      */
@@ -468,6 +465,21 @@
 
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+  #DrillOfFinishNumYearly{
+    .oms2-list-item-content{
+      text-align: left;
+      padding-left:0px;
+      padding-bottom:10px; 
+    }
+    .oms2-list-divider{
+      text-align: center;
+      padding-top:0rem !important;
+      padding-bottom:0rem !important;
+      margin-bottom:10px;
+    }
+    .oms2-right{
+      text-align: right;
+    }
+  }
 </style>

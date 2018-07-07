@@ -1,5 +1,5 @@
 <template>
-  <div id="DrillOfNumYearly">
+  <div id="EngineeringAccidentsYearly">
     <header>
       <!-- <mt-header :title="$route.meta.title" fixed>
         <mt-button slot="left" @click="handleBack"><i class="fa fa-search"></i></mt-button>
@@ -26,8 +26,96 @@
       even-bg-color="#F4F4F4"
       row-hover-color="#eee"
       row-click-color="#edf7ff"
+      :row-click="handleRowClick"
     ></v-table>
     <div class='oms2-g-report-float-right'>数据来源于A7集团系统库钻井工程事故统计表</div>
+    <!-- Modal 具体数据信息 -->
+        <div class="modal fade oms2-font-size" id="ModalWellMessage" tabindex="-1" role="dialog" aria-labelledby="ModalWellMessageTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" style="font-size:18px" id="exampleModalLongTitle">{{selectedRow.orgs}} <b>/</b> {{selectedRow.cityName}} <b>/</b><span style="padding-left:1rem;font-size:14px">({{date.time}})</span></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span style="font-size:32px;" aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            
+                            <div class="oms2-list-divider list-group-item list-group-item-dark">基本信息</div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">事故发生次数(次):</label>
+                                <p>{{selectedRow.accidentsHappenNum}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">事故损失时间(小时):</label>
+                                <p>{{selectedRow.accidentLossTime}}</p>
+                            </div>
+                            <div class="oms2-list-divider list-group-item list-group-item-dark" style="width: 100%;position: center;">卡钻事故</div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">事故次数:</label>
+                                <p>{{selectedRow.kzAccidentNum}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">损失时间:</label>
+                                <p>{{selectedRow.kzLossTime}}</p>
+                            </div>
+                            <div class="oms2-list-divider list-group-item list-group-item-dark" style="width: 100%;position: center;">钻头事故</div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">事故次数:</label>
+                                <p>{{selectedRow.ztAccidentNum}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">损失时间:</label>
+                                <p>{{selectedRow.ztLossTime}}</p>
+                            </div>
+                            <div class="oms2-list-divider list-group-item list-group-item-dark" style="width: 100%;position: center;">钻具事故</div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">事故次数:</label>
+                                <p>{{selectedRow.zjAccidentNum}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">损失时间:</label>
+                                <p>{{selectedRow.zjLossTime}}</p>
+                            </div>
+                            <div class="oms2-list-divider list-group-item list-group-item-dark" style="width: 100%;position: center;">落物事故</div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">事故次数:</label>
+                                <p>{{selectedRow.lwAccidentNum}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">损失时间:</label>
+                                <p>{{selectedRow.lwLossTime}}</p>
+                            </div>
+                            <div class="oms2-list-divider list-group-item list-group-item-dark" style="width: 100%;position: center;">井喷事故</div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">事故次数:</label>
+                                <p>{{selectedRow.jpAccidentNum}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">损失时间:</label>
+                                <p>{{selectedRow.jpLossTime}}</p>
+                            </div>
+                            <div class="oms2-list-divider list-group-item list-group-item-dark" style="width: 100%;position: center;">其他事故</div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">事故次数:</label>
+                                <p>{{selectedRow.qtAccidentNum}}</p>
+                            </div>
+                            <div class="row">
+                                <label class="col-5 oms2-right">损失时间:</label>
+                                <p>{{selectedRow.qtLossTime}}</p>
+                            </div>
+                             
+                        
+                        </form>
+                        <div class="modal-footer">
+                            <!-- <button type="button" data-dismiss="modal" class="btn btn-primary">返回</button> -->
+                            <button type="button" @click="closeModel" class="btn btn-primary">返回</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
   </div>
 </template>
 
@@ -40,6 +128,7 @@
     name: "EngineeringAccidentsYearly",
     data() {
       return {
+        selectedRow:{},  //选中的行
         date: {
           time:getCurrentDate('yyyy')-1,
         },
@@ -191,13 +280,37 @@
           }
         }
       },
-      //合并单位
+       /**
+     * 表格行点击回掉
+     */
+      handleRowClick(rowIndex, rowData, column){
+          this.selectedRow=rowData
+          $("#ModalWellMessage").modal('show')
+            },
+          closeModel(){
+            $("#ModalWellMessage").modal('hide')
+            }
 
     },
   }
 
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+  #EngineeringAccidentsYearly{
+    .oms2-list-item-content{
+      text-align: left;
+      padding-left:0px;
+      padding-bottom:10px; 
+    }
+    .oms2-list-divider{
+      text-align: center;
+      padding-top:0rem !important;
+      padding-bottom:0rem !important;
+      margin-bottom:10px;
+    }
+    .oms2-right{
+      text-align: right;
+    }
+  }
 </style>
