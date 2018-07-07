@@ -199,43 +199,43 @@ export default new Router({
       path: '/log/monthly/workload',
       name: 'LogMonthlyOfWorkload',
       component: LogMonthlyOfWorkload,
-      meta:{ navShow: false, title: '测井工作量月报'}
+      meta:{ navShow: false, title: '工作量月报'}
     },
     {
       path: '/log/daily/workload',
       name: 'LogDailyOfWorkload',
       component: LogDailyOfWorkload,
-      meta:{ navShow: false, title: '测井工作量日报'}
+      meta:{ navShow: false, title: '工作量日报'}
     },
     {
       path: '/log/monthly/workloadOfBlock',
       name: 'LogWorkloadOfBlock',
       component: LogWorkloadOfBlock,
-      meta:{ navShow: false, title: '测井工作量油区分布表'}
+      meta:{ navShow: false, title: '工作量油区分布'}
     },
     {
       path: '/log/Monthly/TeamByTeamType',
       name: 'LogOfTeamByTeamtype',
       component: LogOfTeamByTeamtype,
-      meta:{ navShow: false, title: '测井专业队伍分布表(按队伍类型)'}
+      meta:{ navShow: false, title: '专业队伍分布(队伍类型)'}
     },
     {
       path: '/log/Monthly/TeamByDeviceType',
       name: 'LogOfTeamByDevicetype',
       component: LogOfTeamByDevicetype,
-      meta:{ navShow: false, title: '测井专业队伍分布表(按设备类型)'}
+      meta:{ navShow: false, title: '专业队伍分布(设备类型)'}
     },
     {
       path: '/log/Monthly/ForeignTeamByTeamType',
       name: 'LogOfForeignTeamByTeamtype',
       component: LogOfForeignTeamByTeamtype,
-      meta:{ navShow: false, title: '测井专业队伍国外分布表(按队伍类型)'}
+      meta:{ navShow: false, title: '专业队伍国外分布(队伍类型)'}
     },
     {
       path: '/log/Monthly/ForeignTeamByDeviceType',
       name: 'LogOfForeignTeamByDevicetype',
       component: LogOfForeignTeamByDevicetype,
-      meta:{ navShow: false, title: '测井专业队伍国外分布表(按设备类型)'}
+      meta:{ navShow: false, title: '专业队伍国外分布(设备类型)'}
     },
 
     //测井end
@@ -250,25 +250,25 @@ export default new Router({
       path: '/mlogsOfRecordWell',
       name: 'MlogsOfRecordWell',
       component: MlogsOfRecordWell,
-      meta:{ navShow: false, title: '录井分队动态'}
+      meta:{ navShow: false, title: '分队动态'}
     },
     {
       path: '/MonthLogOfLogWellByCompany',
       name: 'MonthLogOfLogWellByCompany',
       component: MonthLogOfLogWellByCompany,
-      meta:{ navShow: false, title: '录井分市场月报'}
+      meta:{ navShow: false, title: '分市场月报'}
     },
     {
       path: '/monthLogOfWellWorkload',
       name: 'MonthLogOfWellWorkload',
       component: MonthLogOfWellWorkload,
-      meta:{ navShow: false, title: '录井工作量月报'}
+      meta:{ navShow: false, title: '工作量月报'}
     },
     {
       path: '/mlogMonthOfTeam',
       name: 'MlogMonthOfTeam',
       component: MlogMonthOfTeam,
-      meta:{ navShow: false, title: '录井队伍统计月报'}
+      meta:{ navShow: false, title: '队伍统计月报'}
     },
 
 
