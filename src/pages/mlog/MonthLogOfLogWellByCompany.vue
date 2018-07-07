@@ -1,40 +1,43 @@
 <template>
-  <div id="MonthlyOfCompany">
-    <header>
-      <!--<mt-header :title="$route.meta.title" fixed>
-        <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
-      </mt-header>-->
-    </header>
-    <!--<h5>录井工作量分单位月报</h5>-->
-    <oms2-date-picker-monthly
-      :date=date
-      @date-change="handleChange"
-    ></oms2-date-picker-monthly>
-    <!--<div class="oms2-datepicker-content">-->
-      <!--<vue-datepicker-local-->
-        <!--v-model="date"-->
-        <!--inputClass='oms2-date-picker-monthly-input'-->
-        <!--format="YYYY-MM" />-->
-    <!--</div>-->
-    <v-table
-      is-horizontal-resize
-      is-vertical-resize
-      style="width:100%;font-size:12px"
-      :title-row-height=25
-      :row-height=40
-      :height=tableheight
-      title-bg-color="#F6F6F6"
-      :columns="columns"
-      :table-data="tableData"
-      :title-rows="titleRows"
-      :cellMerge="cellMerge"
-      :column-cell-class-name="columnCellClass"
-      :footer="footer"
-      row-hover-color="#eee"
-      row-click-color="#edf7ff"
-      even-bg-color="#f4f4f4"
-    ></v-table>
-    <div class='oms2-g-report-float-right'>数据来源于集团A7库录井工作量分单位月报</div>
+  <div>
+    <oms2-header :title="$route.meta.title"></oms2-header>
+    <div id="MonthlyOfCompany">
+      <header>
+        <!--<mt-header :title="$route.meta.title" fixed>
+          <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
+        </mt-header>-->
+      </header>
+      <!--<h5>录井工作量分单位月报</h5>-->
+      <oms2-date-picker-monthly
+        :date=date
+        @date-change="handleChange"
+      ></oms2-date-picker-monthly>
+      <!--<div class="oms2-datepicker-content">-->
+        <!--<vue-datepicker-local-->
+          <!--v-model="date"-->
+          <!--inputClass='oms2-date-picker-monthly-input'-->
+          <!--format="YYYY-MM" />-->
+      <!--</div>-->
+      <v-table
+        is-horizontal-resize
+        is-vertical-resize
+        style="width:100%;font-size:12px"
+        :title-row-height=25
+        :row-height=40
+        :height=tableheight
+        title-bg-color="#F6F6F6"
+        :columns="columns"
+        :table-data="tableData"
+        :title-rows="titleRows"
+        :cellMerge="cellMerge"
+        :column-cell-class-name="columnCellClass"
+        :footer="footer"
+        row-hover-color="#eee"
+        row-click-color="#edf7ff"
+        even-bg-color="#f4f4f4"
+      ></v-table>
+      <div class='oms2-g-report-float-right'>数据来源于集团A7库录井工作量分单位月报</div>
+    </div>
   </div>
 </template>
 
@@ -107,21 +110,23 @@
       },
       created(){
         this.requestData()
-        this.tableheight=window.innerHeight-80
-        setTimeout(()=>{
-                this.$ruixin.supportAutorotate({});
-            },200)
+        this.tableheight=window.innerHeight-130;
+
       },
       mounted(){
-        this.$ruixin.setWebViewTitle({title:'录井分单位月报'});
+        this.$ruixin.hideWebViewTitle({});
+        // this.$ruixin.setWebViewTitle({title:'录井分单位月报'});
+        setTimeout(()=>{
+          this.$ruixin.supportAutorotate({});
+        },200)
       },
       methods: {
           requestData(){
-              Indicator.open('加载中...')
+              Indicator.open('加载中...');
               getMonthLogOfMlogWellByCompany(this.date.time).then((data)=>{
                 if (data) {
-                  Indicator.close()
-                  this.tableData = data.body
+                  Indicator.close();
+                  this.tableData = data.body;
                   //检查是否含有所有地区
                   let jujiorgnames=[{'jujorgNam':'集团总计','cjorgName':''},
                     {'jujorgNam':'大庆钻探','cjorgName':'小计'},
@@ -140,7 +145,7 @@
                     {'jujorgNam':'中油测井','cjorgName':'小计'},
                     {'jujorgNam':'中油测井','cjorgName':'青海分公司'},
                   ]
-                  let jujorgNamFromDate = []
+                  let jujorgNamFromDate = [];
                   for (var date of this.tableData) {
                     jujorgNamFromDate.push({
                       'jujorgNam':date.jujorgNam,
@@ -152,7 +157,7 @@
                     include=false;
                     for(var juji of jujorgNamFromDate){
                       if(juji.jujorgNam==jujorgNam.jujorgNam&&juji.cjorgName==jujorgNam.cjorgName){
-                        include=true
+                        include=true;
                       }
                     }
                     if(!include){
@@ -161,64 +166,64 @@
                         'jujorgNam':jujorgNam.jujorgNam,
                         'cjorgName':jujorgNam.cjorgName,
                         remark:'Not exist'
-                      }
-                      this.tableData.push(newItem)
+                      };
+                      this.tableData.push(newItem);
                     }
                   }
 
                 //排序
                 this.tableData.sort((pre,next)=>{
-                  let preIndex=-1
-                  let nextIndex=-1
+                  let preIndex=-1;
+                  let nextIndex=-1;
                   let index=0;
                   for(var item of jujiorgnames){
                     if(item.jujorgNam==pre.jujorgNam&&item.cjorgName==pre.cjorgName){
-                      preIndex=index
+                      preIndex=index;
                     }
                     if(item.jujorgNam==next.jujorgNam&&item.cjorgName==next.cjorgName){
-                      nextIndex=index
+                      nextIndex=index;
                     }
                     if(preIndex!=-1&&nextIndex!=-1){
-                      break
+                      break;
                     }
-                    index++
+                    index++;
                   }
-                  return preIndex-nextIndex
+                  return preIndex-nextIndex;
                 })
               }else{
-              this.tableData=[]
+              this.tableData=[];
             }
           })
               .catch(function(error) {
-                Indicator.close()
-                console.log(error)
+                Indicator.close();
+                console.log(error);
               })
           },
 
         handleBack() {
               if(Indicator){
-                Indicator.close()
+                Indicator.close();
               }
-              window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+              window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/');
           },
         columnCellClass(rowIndex, columnName, rowData) {
             // console.log(rowData['cjorgName']+"    "+rowData['cjorgName'].length)
           if(rowData['cjorgName'].length>6&&columnName=='cjorgName'&&this.tableData[rowIndex].remark=='Not exist'){
-            return 'column-cell-class-name-test-not-exist'
+            return 'column-cell-class-name-test-not-exist';
           }
           if(rowData['cjorgName'].length>6){
-            return 'column-cell-class-name-test'
+            return 'column-cell-class-name-test';
           }
           if(columnName=='jujorgNam'&&this.tableData[rowIndex].remark=='Not exist'){
-            return 'oms2-item-not-exict'
+            return 'oms2-g-item-not-exist';
           }
           if(columnName=='cjorgName'&&this.tableData[rowIndex].remark=='Not exist'){
-            return 'oms2-item-not-exict'
+            return 'oms2-g-item-not-exist';
           }
 
         },
         handleChange(){
-          this.requestData()
+          this.requestData();
         },
         cellMerge(rowIndex,rowData,field){
             if (field === 'jujorgNam' && rowData[field] === '集团总计') {
@@ -238,14 +243,14 @@
             //   }
             // }
             if(field==='jujorgNam'){
-            let jujorgNam=rowData[field]
-            let jujorgNamList=[]
+            let jujorgNam=rowData[field];
+            let jujorgNamList=[];
             if(jujorgNamList.indexOf(jujorgNam)==-1){
               //还没有合并该局级单位
               let num=0;  //记录这个局级单位有多少个
               for(let i=rowIndex;i<this.tableData.length;i++){
                 if(this.tableData[i].jujorgNam==jujorgNam){
-                  num++
+                  num++;
                 }
               }
               if(num>0){
@@ -256,7 +261,7 @@
                   componentName: ''
                 }
               }
-              jujorgNamList.push(jujorgNam)
+              jujorgNamList.push(jujorgNam);
             }
         }
 
@@ -268,6 +273,7 @@
 
 <style lang="scss" >
   #MonthlyOfCompany{
+    padding-top:$header-height;
     /*解决列数据过长换行问题 v-table-body-cell*/
     .column-cell-class-name-test {
       div{
