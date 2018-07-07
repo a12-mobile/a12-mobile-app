@@ -1,33 +1,109 @@
 <template>
-  <div id="DrillOfRigstatistics">
-    <header>
-      <!-- <mt-header :title="$route.meta.title" fixed>
-        <mt-button slot="left" @click="handleBack"><i class="fa fa-search"></i></mt-button>
-      </mt-header> -->
-      <!--<h4>中油油服钻井工作量日报</h4>-->
-      <!-- <p>钻机统计表</p> -->
-      <!-- <div class='oms2-g-report-float-right' style="top:40px">数据来源于A7集团系统钻井综合日报</div> -->
-      <!--<oms2-date-picker-daily :date="date"
-                              @date-change="handleChange">
-      </oms2-date-picker-daily>-->
-    </header>
-    <v-table
-      is-horizontal-resize
-      is-vertical-resize
-      style="width:100%;font-size:12px"
-      :title-row-height=25
-      :row-height=30
-      :height=tableHeight
-      :columns="columns"
-      :title-rows="titleRows"
-      :table-data="tableData"
-      :cellMerge="cellMerge"
-      title-bg-color="#F6F6F6"
-      even-bg-color="#F4F4F4"
-      row-hover-color="#eee"
-      row-click-color="#edf7ff"
-    ></v-table>
-    <div class='oms2-g-report-float-right'>数据来源于A7集团系统库钻机统计表</div>
+  <div>
+    <oms2-header :title="$route.meta.title"></oms2-header>
+    <div id="DrillOfRigstatistics">
+
+        <!-- <mt-header :title="$route.meta.title" fixed>
+          <mt-button slot="left" @click="handleBack"><i class="fa fa-search"></i></mt-button>
+        </mt-header> -->
+        <!--<h4>中油油服钻井工作量日报</h4>-->
+        <!-- <p>钻机统计表</p> -->
+        <!-- <div class='oms2-g-report-float-right' style="top:40px">数据来源于A7集团系统钻井综合日报</div> -->
+        <oms2-date-picker-daily :date="date"></oms2-date-picker-daily>
+
+      <v-table
+        is-horizontal-resize
+        is-vertical-resize
+        style="width:100%;font-size:12px"
+        :title-row-height=25
+        :row-height=30
+        :height=tableHeight
+        :columns="columns"
+        :row-click="handleRowClick"
+        :title-rows="titleRows"
+        :table-data="tableData"
+        :cellMerge="cellMerge"
+        title-bg-color="#F6F6F6"
+        even-bg-color="#F4F4F4"
+        row-hover-color="#eee"
+        row-click-color="#edf7ff"
+      ></v-table>
+      <div class='oms2-g-report-float-right'>数据来源于A7集团系统库钻机统计表</div>
+      <!-- Modal 具体数据信息 -->
+      <div class="modal fade oms2-font-size" id="ModalWellMessage" tabindex="-1" role="dialog" aria-labelledby="ModalWellMessageTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" style="font-size:14px" id="exampleModalLongTitle">{{selectedRow.orgs}} <b>/</b> {{selectedRow.drivingType}} <span style="padding-left:1rem;font-size:14px">({{date.time}})</span></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span style="font-size:20px;" aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="oms2-list-divider list-group-item list-group-item-dark">数据</div>
+                <div class="row">
+                  <label class="col-5 oms2-right">驱动类型:</label>
+                  <p>{{selectedRow.drivingType | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">小计:</label>
+                  <p>{{selectedRow.subtotal | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">1500:</label>
+                  <p>{{selectedRow.num1500 | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">2000:</label>
+                  <p>{{selectedRow.num2000 | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">3000:</label>
+                  <p>{{selectedRow.num3000 | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">3200:</label>
+                  <p>{{selectedRow.num3200 | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">4000:</label>
+                  <p>{{selectedRow.num4000 | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">4500:</label>
+                  <p>{{selectedRow.num4500 | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">5000:</label>
+                  <p>{{selectedRow.num5000 | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">6000:</label>
+                  <p>{{selectedRow.num6000 | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">7000:</label>
+                  <p>{{selectedRow.num7000 | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">8000:</label>
+                  <p>{{selectedRow.num8000 | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">9000:</label>
+                  <p>{{selectedRow.num9000 | ifNumberIsNull}}</p>
+                </div>
+
+              </form>
+              <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary">返回</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -44,6 +120,7 @@
             time:getCurrentDate('yyyy')-1,
           },
           tableHeight:0,
+          selectedRow:{},  //选中的行
           tableData: [
             {"orgs":"集团","drivingType":"小计","subtotal":"1212","num1500":"50","num2000":"44","num3000":"204","num3200":"38","num4000":"227","num4500":"4","num5000":"336","num6000":"1","num7000":"290","num8000":"10","num9000":"8"},
             {"orgs":"集团","drivingType":"车装","subtotal":"90","num1500":"","num2000":"19","num3000":"67","num3200":"","num4000":"4","num4500":"","num5000":"","num6000":"","num7000":"","num8000":"","num9000":""},
@@ -110,7 +187,8 @@
         this.tableHeight=window.innerHeight-80
       },
       mounted(){
-        this.$ruixin.setWebViewTitle({title:"钻机统计表2017年报"});
+        // this.$ruixin.setWebViewTitle({title:"钻机统计表2017年报"});
+        this.$ruixin.hideWebViewTitle({});
         setTimeout(()=>{
           this.$ruixin.supportAutorotate({});
         },200)
@@ -144,15 +222,34 @@
             }
           }
         },
-        handleChange(date) {
 
-        },
-        //合并单位
+        /**
+         * 表格行点击回掉
+         */
+        handleRowClick(rowIndex, rowData, column){
+          this.selectedRow=rowData;
+          $("#ModalWellMessage").modal('show')
+        }
 
       },
     }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+  #DrillOfRigstatistics{
+    .oms2-list-item-content{
+      text-align: left;
+      padding-left:0rem;
+      padding-bottom:1rem;
+    }
+    .oms2-list-divider{
+      text-align: center;
+      padding-top:0rem !important;
+      padding-bottom:0rem !important;
+      margin-bottom:1rem;
+    }
+    .oms2-right{
+      text-align: right;
+    }
+  }
 </style>

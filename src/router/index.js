@@ -148,25 +148,25 @@ export default new Router({
       path:'/years/rigstatistics',
       name:'DrillOfRigstatistics',
       component:DrillOfRigstatistics,
-      meta:{navShow:false,title:'钻机统计表(年报)'}
+      meta:{navShow:false,title:'钻机统计表(2017)'}
     },
     {
       path:'/years/drillTeam',
       name:'DrillOfTeamYearly',
       component:DrillOfTeamYearly,
-      meta:{navShow:false,title:'钻井队伍分布统计表(年报)'}
+      meta:{navShow:false,title:'队伍分布表(2017)'}
     },
     {
       path:'/years/footage',
       name:'DrillOfFootageYearly',
       component:DrillOfFootageYearly,
-      meta:{navShow:false,title:'钻井工作量-钻井进尺统计表(年报)'}
+      meta:{navShow:false,title:'工作量-钻井进尺表(2017)'}
     },
     {
       path:'/years/drillNum',
       name:'DrillOfNumYearly',
       component:DrillOfNumYearly,
-      meta:{navShow:false,title:'钻井工作量-开钻口数统计表(年报)'}
+      meta:{navShow:false,title:'工作量-开钻口数表(2017)'}
     },
     {
       path:'/years/drillFinishNum',
