@@ -1,12 +1,11 @@
 <template>
+  <div>
+    <oms2-header :title="$route.meta.title"></oms2-header>
     <div id="LogDailyOfWorkload">
       <!-- <h4>测井工作量日报</h4> -->
       <oms2-date-picker-daily :date="date"
                               @date-change="handleChange">
       </oms2-date-picker-daily>
-     <!-- <oms2-date-picker-monthly :date=date @date-change="handleChange"></oms2-date-picker-monthly>-->
-      <!-- Button trigger modal -->
-
       <v-table
         is-horizontal-resize
         is-vertical-resize
@@ -26,6 +25,7 @@
       ></v-table>
       <div class='oms2-g-report-float-right'>数据来源于A7集团系统测井工作量日报</div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -141,10 +141,11 @@
         },
         created(){
           this.requestData();
-          this.tableHeight=window.innerHeight-80
+          this.tableHeight=window.innerHeight-130;
         },
         mounted(){
-          this.$ruixin.setWebViewTitle({title:'测井工作量日报'});
+          // this.$ruixin.setWebViewTitle({title:'测井工作量日报'});
+          this.$ruixin.hideWebViewTitle({});
           setTimeout(()=>{
             this.$ruixin.supportAutorotate({});
           },200)
@@ -154,9 +155,9 @@
           requestData(){
             Indicator.open('加载中...')
             getDailyOfWorkload(this.date.time).then((data)=>{
-              Indicator.close()
+              Indicator.close();
               if(data.data){
-                this.tableData=data.data
+                this.tableData=data.data;
                 //检查是否含有所有地区
                 let jjOrgAbbnames=[{'jjOrgAbb':'集团总计','orgAbb':null},
                   // {'jjOrgAbb':'长城钻探','orgAbb':'合计'},
@@ -178,7 +179,7 @@
                   {'jjOrgAbb':'中油测井','orgAbb':'国际事业部'},
                   {'jjOrgAbb':'中油测井','orgAbb':'生产测井中心'},
                 ]
-                let jjOrgAbbFromData=[]
+                let jjOrgAbbFromData=[];
                 for(var date of this.tableData){
                   jjOrgAbbFromData.push({
                     'jjOrgAbb':date.jjOrgAbb,
@@ -190,7 +191,7 @@
                   include=false;
                   for(var juji of jjOrgAbbFromData){
                     if(juji.orgAbb==jjOrgAbbname.orgAbb&&juji.jjOrgAbb==jjOrgAbbname.jjOrgAbb){
-                      include=true
+                      include=true;
                     }
                   }
                   if(!include){
@@ -199,59 +200,59 @@
                       'orgAbb':jjOrgAbbname.orgAbb,
                       'jjOrgAbb':jjOrgAbbname.jjOrgAbb,
                       remark:'Not exist'
-                    }
-                    this.tableData.push(newItem)
+                    };
+                    this.tableData.push(newItem);
                   }
                 }
 
                 //排序
                 this.tableData.sort((pre,next)=>{
-                  let preIndex=-1
-                  let nextIndex=-1
+                  let preIndex=-1;
+                  let nextIndex=-1;
                   let index=0;
                   for(var item of jjOrgAbbnames){
                     if(item.orgAbb==pre.orgAbb&&item.jjOrgAbb==pre.jjOrgAbb){
-                      preIndex=index
+                      preIndex=index;
                     }
                     if(item.orgAbb==next.orgAbb&&item.jjOrgAbb==next.jjOrgAbb){
-                      nextIndex=index
+                      nextIndex=index;
                     }
                     if(preIndex!=-1&&nextIndex!=-1){
                       break
                     }
                     index++
                   }
-                  return preIndex-nextIndex
+                  return preIndex-nextIndex;
                 })
               }else{
-                this.tableData=[]
+                this.tableData=[];
               }
             })
               .catch(function(error) {
-                Indicator.close()
-                console.log(error)
+                Indicator.close();
+                console.log(error);
 
               })
 
           },
           handleMonthReduce(){
-            console.log("月减少一天")
+            console.log("月减少一天");
             this.date=new Date(addMonth(this.date,-1));
           },
           handleMonthAdd(){
-            console.log("月增加一天")
+            console.log("月增加一天");
             this.date=new Date(addMonth(this.date,1));
 
           },
           //返回按钮
           handleBack(){
             if(Indicator){
-              Indicator.close()
+              Indicator.close();
             }
-            window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+            window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/');
           },
           handleChange(){
-            this.requestData()
+            this.requestData();
           },
           //合并单元格
           cellMerge(rowIndex,rowData,field){
@@ -272,14 +273,14 @@
               }
             }
             if(field==='jjOrgAbb'){
-              let jjOrgAbb=rowData[field]
-              let jjOrgAbbList=[]
+              let jjOrgAbb=rowData[field];
+              let jjOrgAbbList=[];
               if(jjOrgAbbList.indexOf(jjOrgAbb)==-1){
                 //还没有合并该局级单位
-                let num=0  //记录这个局级单位有多少个
+                let num=0;  //记录这个局级单位有多少个
                 for(let i=rowIndex;i<this.tableData.length;i++){
                   if(this.tableData[i].jjOrgAbb==jjOrgAbb){
-                    num++
+                    num++;
                   }
                 }
                 if(num>0){
@@ -296,7 +297,7 @@
           },
           columnCellClass(rowIndex,columnName,rowData){
             if(this.tableData[rowIndex].remark=='Not exist'){
-              return 'oms2-g-item-not-exist'
+              return 'oms2-g-item-not-exist';
             }
           }
         },
@@ -309,4 +310,7 @@
       margin-right:20px;
       font-size:18px;
     }
+  #LogDailyOfWorkload{
+    padding-top:$header-height;
+  }
 </style>
