@@ -1,6 +1,9 @@
 <template>
     <div id='ListOfProjectData'>
-        <div class="oms2-well-name"><i @click="handleBack" class="fa fa-chevron-left oms2-icon-back"></i> ( {{wellName}} ) </div>
+        <div class="oms2-well-name">
+            <i @click="handleBack" class="fa fa-chevron-left oms2-icon-back"></i>
+             ( {{wellName}} )
+             <i @click="handleRefresh" class="fa fa-refresh oms2-icon-refresh"></i> </div>
         <mt-navbar v-model="selected" style="background-color:#0E4F83;color:#fff">
             <mt-tab-item id="GC">工程数据列表</mt-tab-item>
             <mt-tab-item id="QK">气测数据列表</mt-tab-item>
@@ -280,9 +283,11 @@
             },
             //接受数据
             websocketonmessage(e) {
-                if(!this.isReceive&&(this.wellboreId==''||this.wellboreId==undefined)){
+                console.log(e)
+                if(!this.isReceive&&(this.wellboreId==''||!this.wellboreId)){
                     //如果没有井id则显示默认值
-                    this.isReceive=true
+                    // this.$toast.showToast("获取井ID失败")
+                    console.log("失败")
                 }else if(this.sessionId==''&&!this.isReceive){
                     this.sessionId=e.data
                     setwellboreId(this.wellboreId,this.sessionId).then((data)=>{
@@ -291,6 +296,8 @@
                         }else{
                             this.$toast.showToast("设置井信息失败")
                         }
+                    }).catch((err)=>{
+                        this.$toast.showToast("设置井信息失败")
                     })
                 }
                 if(this.isReceive&&e.data[0]=='{'){
@@ -344,15 +351,30 @@
                 window.history.length > 1 ? this.$router.go(-1) : this.$ruixin.closePage({});
                 // this.$ruixin.closePage({});
             },
+            handleRefresh(){
+                this.$toast.showIndicator.open('刷新中...')
+                this.websock.close()
+                this.initWebSocket()
+                setTimeout(()=>{
+                    this.$toast.showIndicator.close()
+                    this.$toast.showToast("刷新成功")
+                },1000)
+
+            }
         },
         created() {
-            this.initWebSocket()
             this.wellName=this.$route.query.wellName
             this.wellboreId=this.$route.query.wellboreId
+            console.log(this.$route.query)
             if(!this.wellName||this.wellName==''){
-                this.wellName='克深21'
+                // this.wellName='克深21'
+                this.$toast.showToast("获取井名失败")
+            }
+            if(!this.wellboreId||this.wellboreId==''){
+                this.$toast.showToast("获取井ID失败")
             }
             this.$ruixin.hideWebViewTitle({});
+            this.initWebSocket()
         },
         watch:{
             selected:function(val,oldval){
@@ -378,6 +400,12 @@
             position:absolute;
             top:1.5rem;
             left:10px;
+            font-size:20px;
+        }
+        .oms2-icon-refresh{
+            position:absolute;
+            top:1.5rem;
+            right:10px;
             font-size:20px;
         }
         .oms2-well-name{
