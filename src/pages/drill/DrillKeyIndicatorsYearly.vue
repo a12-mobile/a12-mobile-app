@@ -198,7 +198,7 @@
           {"orgs":"海洋工程公司","cityName":"小计","drillTeamNum":"1.00","startDrillNum":"3","finishDrillNum":"3","jinChi":"0.54","rigSpeed":"4655","mechanicalSpeed":"45.00","qualified":"3","passRate":"100","qualified1":"3",'passRate1':"100","jinchi1":"","harvestRate":"","jianjing":"33.46","zuanjing":"17.18","avgDeep":"2360"},
         ],
         columns: [
-          {field: 'orgs', width: 60, columnAlign: 'center',isFrozen: true,isResize: true},
+          {field: 'orgs', width: 79, columnAlign: 'center',isFrozen: true,isResize: true},
           {field: 'cityName', width: 60, columnAlign: 'center',isFrozen: true,isResize: true},
           {field: 'drillTeamNum', width: 60, columnAlign: 'right', isResize: true},
           {field: 'startDrillNum', width: 50, columnAlign: 'right', isResize: true},

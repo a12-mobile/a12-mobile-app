@@ -23,8 +23,8 @@ const DrillOfFootageYearly = r => require.ensure([], () => r(require('@/pages/dr
 const DrillOfNumYearly = r => require.ensure([], () => r(require('@/pages/drill/DrillOfNumYearly')), 'drill');
 const DrillOfFinishNumYearly = r => require.ensure([], () => r(require('@/pages/drill/DrillOfFinishNumYearly')), 'drill');
 const DrillKeyIndicatorsYearly = r => require.ensure([], () => r(require('@/pages/drill/DrillKeyIndicatorsYearly')), 'drill');
-const ShamTsengFinishYearly = r => require.ensure([], () => r(require('@/pages/drill/DrillShamTsengFinishYearly')), 'drill');
-const EngineeringAccidentsYearly = r => require.ensure([], () => r(require('@/pages/drill/DrillEngineeringAccidentsYearly')), 'drill');
+const DrillShamTsengFinishYearly = r => require.ensure([], () => r(require('@/pages/drill/DrillShamTsengFinishYearly')), 'drill');
+const DrillEngineeringAccidentsYearly = r => require.ensure([], () => r(require('@/pages/drill/DrillEngineeringAccidentsYearly')), 'drill');
 
 
 //井下
@@ -182,14 +182,14 @@ export default new Router({
     },
     {
       path:'/years/shamTsengFinish',
-      name:'ShamTsengFinishYearly',
-      component:ShamTsengFinishYearly,
+      name:'DrillShamTsengFinishYearly',
+      component:DrillShamTsengFinishYearly,
       meta:{navShow:false,title:'深井完成井(4000米以上)(2017)'}
     },
     {
       path:'/years/engineeringAccidents',
-      name:'EngineeringAccidentsYearly',
-      component:EngineeringAccidentsYearly,
+      name:'DrillEngineeringAccidentsYearly',
+      component:DrillEngineeringAccidentsYearly,
       meta:{navShow:false,title:'工程事故统计（2017）'}
     },
     //钻井end

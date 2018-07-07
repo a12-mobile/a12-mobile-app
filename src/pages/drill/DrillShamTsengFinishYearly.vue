@@ -16,7 +16,7 @@
       is-horizontal-resize
       is-vertical-resize
       style="width:100%;font-size:12px"
-      :title-row-height=42
+      :title-row-height=53
       :row-height=30
       :height=tableHeight
       :columns="columns"
