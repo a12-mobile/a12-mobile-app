@@ -9,9 +9,8 @@
       <!--<h4>中油油服钻井工作量日报</h4>-->
       <!-- <p>钻机统计表</p> -->
       <!-- <div class='oms2-report-float-right' style="top:40px">数据来源于A7集团系统钻井综合日报</div> -->
-      <!--<oms2-date-picker-daily :date="date"
-                              @date-change="handleChange">
-      </oms2-date-picker-daily>-->
+      <oms2-date-picker-daily :date="date">
+      </oms2-date-picker-daily>
     </header>
     <v-table
       is-horizontal-resize
@@ -43,7 +42,7 @@
                     </div>
                     <div class="modal-body">
                         <form>
-                            
+
                             <div class="oms2-list-divider list-group-item list-group-item-dark">指标信息</div>
                             <div class="row">
                                 <label class="col-5 oms2-right">动用钻井队(个):</label>
@@ -118,8 +117,8 @@
                                 <label class="col-5 oms2-right">钻井:</label>
                                 <p>{{selectedRow.zuanjing}}</p>
                             </div>
-                             
-                        
+
+
                         </form>
                         <div class="modal-footer">
                             <!-- <button type="button" data-dismiss="modal" class="btn btn-primary">返回</button> -->
@@ -217,7 +216,7 @@
           {field: 'zuanjing', width: 50, columnAlign: 'right', isResize: true},
           {field: 'avgDeep', width: 50, columnAlign: 'right', isResize: true},
         ],
-        titleRows: [ 
+        titleRows: [
           //第一行
           [{fields: ['orgs','cityName'], title: '单位', titleAlign: 'center', rowspan: 3,colspan: 2},
             {fields: ['drillTeamNum'], title: '动用钻井队(个)', titleAlign: 'center',rowspan: 3},
@@ -343,7 +342,7 @@
     .oms2-list-item-content{
       text-align: left;
       padding-left:0px;
-      padding-bottom:10px; 
+      padding-bottom:10px;
     }
     .oms2-list-divider{
       text-align: center;

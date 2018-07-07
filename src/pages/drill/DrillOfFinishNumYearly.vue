@@ -9,9 +9,8 @@
       <!--<h4>中油油服钻井工作量日报</h4>-->
       <!-- <p>钻机统计表</p> -->
       <!-- <div class='oms2-report-float-right' style="top:40px">数据来源于A7集团系统钻井综合日报</div> -->
-      <!--<oms2-date-picker-daily :date="date"
-                              @date-change="handleChange">
-      </oms2-date-picker-daily> -->
+      <oms2-date-picker-daily :date="date">
+      </oms2-date-picker-daily>
     </header>
     <v-table
       is-horizontal-resize
@@ -178,7 +177,7 @@
                                 <label class="col-5 oms2-right">其他:</label>
                                 <p>{{selectedRow.dagang3}}</p>
                             </div>
-                            
+
                             <div class="oms2-list-divider list-group-item list-group-item-dark">国内集团外</div>
                             <div class="row">
                                 <label class="col-5 oms2-right">小计:</label>
@@ -204,7 +203,7 @@
                                 <label class="col-5 oms2-right">其他:</label>
                                 <p>{{selectedRow.other4}}</p>
                             </div>
-                            
+
                             <div class="oms2-list-divider list-group-item list-group-item-dark ">国外</div>
                             <div class="row">
                                 <label class="col-5 oms2-right">小计:</label>
@@ -218,8 +217,8 @@
                                 <label class="col-5 oms2-right">国外集团外:</label>
                                 <p>{{selectedRow.outcompany}}</p>
                             </div>
-                            
-                        
+
+
                         </form>
                         <div class="modal-footer">
                             <!-- <button type="button" data-dismiss="modal" class="btn btn-primary">返回</button> -->
@@ -461,7 +460,7 @@
             },
           closeModel(){
             $("#ModalWellMessage").modal('hide')
-            }  
+            }
 
     },
   }
@@ -473,7 +472,7 @@
     .oms2-list-item-content{
       text-align: left;
       padding-left:0px;
-      padding-bottom:10px; 
+      padding-bottom:10px;
     }
     .oms2-list-divider{
       text-align: center;

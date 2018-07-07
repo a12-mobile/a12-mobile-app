@@ -172,25 +172,25 @@ export default new Router({
       path:'/years/drillFinishNum',
       name:'DrillOfFinishNumYearly',
       component:DrillOfFinishNumYearly,
-      meta:{navShow:false,title:'钻井工作量-完井口数统计表(年报)'}
+      meta:{navShow:false,title:'工作量-完井口数(2017)'}
     },
     {
       path:'/years/drillKeyIndicators',
       name:'DrillKeyIndicatorsYearly',
       component:DrillKeyIndicatorsYearly,
-      meta:{navShow:false,title:'钻井主要指标统计表(年报)'}
+      meta:{navShow:false,title:'主要指标(2017)'}
     },
     {
       path:'/years/shamTsengFinish',
       name:'ShamTsengFinishYearly',
       component:ShamTsengFinishYearly,
-      meta:{navShow:false,title:'深井完成井(4000米以上)统计表（年报）'}
+      meta:{navShow:false,title:'深井完成井(4000米以上)(2017)'}
     },
     {
       path:'/years/engineeringAccidents',
       name:'EngineeringAccidentsYearly',
       component:EngineeringAccidentsYearly,
-      meta:{navShow:false,title:'钻井工程事故统计表（年报）'}
+      meta:{navShow:false,title:'工程事故统计（2017）'}
     },
     //钻井end
 

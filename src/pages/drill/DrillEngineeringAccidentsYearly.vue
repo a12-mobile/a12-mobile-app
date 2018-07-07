@@ -9,9 +9,8 @@
       <!--<h4>中油油服钻井工作量日报</h4>-->
       <!-- <p>钻机统计表</p> -->
       <!-- <div class='oms2-report-float-right' style="top:40px">数据来源于A7集团系统钻井综合日报</div> -->
-      <!--<oms2-date-picker-daily :date="date"
-                              @date-change="handleChange">
-      </oms2-date-picker-daily>-->
+      <oms2-date-picker-daily :date="date">
+      </oms2-date-picker-daily>
     </header>
     <v-table
       is-horizontal-resize
@@ -43,7 +42,7 @@
                     </div>
                     <div class="modal-body">
                         <form>
-                            
+
                             <div class="oms2-list-divider list-group-item list-group-item-dark">基本信息</div>
                             <div class="row">
                                 <label class="col-5 oms2-right">事故发生次数(次):</label>
@@ -107,8 +106,8 @@
                                 <label class="col-5 oms2-right">损失时间:</label>
                                 <p>{{selectedRow.qtLossTime}}</p>
                             </div>
-                             
-                        
+
+
                         </form>
                         <div class="modal-footer">
                             <!-- <button type="button" data-dismiss="modal" class="btn btn-primary">返回</button> -->
@@ -186,7 +185,7 @@
           {field: 'qtAccidentNum', width: 60, columnAlign: 'right', isResize: true},
           {field: 'qtLossTime', width: 50, columnAlign: 'right', isResize: true},
         ],
-        titleRows: [ 
+        titleRows: [
           //第一行
           [
             {fields: ['orgs','cityName'], title: '单位', titleAlign: 'center', colspan: 2,rowspan:2},
@@ -232,7 +231,7 @@
             {fields: ['qtAccidentNum'], title: '38', titleAlign: 'right'},
             {fields: ['qtLossTime'], title: '3053', titleAlign: 'right'},
           ],
-         
+
         ],
 
       }
@@ -304,7 +303,7 @@
     .oms2-list-item-content{
       text-align: left;
       padding-left:0px;
-      padding-bottom:10px; 
+      padding-bottom:10px;
     }
     .oms2-list-divider{
       text-align: center;

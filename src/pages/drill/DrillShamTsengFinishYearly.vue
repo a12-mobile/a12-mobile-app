@@ -9,9 +9,8 @@
       <!--<h4>中油油服钻井工作量日报</h4>-->
       <!-- <p>钻机统计表</p> -->
       <!-- <div class='oms2-report-float-right' style="top:40px">数据来源于A7集团系统钻井综合日报</div> -->
-      <!--<oms2-date-picker-daily :date="date"
-                              @date-change="handleChange">
-      </oms2-date-picker-daily>-->
+      <oms2-date-picker-daily :date="date">
+      </oms2-date-picker-daily>
     </header>
     <v-table
       is-horizontal-resize
@@ -43,7 +42,7 @@
                     </div>
                     <div class="modal-body">
                         <form>
-                            
+
                             <div class="oms2-list-divider list-group-item list-group-item-dark">基本信息</div>
                             <div class="row">
                                 <label class="col-5 oms2-right">完成井数(口):</label>
@@ -85,8 +84,8 @@
                                 <label class="col-5 oms2-right">钻机台月(台月):</label>
                                 <p>{{selectedRow.rigNum}}</p>
                             </div>
-                             
-                        
+
+
                         </form>
                         <div class="modal-footer">
                             <!-- <button type="button" data-dismiss="modal" class="btn btn-primary">返回</button> -->
@@ -173,7 +172,7 @@
           {field: 'rigSpeed', width: 60, columnAlign: 'right', isResize: true},
           {field: 'rigNum', width: 50, columnAlign: 'right', isResize: true},
         ],
-        titleRows: [ 
+        titleRows: [
           //第一行
           [{fields: ['orgs','cityName'], title: '单位', titleAlign: 'center', colspan: 2},
             {fields: ['drillFinishNum'], title: '完成井数(口)', titleAlign: 'center'},
@@ -201,7 +200,7 @@
             {fields: ['rigSpeed'], title: '1449', titleAlign: 'right'},
             {fields: ['rigNum'], title: '2083.93', titleAlign: 'right'},
           ],
-         
+
         ],
 
       }
@@ -261,7 +260,7 @@
             },
           closeModel(){
             $("#ModalWellMessage").modal('hide')
-            } 
+            }
 
     },
   }
@@ -273,7 +272,7 @@
     .oms2-list-item-content{
       text-align: left;
       padding-left:0px;
-      padding-bottom:10px; 
+      padding-bottom:10px;
     }
     .oms2-list-divider{
       text-align: center;
