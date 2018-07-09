@@ -114,7 +114,7 @@
         },
         tableHeight:0,
         tableData: [
-          {"orgs":"合计","cityName":"","drillFinishNum":"10","drillCycle":"155.46","shaftBuildingCycle":"200.84","avgDeep":"4431","CoringNum":"6","avgCoringJinChi":"10.69","avgCoringHarvestRate":"99.72","mechanicalSpeed":"3.34","rigSpeed":"707",'rigNum':"62.65"},
+          {"orgs":"合计","cityName":"","drillFinishNum":"648","drillCycle":"92.60","shaftBuildingCycle":"112.75","avgDeep":"4923","CoringNum":"132","avgCoringJinChi":"26.03","avgCoringHarvestRate":"95.98","mechanicalSpeed":"5.7","rigSpeed":"1449",'rigNum':"2083.93"},
           {"orgs":"大庆钻探","cityName":"大庆","drillFinishNum":"10","drillCycle":"155.46","shaftBuildingCycle":"200.84","avgDeep":"4431","CoringNum":"6","avgCoringJinChi":"10.69","avgCoringHarvestRate":"99.72","mechanicalSpeed":"3.34","rigSpeed":"707",'rigNum':"62.65"},
           {"orgs":"大庆钻探","cityName":"吉林","drillFinishNum":"4","drillCycle":"193.16","shaftBuildingCycle":"212.91","avgDeep":"4813","CoringNum":"2","avgCoringJinChi":"10.99","avgCoringHarvestRate":"97.27","mechanicalSpeed":"2.23","rigSpeed":"705",'rigNum':"27.39"},
           {"orgs":"大庆钻探","cityName":"冀东","drillFinishNum":"4","drillCycle":"44.57","shaftBuildingCycle":"63.24","avgDeep":"4278","CoringNum":"","avgCoringJinChi":"","avgCoringHarvestRate":"","mechanicalSpeed":"12.31","rigSpeed":"2637",'rigNum':"6.49"},

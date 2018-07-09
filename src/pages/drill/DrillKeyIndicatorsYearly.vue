@@ -147,6 +147,7 @@
         },
         tableHeight:0,
         tableData: [
+          {"orgs":"合计","cityName":"","drillTeamNum":"735.79","startDrillNum":"10905","finishDrillNum":"10722","jinChi":"2329.84","rigSpeed":"3152","mechanicalSpeed":"13.72","qualified":"10722","passRate":"100","qualified1":"10585",'passRate1':"100","jinchi1":"16941.43","harvestRate":"97.74","jianjing":"23.82","zuanjing":"17.31","avgDeep":"2117"},
           {"orgs":"大庆钻探","cityName":"大庆","drillTeamNum":"98.6","startDrillNum":"3644","finishDrillNum":"3649","jinChi":"541.39","rigSpeed":"4838","mechanicalSpeed":"25.75","qualified":"3649","passRate":"100","qualified1":"3649",'passRate1':"100","jinchi1":"3103.43","harvestRate":"98.99","jianjing":"9.86","zuanjing":"6.48","avgDeep":"1484"},
           {"orgs":"大庆钻探","cityName":"吉林","drillTeamNum":"35.28","startDrillNum":"821","finishDrillNum":"813","jinChi":"149.04","rigSpeed":"3720","mechanicalSpeed":"12.81","qualified":"813","passRate":"100","qualified1":"813",'passRate1':"100","jinchi1":"1355.60","harvestRate":"97.92","jianjing":"15.84","zuanjing":"12.75","avgDeep":"1833"},
           {"orgs":"大庆钻探","cityName":"冀东","drillTeamNum":"2.22","startDrillNum":"16","finishDrillNum":"18","jinChi":"6.25","rigSpeed":"2840","mechanicalSpeed":"13.74","qualified":"18","passRate":"100","qualified1":"18",'passRate1':"100","jinchi1":"","harvestRate":"","jianjing":"45.03","zuanjing":"29.45","avgDeep":"3470"},
@@ -198,19 +199,19 @@
           {"orgs":"海洋工程公司","cityName":"小计","drillTeamNum":"1.00","startDrillNum":"3","finishDrillNum":"3","jinChi":"0.54","rigSpeed":"4655","mechanicalSpeed":"45.00","qualified":"3","passRate":"100","qualified1":"3",'passRate1':"100","jinchi1":"","harvestRate":"","jianjing":"33.46","zuanjing":"17.18","avgDeep":"2360"},
         ],
         columns: [
-          {field: 'orgs', width: 79, columnAlign: 'center',isFrozen: true,isResize: true},
-          {field: 'cityName', width: 60, columnAlign: 'center',isFrozen: true,isResize: true},
+          {field: 'orgs', width: 79, columnAlign: 'left',isFrozen: true,isResize: true},
+          {field: 'cityName', width: 60, columnAlign: 'left',isFrozen: true,isResize: true},
           {field: 'drillTeamNum', width: 60, columnAlign: 'right', isResize: true},
           {field: 'startDrillNum', width: 50, columnAlign: 'right', isResize: true},
           {field: 'finishDrillNum', width: 50, columnAlign: 'right', isResize: true},
-          {field: 'jinChi', width: 50, columnAlign: 'right', isResize: true},
+          {field: 'jinChi', width: 51, columnAlign: 'right', isResize: true},
           {field: 'rigSpeed', width: 50, columnAlign: 'right', isResize: true},
           {field: 'mechanicalSpeed', width: 50, columnAlign: 'right', isResize: true},
           {field: 'qualified', width: 50, columnAlign: 'right', isResize: true},
           {field: 'passRate', width: 50, columnAlign: 'right', isResize: true},
           {field: 'qualified1', width: 60, columnAlign: 'right', isResize: true},
           {field: 'passRate1', width: 50, columnAlign: 'right', isResize: true},
-          {field: 'jinchi1', width: 50, columnAlign: 'right', isResize: true},
+          {field: 'jinchi1', width: 58, columnAlign: 'right', isResize: true},
           {field: 'harvestRate', width: 50, columnAlign: 'right', isResize: true},
           {field: 'jianjing', width: 50, columnAlign: 'right', isResize: true},
           {field: 'zuanjing', width: 50, columnAlign: 'right', isResize: true},
@@ -252,24 +253,24 @@
             {fields: ['harvestRate'], title: '%', titleAlign: 'center'},
           ],
           //第四行
-          [
-            {fields: ['orgs','cityName'], title: '合计', titleAlign: 'center', colspan: 2},
-            {fields: ['drillTeamNum'], title: '735.79', titleAlign: 'right'},
-            {fields: ['startDrillNum'], title: '10905', titleAlign: 'right'},
-            {fields: ['finishDrillNum'], title: '10722', titleAlign: 'right'},
-            {fields: ['jinChi'], title: '2329.84', titleAlign: 'right'},
-            {fields: ['rigSpeed'], title: '3152', titleAlign: 'right'},
-            {fields: ['mechanicalSpeed'], title: '13.72', titleAlign: 'right'},
-            {fields: ['qualified'], title: '10722', titleAlign: 'right'},
-            {fields: ['passRate'], title: '100', titleAlign: 'right'},
-            {fields: ['qualified1'], title: '10585', titleAlign: 'right'},
-            {fields: ['passRate1'], title: '100', titleAlign: 'right'},
-            {fields: ['jinchi1'], title: '16941.43', titleAlign: 'right'},
-            {fields: ['harvestRate'], title: '97.74', titleAlign: 'right'},
-            {fields: ['jianjing'], title: '23.82', titleAlign: 'right'},
-            {fields: ['zuanjing'], title: '17.31', titleAlign: 'right'},
-            {fields: ['avgDeep'], title: '2117', titleAlign: 'right'},
-          ],
+          //[
+            //{fields: ['orgs','cityName'], title: '合计', titleAlign: 'center', colspan: 2},
+            //{fields: ['drillTeamNum'], title: '735.79', titleAlign: 'right'},
+            //{fields: ['startDrillNum'], title: '10905', titleAlign: 'right'},
+            //{fields: ['finishDrillNum'], title: '10722', titleAlign: 'right'},
+            //{fields: ['jinChi'], title: '2329.84', titleAlign: 'right'},
+            //{fields: ['rigSpeed'], title: '3152', titleAlign: 'right'},
+            //{fields: ['mechanicalSpeed'], title: '13.72', titleAlign: 'right'},
+            //{fields: ['qualified'], title: '10722', titleAlign: 'right'},
+            //{fields: ['passRate'], title: '100', titleAlign: 'right'},
+            //{fields: ['qualified1'], title: '10585', titleAlign: 'right'},
+            //{fields: ['passRate1'], title: '100', titleAlign: 'right'},
+            //{fields: ['jinchi1'], title: '16941.43', titleAlign: 'right'},
+            //{fields: ['harvestRate'], title: '97.74', titleAlign: 'right'},
+            //{fields: ['jianjing'], title: '23.82', titleAlign: 'right'},
+            //{fields: ['zuanjing'], title: '17.31', titleAlign: 'right'},
+            //{fields: ['avgDeep'], title: '2117', titleAlign: 'right'},
+          //],
 
         ],
 
@@ -292,11 +293,11 @@
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
       },
     cellMerge(rowIndex, rowData, field) {
-        if(field=="part"&&rowData[field]=="集团公司"){
+        if(field=="orgs"&&rowData[field]=="合计"){
           return {
             colSpan: 2,
             rowSpan: 1,
-            content: '集团公司',
+            content: '合计',
             componentName: ''
           }
         }

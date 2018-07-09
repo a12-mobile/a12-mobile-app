@@ -16,7 +16,7 @@
       is-horizontal-resize
       is-vertical-resize
       style="width:100%;font-size:12px"
-      :title-row-height=25
+      :title-row-height=28
       :row-height=30
       :height=tableHeight
       :columns="columns"
@@ -136,6 +136,7 @@
         },
         tableHeight:0,
         tableData: [
+          {"orgs":"合计","cityName":"","accidentsHappenNum":"170","accidentLossTime":"18890","kzAccidentNum":"96","kzLossTime":"12346","ztAccidentNum":"7","ztLossTime":"628","zjAccidentNum":"27","zjLossTime":"2825","lwAccidentNum":"2",'lwLossTime':"40","jpAccidentNum":"","jpLossTime":"","qtAccidentNum":"38",'qtLossTime':"3053"},
           {"orgs":"大庆钻探","cityName":"大庆","accidentsHappenNum":"26","accidentLossTime":"664.3","kzAccidentNum":"17","kzLossTime":"437.4","ztAccidentNum":"","ztLossTime":"","zjAccidentNum":"1","zjLossTime":"10.5","lwAccidentNum":"1",'lwLossTime':"15.9","jpAccidentNum":"","jpLossTime":"","qtAccidentNum":"7",'qtLossTime':"200.5"},
           {"orgs":"大庆钻探","cityName":"吉林","accidentsHappenNum":"7","accidentLossTime":"179","kzAccidentNum":"","kzLossTime":"","ztAccidentNum":"","ztLossTime":"","zjAccidentNum":"","zjLossTime":"","lwAccidentNum":"",'lwLossTime':"","jpAccidentNum":"","jpLossTime":"","qtAccidentNum":"7",'qtLossTime':"179"},
           {"orgs":"大庆钻探","cityName":"冀东","accidentsHappenNum":"1","accidentLossTime":"99","kzAccidentNum":"","kzLossTime":"","ztAccidentNum":"","ztLossTime":"","zjAccidentNum":"1","zjLossTime":"99","lwAccidentNum":"",'lwLossTime':"","jpAccidentNum":"","jpLossTime":"","qtAccidentNum":"",'qtLossTime':""},
@@ -168,8 +169,8 @@
           {"orgs":"川庆钻探","cityName":"小计","accidentsHappenNum":"62","accidentLossTime":"6355","kzAccidentNum":"43","kzLossTime":"5299","ztAccidentNum":"4","ztLossTime":"470","zjAccidentNum":"10","zjLossTime":"360","lwAccidentNum":"1",'lwLossTime':"24","jpAccidentNum":"","jpLossTime":"","qtAccidentNum":"4",'qtLossTime':"202"},
         ],
         columns: [
-          {field: 'orgs', width: 60, columnAlign: 'center',isFrozen: true,isResize: true},
-          {field: 'cityName', width: 60, columnAlign: 'center',isFrozen: true,isResize: true},
+          {field: 'orgs', width: 60, columnAlign: 'left',isFrozen: true,isResize: true},
+          {field: 'cityName', width: 60, columnAlign: 'left',isFrozen: true,isResize: true},
           {field: 'accidentsHappenNum', width: 60, columnAlign: 'right', isResize: true},
           {field: 'accidentLossTime', width: 50, columnAlign: 'right', isResize: true},
           {field: 'kzAccidentNum', width: 50, columnAlign: 'right', isResize: true},
@@ -214,23 +215,23 @@
             {fields: ['qtLossTime'], title: '损失时间', titleAlign: 'center'},
           ],
           //第三行
-          [
-            {fields: ['orgs','cityName'], title: '合计', titleAlign: 'center', colspan: 2},
-            {fields: ['accidentsHappenNum'], title: '170', titleAlign: 'right'},
-            {fields: ['accidentLossTime'], title: '18890', titleAlign: 'right'},
-            {fields: ['kzAccidentNum'], title: '96', titleAlign: 'right'},
-            {fields: ['kzLossTime'], title: '12346', titleAlign: 'right'},
-            {fields: ['ztAccidentNum'], title: '7', titleAlign: 'right'},
-            {fields: ['ztLossTime'], title: '628', titleAlign: 'right'},
-            {fields: ['zjAccidentNum'], title: '27', titleAlign: 'right'},
-            {fields: ['zjLossTime'], title: '2825', titleAlign: 'right',},
-            {fields: ['lwAccidentNum'], title: '2', titleAlign: 'right'},
-            {fields: ['lwLossTime'], title: '40', titleAlign: 'right'},
-            {fields: ['jpAccidentNum'], title: '', titleAlign: 'right'},
-            {fields: ['jpLossTime'], title: '', titleAlign: 'right'},
-            {fields: ['qtAccidentNum'], title: '38', titleAlign: 'right'},
-            {fields: ['qtLossTime'], title: '3053', titleAlign: 'right'},
-          ],
+          //[
+            //{fields: ['orgs','cityName'], title: '合计', titleAlign: 'center', colspan: 2},
+            //{fields: ['accidentsHappenNum'], title: '170', titleAlign: 'right'},
+            //{fields: ['accidentLossTime'], title: '18890', titleAlign: 'right'},
+            //{fields: ['kzAccidentNum'], title: '96', titleAlign: 'right'},
+            //{fields: ['kzLossTime'], title: '12346', titleAlign: 'right'},
+            //{fields: ['ztAccidentNum'], title: '7', titleAlign: 'right'},
+            //{fields: ['ztLossTime'], title: '628', titleAlign: 'right'},
+            //{fields: ['zjAccidentNum'], title: '27', titleAlign: 'right'},
+            //{fields: ['zjLossTime'], title: '2825', titleAlign: 'right',},
+            //{fields: ['lwAccidentNum'], title: '2', titleAlign: 'right'},
+            //{fields: ['lwLossTime'], title: '40', titleAlign: 'right'},
+            //{fields: ['jpAccidentNum'], title: '', titleAlign: 'right'},
+            //{fields: ['jpLossTime'], title: '', titleAlign: 'right'},
+            //{fields: ['qtAccidentNum'], title: '38', titleAlign: 'right'},
+            //{fields: ['qtLossTime'], title: '3053', titleAlign: 'right'},
+          //],
 
         ],
 
@@ -253,11 +254,11 @@
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
       },
     cellMerge(rowIndex, rowData, field) {
-        if(field=="part"&&rowData[field]=="集团公司"){
+        if(field=="orgs"&&rowData[field]=="合计"){
           return {
             colSpan: 2,
             rowSpan: 1,
-            content: '集团公司',
+            content: '合计',
             componentName: ''
           }
         }

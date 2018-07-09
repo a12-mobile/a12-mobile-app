@@ -281,8 +281,8 @@
 
         ],
         columns: [
-          {field: 'part', width: 60, columnAlign: 'center', isFrozen: true,isResize: true},
-          {field: 'orgs', width: 60, columnAlign: 'center', isFrozen: true,isResize: true},
+          {field: 'part', width: 60, columnAlign: 'left', isFrozen: true,isResize: true},
+          {field: 'orgs', width: 60, columnAlign: 'left', isFrozen: true,isResize: true},
           {field: 'total', width: 60, columnAlign: 'right', isResize: true},
 
           {field: 'subtotal', width: 60, columnAlign: 'right', isResize: true},
