@@ -9,7 +9,6 @@
             <!--引入日期控件-->
             <div class="oms2-fixed">
               <oms2-date-picker-daily :date="date"
-
                         @date-change="handleChange">
               </oms2-date-picker-daily><span class='oms2-search' @click="handleShowSelect"><i class="fa fa-search"></i></span>
             </div>
