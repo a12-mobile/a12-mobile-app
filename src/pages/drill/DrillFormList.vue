@@ -80,7 +80,7 @@
           </div>
           <div class="col-4 oms2-g-grid-cell">
             <router-link to="/years/drillFinishNum">
-              <img class='oms2-grid-cell-image' src="./../../assets/icon/wellList.png">
+              <img class='oms2-grid-cell-image' src="./../../assets/icon/drill/dailyOfKeyWell.png">
             </router-link>
             <p>工作量-完井口数(年报)</p>
           </div>
@@ -92,13 +92,13 @@
           </div>
           <div class="col-4 oms2-g-grid-cell">
             <router-link to="/years/shamTsengFinish">
-              <img class='oms2-grid-cell-image' src="./../../assets/icon/wellList.png">
+              <img class='oms2-grid-cell-image' src="./../../assets/icon/drill/dailyOfKeyWell.png">
             </router-link>
             <p>深井完成井(4000米以上)(年报）</p>
           </div>
           <div class="col-4 oms2-g-grid-cell">
             <router-link to="/years/engineeringAccidents">
-              <img class='oms2-grid-cell-image' src="./../../assets/icon/wellList.png">
+              <img class='oms2-grid-cell-image' src="./../../assets/icon/log/workloadOfBlock.png">
             </router-link>
             <p>工程事故统计（年报）</p>
           </div>
