@@ -114,6 +114,7 @@
         },
         tableHeight:0,
         tableData: [
+          {"orgs":"合计","cityName":"","drillFinishNum":"10","drillCycle":"155.46","shaftBuildingCycle":"200.84","avgDeep":"4431","CoringNum":"6","avgCoringJinChi":"10.69","avgCoringHarvestRate":"99.72","mechanicalSpeed":"3.34","rigSpeed":"707",'rigNum':"62.65"},
           {"orgs":"大庆钻探","cityName":"大庆","drillFinishNum":"10","drillCycle":"155.46","shaftBuildingCycle":"200.84","avgDeep":"4431","CoringNum":"6","avgCoringJinChi":"10.69","avgCoringHarvestRate":"99.72","mechanicalSpeed":"3.34","rigSpeed":"707",'rigNum':"62.65"},
           {"orgs":"大庆钻探","cityName":"吉林","drillFinishNum":"4","drillCycle":"193.16","shaftBuildingCycle":"212.91","avgDeep":"4813","CoringNum":"2","avgCoringJinChi":"10.99","avgCoringHarvestRate":"97.27","mechanicalSpeed":"2.23","rigSpeed":"705",'rigNum':"27.39"},
           {"orgs":"大庆钻探","cityName":"冀东","drillFinishNum":"4","drillCycle":"44.57","shaftBuildingCycle":"63.24","avgDeep":"4278","CoringNum":"","avgCoringJinChi":"","avgCoringHarvestRate":"","mechanicalSpeed":"12.31","rigSpeed":"2637",'rigNum':"6.49"},
@@ -159,8 +160,8 @@
           {"orgs":"川庆钻探","cityName":"小计","drillFinishNum":"244","drillCycle":"85.89","shaftBuildingCycle":"107.21","avgDeep":"4935","CoringNum":"41","avgCoringJinChi":"46.14","avgCoringHarvestRate":"97.94","mechanicalSpeed":"5.61","rigSpeed":"1605",'rigNum':"634.85"},
         ],
         columns: [
-          {field: 'orgs', width: 60, columnAlign: 'center',isFrozen: true,isResize: true},
-          {field: 'cityName', width: 60, columnAlign: 'center',isFrozen: true,isResize: true},
+          {field: 'orgs', width: 60, columnAlign: 'left',isFrozen: true,isResize: true},
+          {field: 'cityName', width: 60, columnAlign: 'left',isFrozen: true,isResize: true},
           {field: 'drillFinishNum', width: 60, columnAlign: 'right', isResize: true},
           {field: 'drillCycle', width: 50, columnAlign: 'right', isResize: true},
           {field: 'shaftBuildingCycle', width: 50, columnAlign: 'right', isResize: true},
@@ -186,20 +187,20 @@
             {fields: ['rigSpeed'], title: '钻机月速(米/台月)', titleAlign: 'center'},
             {fields: ['rigNum'], title: '钻机台月(台月)', titleAlign: 'center'},
           ],
-          //第二行
-          [
-            {fields: ['orgs','cityName'], title: '合计', titleAlign: 'center', colspan: 2},
-            {fields: ['drillFinishNum'], title: '648', titleAlign: 'right'},
-            {fields: ['drillCycle'], title: '92.60', titleAlign: 'right'},
-            {fields: ['shaftBuildingCycle'], title: '112.75', titleAlign: 'right'},
-            {fields: ['avgDeep'], title: '4923', titleAlign: 'right'},
-            {fields: ['CoringNum'], title: '132', titleAlign: 'right',},
-            {fields: ['avgCoringJinChi'], title: '26.03', titleAlign: 'right'},
-            {fields: ['avgCoringHarvestRate'], title: '95.98', titleAlign: 'right'},
-            {fields: ['mechanicalSpeed'], title: '5.7', titleAlign: 'right'},
-            {fields: ['rigSpeed'], title: '1449', titleAlign: 'right'},
-            {fields: ['rigNum'], title: '2083.93', titleAlign: 'right'},
-          ],
+          // //第二行
+          // [
+          //   {fields: ['orgs','cityName'], title: '合计', titleAlign: 'center', colspan: 2},
+          //   {fields: ['drillFinishNum'], title: '648', titleAlign: 'right'},
+          //   {fields: ['drillCycle'], title: '92.60', titleAlign: 'right'},
+          //   {fields: ['shaftBuildingCycle'], title: '112.75', titleAlign: 'right'},
+          //   {fields: ['avgDeep'], title: '4923', titleAlign: 'right'},
+          //   {fields: ['CoringNum'], title: '132', titleAlign: 'right',},
+          //   {fields: ['avgCoringJinChi'], title: '26.03', titleAlign: 'right'},
+          //   {fields: ['avgCoringHarvestRate'], title: '95.98', titleAlign: 'right'},
+          //   {fields: ['mechanicalSpeed'], title: '5.7', titleAlign: 'right'},
+          //   {fields: ['rigSpeed'], title: '1449', titleAlign: 'right'},
+          //   {fields: ['rigNum'], title: '2083.93', titleAlign: 'right'},
+          // ],
 
         ],
 
@@ -222,11 +223,11 @@
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
       },
     cellMerge(rowIndex, rowData, field) {
-        if(field=="part"&&rowData[field]=="集团公司"){
+        if(field=="orgs"&&rowData[field]=="合计"){
           return {
             colSpan: 2,
             rowSpan: 1,
-            content: '集团公司',
+            content: '合计',
             componentName: ''
           }
         }
