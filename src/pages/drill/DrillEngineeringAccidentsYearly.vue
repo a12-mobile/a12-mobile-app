@@ -241,7 +241,8 @@
       this.tableHeight=window.innerHeight-80
     },
     mounted(){
-      this.$ruixin.setWebViewTitle({title:"2017钻井工程事故统计表"});
+      //this.$ruixin.setWebViewTitle({title:"2017钻井工程事故统计表"});
+      this.$ruixin.hideWebViewTitle({});
       setTimeout(()=>{
         this.$ruixin.supportAutorotate({});
       },200)

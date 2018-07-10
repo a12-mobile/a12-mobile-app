@@ -210,7 +210,8 @@
       this.tableHeight=window.innerHeight-80
     },
     mounted(){
-      this.$ruixin.setWebViewTitle({title:"2017深井完成井统计表（4000米以上）"});
+      //this.$ruixin.setWebViewTitle({title:"2017深井完成井统计表（4000米以上）"});
+      this.$ruixin.hideWebViewTitle({});
       setTimeout(()=>{
         this.$ruixin.supportAutorotate({});
       },200)
