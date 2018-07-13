@@ -189,7 +189,7 @@
     },
     created(){
       this.requestData();
-      this.tableHeight=window.innerHeight-130;
+      this.tableHeight=window.innerHeight-80;
     },
     mounted(){
       // this.$ruixin.setWebViewTitle({title:'专业队伍国外分布表(按设备类型)'});

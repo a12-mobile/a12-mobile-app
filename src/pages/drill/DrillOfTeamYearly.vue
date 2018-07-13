@@ -269,7 +269,7 @@
         }
       },
       created(){
-        this.tableHeight=window.innerHeight-80
+        this.tableHeight=window.innerHeight-30
       },
       mounted(){
         // this.$ruixin.setWebViewTitle({title:"钻井队伍分布表2017年报"});

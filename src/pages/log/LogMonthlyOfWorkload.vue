@@ -273,7 +273,7 @@
         },
         created(){
             this.requestData();
-            this.tableHeight=window.innerHeight-130
+            this.tableHeight=window.innerHeight-80
         },
         mounted(){
             // this.$ruixin.setWebViewTitle({title:this.$route.meta.title});

@@ -373,6 +373,7 @@
             if(!this.wellboreId||this.wellboreId==''){
                 this.$toast.showToast("获取井ID失败")
             }
+            this.wellboreId="4e70a19b4f3148eca0c80b65b1d5e2ca"
             this.$ruixin.hideWebViewTitle({});
             this.initWebSocket()
         },

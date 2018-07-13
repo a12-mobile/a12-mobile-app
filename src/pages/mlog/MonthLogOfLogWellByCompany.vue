@@ -110,7 +110,7 @@
       },
       created(){
         this.requestData()
-        this.tableheight=window.innerHeight-130;
+        this.tableheight=window.innerHeight-80;
 
       },
       mounted(){

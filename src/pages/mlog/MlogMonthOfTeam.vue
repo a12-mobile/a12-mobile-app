@@ -76,7 +76,7 @@
         },
         created(){
           this.requestData();
-          this.tablehight=window.innerHeight-130;
+          this.tablehight=window.innerHeight-80;
 
         },
         mounted(){

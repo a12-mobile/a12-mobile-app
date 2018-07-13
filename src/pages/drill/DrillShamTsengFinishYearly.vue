@@ -207,7 +207,7 @@
       }
     },
     created(){
-      this.tableHeight=window.innerHeight-80
+      this.tableHeight=window.innerHeight-30
     },
     mounted(){
       //this.$ruixin.setWebViewTitle({title:"2017深井完成井统计表（4000米以上）"});

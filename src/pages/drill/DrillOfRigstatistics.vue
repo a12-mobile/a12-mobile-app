@@ -184,7 +184,7 @@
         }
       },
       created(){
-        this.tableHeight=window.innerHeight-80
+        this.tableHeight=window.innerHeight-30
       },
       mounted(){
         // this.$ruixin.setWebViewTitle({title:"钻机统计表2017年报"});

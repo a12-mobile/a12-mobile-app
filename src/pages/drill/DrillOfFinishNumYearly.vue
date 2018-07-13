@@ -406,7 +406,7 @@
       }
     },
     created(){
-      this.tableHeight=window.innerHeight-80
+      this.tableHeight=window.innerHeight-30
     },
     mounted(){
       //this.$ruixin.setWebViewTitle({title:"2017钻井工作量统计-完井口数统计表"});
