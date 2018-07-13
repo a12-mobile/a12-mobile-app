@@ -1,28 +1,31 @@
 <template>
-  <div id="MonthOfTeam">
-    <header>
-      <!-- <mt-header :title="$route.meta.title" fixed>
-              <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
-          </mt-header> -->
-      <!-- <h5>录井服务队伍月报（国内）</h5> -->
-      <oms2-date-picker-monthly :date=date @date-change="handleChange"></oms2-date-picker-monthly>
-    </header>
-    <v-table
-      is-horizontal-resize
-      is-vertical-resize
-      :height=tablehight
-      :title-row-height=30
-      :row-height=40
-      title-bg-color="#F6F6F6"
-      style="width:100%;font-size:12px"
-      :columns="columns" :title-rows="titleRows"
-      :table-data="tableData"
-      :cellMerge="cellMerge"
-      :column-cell-class-name="columnCellClass"
-      even-bg-color="#F4F4F4"
-      row-hover-color="#eee"
-      row-click-color="#edF7FF"></v-table>
-    <div class='oms2-g-report-float-right'>数据来源于A7集团系统库录井服务队伍统计月报</div>
+  <div>
+    <oms2-header :title="$route.meta.title"></oms2-header>
+    <div id="MonthOfTeam">
+      <header>
+        <!-- <mt-header :title="$route.meta.title" fixed>
+                <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
+            </mt-header> -->
+        <!-- <h5>录井服务队伍月报（国内）</h5> -->
+        <oms2-date-picker-monthly :date=date @date-change="handleChange"></oms2-date-picker-monthly>
+      </header>
+      <v-table
+        is-horizontal-resize
+        is-vertical-resize
+        :height=tablehight
+        :title-row-height=30
+        :row-height=40
+        title-bg-color="#F6F6F6"
+        style="width:100%;font-size:12px"
+        :columns="columns" :title-rows="titleRows"
+        :table-data="tableData"
+        :cellMerge="cellMerge"
+        :column-cell-class-name="columnCellClass"
+        even-bg-color="#F4F4F4"
+        row-hover-color="#eee"
+        row-click-color="#edF7FF"></v-table>
+      <div class='oms2-g-report-float-right'>数据来源于A7集团系统库录井服务队伍统计月报</div>
+    </div>
   </div>
 </template>
 
@@ -73,23 +76,25 @@
         },
         created(){
           this.requestData();
-          this.tablehight=window.innerHeight-80
-          setTimeout(()=>{
-                this.$ruixin.supportAutorotate({});
-            },200)
+          this.tablehight=window.innerHeight-80;
+
         },
         mounted(){
-          this.$ruixin.setWebViewTitle({title:'录井队伍统计月报'});
+          // this.$ruixin.setWebViewTitle({title:'录井队伍统计月报'});
+          this.$ruixin.hideWebViewTitle({});
+          setTimeout(()=>{
+            this.$ruixin.supportAutorotate({});
+          },200)
         },
         methods:{
           //请求数据方法
           requestData(){
-            Indicator.open('加载中...')
-            let nextMonth=addMonth(this.date.time,1,'yyyy-MM')
+            Indicator.open('加载中...');
+            let nextMonth=addMonth(this.date.time,1,'yyyy-MM');
             getMlogMonthOfTeam(this.date.time+'-01',nextMonth+'-01').then((data)=>{
-              Indicator.close()
+              Indicator.close();
               if(data.body){
-                this.tableData=data.body
+                this.tableData=data.body;
                 //检查是否含有所有地区jujorgName
                 let jujorgNames=[{'jujorgName':'集团总计','cjorgName':''},
                   {'jujorgName':'大庆钻探','cjorgName':'小计'},
@@ -109,7 +114,7 @@
                   {'jujorgName':'中油测井','cjorgName':'长庆分公司'},
                 ]
                 //let jujorgNames=['集团总计','大庆钻探','西部钻探','长城钻探','渤海钻探','川庆钻探','中油测井']
-                let jujorgNameFromDate=[]
+                let jujorgNameFromDate=[];
                 for (var date of this.tableData) {
                   jujorgNameFromDate.push({
                     'jujorgName':date.jujorgName,
@@ -121,7 +126,7 @@
                   include = false;
                   for (var juji of jujorgNameFromDate) {
                     if (juji.jujorgName == jujorgNa.jujorgName && juji.cjorgName == jujorgNa.cjorgName) {
-                      include = true
+                      include = true;
                     }
                   }
                   if (!include) {
@@ -131,27 +136,27 @@
                       'cjorgName': jujorgNa.cjorgName,
                       remark: 'Not exist'
                     }
-                    this.tableData.push(newItem)
+                    this.tableData.push(newItem);
                   }
                 }
                 //排序
                 this.tableData.sort((pre,next)=>{
-                  let preIndex=-1
-                  let nextIndex=-1
+                  let preIndex=-1;
+                  let nextIndex=-1;
                   let index=0;
                   for(var item of jujorgNames){
                     if(item.jujorgName==pre.jujorgName&&item.cjorgName==pre.cjorgName){
-                      preIndex=index
+                      preIndex=index;
                     }
                     if(item.jujorgName==next.jujorgName&&item.cjorgName==next.cjorgName){
-                      nextIndex=index
+                      nextIndex=index;
                     }
                     if(preIndex!=-1&&nextIndex!=-1){
-                      break
+                      break;
                     }
-                    index++
+                    index++;
                   }
-                  return preIndex-nextIndex
+                  return preIndex-nextIndex;
                 })
                 //排序
                 // this.tableData.sort((pre,next)=>{
@@ -160,24 +165,24 @@
                 //   return preIndex-nextIndex
                 // })
               }else{
-                this.tableData=[]
+                this.tableData=[];
               }
             })
               .catch(function(error) {
-                Indicator.close()
-                console.log(error)
+                Indicator.close();
+                console.log(error);
               })
 
           },
           //返回按钮
           handleBack(){
             if(Indicator){
-              Indicator.close()
+              Indicator.close();
             }
-            window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+            window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/');
           },
           handleChange(){
-            this.requestData()
+            this.requestData();
           },
           //设置列单元格样式
          cellMerge(rowIndex,rowData,field){
@@ -214,16 +219,16 @@
         },
         columnCellClass(rowIndex, columnName, rowData) {
           if(rowData['cjorgName'].length>6&&columnName=='cjorgName'&&this.tableData[rowIndex].remark=='Not exist'){
-            return 'column-cell-class-name-test-not-exist'
+            return 'column-cell-class-name-test-not-exist';
           }
           if(rowData['cjorgName'].length>6){
-            return 'column-cell-class-name-test'
+            return 'column-cell-class-name-test';
           }
           if(columnName=='jujorgName'&&this.tableData[rowIndex].remark=='Not exist'){
-            return 'oms2-g-item-not-exist'
+            return 'oms2-g-item-not-exist';
           }
           if(columnName=='cjorgName'&&this.tableData[rowIndex].remark=='Not exist'){
-            return 'oms2-g-item-not-exist'
+            return 'oms2-g-item-not-exist';
           }
 
         },
@@ -233,6 +238,7 @@
 
 <style lang="scss">
   #MonthOfTeam{
+    padding-top:$header-height;
     /*解决列数据过长换行问题 v-table-body-cell*/
     .column-cell-class-name-test {
       div{

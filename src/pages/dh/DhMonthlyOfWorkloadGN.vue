@@ -1,4 +1,6 @@
 <template>
+<div>
+    <oms2-header :title="$route.meta.title"></oms2-header>
     <div id="DhMonthlyOfWorkloadGN">
         <header>
             <!-- <mt-header :title="$route.meta.title" fixed>
@@ -24,6 +26,7 @@
             row-click-color="#edF7FF"></v-table>
             <div class='oms2-g-report-float-right'>数据来源于A7集团系统井下作业工作量统计月报（国内）</div>
     </div>
+</div>
 </template>
 
 
@@ -99,7 +102,13 @@
             this.requestData()
             this.tableHeight=window.innerHeight-80
         },
-        
+        mounted(){
+            setTimeout(()=>{
+                this.$ruixin.supportAutorotate({});
+            },200)
+            this.$ruixin.hideWebViewTitle({});
+            // this.$ruixin.setWebViewTitle({title:'工作量月报总'});
+        },
         
         methods:{
             //请求数据方法
@@ -175,6 +184,9 @@
 </script>
 
 <style lang="scss">
+    #DhMonthlyOfWorkloadGN{
+    
+    padding-top:$header-height;
     .oms2-g-item-not-exist{
         color:#f00;
     }
@@ -203,7 +215,7 @@
         top: 80px;
         left:10px;
     }
-
+    }
 </style>
 
 

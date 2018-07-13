@@ -323,7 +323,7 @@
         created(){
             //首次进入页面获取数据
             this.requestDate()
-            this.tableHeight=window.innerHeight-130;
+            this.tableHeight=window.innerHeight-80;
         },
         mounted(){
             // this.$ruixin.setWebViewTitle({title:'重点井日报'})

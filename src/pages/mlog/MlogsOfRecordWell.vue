@@ -1,5 +1,9 @@
 <template>
-    <div>
+  <div>
+     <oms2-header :title="$route.meta.title">
+     <span slot="right" class='' @click="handleShowSelect"><i class="fa fa-search oms2-title-icon"></i></span>
+     </oms2-header> 
+    <div id="RecordWell">
             <!-- <header>
                 <mt-header :title="$route.meta.title" fixed>
                 <mt-button slot="left" icon="back" @click="handleBack">返回</mt-button>
@@ -8,10 +12,8 @@
             <!--<h4>录井分队日报</h4>-->
             <!--引入日期控件-->
             <div class="oms2-fixed">
-              <oms2-date-picker-daily :date="date"
-
-                        @date-change="handleChange">
-              </oms2-date-picker-daily><span class='oms2-search' @click="handleShowSelect"><i class="fa fa-search"></i></span>
+              <oms2-date-picker-daily :date="date" @date-change="handleChange">
+              </oms2-date-picker-daily>
             </div>
             <!-- 查询 Modal -->
             <div class="modal fade oms2-font-size" id="ModalSelect" tabindex="-1" role="dialog" aria-labelledby="ModalSelectTitle" aria-hidden="true">
@@ -61,7 +63,7 @@
                       is-vertical-resize
                       style="width:100%;font-size:12px"
                       :title-row-height=30
-                      :row-height=30
+                      :row-height=40
                       :height=tableHeight
                       :columns="columns"
                       :table-data="tableData"
@@ -72,11 +74,13 @@
                       even-bg-color="#f4f4f4"
                       title-bg-color="#F6F6F6"
                   ></v-table>
-                </div>
+                  </div>
+                
               </mt-loadmore>
             </div>
       <div class='oms2-g-report-float-right'>数据来源于A7集团系统钻井综合日报</div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -162,13 +166,15 @@
         },
         created(){
           this.loadingDate();
-          this.tableHeight=window.innerHeight
+          this.tableHeight=window.innerHeight-30
+        },
+        mounted(){
+          //this.$ruixin.setWebViewTitle({title:'录井分队动态'});
+          this.$ruixin.hideWebViewTitle({})
           setTimeout(()=>{
                 this.$ruixin.supportAutorotate({});
             },200)
-        },
-        mounted(){
-          this.$ruixin.setWebViewTitle({title:'录井分队动态'});
+            this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top-30;
         },
         methods:{
                 loadingDate() {
@@ -283,15 +289,21 @@
             }
           }
         },
-        mounted() {
-          this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top-60;
-        },
     }
 </script>
 
 <style lang="scss">
+  #RecordWell{
+    padding-top:80px;
+  }
+  .oms2-title-icon{
+        font-size:22px !important;
+            // position:absolute;
+            // right:1rem;
+            // top:1rem;
+    }
   .oms2-fixed {
-    top: 0px;
+    top: 50px;
     background-color: white;
     width: 100%;
     height: 48px;
@@ -299,10 +311,10 @@
     z-index: 2;
   }
   .oms2-table-content {
-    margin-top: 105px;
+    margin-top: 80px;
     .v-table-title-class {
       position: fixed;
-      top: 47px;
+      top: 100px;
     }
   }
   .oms2-search{
@@ -312,12 +324,12 @@
   }
   .oms2-list-item-content{
     text-align: left;
+    padding-top:90px;
     padding-left:0px;
     padding-bottom:1rem;
   }
   .oms2-list-divider{
     text-align: center;
-    padding-top:0px !important;
     padding-bottom:0px !important;
     margin-bottom:10px;
   }
@@ -338,6 +350,5 @@
   .sbx-google__reset{
     right:10px;
   }
-  //改变搜索框样式  end
-
+  //改变搜索框样式
 </style>

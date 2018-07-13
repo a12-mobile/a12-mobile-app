@@ -21,6 +21,10 @@ const DrillOfRigstatistics = r => require.ensure([], () => r(require('@/pages/dr
 const DrillOfTeamYearly = r => require.ensure([], () => r(require('@/pages/drill/DrillOfTeamYearly')), 'drill');
 const DrillOfFootageYearly = r => require.ensure([], () => r(require('@/pages/drill/DrillOfFootageYearly')), 'drill');
 const DrillOfNumYearly = r => require.ensure([], () => r(require('@/pages/drill/DrillOfNumYearly')), 'drill');
+const DrillOfFinishNumYearly = r => require.ensure([], () => r(require('@/pages/drill/DrillOfFinishNumYearly')), 'drill');
+const DrillKeyIndicatorsYearly = r => require.ensure([], () => r(require('@/pages/drill/DrillKeyIndicatorsYearly')), 'drill');
+const DrillShamTsengFinishYearly = r => require.ensure([], () => r(require('@/pages/drill/DrillShamTsengFinishYearly')), 'drill');
+const DrillEngineeringAccidentsYearly = r => require.ensure([], () => r(require('@/pages/drill/DrillEngineeringAccidentsYearly')), 'drill');
 
 
 //井下
@@ -144,25 +148,49 @@ export default new Router({
       path:'/years/rigstatistics',
       name:'DrillOfRigstatistics',
       component:DrillOfRigstatistics,
-      meta:{navShow:false,title:'钻机统计表(年报)'}
+      meta:{navShow:false,title:'钻机统计表(2017)'}
     },
     {
       path:'/years/drillTeam',
       name:'DrillOfTeamYearly',
       component:DrillOfTeamYearly,
-      meta:{navShow:false,title:'钻井队伍分布统计表(年报)'}
+      meta:{navShow:false,title:'队伍分布表(2017)'}
     },
     {
       path:'/years/footage',
       name:'DrillOfFootageYearly',
       component:DrillOfFootageYearly,
-      meta:{navShow:false,title:'钻井工作量-钻井进尺统计表(年报)'}
+      meta:{navShow:false,title:'工作量-钻井进尺表(2017)'}
     },
     {
       path:'/years/drillNum',
       name:'DrillOfNumYearly',
       component:DrillOfNumYearly,
-      meta:{navShow:false,title:'钻井工作量-开钻口数统计表(年报)'}
+      meta:{navShow:false,title:'工作量-开钻口数表(2017)'}
+    },
+    {
+      path:'/years/drillFinishNum',
+      name:'DrillOfFinishNumYearly',
+      component:DrillOfFinishNumYearly,
+      meta:{navShow:false,title:'工作量-完井口数(2017)'}
+    },
+    {
+      path:'/years/drillKeyIndicators',
+      name:'DrillKeyIndicatorsYearly',
+      component:DrillKeyIndicatorsYearly,
+      meta:{navShow:false,title:'主要指标(2017)'}
+    },
+    {
+      path:'/years/shamTsengFinish',
+      name:'DrillShamTsengFinishYearly',
+      component:DrillShamTsengFinishYearly,
+      meta:{navShow:false,title:'深井完成井(4000米以上)(2017)'}
+    },
+    {
+      path:'/years/engineeringAccidents',
+      name:'DrillEngineeringAccidentsYearly',
+      component:DrillEngineeringAccidentsYearly,
+      meta:{navShow:false,title:'工程事故统计（2017）'}
     },
     //钻井end
 
@@ -199,44 +227,43 @@ export default new Router({
       path: '/log/monthly/workload',
       name: 'LogMonthlyOfWorkload',
       component: LogMonthlyOfWorkload,
-      meta:{ navShow: false, title: '测井工作量月报'}
-
+      meta:{ navShow: false, title: '工作量月报'}
     },
     {
       path: '/log/daily/workload',
       name: 'LogDailyOfWorkload',
       component: LogDailyOfWorkload,
-      meta:{ navShow: false, title: '测井工作量日报'}
+      meta:{ navShow: false, title: '工作量日报'}
     },
     {
       path: '/log/monthly/workloadOfBlock',
       name: 'LogWorkloadOfBlock',
       component: LogWorkloadOfBlock,
-      meta:{ navShow: false, title: '测井工作量油区分布表'}
+      meta:{ navShow: false, title: '工作量油区分布'}
     },
     {
       path: '/log/Monthly/TeamByTeamType',
       name: 'LogOfTeamByTeamtype',
       component: LogOfTeamByTeamtype,
-      meta:{ navShow: false, title: '测井专业队伍分布表(按队伍类型)'}
+      meta:{ navShow: false, title: '专业队伍分布(队伍类型)'}
     },
     {
       path: '/log/Monthly/TeamByDeviceType',
       name: 'LogOfTeamByDevicetype',
       component: LogOfTeamByDevicetype,
-      meta:{ navShow: false, title: '测井专业队伍分布表(按设备类型)'}
+      meta:{ navShow: false, title: '专业队伍分布(设备类型)'}
     },
     {
       path: '/log/Monthly/ForeignTeamByTeamType',
       name: 'LogOfForeignTeamByTeamtype',
       component: LogOfForeignTeamByTeamtype,
-      meta:{ navShow: false, title: '测井专业队伍国外分布表(按队伍类型)'}
+      meta:{ navShow: false, title: '专业队伍国外分布(队伍类型)'}
     },
     {
       path: '/log/Monthly/ForeignTeamByDeviceType',
       name: 'LogOfForeignTeamByDevicetype',
       component: LogOfForeignTeamByDevicetype,
-      meta:{ navShow: false, title: '测井专业队伍国外分布表(按设备类型)'}
+      meta:{ navShow: false, title: '专业队伍国外分布(设备类型)'}
     },
 
     //测井end
@@ -251,25 +278,25 @@ export default new Router({
       path: '/mlogsOfRecordWell',
       name: 'MlogsOfRecordWell',
       component: MlogsOfRecordWell,
-      meta:{ navShow: false, title: '录井分队动态'}
+      meta:{ navShow: false, title: '分队动态'}
     },
     {
       path: '/MonthLogOfLogWellByCompany',
       name: 'MonthLogOfLogWellByCompany',
       component: MonthLogOfLogWellByCompany,
-      meta:{ navShow: false, title: '录井分市场月报'}
+      meta:{ navShow: false, title: '分市场月报'}
     },
     {
       path: '/monthLogOfWellWorkload',
       name: 'MonthLogOfWellWorkload',
       component: MonthLogOfWellWorkload,
-      meta:{ navShow: false, title: '录井工作量月报'}
+      meta:{ navShow: false, title: '工作量月报'}
     },
     {
       path: '/mlogMonthOfTeam',
       name: 'MlogMonthOfTeam',
       component: MlogMonthOfTeam,
-      meta:{ navShow: false, title: '录井队伍统计月报'}
+      meta:{ navShow: false, title: '队伍统计月报'}
     },
 
 

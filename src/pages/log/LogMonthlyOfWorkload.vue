@@ -1,5 +1,7 @@
 <template>
-    <div id="DhMonthlyOfWorkloadGN">
+  <div>
+    <oms2-header :title="$route.meta.title"></oms2-header>
+    <div id="LogMonthlyOfWorkload">
         <!-- <h4>测井工作量统计表</h4> -->
         <oms2-date-picker-monthly :date=date @date-change="handleChange"></oms2-date-picker-monthly>
         <!-- Button trigger modal -->
@@ -156,6 +158,7 @@
           </div>
         </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -269,11 +272,12 @@
                 }
         },
         created(){
-            this.requestData()
+            this.requestData();
             this.tableHeight=window.innerHeight-80
         },
         mounted(){
-            this.$ruixin.setWebViewTitle({title:this.$route.meta.title});
+            // this.$ruixin.setWebViewTitle({title:this.$route.meta.title});
+            this.$ruixin.hideWebViewTitle({});
             setTimeout(()=>{
                 this.$ruixin.supportAutorotate({});
             },200)
@@ -281,11 +285,11 @@
         methods:{
             //请求数据方法
             requestData(){
-                Indicator.open('加载中...')
+                Indicator.open('加载中...');
                 getMonthlyOfWorkload(this.date.time).then((data)=>{
-                    Indicator.close()
+                    Indicator.close();
                     if(data.data){
-                        this.tableData=data.data
+                        this.tableData=data.data;
                         //检查是否含有所有地区
                         let jujiorgnames=[{'juOrgabb':'集团总计','chuOrgabb':null},
                                         {'juOrgabb':'长城钻探','chuOrgabb':'合计'},
@@ -307,7 +311,7 @@
                                         {'juOrgabb':'中油测井','chuOrgabb':'国际事业部'},
                                         {'juOrgabb':'中油测井','chuOrgabb':'生产测井中心'},
                                         ]
-                        let jujisFromData=[]
+                        let jujisFromData=[];
                         for(var date of this.tableData){
                             jujisFromData.push({
                                 'juOrgabb':date.juOrgabb,
@@ -319,7 +323,7 @@
                             include=false;
                             for(var juji of jujisFromData){
                                 if(juji.juOrgabb==jujiorgname.juOrgabb&&juji.chuOrgabb==jujiorgname.chuOrgabb){
-                                    include=true
+                                    include=true;
                                 }
                             }
                             if(!include){
@@ -329,14 +333,14 @@
                                     'chuOrgabb':jujiorgname.chuOrgabb,
                                     remark:'Not exist'
                                 }
-                                this.tableData.push(newItem)
+                                this.tableData.push(newItem);
                             }
                         }
 
                         //排序
                         this.tableData.sort((pre,next)=>{
-                            let preIndex=-1
-                            let nextIndex=-1
+                            let preIndex=-1;
+                            let nextIndex=-1;
                             let index=0;
                             for(var item of jujiorgnames){
                                 if(item.juOrgabb==pre.juOrgabb&&item.chuOrgabb==pre.chuOrgabb){
@@ -350,15 +354,15 @@
                                 }
                                 index++
                             }
-                            return preIndex-nextIndex
+                            return preIndex-nextIndex;
                         })
                     }else{
-                        this.tableData=[]
+                        this.tableData=[];
                     }
                 })
                 .catch(function(error) {
-                    Indicator.close()
-                    console.log(error)
+                    Indicator.close();
+                    console.log(error);
 
                 })
 
@@ -366,12 +370,12 @@
             //返回按钮
             handleBack(){
                 if(Indicator){
-                    Indicator.close()
+                    Indicator.close();
                 }
                 window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
             },
             handleChange(){
-                this.requestData()
+                this.requestData();
             },
             //合并单元格
             cellMerge(rowIndex,rowData,field){
@@ -392,14 +396,14 @@
                     }
                 }
                 if(field==='juOrgabb'){
-                    let juOrgabb=rowData[field]
-                    let juOrgList=[]
+                    let juOrgabb=rowData[field];
+                    let juOrgList=[];
                     if(juOrgList.indexOf(juOrgabb)==-1){
                         //还没有合并该局级单位
-                        let num=0  //记录这个局级单位有多少个
+                        let num=0;  //记录这个局级单位有多少个
                         for(let i=rowIndex;i<this.tableData.length;i++){
                             if(this.tableData[i].juOrgabb==juOrgabb){
-                                num++
+                                num++;
                             }
                         }
                         if(num>0){
@@ -410,20 +414,20 @@
                                 componentName: ''
                             }
                         }
-                        juOrgList.push(juOrgabb)
+                        juOrgList.push(juOrgabb);
                     }
                 }
             },
             columnCellClass(rowIndex,columnName,rowData){
                 if(this.tableData[rowIndex].remark=='Not exist'){
-                    return 'oms2-g-item-not-exist'
+                    return 'oms2-g-item-not-exist';
                 }
             },
             /**
              * 表格行点击回掉
              */
             handleRowClick(rowIndex, rowData, column){
-              this.selectedRow=rowData
+              this.selectedRow=rowData;
               $("#ModalWellMessage").modal('show')
             }
         },
@@ -431,6 +435,8 @@
 </script>
 
 <style lang="scss">
+  #LogMonthlyOfWorkload{
+    padding-top:$header-height;
     .oms2-list-item-content{
       text-align: left;
       padding-left:0rem;
@@ -445,6 +451,8 @@
     .oms2-right{
       text-align: right;
     }
+  }
+
 </style>
 
 

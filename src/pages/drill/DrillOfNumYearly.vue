@@ -1,33 +1,228 @@
 <template>
-  <div id="DrillOfNumYearly">
-    <header>
-      <!-- <mt-header :title="$route.meta.title" fixed>
-        <mt-button slot="left" @click="handleBack"><i class="fa fa-search"></i></mt-button>
-      </mt-header> -->
-      <!--<h4>中油油服钻井工作量日报</h4>-->
-      <!-- <p>钻机统计表</p> -->
-      <!-- <div class='oms2-g-report-float-right' style="top:40px">数据来源于A7集团系统钻井综合日报</div> -->
-     <!-- <oms2-date-picker-daily :date="date"
-                              @date-change="handleChange">
-      </oms2-date-picker-daily>-->
-    </header>
-    <v-table
-      is-horizontal-resize
-      is-vertical-resize
-      style="width:100%;font-size:12px"
-      :title-row-height=25
-      :row-height=30
-      :height=tableHeight
-      :columns="columns"
-      :title-rows="titleRows"
-      :table-data="tableData"
-      :cellMerge="cellMerge"
-      title-bg-color="#F6F6F6"
-      even-bg-color="#F4F4F4"
-      row-hover-color="#eee"
-      row-click-color="#edf7ff"
-    ></v-table>
-    <div class='oms2-g-report-float-right'>数据来源于A7集团系统库钻井工作量--开钻口数统计表</div>
+  <div>
+    <oms2-header :title="$route.meta.title"></oms2-header>
+    <div id="DrillOfNumYearly">
+
+        <!-- <mt-header :title="$route.meta.title" fixed>
+          <mt-button slot="left" @click="handleBack"><i class="fa fa-search"></i></mt-button>
+        </mt-header> -->
+        <!--<h4>中油油服钻井工作量日报</h4>-->
+        <!-- <p>钻机统计表</p> -->
+        <!-- <div class='oms2-g-report-float-right' style="top:40px">数据来源于A7集团系统钻井综合日报</div> -->
+        <oms2-date-picker-daily :date="date"></oms2-date-picker-daily>
+
+      <v-table
+        is-horizontal-resize
+        is-vertical-resize
+        style="width:100%;font-size:12px"
+        :title-row-height=25
+        :row-height=30
+        :row-click="handleRowClick"
+        :height=tableHeight
+        :columns="columns"
+        :title-rows="titleRows"
+        :table-data="tableData"
+        :cellMerge="cellMerge"
+        title-bg-color="#F6F6F6"
+        even-bg-color="#F4F4F4"
+        row-hover-color="#eee"
+        row-click-color="#edf7ff"
+      ></v-table>
+      <div class='oms2-g-report-float-right'>数据来源于A7集团系统库钻井工作量--开钻口数统计表</div>
+      <!-- Modal 具体数据信息 -->
+      <div class="modal fade oms2-font-size" id="ModalWellMessage" tabindex="-1" role="dialog" aria-labelledby="ModalWellMessageTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" style="font-size:14px" id="exampleModalLongTitle">{{selectedRow.part}} <b>/</b> {{selectedRow.orgs}} <b>/</b><span style="padding-left:1rem;font-size:14px">({{date.time}})</span></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span style="font-size:20px;" aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="oms2-list-divider list-group-item list-group-item-dark" >市场分布</div>
+                <div class="row">
+                  <label class="col-5 oms2-right">合计:</label>
+                  <p>{{selectedRow.total | ifNumberIsNull}}</p>
+                </div>
+                <div class="oms2-list-divider list-group-item list-group-item-dark">国内集团内</div>
+                <div class="row">
+                  <label class="col-5 oms2-right">小计:</label>
+                  <p>{{selectedRow.subtotal | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">大庆:</label>
+                  <p>{{selectedRow.daqing | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">吉林:</label>
+                  <p>{{selectedRow.jilin | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">辽河:</label>
+                  <p>{{selectedRow.liaohe | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">华北:</label>
+                  <p>{{selectedRow.huabei | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">大港:</label>
+                  <p>{{selectedRow.dangang | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">冀东:</label>
+                  <p>{{selectedRow.jidong | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">西南:</label>
+                  <p>{{selectedRow.xinan | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">长庆:</label>
+                  <p>{{selectedRow.changqing | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">塔里木:</label>
+                  <p>{{selectedRow.talimu | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">新疆:</label>
+                  <p>{{selectedRow.xinjiang | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">吐哈:</label>
+                  <p>{{selectedRow.tuha | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">青海:</label>
+                  <p>{{selectedRow.qinghai | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">玉门:</label>
+                  <p>{{selectedRow.yumen | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">浙江:</label>
+                  <p>{{selectedRow.zhejiang | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">南方:</label>
+                  <p>{{selectedRow.nanfang | ifNumberIsNull}}</p>
+                </div>
+                <div class="oms2-list-divider list-group-item list-group-item-dark" style="width: 80%;position: center;left: 10%">合作(自营)区块</div>
+                <div class="row">
+                  <label class="col-5 oms2-right">长庆:</label>
+                  <p>{{selectedRow.changqing2 | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">大港:</label>
+                  <p>{{selectedRow.dagang2 | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">其它:</label>
+                  <p>{{selectedRow.chuqiku | ifNumberIsNull}}</p>
+                </div>
+                <div class="oms2-list-divider list-group-item list-group-item-dark" style="width: 80%;position: center;left: 10%">煤层气</div>
+                <div class="row">
+                  <label class="col-5 oms2-right">山西:</label>
+                  <p>{{selectedRow.shanxi | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">陕西:</label>
+                  <p>{{selectedRow.shanxi2 | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">其它:</label>
+                  <p>{{selectedRow.other2 | ifNumberIsNull}}</p>
+                </div>
+                 <div class="oms2-list-divider list-group-item list-group-item-dark" style="width: 80%;position: center;left: 10%">储气库</div>
+                <div class="row">
+                  <label class="col-5 oms2-right">华北:</label>
+                  <p>{{selectedRow.huabei2 | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">大港:</label>
+                  <p>{{selectedRow.dagang3 | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">长庆:</label>
+                  <p>{{selectedRow.changqing3 | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">西南:</label>
+                  <p>{{selectedRow.xinan2 | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">新疆:</label>
+                  <p>{{selectedRow.xinjiang2 | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">江苏:</label>
+                  <p>{{selectedRow.jiangsu | ifNumberIsNull}}</p>
+                </div>
+                <div class="oms2-list-divider list-group-item list-group-item-dark" style="width: 80%;position: center;left: 10%">页岩气</div>
+                <div class="row">
+                  <label class="col-5 oms2-right">长宁:</label>
+                  <p>{{selectedRow.changning | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">威远:</label>
+                  <p>{{selectedRow.weiyuan | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">其它:</label>
+                  <p>{{selectedRow.other3 | ifNumberIsNull}}</p>
+                </div>
+                <div class="oms2-list-divider list-group-item list-group-item-dark ">国内集团外</div>
+                <div class="row">
+                  <label class="col-5 oms2-right">小计:</label>
+                  <p>{{selectedRow.subtotal2 | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">中石化:</label>
+                  <p>{{selectedRow.Sinopec | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">中海油:</label>
+                  <p>{{selectedRow.CNOOC | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">延长石油:</label>
+                  <p>{{selectedRow.yanchang | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">反承包:</label>
+                  <p>{{selectedRow.fanchengbao | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">其它:</label>
+                  <p>{{selectedRow.other4 | ifNumberIsNull}}</p>
+                </div>
+                <div class="list-group-item list-group-item-dark oms2-list-divider">国外</div>
+                <div class="row">
+                  <label class="col-5 oms2-right">小计:</label>
+                  <p>{{selectedRow.subtotal3 | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">国外集团内:</label>
+                  <p>{{selectedRow.incompany | ifNumberIsNull}}</p>
+                </div>
+                <div class="row">
+                  <label class="col-5 oms2-right">国外集团外:</label>
+                  <p>{{selectedRow.outcompany | ifNumberIsNull}}</p>
+                </div>
+
+              </form>
+              <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary">返回</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -44,6 +239,7 @@
           time:getCurrentDate('yyyy')-1,
         },
         tableHeight:0,
+        selectedRow:{},  //选中的行
         tableData: [
           {"part":"集团公司","orgs":"","total":"19598","subtotal":"18608","daqing":"3667","jilin":"888","liaohe":"871","huabei":"381","dagang":"503","jidong":"147","xinan":"45","changqing":"8179",'talimu':'208',"xinjiang":"1697","tuha":"284",'qinghai':'709','yumen':'28','zhejiang':'126','nanfang':'43',
             'changqing2':'284','dagang2':'','other':'','shanxi':'460', 'shanxi2':'2','other2':'','huabei2':'','dagang3':'','changqing3':'','xinan2':'','xinjiang2':'','jiangsu':'','changning':'44','weiyuan':'34', 'other3':'8',
@@ -78,9 +274,9 @@
 
         ],
         columns: [
-          {field: 'part', width: 60, columnAlign: 'left', isFrozen: true,isResize: true},
+          {field: 'part', width: 40, columnAlign: 'left', isFrozen: true,isResize: true},
           {field: 'orgs', width: 60, columnAlign: 'left', isFrozen: true,isResize: true},
-          {field: 'total', width: 60, columnAlign: 'left', isResize: true},
+          {field: 'total', width: 60, columnAlign: 'right', isResize: true},
 
           {field: 'subtotal', width: 60, columnAlign: 'right', isResize: true},
           {field: 'daqing', width: 50, columnAlign: 'right', isResize: true},
@@ -203,10 +399,11 @@
       }
     },
     created(){
-      this.tableHeight=window.innerHeight-80
+      this.tableHeight=window.innerHeight-30
     },
     mounted(){
-      this.$ruixin.setWebViewTitle({title:"2017钻井工作量-钻井进尺表"});
+      // this.$ruixin.setWebViewTitle({title:"2017钻井工作量-钻井进尺表"});
+      this.$ruixin.hideWebViewTitle({});
       setTimeout(()=>{
         this.$ruixin.supportAutorotate({});
       },200)
@@ -249,13 +446,34 @@
         }
       },
 
-      //合并单位
+      /**
+       * 表格行点击回掉
+       */
+      handleRowClick(rowIndex, rowData, column){
+        this.selectedRow=rowData;
+        $("#ModalWellMessage").modal('show')
+      }
 
     },
   }
 
 </script>
 
-<style scoped>
-
+<style lang="scss">
+  #DrillOfNumYearly{
+    .oms2-list-item-content{
+      text-align: left;
+      padding-left:0rem;
+      padding-bottom:1rem;
+    }
+    .oms2-list-divider{
+      text-align: center;
+      padding-top:0rem !important;
+      padding-bottom:0rem !important;
+      margin-bottom:1rem;
+    }
+    .oms2-right{
+      text-align: right;
+    }
+  }
 </style>
