@@ -48,7 +48,7 @@ const MlogMonthOfTeam = r => require.ensure([], () => r(require('@/pages/mlog/Ml
 
 //实时数据
 const RealtimeListOfProjectData = r => require.ensure([], () => r(require('@/pages/real-time/ListOfProjectData')), 'real-time');
-// const RealtimeChartsOfDataMonitoring = r => require.ensure([], () => r(require('@/pages/real-time/ChartsOfDataMonitoring')), 'real-time');
+const RealtimeChartsOfDataMonitoring = r => require.ensure([], () => r(require('@/pages/real-time/ChartsOfDataMonitoring')), 'real-time');
 
 //demo
 const HorizontalScreen = r => require.ensure([], () => r(require('@/pages/demo/HorizontalScreen')), 'demo');
@@ -200,6 +200,7 @@ export default new Router({
       name: 'LogMonthlyOfWorkload',
       component: LogMonthlyOfWorkload,
       meta:{ navShow: false, title: '测井工作量月报'}
+
     },
     {
       path: '/log/daily/workload',
@@ -279,12 +280,12 @@ export default new Router({
       component: RealtimeListOfProjectData,
       meta: { navShow: false, title: '工程数据列表' }
     },
-    // {
-    //   path: '/real-time/charts/monitoring',
-    //   name: 'RealtimeChartsOfDataMonitoring',
-    //   component: RealtimeChartsOfDataMonitoring,
-    //   meta: { navShow: false, title: '工程数据列表' }
-    // },
+    {
+      path: '/real-time/charts/monitoring',
+      name: 'RealtimeChartsOfDataMonitoring',
+      component: RealtimeChartsOfDataMonitoring,
+      meta: { navShow: false, title: '工程数据列表' }
+    },
     //实时数据 end
 
 

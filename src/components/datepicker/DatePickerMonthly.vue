@@ -4,6 +4,7 @@
         <vue-datepicker-local 
             v-model="time" 
             inputClass='oms2-date-picker-monthly-input' 
+            :disabledDate='handleDisabledDate'
             format="YYYY-MM" />
         <a class="oms2-date-picker-monthly-icon" @click="handleMonthAdd"><i class="fa fa-chevron-right"></i></a>
     </div>
@@ -132,6 +133,15 @@
                     this.$emit("date-add",this.date.time)
                 }
             },
+            handleDisabledDate(time, format){
+                let compare = compareDate(time, formatDate(new Date(),'yyyy-MM'))
+                if(compare>0){
+                    return true
+                }else{
+                    return false
+                }
+
+            }
         },
         components: {
             VueDatepickerLocal

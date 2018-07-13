@@ -24,6 +24,10 @@ import $ from 'jquery'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
 
+//引入bootstrap-colorpicker
+import 'bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css'
+import 'bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js'
+
 // // 引入全部mint-ui组件
 // import Mint from 'mint-ui';
 // Vue.use(Mint);
@@ -74,6 +78,9 @@ Vue.component(DatePickerMonthly.name,DatePickerMonthly)
 
 // require("./assets/css/style.css")
 
+// 引入echarts
+import echarts from 'echarts'
+
 
 let ruixinApi=new RuixinApi()
 //全局注册
@@ -84,6 +91,7 @@ Vue.prototype.$entity = entityServer  //实体服务，用于服务器对实体�
 Vue.prototype.$ruixin=ruixinApi       //瑞信API
 Vue.prototype.$toast=toastServer      //土司
 Vue.prototype.$mixin=mixin            //混入
+Vue.prototype.$echarts = echarts      //echarts曲线
 
 
 //定义全局过滤器

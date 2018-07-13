@@ -61,7 +61,7 @@
           <p>物探</p>
         </div>
         <div class="col-4 oms2-g-grid-cell">
-          <router-link to="/well/daily">
+          <router-link to="/real-time/charts/monitoring">
             <img class='oms2-g-grid-cell-image' src="./../assets/icon/gp/gp.png">
           </router-link>
           <p>测试页面</p>

@@ -131,7 +131,7 @@
                         {field: 'blockName', width: 100, columnAlign: 'left',isResize:true},
                     ],
                     titleRows: [//第一行
-                        [{fields: ['jujname'], title: '施工单位', titleAlign: 'center', rowspan: 2},
+                        [{fields: ['jujname'], title: '施工单位', titleAlign: 'center', rowspan: 2,},
                         {fields: ['serialNum'], title: '序号', titleAlign: 'center', rowspan: 2},
                         {fields: ['wellName'], title: '井号', titleAlign: 'center', rowspan: 2},
                         {fields: ['orgAbb'], title: '录井队号', titleAlign: 'center', rowspan: 2},

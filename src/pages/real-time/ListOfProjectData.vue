@@ -62,6 +62,7 @@
                 wellName:'',
                 wellboreId:'',
                 isReceive:false,  //是否接收数据
+                isRefresh:true,  //是否更新   第一次进入也算更新
                 sessionId:'',   //sessionId
                 websock: null,
                 columnsGC: [{
@@ -283,13 +284,14 @@
             },
             //接受数据
             websocketonmessage(e) {
-                console.log(e)
                 if(!this.isReceive&&(this.wellboreId==''||!this.wellboreId)){
                     //如果没有井id则显示默认值
                     // this.$toast.showToast("获取井ID失败")
                     console.log("失败")
-                }else if(this.sessionId==''&&!this.isReceive){
+                }else if(!this.isReceive&&this.isRefresh){
+                    this.isRefresh=false
                     this.sessionId=e.data
+                    // console.log()
                     setwellboreId(this.wellboreId,this.sessionId).then((data)=>{
                         if(data.result=='success'){
                             this.isReceive=true
@@ -302,8 +304,11 @@
                 }
                 if(this.isReceive&&e.data[0]=='{'){
                     const redata = JSON.parse(e.data);
-                    var item = this.convertJsonToBean(redata);
+                    var item = this.convertJsonToBean(redata)
                     this.tableDataGC.unshift(item)
+
+                    var item=this.convertJsonToQKBean(redata)
+                    this.tableDataQK.unshift(item)
                 }
             },
             //关闭
@@ -334,9 +339,33 @@
                 }
                 return item;
             },
+            convertJsonToQKBean(data) {
+                console.log(data)
+                var time = getCurrentTime();
+                var item = {
+                    "time": time,
+                    "quanting": this.getPropertityData(data["8219"]),
+                    "jiawan": this.getPropertityData(data["8212"]),
+                    "yiwan": this.getPropertityData(data["8213"]),
+                    "bingwan": this.getPropertityData(data["8214"]),
+                    "zhengdingwan": this.getPropertityData(data["8215"]),
+                    "yidingwan": this.getPropertityData(data["8216"]),
+                    "zhengwuwan": this.getPropertityData(data["8217"]),
+                    "yiwuwan": this.getPropertityData(data["8218"]),
+                    "co2": this.getPropertityData(data["8204"]),
+                    "h": this.getPropertityData(data["8205"]),
+                    "he": this.getPropertityData(data["8206"]),
+                    "liuhuaqing1": this.getPropertityData(data["8207"]),
+                    "liuhuaqing2": this.getPropertityData(data["8208"])
+                }
+                return item;
+            },
             //获取对象属性结果
             getPropertityData(object){
                 for(var key in object){
+                    if(key=='0'){
+                        return 0
+                    }
                     if(object[key]){
                         return object[key].toFixed(2)
                     }else{
@@ -354,12 +383,13 @@
             handleRefresh(){
                 this.$toast.showIndicator.open('刷新中...')
                 this.websock.close()
-                this.initWebSocket()
+                this.initWebSocket()   
+                this.isReceive=false
+                this.isRefresh=true
                 setTimeout(()=>{
                     this.$toast.showIndicator.close()
                     this.$toast.showToast("刷新成功")
                 },1000)
-
             }
         },
         created() {
@@ -377,14 +407,15 @@
             this.initWebSocket()
         },
         watch:{
-            selected:function(val,oldval){
-                if(val=='QK'){
-                    this.tableDataQK=[]
-                    this.$toast.showToast('暂无数据')
-                }else{
-                    this.tableDataGC=[]=this.tableDataGC.slice(0,20)
-                }
-            }
+            // selected:function(val,oldval){
+            //     if(val=='QK'){
+            //         this.tableDataQK=[]
+            //         this.$toast.showToast('暂无数据')
+            //     }else{
+            //         this.tableDataGC=this.tableDataGC.slice(0,20)
+            //     }
+            // },
+
         },
         components: {
             'date-picker': myDatepicker

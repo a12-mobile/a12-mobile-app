@@ -2,7 +2,6 @@
   <div>
     <oms2-header :title="$route.meta.title">
         <span slot="right" class=''>
-            
         </span>
     </oms2-header>
     <div id="DrillDailyList">
@@ -250,7 +249,6 @@
     import { getWellDaliyListByWellId } from './../../service/drill/drillGetData'
     import mixin from './../../service/utils/system/mixin'
     export default {
-         mixins:[mixin.mixin_ruixin],
          data() {
             return {
                 tableHeight:0,   //表格高度
@@ -374,6 +372,7 @@
                 //请求数据
                 this.requestDate()
             }
+            this.$ruixin.hideWebViewTitle({});
 
         },
         methods:{
@@ -547,6 +546,9 @@
                     }
                 }
             }
+            .col-6{
+            font-size:14px;
+        }
             .card-content{
                 // padding:10px;
                 width: 99%
@@ -570,6 +572,7 @@
         .oms2-right{
             text-align: right;
         }
+        
 
         //改变搜索框样式
         .sbx-google{

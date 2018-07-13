@@ -37,6 +37,8 @@ $toast       土司
 $mixin        混入
     |——$mixin.mixin_ruixin()  设置瑞信标题头、调用横屏API接口
 
+$echarts      echarts曲线
+
 
 #文件目录说明
 重要文件内容均在src目录下，因此只说明该目录下内容
