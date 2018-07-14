@@ -279,7 +279,6 @@
             },
             //数据发送
             websocketsend(agentData) {
-                console.log('发送消息')
                 this.websock.send(agentData);
             },
             //接受数据
@@ -291,8 +290,8 @@
                 }else if(!this.isReceive&&this.isRefresh){
                     this.isRefresh=false
                     this.sessionId=e.data
-                    // console.log()
                     setwellboreId(this.wellboreId,this.sessionId).then((data)=>{
+                        console.log(this.wellboreId,data.result)
                         if(data.result=='success'){
                             this.isReceive=true
                         }else{
@@ -313,7 +312,7 @@
             },
             //关闭
             websocketclose(e) {
-                console.log("connection closed ");
+                console.log("connection closed");
             },
             /**
              * 测试页面转换
@@ -340,7 +339,6 @@
                 return item;
             },
             convertJsonToQKBean(data) {
-                console.log(data)
                 var time = getCurrentTime();
                 var item = {
                     "time": time,
@@ -395,7 +393,6 @@
         created() {
             this.wellName=this.$route.query.wellName
             this.wellboreId=this.$route.query.wellboreId
-            console.log(this.$route.query)
             if(!this.wellName||this.wellName==''){
                 // this.wellName='克深21'
                 this.$toast.showToast("获取井名失败")

@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+    <link href="./bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="./css/bootstrap-colorpicker.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/echarts.min.js"></script>
+    <script src="./bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="./js/vue.min.js"></script>
+    <script src="./js/bootstrap-colorpicker.min.js"></script>
+    <script src="./bundle.js"></script>
+    <script src="./data/items.js"></script>
+    <script src="http://e.cnpc.com.cn:66/js/api/RuixinOpenAPI.js"></script>
+</head>
+<body>
+<div class="container">
+    <!--头部-->
+    <div class="row" style="text-align: center;height: 50px;">
+        <i class="fa fa-arrow-left"  style="left: 10px;position: absolute;line-height: 50px;font-size: 20px;" onclick="back()"></i>
+        <i class="fa fa-fa-refresh"  style="left: 10px;position: absolute;line-height: 50px;font-size: 20px;"></i>
+        <span style="color: white;padding: 0px 20px 0px 20px;line-height: 50px;font-size: 20px;font-weight: 100;" id="WellBore">当前井名</span>
+        <span style="font-size: 12px;color: black;" hidden id="width_temp">10:31</span>
+    </div>
+    <div id="myCarousel" class="carousel slide" data-interval="false">
+        <div class="carousel-inner">
+            <!--曲线显示部分-->
+            <div class="item active">
+                <!--曲线监测页面头部-->
+                <div class="row" style="height: 50px;">
+                    <!--日期显示-->
+                    <div style="text-align: center;height: 50px;position: relative;margin-left: auto;margin-right: auto;">
+                        <span style="color: white;padding: 0px 20px 0px 20px;line-height: 50px;font-size: 20px;font-weight: 100;font-family: 'Microsoft YaHei UI'">
+                            <i class="fa fa-chevron-left" id="dataTableExpand"></i>
+                                &nbsp;&nbsp;
+                            <i class="fa fa-cog" id="btn_chartSetting" style="color: #3F4889"></i>
+                                &nbsp;&nbsp;<span id="chartDate">2018年5月14日,昼 </span>&nbsp;&nbsp;
+                            <i class="fa fa-wrench" id="btn_calendarSetting" style="color: #3F4889"></i>
+                                &nbsp;&nbsp;
+                            <i class="fa fa-chevron-right" id="dataTableClose"></i>
+                        </span>
+                    </div>
+                    <!--时间段显示-->
+                    <!-- <div style="text-align: center">
+                        <span style="font-size: 15px;font-weight: 100;font-family: 'Microsoft YaHei UI';color: #54FFFF;height: 30px;">
+                            <span id="WellBore">当前井名</span>
+                        </span>
+                    </div> -->
+                </div>
+                <!--曲线的表头-->
+                <div class="row" style="color: #DDDDDD;" id="dataTable">
+                    <div v-for="n in grid" :class="average" style="border-right: 1px solid gray;">
+                        <div style="text-align: center;" class="lineSettingButton font-small" v-for="(item,index) in items"
+                             v-bind:data-options="index" v-if="n==item.position&&item.display===true">
+                            {{item.name}}<span v-if="item.unit != ''">[{{item.unit}}]</span>
+                            <div style="width: 100%;height: 2px;" v-bind:style="{backgroundColor:item.color}"></div>
+                            <div class="row" style="font-size: 12px;">
+                                <div class="col-xs-4  font-small" style="padding: 0px;">
+                                    {{item.limit_min}}
+                                </div>
+                                <div class="col-xs-4  font-small" style="padding: 0px;">
+                                    {{item.current.toFixed(2)}}
+                                </div>
+                                <div class="col-xs-4  font-small" style="padding: 0px;">
+                                    {{item.limit_max}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--曲线监测部分-->
+                <div class="row" id="charts" style="margin-left: 0px;margin-right: 0px;">
+                    <p class="hidden">{{chartCount}}</p>
+                    <div class="" style="width:100%;height: 500px;" id="distChart"></div>
+                </div>
+            </div>
+            <!--曲线设置部分-->
+            <div class="item">
+                <div class="row" id="vue">
+                    <!--数据列表页面的数据项-->
+                    <div class="col-sm-6 col-xs-6   small-padding lineSettingButton" v-for="(item,index) in items"
+                         v-bind:data-options="index">
+                        <div style="text-align: center;color: white;" class="block">
+                            <p style="font-size: 30px;padding-top: 15px;margin-bottom: 0px;"><i class="fa fa-cog"></i>
+                            </p>
+                            <div style="float: left;font-size: 13px;padding-left: 10px;">
+                                {{item.name}}
+                            </div>
+                        </div>
+                    </div>
+                    <!--数据列表块的添加项（加号）-->
+                    <div class="col-sm-6 col-xs-6 small-padding lineSettingButton">
+                        <div style="text-align: center;color: white;" class="block">
+                            <p style="font-size: 30px;padding-top: 15px;margin-bottom: 0px;"><i
+                                    class="fa fa-plus-circle"></i></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--模块设置Modal-->
+<div class="modal fade" id="myModal" placement="auto" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel" :data-options="item.index">
+                    <input v-if="temp.name === null" type="text" class="form-control" placeholder="请输入新数据项名称"
+                           v-model="item.name"/>
+                    <span v-else>{{item.name}}</span>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" v-if="temp.name ===null">
+                    <label for="bottom" class="col-xs-4 col-sm-4 control-label">id</label>
+                    <div class="col-xs-8 col-sm-8">
+                        <input type="text" class="form-control" id="id" placeholder="请输入id"
+                               v-model="item.id">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="color" class="col-xs-4 col-sm-4 control-label">曲线颜色</label>
+                    <div class="col-xs-8 col-sm-8">
+                        <input type="text" class="form-control" id="color" placeholder="请输入颜色"
+                               v-model="item.color">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="bottom" class="col-xs-4 col-sm-4 control-label">阈值下限</label>
+                    <div class="col-xs-8 col-sm-8">
+                        <input type="text" class="form-control" id="bottom" placeholder="请输入下限"
+                               v-model="item.limit_min">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="top" class="col-xs-4 col-sm-4 control-label">阈值上限</label>
+                    <div class="col-xs-8 col-sm-8">
+                        <input type="text" class="form-control" id="top" placeholder="请输入上限"
+                               v-model="item.limit_max">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="top" class="col-xs-4 col-sm-4 control-label">显示位置</label>
+                    <div class="col-xs-8 col-sm-8">
+                        <select class="form-control" v-model="item.position">
+                            <option v-for="index in length">{{index}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-xs-offset-4 col-sm-8 col-xs-8">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" v-model="item.display">是否显示
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary btn-sm" id="modalSubmitBtn">
+                    <span v-if="temp.name === null">添加</span>
+                    <span v-else>保存更改</span>
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!--chart设置Modal-->
+<div class="modal fade" id="chartSetModal" placement="auto" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">图表显示设置</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- <div class="form-group">
+                        <label for="top" class="col-xs-4 col-sm-4 control-label">曲线监测类型</label>
+                        <div class="col-xs-8 col-sm-8">
+                            <select class="form-control" onchange='handleChangeChart(this)'>
+                                <option value="1">综合数据监测</option>
+                                <option value="2">工程数据监测</option>
+                                <option value="3">气测数据监测</option>
+                            </select>
+                        </div>
+                    </div> -->
+                
+                    <div class="form-group">
+                        <label for="top" class="col-sm-4 col-xs-4 control-label">显示数量</label>
+                    <div class="col-sm-8 col-xs-8">
+                        <input type="text" class="form-control" placeholder="请输入显示数量"
+                               v-model.number="count">
+                    </div>
+                </div>
+
+                <div style="height: 200px;width: 100%;background-color: #31b0d5">
+                    <div v-for="n in count" :class="average"
+                         style="border: 2px solid black;box-sizing: border-box;height: 200px;">
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary btn-sm" id="btn_chartSettingSubmit">提交更改
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<!--三条甬道，9个数据，颜色修改，日期去掉，图表选择-->
+
+
+<div class="modal fade" id="wellBoreIdSet" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">当前选择井:<span id="selectWell" data-options="{{currentWellBoreId}}">{{currentWellName}}</span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="col-xs-8 col-sm-8">
+                        <input type="text" class="form-control" id="wellName" placeholder="请输入井名">
+                    </div>
+                    <button type="button" class="btn btn-primary col-xs-4 col-sm-4" id="searchWell">搜索</button>
+                </div>
+                <table class="table table-condensed table-responsive" id="wellList">
+                    <thead>
+                    <tr>
+                        <th class="center">序号</th>
+                        <th class="left">井名</th>
+                        <th class="left">在线状态</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="text-align: center;" v-for="(item,index) in list"  v-bind:id="item.wellBoreId" v-bind:name="item.wellName" onclick="setTempWellConfg(this)">
+                        <td>{{(pageCount-1)*10+index+1}}</td>
+                        <td class="left">{{item.wellName}}</td>
+                        <td class="left" v-if="item.wellBoreStatus==1">在线</td>
+                        <td class="left" v-if="item.wellBoreStatus==0">离线</td>
+                    </tr>
+                    <tr>
+                        <td v-bind:data-options="pageCount-1<=1?1:pageCount-1" class="center" onclick="initWellList(this)"><button type="button" class="btn btn-primary" >上一页</button></td>
+                        <td class="center">{{pageCount}}/{{pages}}</td>
+                        <td v-bind:data-options="pageCount+1>=pages?pages:pageCount+1" class="left" onclick="initWellList(this)"><button type="button" class="btn btn-primary" >下一页</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="changeWellBore()">提交更改</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<script>
+    /*charts实例*/
+    let charts;
+    /*是否发生了改变 */
+    let isChanged = false;
+    /*grid的top*/
+    let gridTop = 50;
+    /*dataZoom是否显示*/
+    let isDataZoomShow = false;
+    /*dataZoom是否跟随更新值一起变动*/
+    let isDataZoomChange = true;
+    /*Grid初始化的数量*/
+    let GRID_COUNT = 3;
+    /*y坐标轴的数据，此数据跟随option的y轴数据一同变化。当曲线发生了不能融合性的变化后，需要初始化y轴的数据，此时y轴的数据可以直接从此变量获取*/
+    let yAxisData = [];
+    let isSendGetProperty = false;
+    /*SESSIONID是否初始化*/
+    let initSessionId = false;
+    /*获取为空的数据显示的内容*/
+    let NONE_DATA_MSG = "loading...";
+    /*item中默认初始最大值和最小值*/
+    let ITEM_INIT_MIN = 0;
+    let ITEM_INIT_MAX = 5000;
+    /*items是否初始化*/
+    let isItemInit = false;
+    /*深度对应的id*/
+    let DEPTH_ID = 8004;
+    /*WebSocket SessionId*/
+    let SOCKET_SESSION_ID = null;
+    let SESSION_SPLIT = "%%%%";
+
+    /*获取参数传入的WellBoreId*/
+    let wellBoreId = getQueryString("wellBoreId");
+    /*获取参数传入的WellName*/
+    let wellName = decodeURI(getQueryString("wellName"));
+
+    let chartType=getQueryString("typeId");
+
+    let WELLBORE_NAME_SPLIT = "&&&&";
+    let isWellInit = false;
+
+    /*是否正在进行井搜索*/
+    let isSearch = false;
+
+//    let BASE_URL ="http://"+location.host+"/websocket";
+    let BASE_URL ="http://localhost:8002/websocket";
+//    let BASE_URL ="http://localhost:8090/websocket";
+    let RUIXIN = null;
+
+    /*设置container高度*/
+    $(".container").css("min-height", window.innerHeight);
+    Date.prototype.Format = function (format) {
+        var o = {
+            "M+": this.getMonth() + 1, //month
+            "d+": this.getDate(), //day
+            "h+": this.getHours(), //hour
+            "m+": this.getMinutes(), //minute
+            "s+": this.getSeconds(), //second
+            "q+": Math.floor((this.getMonth() + 3) / 3), //quarter
+            "S": this.getMilliseconds() //millisecond
+        }
+        if (/(y+)/.test(format)) {
+            format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        }
+        for (var k in o) {
+            if (new RegExp("(" + k + ")").test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+            }
+        }
+        return format;
+    }
+
+    /*获取url请求参数*/
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+
+    /**
+     * 初始化chart高度
+     * */
+    function initChartCss() {
+        if ($("#dataTable").css("display") == "none") {
+            $("#distChart").css("height", window.innerHeight - 130);
+        } else {
+            $("#distChart").css("height", window.innerHeight - 130 - $("#dataTable").height());
+        }
+    }
+
+    function setTempWellConfg(obj){
+        WellListVue.currentWellName = $(obj).attr("name");
+        WellListVue.currentWellBoreId = $(obj).attr("id");
+        let siblings = $(obj).siblings();
+        for(let i=0;i<siblings.length;i++){
+            $(siblings[i]).removeClass("success");
+        }
+        $(obj).addClass("success");
+    }
+    /**
+     * 将charts设置回默认状态（只包含一个默认的chart）
+     * */
+    function loadChartsSettings() {
+        charts = echarts.init(document.getElementById("distChart"));
+    }
+
+    /*根据数量设置涌到样式*/
+    function setGridStyle(count = 1) {
+        let gridArray = new Array();
+        let width = 100 / count;
+        for (let i = 0; i < count; i++) {
+            gridArray.push({
+                left: i * width + "%",
+                width: width + '%',
+                top: 0,
+                height: $("#distChart").height(),
+                containLabel: true,
+                show: true,
+                borderWidth: 1
+            });
+        }
+        return gridArray;
+    }
+
+
+    function wellNameShow(){
+        if(wellName==null){
+            $("#WellBore").text("未选择井");
+            return;
+        }
+        $("#WellBore").text(wellName);
+    }
+    /**
+     * 隐藏瑞信头部
+     * */
+    function hiddenRuiXinTitle() {
+        RUIXIN = new RuixinApi();
+        RUIXIN.hideWebViewTitle({});
+    }
+
+    /*瑞信返回按钮*/
+    function  back() {
+        RUIXIN.closePage({});
+    }
+    /*根据参数设置tooltip样式*/
+    function getTooltips(params) {
+        if (params.length == 0) {
+            return "暂无相关信息";
+        }
+        let xAxisValue = params[0].axisValue == undefined ? NONE_DATA_MSG : (params[0].axisValue.substring(0, 5) + "时的深度为:" + params[0].axisValue.substring(5)) + "米";
+        let rootDom = $("<div></div>").append($("<span>" + xAxisValue + "</span>"));
+        params.forEach(function (seriesItem, index) {
+            let itemValue = seriesItem.value == undefined ? NONE_DATA_MSG : seriesItem.value;
+            let max, min, unit;
+            if (itemValue != NONE_DATA_MSG) {
+                items.forEach(function (myItem, index) {
+                    if (myItem.id == seriesItem.seriesId) {
+                        max = myItem.limit_max;
+                        min = myItem.limit_min;
+                        unit = myItem.unit;
+                    }
+                });
+                itemValue = (parseFloat(itemValue) * parseFloat(max) / 100).toFixed(2);
+            }
+            unit = unit == undefined ? "" : unit;
+            rootDom.append($("<div></div>").append($(seriesItem.marker)).append($("<span>" + seriesItem.seriesName + ":" + itemValue + unit + "</span>")));
+        });
+        return rootDom.html();
+    }
+
+    /**
+     * 初始化chart的position
+     * */
+    function applyChartsSetting() {
+        let option = {
+            tooltip: {
+                trigger: 'axis',
+                formatter: function (params) {
+                    return getTooltips(params);
+                }
+            },
+            axisPointer: {
+                link: {yAxisIndex: 'all'}
+            },
+            grid: setGridStyle(ChartSettingModalVue.count),
+            xAxis: (() => {
+                let xAxisArray = new Array();
+                let count = ChartSettingModalVue.count;
+                if (!Number.isNaN(count)) {
+                    for (let i = 0; i < count; i++) {
+                        let xAxis = {
+                            gridIndex: i,
+                            show: false,
+                            min: 0,
+                            max: 100,
+                            silent: true,
+                            position: 'top',
+                            type: 'value',
+                            axisLabel: {
+                                formatter: '{value}'
+                            },
+                            splitLine: {
+                                show: false
+                            }
+                        }
+                        xAxisArray.push(xAxis);
+                    }
+                    return xAxisArray;
+                }
+            })(),
+            dataZoom: [
+                {
+                    type: 'slider',
+                    yAxisIndex: function () {
+                        let indexArray = new Array();
+                        for (let i = 0; i < ChartSettingModalVue.count; i++) {
+                            indexArray.push(i);
+                        }
+                        return indexArray;
+                    }(),
+                    filterMode: 'empty',
+                    orient: 'horizontal',
+                    top: 10,
+                    left: '40%',
+                    right: '40%',
+                    show: isDataZoomShow,
+                    textStyle: {
+                        color: '#FFF'
+                    }
+                }
+            ],
+            yAxis: function () {
+                let yAxisArray = new Array();
+                for (let i = 0; i < ChartSettingModalVue.count; i++) {
+                    yAxisArray.push({
+                        position: 'left',
+                        gridIndex: i,
+                        nameGap: 0,
+                        boundaryGap: false,
+                        show: (() => {
+                            return i == 0 ? true : false;
+                        })(),
+                        type: 'category',
+                        data: function () {
+                            if (yAxisData.length > 0) {
+                                return yAxisData;
+                            } else {
+                                let dateArray = new Array();
+                                let timeNow = new Date().getTime();
+                                for (var i = 0; i < item_count; i++) {
+                                    dateArray.push(new Date(timeNow + i * 5000).Format("hh:mm"));
+                                }
+                                yAxisData = dateArray;
+                                return dateArray.reverse();
+                            }
+                        }(),
+                        axisLine: {
+                            show: i == 0 ? true : false
+                        },
+                        axisLabel: {
+                            show: i == 0 ? true : false,
+                            inside: i == 0 ? false : true,
+                            color: 'white',
+                            interval: 10,
+                            showMinLabel: true,
+                            showMaxLabel: true,
+                            margin: 10,
+                            formatter: changeRow
+                        },
+                        axisTick: {
+                            show: true,
+                            interval: 10
+                        }
+                    });
+                }
+                return yAxisArray;
+            }(),
+            series: []
+        };
+        charts.setOption(option);
+    }
+
+    /*改变井筒id*/
+    function changeWellBore(changeSource) {
+        if(changeSource!="urlParam"){
+            wellBoreId = WellListVue.currentWellBoreId;
+            wellName =WellListVue.currentWellName;
+        }
+        if(SOCKET_SESSION_ID==null){
+            alert("修改失败，您没有认证");
+            return ;
+        }
+
+        $.ajax({
+            url:BASE_URL+"/wellbore/"+wellBoreId,
+            type:"post",
+            data:{SESSION_ID:SOCKET_SESSION_ID}
+        });
+        $('#wellBoreIdSet').modal('hide');
+        wellNameShow();
+    }
+    /**
+     * 初始化Vue
+     * */
+    function initVue() {
+        //数据的列表块
+        ItemListVue = new Vue({
+            el: "#vue",
+            data: {
+                items: items,
+            },
+            updated: function () {
+                /*发生变化后，为新添加的dom添加事件*/
+                initDomEvent();
+                initChartCss();
+            }
+        });
+        /*初始化井列表Vue*/
+        WellListVue = new Vue({
+            el:"#wellBoreIdSet",
+            data:{
+                pageCount:0,
+                pageSize:10,
+                total:0,
+                list:[],
+                pages:0,
+                currentWellName:wellName,
+                currentWellBoreId:wellBoreId,
+            }
+        });
+        /*初始化曲线头部线条*/
+        DataTableVue = new Vue({
+            el: "#dataTable",
+            data: {
+                items: items,
+                grid: GRID_COUNT
+            },
+            computed: {
+                average: function () {
+                    let num = 12 / this.grid;
+                    return "col-sm-" + num + " col-xs-" + num + " col-md-" + num;
+                },
+                average2: function () {
+                    let num = 12 / this.grid / 2;
+                    return "col-sm-" + num + " col-xs-" + num + " col-md-" + num;
+                }
+            },
+            updated: function () {
+                initDomEvent();
+            }
+        })
+        //每个数据的设置面板Vue实例
+        ItemModalVue = new Vue({
+            el: "#myModal",
+            data: {
+                item: {
+                    id: null,
+                    name: null,
+                    unit: null,
+                    limit_min: 0,
+                    limit_max: 0,
+                    current: 0,
+                    color: null,
+                    display: true,
+                    position: 0
+                },
+                temp: {
+                    id: null,
+                    name: null,
+                    unit: null,
+                    limit_min: 0,
+                    limit_max: 0,
+                    current: 0,
+                    color: null,
+                    display: true,
+                    position: 0
+                },
+                length: GRID_COUNT
+            },
+            updated: function () {
+                //当item发生变化时
+                initDomEvent();
+                initChartCss();
+            }
+        });
+        //初始化轮播2的功能设置模态框Vue实例
+        ChartSettingModalVue = new Vue({
+            el: "#chartSetModal",
+            data: {
+                count: GRID_COUNT
+            },
+            computed: {
+                average: function () {
+                    let num = 12 / this.count;
+                    return "col-sm-" + num + " col-xs-" + num + " col-md-" + num;
+                }
+            },
+            updated: function () {
+                DataTableVue.grid = this.count;
+                initDomEvent();
+            }
+        });
+        //初始化轮播2的功能列表Vue实例
+        ChartsVue = new Vue({
+            el: "#charts",
+            data: {
+                charts: charts,
+                chartCount: GRID_COUNT,
+            },
+            updated: function () {
+                //当chartCount发生变化之后
+                //1、销毁之前chart实例。
+                charts.dispose();
+                //2、清空charts。
+                charts = null;
+                //4、初始化当前chart dom的Css样式。
+                initChartCss();
+                //5、创建chart实例
+                loadChartsSettings();
+                //6、将item position全部置0
+                items.forEach((item, index) => {
+                    item.position = 1
+                });
+                //7、设置item的 设置位置的信息
+                ItemModalVue.length = this.chartCount;
+                //8、设置 chart的option
+                applyChartsSetting();
+                update();
+
+            },
+            mounted: function () {
+                //加载charts配置
+                loadChartsSettings();
+                applyChartsSetting();
+            }
+        });
+    }
+
+    /*初始化滑动事件*/
+    function initDragEvent() {
+        $("body").on("touchstart", function (e) {
+            startX = e.originalEvent.changedTouches[0].pageX;
+            startY = e.originalEvent.changedTouches[0].pageY;
+            startTime = Date.parse(new Date());
+        });
+
+        $("body").on("touchend", function (e) {
+            moveEndX = e.originalEvent.changedTouches[0].pageX;
+            moveEndY = e.originalEvent.changedTouches[0].pageY;
+            X = moveEndX - startX;
+            Y = moveEndY - startY;
+            timeInterval = Date.parse(new Date()) - startTime;
+            if (Math.abs(X) > Math.abs(Y) && X > 100 && timeInterval < 500) {
+                    $('#myCarousel').carousel('prev');
+            }
+            else if (Math.abs(X) > Math.abs(Y) && X < -100 && timeInterval < 500) {
+                    $('#myCarousel').carousel('next');
+
+            }
+        });
+    }
+
+    /*坐标轴换行*/
+    function changeRow(params) {
+        var newParamsName = "";// 最终拼接成的字符串
+        var paramsNameNumber = params.length;// 实际标签的个数
+        var provideNumber = 5;// 每行能显示的字的个数
+        var rowNumber = Math.ceil(paramsNameNumber / provideNumber);// 换行的话，需要显示几行，向上取整
+        /**
+         * 判断标签的个数是否大于规定的个数， 如果大于，则进行换行处理 如果不大于，即等于或小于，就返回原标签
+         */
+        // 条件等同于rowNumber>1
+        if (paramsNameNumber > provideNumber) {
+            /** 循环每一行,p表示行 */
+            for (var p = 0; p < rowNumber; p++) {
+                var tempStr = "";
+                var start = p * provideNumber;
+                var end = start + provideNumber;
+                if (p == rowNumber - 1) {
+                    tempStr = params.substring(start, paramsNameNumber);
+                } else {
+                    tempStr = params.substring(start, end) + "\n";
+                }
+                newParamsName += tempStr;// 最终拼成的字符串
+            }
+
+        } else {
+            // 将旧标签的值赋给新标签
+            newParamsName = params;
+        }
+        //将最终的字符串返回
+        return newParamsName;
+    }
+
+    /*初始化井列表*/
+    function initWellList(target,data){
+        let url = "wells";
+
+        if(isSearch){
+            data ={key:$("#wellName").val()};
+            url = "keywells";
+        }
+        let pageCount = 1;
+        if(target!=undefined){
+            pageCount = $(target).attr("data-options");
+        }
+        $.ajax({
+            url:BASE_URL+"/"+url+"/"+pageCount+"/10",
+            type:"post",
+            data:data,
+            success:function(data){
+                WellListVue.pageCount = data.pageCount;
+                WellListVue.pageSize = data.pageSize;
+                WellListVue.total = data.total;
+                WellListVue.list = data.data;
+                WellListVue.pages = data.pages;
+                WellListVue.currentWellName = wellName;
+                WellListVue.currentWellBoreId = wellBoreId
+            },
+            error:function () {
+            }
+        });
+    }
+
+    /*根据传递过来的参数设置当前井*/
+    function setWellWellBore(){
+        if(wellBoreId==null||wellName==null){
+            isWellInit =false;
+        }else{
+            isWellInit = true;
+            changeWellBore("urlParam");
+        }
+    }
+
+    function initPageButtonEvent(){
+        /*展开dataTable*/
+        $("#dataTableExpand").click(function () {
+            $("#dataTable").slideDown("400", "swing", function () {
+                initChartCss();
+                let option = charts.getOption();
+                option.grid.forEach(function (item, index) {
+                    item.top = 0;
+                    item.height = $("#distChart").height() - item.top;
+                });
+                gridTop = 0;
+                option.dataZoom[0].show = false;
+                isDataZoomShow = false;
+                charts.setOption(option);
+            });
+        });
+        /*关闭dataTable*/
+        $("#dataTableClose").click(function () {
+            $("#dataTable").slideUp("400", "swing", function () {
+                initChartCss();
+                let option = charts.getOption();
+                option.grid.forEach(function (item, index) {
+                    item.top = 50;
+                    item.height = $("#distChart").height() + item.top + 50;
+                });
+                gridTop = 50;
+                option.dataZoom[0].show = true;
+                isDataZoomShow = true;
+                charts.setOption(option);
+            });
+        });
+
+        $("#btn_calendarSetting").click(function () {
+            $('#wellBoreIdSet').modal('toggle');
+        });
+        $("#chartDate").text(function () {
+            let now = new Date();
+            return now.getFullYear() + "年" + (parseInt(now.getMonth()) + 1) + "月" + now.getDate() + "日";
+        });
+        $('#wellBoreIdSet').on('shown.bs.modal', function () {
+            WellListVue.currentWellBoreId = wellBoreId;
+            WellListVue.currentWellName = wellName ;
+        });
+        $('#wellBoreIdSet').on('hide.bs.modal', function () {
+            $("#wellName").val("");
+            isSearch = false;
+        });
+        $("#searchWell").on("click",function(){
+            isSearch  = true;
+            initWellList();
+        });
+        charts.on("datazoom", function (params) {
+            if (params.start == 0 || params.start == undefined) {
+                isDataZoomChange = true;
+            } else {
+                isDataZoomChange = false;
+            }
+        });
+
+    }
+
+    $(() => {
+        if(!chartType){
+            chartType=1
+        }
+        getFunctionProperties(chartType);
+        
+        rtDataInstance.callback = update;
+        window.initWebSocket();
+        //隐藏瑞信头部
+        hiddenRuiXinTitle();
+        //初始化颜色选择器
+        initColorPicker();
+        initChartCss();
+        //初始化vue
+        initVue();
+        initDomEvent();
+        initDragEvent();
+        initWellList();
+        initPageButtonEvent();
+        /*设置曲线绘图区上方表头左侧间隙，运行则左侧与绘图区边框对齐，否则与整个datagrid对齐*/
+        // setChartHeadMargin();
+        wellNameShow();
+        
+    });
+
+    /*获取对应功能点的所有曲线*/
+    function getFunctionProperties(id=1) {
+        $.ajax({
+            url:BASE_URL+"/function/"+id,
+            type:"get",
+            success:function(data){
+                initItemsByOpenData(data);
+            },
+        });
+    }
+
+    function setChartHeadMargin() {
+        let fontWidth = $("#width_temp").width();
+        $("#dataTable").children("div:first").css("padding-left", parseFloat(fontWidth) + 15 + 8 + 10);
+    }
+
+    /**
+     * 初始化Dom事件
+     * */
+    function initDomEvent() {
+        /*取消事件绑定*/
+        $("#modalSubmitBtn").unbind();
+        $("#btn_chartSetting").unbind();
+        $("#btn_chartSettingSubmit").unbind();
+        $(".lineSettingButton").unbind();
+
+        /*数据列表项保存更改或添加按钮点击设置*/
+        $("#modalSubmitBtn").click((event) => {
+            let index = $("#myModalLabel").attr("data-options");
+            /*基于index进行判断，如果index不为空则是修改，否则是添加。并根据index确定items中的位置*/
+            ItemModalVue.item.color = $("#color").colorpicker("getValue");
+            if (index != undefined) {
+                //如果发生改变则从新绘制
+                if (isItemChanged(items[index], ItemModalVue.item)) {
+                    isChanged = true;
+                }
+                Object.assign(items[index], ItemModalVue.item);
+            } else {
+                ItemModalVue.item.index = items.length;
+                let temp = new Object();
+                Object.assign(temp, ItemModalVue.item);
+                items.push(temp);
+            }
+            update();
+            $("#myModal").modal('hide');
+        });
+        $("#btn_chartSetting").click((event) => {
+            $('#chartSetModal').modal('show');
+        });
+        $("#btn_chartSettingSubmit").click((event) => {
+            ChartsVue.chartCount = ChartSettingModalVue.count;
+            $('#chartSetModal').modal('hide');
+
+        });
+        /*数据列表项的点击事件，弹出添加或者设置窗口*/
+        $(".lineSettingButton").click(function (event) {
+            if (event.target != this) {
+                $(this).trigger("click");
+                return;
+            }
+            /*数据列表项与item的联系是通过index相互关联的，如果index为空说明正在添加新数据项*/
+            let index = $(event.target).attr("data-options");
+            if (index != undefined) {
+                /*设置数据列表项*/
+                Object.assign(ItemModalVue.item, items[index]);
+                Object.assign(ItemModalVue.temp, items[index]);
+                ItemModalVue.item.index = ItemModalVue.temp.index = index;
+                delete ItemModalVue.item.data;
+                delete ItemModalVue.temp.data;
+            } else {
+                /*添加数据列表项*/
+                ItemModalVue.item = {
+                    id: null,
+                    name: null,
+                    unit: null,
+                    limit_min: 0,
+                    limit_max: 0,
+                    current: 0,
+                    color: "#FFF",
+                    display: true,
+                    position: 0
+                }
+                ItemModalVue.temp = {
+                    id: null,
+                    name: null,
+                    unit: null,
+                    limit_min: 0,
+                    limit_max: 0,
+                    current: 0,
+                    color: "#FFF",
+                    display: true,
+                    position: 0
+                }
+
+            }
+            $('#myModal').modal('show');
+        });
+    }
+
+    /**
+     *判断item是否发生需要重绘的改变
+     * */
+    function isItemChanged(oldItem, currentItem) {
+        function isAttributeSame(attribute1, attribute2) {
+            if (attribute1 != undefined && attribute2 != undefined) {
+                if (attribute1 != attribute2) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        if (isAttributeSame(oldItem.color, currentItem.color) &&
+            isAttributeSame(oldItem.limit_min, currentItem.limit_min) &&
+            isAttributeSame(oldItem.limit_max, currentItem.limit_max) &&
+            isAttributeSame(oldItem.position, currentItem.position)) {
+            return false;
+        }
+        return true;
+    }
+
+    /*初始化颜色选择器*/
+    function initColorPicker() {
+        $("#color").colorpicker({
+            format: "hex"
+        });
+    }
+
+
+    /*初始化所有的曲线对应的item*/
+    function initItemsByOpenData(data) {
+        let showNum = 0;
+        function getRandomColor() {
+            let colors = ["#EA449F", "#AC31F4", "#7CFBF0", "#00FFFF", "#FFFF00"];
+            return colors[Math.round(Math.random() * 4)];
+        }
+        function handleNull(str) {
+            if (str == null || str == "null" || str == undefined) {
+                str = "暂无信息";
+            }
+            return str;
+        }
+
+        function handlePosition(isShow){
+            if(isShow){
+                showNum++;
+                return showNum%GRID_COUNT+1;
+            }else{
+                return 1;
+            }
+        }
+        if (data.length == 0) {
+            return;
+        }
+        /*data的解析*/
+        items.length = 0;
+
+        data.forEach(function (single, index) {
+            let item = {
+                id: handleNull(single.prop_code),
+                name: handleNull(single.prop_name),
+                unit: handleNull(single.unit),
+                limit_min: ITEM_INIT_MIN,
+                limit_max: ITEM_INIT_MAX,
+                current: 0.0,
+                color: getRandomColor(),
+                display: handleNull(single.show),
+                position: handlePosition(single.show),
+                data: new Array(item_count)
+            };
+            items.push(item);
+        });
+        isItemInit =true;
+    }
+
+    /*接收到新数据后的刷新方法*/
+    function update(lastData) {
+        if (lastData != null || lastData != undefined) {
+           if(!initSessionId&&lastData.indexOf(SESSION_SPLIT) >= 0){
+                SOCKET_SESSION_ID = lastData;
+                initSessionId = true;
+               setWellWellBore();
+            }else if(!isWellInit){
+               $("#WellBore").text(lastData.split(WELLBORE_NAME_SPLIT)[0]);
+               isWellInit = true;
+           } else {
+                    addItemData(lastData);
+                    renderChartsByItems();
+            }
+        } else {
+            renderChartsByItems();
+        }
+    }
+
+    /*获取当前深度*/
+    function getDepth() {
+        let depth = 0;
+        items.forEach(function (item, index) {
+            if (item.id == DEPTH_ID.toString()) {
+                depth = item.current;
+            }
+        });
+        return Math.round(depth);
+    }
+
+    /**
+     * 将Items中的数据插入到chart的option中。
+     */
+    function renderChartsByItems() {
+        if (items.length <= 0) {
+            return;
+        }
+        /*是否option组合，如果发生了颜色，范围，是否显示，位置的设置则不进行数据组合，否则进行数据组合*/
+        let notMerge = isChanged;
+        /*一次设置*/
+        let chart_options = charts.getOption();
+        if (notMerge) {
+            chart_options.series = new Array();
+        }
+        items.forEach(function (item, index) {
+            if (item.display) {
+                let dest_chart_index = -1;
+                //找到item在series中的位置
+                chart_options.series.forEach(function (seriesItem, index) {
+                    if (seriesItem.id == item.id) {
+                        dest_chart_index = index;
+                    }
+                });
+                //没有在series找到item，进行添加
+                if (dest_chart_index < 0) {
+                    let seriesOption = {
+                        name: item.name,
+                        id: item.id,
+                        type: 'line',
+                        smooth: false,
+                        xAxisIndex: item.position - 1,
+                        yAxisIndex: item.position - 1,
+                        showSymbol: false,
+                        lineStyle: {
+                            normal: {
+                                color: item.color,
+                                width: 2,
+                                shadowColor: 'rgba(0,0,0,0.4)'
+                            }
+                        },
+                        data: getItemData(item)
+                    };
+                    chart_options.series.push(seriesOption);
+                    return;
+                }
+                chart_options.series[dest_chart_index].data = getItemData(item);
+            }
+        });
+        //如果超出了y轴初始时间范围
+        if (items[0].data.length > item_count) {
+            chart_options.yAxis.forEach(function (item, index) {
+                item.data.unshift(new Date().Format("hh:mm") + getDepth());
+            });
+            /*yAxisData同步变化*/
+            yAxisData.unshift(new Date().Format("hh:mm") + getDepth());
+        } else {
+            //如果没有超出初始时间范围
+            chart_options.yAxis.forEach(function (item, index) {
+                let a = 0;
+                for (; a < items[0].data.length; a++) {
+                    if (items[0].data[a] != undefined) {
+                        break;
+                    }
+                }
+                if (a == items[0].data.length) {
+                    a--;
+                }
+                if (item.data[a].length <= 5) {
+                    item.data[a] = item.data[a] + getDepth();
+                }
+                /*yAxisData同步变化*/
+                yAxisData[a] = item.data[a];
+            });
+        }
+
+        //设置tooltips的颜色，为了当tooltips显示出来时，提示的颜色和曲线颜色一致。
+        let colors = [];
+        chart_options.series.forEach(function (item, index) {
+            colors.push(item.lineStyle.normal.color);
+        });
+        chart_options.color = colors;
+        charts.setOption(chart_options, notMerge);
+
+        /*设置dataZoomChange*/
+        if (isDataZoomChange) {
+            charts.dispatchAction({
+                type: 'dataZoom',
+                startValue: 0,
+                endValue: item_count
+            });
+        }
+    }
+
+    /*对数组进行x轴坐标适应性处理*/
+    function getItemData(item) {
+        let arr = new Array(item.data.length);
+        if (item.data != null) {
+            item.data.forEach(function (dataItem, index) {
+                arr[index] = (parseFloat(dataItem) * 100 / parseFloat(item.limit_max) );
+            })
+        }
+        return arr;
+    }
+    isInitValueRange=false;
+
+    /**
+     * 将最新获取的实时数据加入到 items数组中。
+     * @param data webSocket传过来的数据
+     */
+    function addItemData(data) {
+        try {
+            data = JSON.parse(data);
+        } catch (err) {
+            return;
+        }
+        if(!isInitValueRange){
+            //是否初始化value的范围
+            items.forEach(function(item){
+                let key = item.id;
+                //如果单位是%，则最大值修改为100
+                if(item.unit=="%"){
+                    item.limit_max=100;
+                }
+                var dataValue = data[key.toString()];
+                if (dataValue != undefined) {
+                    for (let key in dataValue) {
+                        let result = dataValue[key];
+                        if(result){
+                            if(item.unit=="%"){
+                                if(result>=0&&result<1){
+                                    item.limit_max=1
+                                }else if(result>=1&&result<20){
+                                    item.limit_max=20
+                                }else if(result>=20&&result<40){
+                                    item.limit_max=40
+                                }else if(result>=40&&result<60){
+                                    item.limit_max=60
+                                }else if(result>=60){
+                                    item.limit_max=100
+                                }
+                            }else{
+                                if(result>=0&&result<50){
+                                    item.limit_max=50
+                                }else if(result>=50&&result<100){
+                                    item.limit_max=100
+                                }else if(result>=100&&result<1000){
+                                    item.limit_max=1000
+                                }else if(result>=1000){
+                                    item.limit_max=10000
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+            this.isInitValueRange=true
+
+        }
+        items.forEach(function (item, index) {
+            let key = item.id;
+            var dataValue = data[key.toString()];
+            if (dataValue != undefined) {
+                for (let key in dataValue) {
+                    let result = dataValue[key];
+                    /*((value, min, max) => {
+                    return parseFloat(dataValue[key])+(item.limit_max/30)*Math.random().toFixed(2)
+                })(dataValue[key], item.limit_min, item.limit_max);*/
+                    //此时可能还有空值，需要先补充空值,第一个若不是undefined 则unshift值。
+                    if (item.data[0] == undefined) {
+                        for (let i = 0; i < item.data.length; i++) {
+                            if (item.data[i] != undefined) {
+                                item.data[i - 1] = result;
+                                break;
+                            }
+                            if (i == item.data.length - 1) {
+                                item.data[i] = result;
+                            }
+                        }
+                    } else {
+                        item.data.unshift(result);
+                    }
+                    //设置当前值
+                    item.current = dataValue[key];
+                    break;
+                }
+            } else {
+                item.data.unshift(0);
+            }
+        });
+    }
+</script>
+</body>
+</html>

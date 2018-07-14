@@ -10,9 +10,10 @@ let baseUrl = ''
 let imgBaseUrl = ''
 // let dataMonitorUrl='http://'+window.location.hostname+":"+window.location.port+'/mobile/server/rtDataMonitor/echarts/demo.html'
 // let webSocketUrl='ws://'+window.location.hostname+":"+window.location.port+'/mobile/websocket'
-// let socket='1.85.51.153:7005/websocket'
-let socket='localhost:8002/websocket'
-let dataMonitorUrl=`http://${socket}/rtdata/echarts/demo.html`
+let socket='1.85.51.153:7005/websocket'
+// let socket='localhost:8002/websocket'
+// let dataMonitorUrl=`http://${socket}/rtdata/echarts/demo.html`
+let dataMonitorUrl='http://'+window.location.hostname+":"+window.location.port+'/mobile/server/dist/static/echarts/demo.html'
 let webSocketUrl=`ws://${socket}/websocket`
 let webSocketHttpUrl=`http://${socket}`
 

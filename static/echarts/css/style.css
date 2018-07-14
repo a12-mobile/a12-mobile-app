@@ -1,0 +1,51 @@
+.hidden {
+    display: none;
+}
+
+hr {
+    margin: 3px;
+}
+
+html {
+    font-size: 10px;
+}
+
+.font-small{
+    font-size:10px;
+}
+
+.form-group {
+    height: 40px;
+}
+
+.block {
+    background-color: rgba(64, 75, 139, 0.3);
+    /*background-color: #3F4889;*/
+    height: 80px;
+    transition: all 0.2s ease;
+}
+
+.block:hover {
+    border: 1px solid;
+    border-color: white;
+    box-shadow: 0px 0px 10px 5px #aaa;
+}
+
+.small-padding {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.center {
+    text-align: center;
+}
+
+.left {
+    text-align: left;
+}
+
+.container {
+    background: linear-gradient(#0C0D12, #3F4889);
+}
