@@ -44,7 +44,7 @@
                 },
                 tableHeight:0,   //表格高度
                 columns: [
-                    {field: 'jujiorgname', width: 90, columnAlign: 'center', isFrozen: true},
+                    {field: 'jujiorgname', width: 90, columnAlign: 'left', isFrozen: true},
                     {field: 'testoilnum', width: 40, columnAlign: 'right'},
                     {field: 'testnum', width: 40, columnAlign: 'right'},
                     {field: 'taskmountnum', width: 50, columnAlign: 'right'},
@@ -183,7 +183,7 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="scss" scroped>
     #DhMonthlyOfWorkloadGN{
     
     padding-top:$header-height;

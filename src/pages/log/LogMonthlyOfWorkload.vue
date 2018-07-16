@@ -208,7 +208,8 @@
                 ],
 
                 titleRows: [ //第一行
-                             [{fields: ['juOrgabb','chuOrgabb'], title: '单位名称', titleAlign: 'center', rowspan: 4,colspan:2, titleCellClassName:'wu-title-cell-duijiao'},
+                              [{fields: ['juOrgabb','chuOrgabb'], title: '<span class="logMonth-title1">作业内容</span><span class="logMonth-title2">单位</span>', titleAlign: 'center', rowspan: 4,titleCellClassName:'oms2-title-cell-logMonth-duijiao'},
+                            //  [{fields: ['juOrgabb','chuOrgabb'], title: '单位名称', titleAlign: 'center', rowspan: 4,colspan:2, titleCellClassName:'wu-title-cell-duijiao'},
                               {fields: ['totalWellCount','completeWellCount','wjcjCount','lyTotal','wjcjWellcount','numberSpare2','lyOther','scTotal',
                               'ccCount','zrCount','dcCount','sccjqt','gcTotal','tsTest','gjQualityTest','projectOther',
                                         'skTotal','vittaTransfers','cableSk','differentWork','thicknessSk','bombCount','wxTotal','nullityEquipment',
@@ -273,7 +274,7 @@
         },
         created(){
             this.requestData();
-            this.tableHeight=window.innerHeight-80
+            this.tableHeight=window.innerHeight-130
         },
         mounted(){
             // this.$ruixin.setWebViewTitle({title:this.$route.meta.title});
@@ -450,6 +451,30 @@
     }
     .oms2-right{
       text-align: right;
+    }
+    .oms2-title-cell-logMonth-duijiao:before {
+            content: "";
+            position: absolute;
+            width: 1px;
+            height: 197.2px;
+            top: 0;
+            left: 0;
+            background-color: #E3E3E3;
+            display: block;
+            transform: rotate(-59.53deg);
+            transform-origin: top;
+            -ms-transform: rotate(-59.53deg);
+            -ms-transform-origin: top;
+        }
+    .logMonth-title1{
+        position: absolute;
+        top: 15px;
+        right:10px;
+        }
+    .logMonth-title2{
+        position: absolute;
+        top: 70px;
+        left:10px;
     }
   }
 
