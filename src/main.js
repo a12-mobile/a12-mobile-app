@@ -24,10 +24,6 @@ import $ from 'jquery'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
 
-//引入bootstrap-colorpicker
-import 'bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css'
-import 'bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js'
-
 // // 引入全部mint-ui组件
 // import Mint from 'mint-ui';
 // Vue.use(Mint);

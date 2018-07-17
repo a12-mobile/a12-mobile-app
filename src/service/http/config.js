@@ -17,7 +17,7 @@ let dataMonitorUrl='http://'+window.location.hostname+":"+window.location.port+'
 let webSocketUrl=`ws://${socket}/websocket`
 let webSocketHttpUrl=`http://${socket}`
 
-baseUrl="/api"
+// baseUrl="/api"
 
 
 let httpBaseUrl=baseUrl+'/mobile'
