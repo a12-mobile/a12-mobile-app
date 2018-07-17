@@ -284,7 +284,7 @@ export default new Router({
       path: '/MonthLogOfLogWellByCompany',
       name: 'MonthLogOfLogWellByCompany',
       component: MonthLogOfLogWellByCompany,
-      meta:{ navShow: false, title: '分市场月报'}
+      meta:{ navShow: false, title: '分单位月报'}
     },
     {
       path: '/monthLogOfWellWorkload',
