@@ -27,7 +27,7 @@
         <i class="fa fa-chevron-left"  style="left: 10px;position: absolute;line-height: 50px;font-size: 20px;color:aliceblue" onclick="back()"></i>
         <i class="fa fa-fa-refresh"  style="left: 10px;position: absolute;line-height: 50px;font-size: 20px;"></i>
         <span style="color: white;padding: 0px 20px 0px 20px;line-height: 50px;font-size: 20px;font-weight: 100;" id="WellBore">当前井名</span>
-        <i class="fa fa-refresh"  style="right: 50px;position: absolute;line-height: 50px;font-size: 20px;color: #3F4889;" onclick="handleChangeHeader()"></i>
+        <i class="fa fa-exchange"  style="right: 50px;position: absolute;line-height: 50px;font-size: 20px;color: #3F4889;" onclick="handleChangeHeader()"></i>
         <i class="fa fa-cog"  style="right: 20px;position: absolute;line-height: 50px;font-size: 20px;color: #3F4889;" id="btn_chartSetting"></i>
     </div>
     <div id="myCarousel" class="carousel slide" data-interval="false">
@@ -183,6 +183,9 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
+
+
+
 <!--chart设置Modal-->
 <div class="modal fade" id="chartSetModal" placement="auto" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel"
@@ -191,11 +194,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">图表显示设置</h4>
+                <h4 class="modal-title">设置</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="top" class="col-xs-4 col-sm-4 control-label">监测类型</label>
+                        <label for="top" class="col-xs-4 col-sm-4 control-label">曲线模板</label>
                         <div class="col-xs-8 col-sm-8">
                             <select class="form-control" id="selectType" onchange='handleChangeChart(this)'>
                                 <option value="1">综合数据监测</option>
@@ -206,7 +209,7 @@
                     </div>
                 
                     <div class="form-group">
-                        <label for="top" class="col-sm-4 col-xs-4 control-label">显示数量</label>
+                        <label for="top" class="col-sm-4 col-xs-4 control-label">泳道设置</label>
                     <div class="col-sm-8 col-xs-8">
                         <input type="text" class="form-control" placeholder="请输入显示数量"
                                v-model.number="count">
@@ -559,7 +562,8 @@
                         axisTick: {
                             show: true,
                             interval: 10
-                        }
+                        },
+                        
                     });
                 }
                 return yAxisArray;
@@ -949,6 +953,7 @@
 
     /*获取对应功能点的所有曲线*/
     function getFunctionProperties(id=1) {
+        
         $.ajax({
             url:BASE_URL+"/function/"+id,
             type:"get",
@@ -1001,6 +1006,10 @@
             $('#chartSetModal').modal('hide');
 
             if(selectChartType!=chartType){
+                //切换到dataTable形式
+                if(!isDataTableExpand){
+                    handleChangeHeader()
+                }
                 //修改了曲线类型
                 chartType=selectChartType
                 isInitValueRange=false
@@ -1289,7 +1298,9 @@
                         let result = dataValue[key];
                         if(result){
                             if(item.unit=="%"){
-                                if(result>=0&&result<1){
+                                if(result>=0&&result<0.1){
+                                    item.limit_max=0.1
+                                }else if(result>=0.1&&result<1){
                                     item.limit_max=1
                                 }else if(result>=1&&result<20){
                                     item.limit_max=20
@@ -1308,14 +1319,14 @@
                                 }else if(result>=100&&result<1000){
                                     item.limit_max=1000
                                 }else if(result>=1000){
-                                    item.limit_max=10000
+                                    item.limit_max>=10000
                                 }
                             }
                         }
                     }
                 }
             })
-            isInitValueRange=true
+            // isInitValueRange=true
 
         }
         items.forEach(function (item, index) {

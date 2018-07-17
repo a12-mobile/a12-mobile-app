@@ -12,6 +12,7 @@ const SubView = r => require.ensure([], () => r(require('@/pages/SubView')), 'ta
 
 //钻井
 const DrillFormList = r => require.ensure([], () => r(require('@/pages/drill/DrillFormList')), 'drill');
+const DrillFormListOfYear = r => require.ensure([], () => r(require('@/pages/drill/DrillFormListOfYear')), 'drill');
 const DrillDailyList = r => require.ensure([], () => r(require('@/pages/drill/DrillDailyList')), 'drill');
 const DrillDailyOfKeyWell = r => require.ensure([], () => r(require('@/pages/drill/DrillDailyOfKeyWell')), 'drill');
 const DrillDailyOfWell = r => require.ensure([], () => r(require('@/pages/drill/DrillDailyOfWell')), 'drill');
@@ -113,6 +114,12 @@ export default new Router({
       name: 'DrillFormList',
       component: DrillFormList,
       meta: { navShow: false, title: '钻井报表' }
+    },
+    {
+      path: '/drill/form/list/year',
+      name: 'DrillFormListOfYear',
+      component: DrillFormListOfYear,
+      meta: { navShow: false, title: '钻井年报' }
     },
     {
       path: '/drill/daily/list',
