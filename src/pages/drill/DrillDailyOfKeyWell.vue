@@ -68,11 +68,16 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
+                        <div style="align-items: center;">
+                            <i class="fa fa-circle" v-if="clientStatus==0" style="color:red;font-size:16px;margin-right:5px;"></i>
+                            <i class="fa fa-circle" v-else-if="clientStatus==1||clientStatus==2" style="color:green;font-size:16px;margin-right:5px;"></i>
+                            <i class="fa fa-circle-thin" v-else="clientStatus==''||(!clientStatus&&clientStatus!=0)" style="font-size:16px;margin-right:5px;"></i>
+                        </div>
                         <p class="modal-title" id="exampleModalLongTitle" style="font-size:18px;font-weight:blod">{{selectedRow.jm}}<span style="padding-left:2rem;font-size:14px">(
                             {{date.time}})</span></p>
                         <div style="align-items: center;">
-                            <i @click="handleGoToChart(selectedRow)" class="fa fa-area-chart oms2-icon oms2-vertical-divider"></i>
-                            <i @click="handleGoToList(selectedRow)" class="fa fa-list-alt oms2-icon oms2-vertical-divider"></i>
+                            <i v-if="clientStatus>0" @click="handleGoToChart(selectedRow)" class="fa fa-area-chart oms2-icon oms2-vertical-divider"></i>
+                            <i v-if="clientStatus>0" @click="handleGoToList(selectedRow)" class="fa fa-list-alt oms2-icon oms2-vertical-divider"></i>
                             <i class="fa fa-close oms2-icon" data-dismiss="modal" aria-label="Close"></i>
                         </div>
                     </div>
@@ -229,6 +234,8 @@ import {dataMonitorUrl} from './../../service/http/config'
                 selectedRow:{},  //选中的行
                 selectedJM:'',   //查询的井名
                 selectedSGDW:'全部', //查询的施工单位
+                clientStatus:0,//选中井的状态
+                wellBoreId:"",
                 columns: [
                     {field: 'sgdw', width: 40, columnAlign: 'left', isFrozen: true},
                     {field: 'jm', width: 85, columnAlign: 'left', isFrozen: true},
@@ -440,25 +447,29 @@ import {dataMonitorUrl} from './../../service/http/config'
 
             //进入实时数据列表
             handleGoToList(item) {
-                getWellboreIdByWellId(item.wellId).then((data)=>{
+                if(this.clientStatus>0){
                     $("#ModalWellMessage").modal('hide')
                     setTimeout(()=>{
                         this.$router.push({
                             path: '/real-time/list/project',
                             query: {
-                                wellboreId: data.data,
+                                wellboreId: this.wellBoreId,
                                 wellName: item.jm
                             }
                         })
     
                     },200)
-                })
+                }else{
+                    this.$toast.showToast("当前井无数据列表")
+                }
             },
             //进入实时曲线列表
             handleGoToChart(item) {
-                getWellboreIdByWellId(item.wellId).then((data)=>{
+                if(this.clientStatus>0){
                     location.href = dataMonitorUrl+'?wellBoreId='+data.data+"&wellName="+encodeURI(encodeURI(item.jm))
-                })
+                }else{
+                    this.$toast.showToast("当前井无曲线监测")
+                }
             },
             
             /**
@@ -467,6 +478,15 @@ import {dataMonitorUrl} from './../../service/http/config'
             handleRowClick(rowIndex, rowData, column){
                 this.selectedRow=rowData
                 $("#ModalWellMessage").modal('show')
+                //获取状态
+                getWellboreIdByWellId(rowData.wellId).then((data)=>{
+                    if(data!=null){
+                        this.clientStatus=data.data.clientStatus
+                        this.wellBoreId=data.data.wellBoreId
+                    }else{
+                        this.clientStatus=0
+                    }
+                })
             },
             closeModel(){
                 $("#ModalWellMessage").modal('hide')

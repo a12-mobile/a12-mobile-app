@@ -202,8 +202,12 @@
                         <div class="col-xs-8 col-sm-8">
                             <select class="form-control" id="selectType" onchange='handleChangeChart(this)'>
                                 <option value="1">综合数据监测</option>
-                                <option value="2">工程数据监测</option>
+                                <option value="2">钻进监测</option>
                                 <option value="3">气测数据监测</option>
+                                <option value="4">起下钻监测</option>
+                                <option value="5">定向作业监测</option>
+                                <option value="6">钻井液数据监测</option>
+                                <!-- <option value="7">特殊作业监测</option> -->
                             </select>
                         </div>
                     </div>
@@ -1110,7 +1114,7 @@
         function handlePosition(isShow){
             if(isShow){
                 showNum++;
-                return showNum%GRID_COUNT+1;
+                return showNum%GRID_COUNT==0?3:showNum%GRID_COUNT;
             }else{
                 return 1;
             }
@@ -1120,6 +1124,7 @@
         }
         /*data的解析*/
         items.length = 0;
+        console.log(data)
 
         data.forEach(function (single, index) {
             let item = {
