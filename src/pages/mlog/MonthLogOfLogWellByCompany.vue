@@ -71,7 +71,7 @@
             {field: 'teleransission', width: 50, columnAlign: 'right', isResize: true},
             {field: 'tryOilLogWell', width: 50, columnAlign: 'right', isResize: true},
             {field: 'countNum', width: 50, columnAlign: 'right', isResize: true},
-            {field: 'spare1', width: 50, columnAlign: 'right', isResize: true},
+            {field: 'spare1', width: 60, columnAlign: 'right', isResize: true},
             {field: 'engineeringAnomalyForecast', width: 50, columnAlign: 'right', isResize: true},
             {field: 'inlandLogWell', width: 50, columnAlign: 'right', isResize: true},
             {field: 'foreignLogWell', width: 50, columnAlign: 'right', isResize: true}
