@@ -267,7 +267,7 @@
             {"part":"外部","orgs":"中石化","total":"34.22","subtotal":"34.22","daqing":"","jilin":"1.98","liaohe":"","huabei":"","dagang":"","jidong":"9.02","xinan":"","changqing":"",'talimu':'8.92',"xinjiang":"","tuha":"",'qinghai':'','yumen':'','zhejiang':'','nanfang':'9.13',
               'changqing2':'','dagang2':'','other':'','shanxi':'', 'shanxi2':'','other2':'','huabei2':'','dagang3':'','changqing3':'','xinan2':'','xinjiang2':'','jiangsu':'','changning':'5.17','weiyuan':'', 'other3':'',
               'subtotal2':'','Sinopec':'','CNOOC':'','yanchang':'','fanchengbao':'','other4':'','subtotal3':'','incompany':'','outcompany':''},
-            {"part":"外部","orgs":"民营","total":"1661.82","subtotal":"34.22","daqing":"","jilin":"6.92","liaohe":"","huabei":"0.92","dagang":"","jidong":"","xinan":"","changqing":"1490.96",'talimu':'18.44',"xinjiang":"81.05","tuha":"3.83",'qinghai':'4.31','yumen':'','zhejiang':'7.04','nanfang':'',
+            {"part":"外部","orgs":"民营","total":"1661.82","subtotal":"1661.82","daqing":"","jilin":"6.92","liaohe":"","huabei":"0.92","dagang":"","jidong":"","xinan":"","changqing":"1490.96",'talimu':'18.44',"xinjiang":"81.05","tuha":"3.83",'qinghai':'4.31','yumen':'','zhejiang':'7.04','nanfang':'',
               'changqing2':'','dagang2':'','other':'','shanxi':'48.35', 'shanxi2':'','other2':'','huabei2':'','dagang3':'','changqing3':'','xinan2':'','xinjiang2':'','jiangsu':'','changning':'','weiyuan':'', 'other3':'',
               'subtotal2':'','Sinopec':'','CNOOC':'','yanchang':'','fanchengbao':'','other4':'','subtotal3':'','incompany':'','outcompany':''},
 
