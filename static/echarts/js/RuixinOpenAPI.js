@@ -47,7 +47,7 @@ RuixinApi.prototype.callNative = function(funcName, params) {
 		var func = 'window.RXPCClient.' + funcName + '(' + JSON.stringify(params) + ')';
 		new Function(func).apply();
 	} else {
-		alert("请在开放平台中打开");
+		// alert("请在开放平台中打开");
 	}
 };
 

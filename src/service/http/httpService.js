@@ -79,7 +79,7 @@ function successState(res){
 
 
 //请求方法
-const httpServer=(method='GET',url,data={})=>{
+const httpServer=(method='GET',url,data={},option={})=>{
     let requestMethod=method.toUpperCase()
     if(url.indexOf("://")>0){
         url=url
@@ -105,6 +105,7 @@ const httpServer=(method='GET',url,data={})=>{
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'  
           }
     }
+    Object.assign(httpDefaultOpts,option)
     
     if(requestMethod=='GET'){
         delete httpDefaultOpts.data

@@ -168,7 +168,6 @@
             },
             //进入实时数据列表
             handleGoToList(item) {
-                console.log("实时曲线")
                 this.$router.push({
                     path: '/real-time/list/project',
                     query: {
