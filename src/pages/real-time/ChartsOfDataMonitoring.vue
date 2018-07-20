@@ -212,6 +212,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        
                         <div class="row">
                             <div class="offset-1 col-3">
                                 <button type="button" @click="initWellList(pageCount-1<=1?1:pageCount-1)" class="btn btn-primary">上一页</button>
@@ -267,7 +268,7 @@
                 WELLBORE_NAME_SPLIT : "&&&&",
                 isWellInit:false,
                 isSearch:false,
-                BASE_URL:"http://localhost:8002/websocket",
+                BASE_URL:"http://1.85.51.153:7005/websocket",
                 //ItemListVue 数据的列表块   ItemListVue
                 items:RtData.items,
                 //初始化井列表   WellListVue
