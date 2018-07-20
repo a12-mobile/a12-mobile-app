@@ -208,10 +208,10 @@
             this.tableData=data.data;
             //检查是否含有所有地区
             let juOrgabbnames=[{'juOrgabb':'集团总计','chuOrgabb':null,'p2Name':'合计'},
-              {'juOrgabb':'集团总计','chuOrgabb':'成像系列','p2Name':'成像系列'},
-              {'juOrgabb':'集团总计','chuOrgabb':'高精度系列','p2Name':'高精度系列'},
-              {'juOrgabb':'集团总计','chuOrgabb':'国产数控系列','p2Name':'国产数控系列'},
-              {'juOrgabb':'集团总计','chuOrgabb':'LWD','p2Name':'LWD'},
+              {'juOrgabb':'集团总计','chuOrgabb':null,'p2Name':'成像系列'},
+              {'juOrgabb':'集团总计','chuOrgabb':null,'p2Name':'高精度系列'},
+              {'juOrgabb':'集团总计','chuOrgabb':null,'p2Name':'国产数控系列'},
+              {'juOrgabb':'集团总计','chuOrgabb':null,'p2Name':'LWD'},
               // {'juOrgabb':'长城钻探','chuOrgabb':'合计'},
               // {'juOrgabb':'长城钻探','chuOrgabb':'国际测井公司'},
               // {'juOrgabb':'渤海钻探','chuOrgabb':'合计'},
@@ -302,6 +302,60 @@
               }
               return preIndex-nextIndex
             })
+            /*实现功能：
+           *        1.当处级单位对应的所有队伍类型的行数据，为空，该处级单位不显示(删除对应的行数据)
+           *        2.当局级单位对应所有的处级单位的行数据，为空，该局级单位不显示(删除对应的处级单位的行数据)
+           * */
+            if (this.tableData){
+              var tableMaxLength = this.tableData.length;
+              var chuOrgabb = this.tableData[tableMaxLength-1].chuOrgabb;
+              var num = 0;
+              for(let i=tableMaxLength-1;i>=0;i--){
+                if(this.tableData[i].chuOrgabb === chuOrgabb){
+                  if(this.tableData[i].remark=='Not exist'){
+                    num++;
+                    if( num != 0 && num % 5 === 0){
+                      this.tableData.splice(i, num);
+                      continue;
+                    }
+                  }else{
+                    continue;
+                  }
+                }else{
+                  num = 1;
+                  chuOrgabb = this.tableData[i].chuOrgabb;
+                  continue;
+                }
+              }
+            }
+            /*实现功能：
+            *        1.当局级单位下，只存在一个处级单位时，局级单位的合计项不显示(删除局级单位的合计对应的行数据)
+            * */
+            if(this.tableData){
+              var juTabLength = this.tableData.length;
+              if(this.tableData.juOrgabb){
+                var juOrgabb = this.tableData[juTabLength-1].juOrgabb;
+              }
+              var indexValue = '合计';
+              var juOrgList = [];
+              juOrgList.push(indexValue);
+              for(let i=juTabLength-1;i>=0;i--){
+                if(this.tableData[i].juOrgabb === juOrgabb){
+                  if(this.tableData[i].chuOrgabb != indexValue && juOrgList.length <= 2){
+                    if(juOrgList.indexOf(this.tableData[i].chuOrgabb) == -1){
+                      juOrgList.push(this.tableData[i].chuOrgabb);
+                    }
+                  }
+                }else{
+                  if(juOrgList.length === 2){
+                    this.tableData.splice(i+1, 5);
+                  }
+                  juOrgList = [];
+                  juOrgList.push(indexValue);
+                  juOrgabb = this.tableData[i].juOrgabb;
+                }
+              }
+            }
           }else{
             this.tableData=[];
           }
