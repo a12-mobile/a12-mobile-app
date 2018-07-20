@@ -47,7 +47,7 @@ RuixinApi.prototype.callNative = function(funcName, params) {
 		var func = 'window.RXPCClient.' + funcName + '(' + JSON.stringify(params) + ')';
 		new Function(func).apply();
 	} else {
-		// alert("请在开放平台中打开");
+		//alert("请在开放平台中打开");
 	}
 };
 
@@ -355,7 +355,7 @@ RuixinApi.prototype.hideBackButton =  function(params) {
  * menuText 菜单上显示的文字（字数限制？）
  * interactiveName 交互命令名称
  * interactiveID交互对象ID(如用户ID，子应用ID，公众号ID,用户邮箱等)
- * interactiveDetailID交互对象详情ID(如待办中每条记录ID，公众号消息ID等) 
+ * interactiveDetailID交互对象详情ID(如待办中每条记录ID，公众号消息ID等)
  * … 扩展参数
  */
 RuixinApi.prototype.addInteractiveMenu =  function(params) {
@@ -387,7 +387,7 @@ RuixinApi.prototype.supportAutorotate =  function(params) {
 };
 
 /**
- * 进入指定公众号 
+ * 进入指定公众号
  * @param pubsubId 公众号ID
  */
 RuixinApi.prototype.enterPubSub =  function(params) {
@@ -406,7 +406,7 @@ RuixinApi.prototype.enterBarcodeScanner =  function(params) {
  * 跳转通用入口
  * interactiveName 交互命令名称
  * interactiveID交互对象ID(如用户ID，子应用ID，公众号ID,用户邮箱等)
- * interactiveDetailID交互对象详情ID(如待办中每条记录ID，公众号消息ID等) 
+ * interactiveDetailID交互对象详情ID(如待办中每条记录ID，公众号消息ID等)
  * … 扩展参数
  */
 RuixinApi.prototype.clickInteractiveMenu =  function(params) {
@@ -700,8 +700,8 @@ RuixinApi.prototype.isEmpty = function(callbackName)
  * 判断是否字符串
  */
 RuixinApi.prototype.isString = function(str)
-{ 
-	return (typeof str=='string')&&str.constructor==String; 
+{
+	return (typeof str=='string')&&str.constructor==String;
 }
 
 /**

@@ -9,6 +9,7 @@
       <v-table
         is-horizontal-resize
         is-vertical-resize
+        column-width-drag
         :height=tableHeight
         :title-row-height=25
         :row-height=30
@@ -281,36 +282,74 @@
       }
     },
     created(){
-      this.requestData();
-      this.tableHeight=window.innerHeight-80
+      this.requestData();//调用anixo函数
+      this.tableHeight=window.innerHeight-80;//控制表格体高度
     },
     mounted(){
-      //this.$ruixin.setWebViewTitle({title:'专业队伍分布表(按队伍类型)'});
-      this.$ruixin.hideWebViewTitle({});
+      //this.$ruixin.setWebViewTitle({title:'专业队伍分布表(按队伍类型)'});//瑞信的自主设置标题函数 ---引用自瑞信api
+      this.$ruixin.hideWebViewTitle({});//瑞信的隐藏行标题函数 ------引用自瑞信api
       setTimeout(()=>{
-        this.$ruixin.supportAutorotate({});
+        this.$ruixin.supportAutorotate({});//瑞信的横竖屏自适应函数 ------引用自瑞信api
       },200)
     },
     methods:{
       //请求数据方法
       requestData(){
         Indicator.open('加载中...');
+        //anxios函数，从后台获取数据
         getTeamByTeamtype(this.date.time).then((data)=>{
           Indicator.close();
           if(data.data){
             this.tableData=data.data;
-            //检查是否含有所有地区
+            //检查是否含有所有地区,主要用来处理，判断行数据是否有值，行数据无值则备注为"remark:'Not exist'",为后续样式处理做准备
             let juOrgabbnames=[{'juOrgabb':'集团总计','chuOrgabb':null,'p2Name':'合计'},
-              {'juOrgabb':'集团总计','chuOrgabb':'综合测井','p2Name':'综合测井'},
-              {'juOrgabb':'集团总计','chuOrgabb':'裸眼测井','p2Name':'裸眼测井'},
-              {'juOrgabb':'集团总计','chuOrgabb':'生产测井','p2Name':'生产测井'},
-              {'juOrgabb':'集团总计','chuOrgabb':'射孔','p2Name':'射孔'},
-              {'juOrgabb':'集团总计','chuOrgabb':'LWD','p2Name':'LWD'},
-              // {'juOrgabb':'长城钻探','chuOrgabb':'合计'},
-              // {'juOrgabb':'长城钻探','chuOrgabb':'国际测井公司'},
-              // {'juOrgabb':'渤海钻探','chuOrgabb':'合计'},
-              // {'juOrgabb':'渤海钻探','chuOrgabb':'井下作业公司'},
-              // {'juOrgabb':'渤海钻探','chuOrgabb':'油气井测试分公司'},
+              {'juOrgabb':'集团总计','chuOrgabb':null,'p2Name':'综合测井'},
+              {'juOrgabb':'集团总计','chuOrgabb':null,'p2Name':'裸眼测井'},
+              {'juOrgabb':'集团总计','chuOrgabb':null,'p2Name':'生产测井'},
+              {'juOrgabb':'集团总计','chuOrgabb':null,'p2Name':'射孔'},
+              {'juOrgabb':'集团总计','chuOrgabb':null,'p2Name':'LWD'},
+              {'juOrgabb':'西部钻探','chuOrgabb':'合计','p2Name':'合计'},
+              {'juOrgabb':'西部钻探','chuOrgabb':'合计','p2Name':'综合测井'},
+              {'juOrgabb':'西部钻探','chuOrgabb':'合计','p2Name':'裸眼测井'},
+              {'juOrgabb':'西部钻探','chuOrgabb':'合计','p2Name':'生产测井'},
+              {'juOrgabb':'西部钻探','chuOrgabb':'合计','p2Name':'射孔'},
+              {'juOrgabb':'西部钻探','chuOrgabb':'合计','p2Name':'LWD'},
+              {'juOrgabb':'西部钻探','chuOrgabb':'吐哈录井工程公司','p2Name':'合计'},
+              {'juOrgabb':'西部钻探','chuOrgabb':'吐哈录井工程公司','p2Name':'综合测井'},
+              {'juOrgabb':'西部钻探','chuOrgabb':'吐哈录井工程公司','p2Name':'裸眼测井'},
+              {'juOrgabb':'西部钻探','chuOrgabb':'吐哈录井工程公司','p2Name':'生产测井'},
+              {'juOrgabb':'西部钻探','chuOrgabb':'吐哈录井工程公司','p2Name':'射孔'},
+              {'juOrgabb':'西部钻探','chuOrgabb':'吐哈录井工程公司','p2Name':'LWD'},
+              {'juOrgabb':'长城钻探','chuOrgabb':'合计','p2Name':'合计'},
+              {'juOrgabb':'长城钻探','chuOrgabb':'合计','p2Name':'综合测井'},
+              {'juOrgabb':'长城钻探','chuOrgabb':'合计','p2Name':'裸眼测井'},
+              {'juOrgabb':'长城钻探','chuOrgabb':'合计','p2Name':'生产测井'},
+              {'juOrgabb':'长城钻探','chuOrgabb':'合计','p2Name':'射孔'},
+              {'juOrgabb':'长城钻探','chuOrgabb':'合计','p2Name':'LWD'},
+              {'juOrgabb':'长城钻探','chuOrgabb':'国际测井公司','p2Name':'合计'},
+              {'juOrgabb':'长城钻探','chuOrgabb':'国际测井公司','p2Name':'综合测井'},
+              {'juOrgabb':'长城钻探','chuOrgabb':'国际测井公司','p2Name':'裸眼测井'},
+              {'juOrgabb':'长城钻探','chuOrgabb':'国际测井公司','p2Name':'生产测井'},
+              {'juOrgabb':'长城钻探','chuOrgabb':'国际测井公司','p2Name':'射孔'},
+              {'juOrgabb':'长城钻探','chuOrgabb':'国际测井公司','p2Name':'LWD'},
+              {'juOrgabb':'渤海钻探','chuOrgabb':'合计','p2Name':'合计'},
+              {'juOrgabb':'渤海钻探','chuOrgabb':'合计','p2Name':'综合测井'},
+              {'juOrgabb':'渤海钻探','chuOrgabb':'合计','p2Name':'裸眼测井'},
+              {'juOrgabb':'渤海钻探','chuOrgabb':'合计','p2Name':'生产测井'},
+              {'juOrgabb':'渤海钻探','chuOrgabb':'合计','p2Name':'射孔'},
+              {'juOrgabb':'渤海钻探','chuOrgabb':'合计','p2Name':'LWD'},
+              {'juOrgabb':'渤海钻探','chuOrgabb':'井下作业公司','p2Name':'合计'},
+              {'juOrgabb':'渤海钻探','chuOrgabb':'井下作业公司','p2Name':'综合测井'},
+              {'juOrgabb':'渤海钻探','chuOrgabb':'井下作业公司','p2Name':'裸眼测井'},
+              {'juOrgabb':'渤海钻探','chuOrgabb':'井下作业公司','p2Name':'生产测井'},
+              {'juOrgabb':'渤海钻探','chuOrgabb':'井下作业公司','p2Name':'射孔'},
+              {'juOrgabb':'渤海钻探','chuOrgabb':'井下作业公司','p2Name':'LWD'},
+              {'juOrgabb':'渤海钻探','chuOrgabb':'油气井测试分公司','p2Name':'合计'},
+              {'juOrgabb':'渤海钻探','chuOrgabb':'油气井测试分公司','p2Name':'综合测井'},
+              {'juOrgabb':'渤海钻探','chuOrgabb':'油气井测试分公司','p2Name':'裸眼测井'},
+              {'juOrgabb':'渤海钻探','chuOrgabb':'油气井测试分公司','p2Name':'生产测井'},
+              {'juOrgabb':'渤海钻探','chuOrgabb':'油气井测试分公司','p2Name':'射孔'},
+              {'juOrgabb':'渤海钻探','chuOrgabb':'油气井测试分公司','p2Name':'LWD'},
               {'juOrgabb':'中油测井','chuOrgabb':'合计','p2Name':'合计'},
               {'juOrgabb':'中油测井','chuOrgabb':'合计','p2Name':'综合测井'},
               {'juOrgabb':'中油测井','chuOrgabb':'合计','p2Name':'裸眼测井'},
@@ -413,12 +452,11 @@
                   'chuOrgabb':juOrgabbname.chuOrgabb,
                   'p2Name':juOrgabbname.p2Name,
                   remark:'Not exist'
-                }
+                };
                 this.tableData.push(newItem)
               }
             }
-
-            //排序
+            //排序，保证顺序
             this.tableData.sort((pre,next)=>{
               let preIndex=-1;
               let nextIndex=-1;
@@ -436,7 +474,61 @@
                 index++
               }
               return preIndex-nextIndex
-            })
+            });
+            /*实现功能：
+            *        1.当处级单位对应的所有队伍类型的行数据，为空，该处级单位不显示(删除对应的行数据)
+            *        2.当局级单位对应所有的处级单位的行数据，为空，该局级单位不显示(删除对应的处级单位的行数据)
+            * */
+            if (this.tableData){
+              var tableMaxLength = this.tableData.length;
+              var chuOrgabb = this.tableData[tableMaxLength-1].chuOrgabb;
+              var num = 0;
+              for(let i=tableMaxLength-1;i>=0;i--){
+                if(this.tableData[i].chuOrgabb === chuOrgabb){
+                  if(this.tableData[i].remark=='Not exist'){
+                    num++;
+                    if( num != 0 && num % 6 === 0){
+                      this.tableData.splice(i, num);
+                      continue;
+                    }
+                  }else{
+                    continue;
+                  }
+                }else{
+                  num = 1;
+                  chuOrgabb = this.tableData[i].chuOrgabb;
+                  continue;
+                }
+              }
+            }
+            /*实现功能：
+            *        1.当局级单位下，只存在一个处级单位时，局级单位的合计项不显示(删除局级单位的合计对应的行数据)
+            * */
+            if(this.tableData){
+              var juTabLength = this.tableData.length;
+              if(this.tableData.juOrgabb){
+                var juOrgabb = this.tableData[juTabLength-1].juOrgabb;
+              }
+              var indexValue = '合计';
+              var juOrgList = [];
+              juOrgList.push(indexValue);
+              for(let i=juTabLength-1;i>=0;i--){
+                if(this.tableData[i].juOrgabb === juOrgabb){
+                  if(this.tableData[i].chuOrgabb != indexValue && juOrgList.length <= 2){
+                    if(juOrgList.indexOf(this.tableData[i].chuOrgabb) == -1){
+                      juOrgList.push(this.tableData[i].chuOrgabb);
+                    }
+                  }
+                }else{
+                  if(juOrgList.length === 2){
+                    this.tableData.splice(i+1, 6);
+                  }
+                  juOrgList = [];
+                  juOrgList.push(indexValue);
+                  juOrgabb = this.tableData[i].juOrgabb;
+                }
+              }
+            }
           }else{
             this.tableData=[]
           }
@@ -445,15 +537,6 @@
             Indicator.close();
             console.log(error)
           })
-
-      },
-      handleMonthReduce(){
-        console.log("月减少一天");
-        this.date=new Date(addMonth(this.date,-1));
-      },
-      handleMonthAdd(){
-        console.log("月增加一天");
-        this.date=new Date(addMonth(this.date,1));
       },
       //返回按钮
       handleBack(){
@@ -462,11 +545,13 @@
         }
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/');
       },
+      //日历改变调用函数
       handleChange(){
         this.requestData();
       },
       //合并单元格
       cellMerge(rowIndex,rowData,field){
+        /*合并--集团总计(局级单位)与处级单位*/
         if(rowIndex==0&&field=="juOrgabb"){
           return {
             colSpan: 2,
@@ -475,6 +560,7 @@
             componentName: ''
           }
         }
+        //队伍类型做相应样式调整
         if(field=="p2Name" && rowData[field]!='合计' && rowData[field]!='LWD'){
           return {
             colSpan: 1,
@@ -483,6 +569,7 @@
             componentName: ''
           }
         }
+        //数据库中的0，或者负值，不显示处理
         if(rowData[field]<=0){
           return {
             colSpan: 1,
@@ -491,6 +578,9 @@
             componentName: ''
           }
         }
+        /*
+        * 实现功能：当局级单位相同时，合并相邻行数据的局级单位
+        * */
         if(field==='juOrgabb'){
           let juOrgabb=rowData[field];
           let juOrgList=[];
@@ -503,7 +593,6 @@
               }
             }
             if(num>0){
-
               return {
                 colSpan: 1,
                 rowSpan: num,
@@ -514,7 +603,9 @@
             juOrgList.push(juOrgabb)
           }
         }
-
+        /*
+        * 实现功能：当相邻行数据的处级单位相同，合并对应行数据的处级单位
+        * */
         if(field==='chuOrgabb'){
           let chuOrgabb=rowData[field];
           //还没有合并该局级单位
@@ -536,28 +627,29 @@
           }
         }
       },
+      /*
+      * 该函数功能：实现样式处理--- 1.当行数据为空值，对应队伍类型标红处理
+      *                        2.处级单位名字过长时，换行处理，比如西部的吐哈录井公司和克拉玛依录井公司
+      * */
       columnCellClass(rowIndex,columnName,rowData){
         if(columnName=='juOrgabb'){
-          if(this.tableData[rowIndex].remark=='Not exist'){
+          if(rowData.remark=='Not exist'){
             return 'column-cell-class-name-test oms2-g-item-not-exist'
           }
           return 'column-cell-class-name-test'
         }
         if(columnName=='chuOrgabb'){
-          if(this.tableData[rowIndex].remark=='Not exist'){
+          if(rowData.remark=='Not exist'){
             return 'column-cell-class-name-test oms2-g-item-not-exist'
           }
           return 'column-cell-class-name-test'
         }
-        if(this.tableData[rowIndex].remark=='Not exist'){
+        if(rowData.remark=='Not exist'){
           return 'oms2-g-item-not-exist'
         }
-        // if(columnName=='zhibiao'&&&rowData.marketTotal==null){
-        //   return 'column-cell-class-name-test-not-exist'
-        // }
       },
       /**
-       * 表格行点击回掉
+       * 表格行点击回掉函数
        */
       handleRowClick(rowIndex, rowData, column){
         this.selectedRow=rowData;
@@ -571,7 +663,9 @@
 <style lang="scss" >
   #LogOfTeamByTeamtype{
     padding-top:$header-height;
-    /*解决列数据过长换行问题 v-table-body-cell*/
+    /*
+      解决列数据过长换行问题 v-table-body-cell
+    */
     .column-cell-class-name-test {
       div{
         display:table-cell!important;

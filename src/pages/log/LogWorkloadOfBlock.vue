@@ -292,6 +292,34 @@
               Indicator.close();
               if(data.body){
                 this.tableData=data.body;
+                /*实现功能：
+                 *        1.当局级单位下，只存在一个处级单位时，局级单位的合计项不显示(删除局级单位的合计对应的行数据)
+                 * */
+                if(this.tableData){
+                  var juTabLength = this.tableData.length;
+                  if(this.tableData.juOrgabb){
+                    var juOrgabb = this.tableData[juTabLength-1].juOrgabb;
+                  }
+                  var indexValue = '合计';
+                  var juOrgList = [];
+                  juOrgList.push(indexValue);
+                  for(let i=juTabLength-1;i>=0;i--){
+                    if(this.tableData[i].juOrgabb === juOrgabb){
+                      if(this.tableData[i].chuOrgabb != indexValue && juOrgList.length <= 2){
+                        if(juOrgList.indexOf(this.tableData[i].chuOrgabb) == -1){
+                          juOrgList.push(this.tableData[i].chuOrgabb);
+                        }
+                      }
+                    }else{
+                      if(juOrgList.length === 2){
+                        this.tableData.splice(i+1, 7);
+                      }
+                      juOrgList = [];
+                      juOrgList.push(indexValue);
+                      juOrgabb = this.tableData[i].juOrgabb;
+                    }
+                  }
+                }
               }else{
                 this.tableData=[];
               }
