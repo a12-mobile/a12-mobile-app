@@ -27,7 +27,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <p class="modal-title" id="exampleModalLongTitle"><b>查询时间范围</b></p>
+                        <p class="modal-title" id="exampleModalLongTitle"><b>查询历史数据</b></p>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                       <span style="font-size:32px" aria-hidden="true">&times;</span>
                                   </button>
