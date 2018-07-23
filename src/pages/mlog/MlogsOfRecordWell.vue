@@ -314,7 +314,7 @@
     margin-top: 80px;
     .v-table-title-class {
       position: fixed;
-      top: 100px;
+      top: 100px !important;
     }
   }
   .oms2-search{

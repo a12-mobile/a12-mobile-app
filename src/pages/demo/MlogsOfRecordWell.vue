@@ -357,20 +357,20 @@
     }
 </script>
 <style lang="scss">
-    .oms2-fixed {
-        top: 0px;
-        background-color: white;
-        width: 100%;
-        height: 48px;
-        position: fixed;
-        z-index: 2;
-    }
-    .oms2-table-content {
-        margin-top: 105px;
-        .v-table-title-class {
-            position: fixed;
-            top: 47px;
-        }
-    }
+    // .oms2-fixed {
+    //     top: 0px;
+    //     background-color: white;
+    //     width: 100%;
+    //     height: 48px;
+    //     position: fixed;
+    //     z-index: 2;
+    // }
+    // .oms2-table-content {
+    //     margin-top: 105px;
+    //     .v-table-title-class {
+    //         position: fixed;
+    //         top: 47px;
+    //     }
+    // }
 </style>
 
