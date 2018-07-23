@@ -80,7 +80,7 @@
         Toast
     } from "mint-ui"
     import {
-        webSocketUrl
+        webSocketUrl,webSocketHttpUrl
     } from './../../service/http/config'
     export default {
         data() {
@@ -516,7 +516,8 @@
                 let gcArray=['8004','8005','8006','8486','8008','8010','8011','8012','8013','8018','8019','8020']
                 let qkArray=['8219','8212','8213','8214','8215','8216','8217','8218','8204','8205','8206','8207','8208']
                 let queryParams=this.wellboreId+','+this.startDate.time+':00,'+this.endDate.time+':00,'+this.quertInterval+','+gcArray.join('-')+'-'+qkArray.join('-')
-                this.$http("POST","http://1.85.51.153:7005/websocket/getDataForHistory",{
+                console.log(webSocketHttpUrl+"/getDataForHistory")
+                this.$http("POST",webSocketHttpUrl+"/getDataForHistory",{
                     params:queryParams
                 },{
                     timeout:300*1000
