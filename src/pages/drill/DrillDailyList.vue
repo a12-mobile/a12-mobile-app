@@ -134,12 +134,12 @@
                             </div>
                             <div class="oms2-list-divider list-group-item list-group-item-dark">当日动态</div>
                             <div class="row">
-                                <label class="col-5 oms2-right">设计井深(m):</label>
-                                <p>{{selectedRow.designWellDepth}}</p>
+                                <label class="col-5 oms2-right">设计井深:</label>
+                                <p>{{selectedRow.designWellDepth}}<span v-if="selectedRow.designWellDepth!=''">m</span></p>
                             </div>
                             <div class="row">
-                                <label class="col-5 oms2-right">当前井深(m):</label>
-                                <p>{{selectedRow.actualWellDepth}}</p>
+                                <label class="col-5 oms2-right">当前井深:</label>
+                                <p>{{selectedRow.actualWellDepth}}<span v-if="selectedRow.actualWellDepth!=''">m</span></p>
                             </div>
                             <div class="row">
                                 <label class="col-5 oms2-right">钻达层位:</label>
@@ -155,79 +155,78 @@
                             </div>
                             <div class="oms2-list-divider list-group-item list-group-item-dark ">工作量</div>
                             <div class="row">
-                                <label class="col-5 oms2-right">进尺-当日(m):</label>
-                                <p>{{selectedRow.dailyDrilledFootage | ifNumberIsNull}}</p>
+                                <label class="col-5 oms2-right">进尺-当日:</label>
+                                <p>{{selectedRow.dailyDrilledFootage | ifNumberIsNull}}<span v-if="judgeNumberNotNull(selectedRow.dailyDrilledFootage)"> m</span></p>
                             </div>
                             <div class="row">
-                                <label class="col-6 oms2-right">进尺-月计划(m):</label>
-                                <p>{{selectedRow.monthPlannedDrillingFootage | ifNumberIsNull}}</p>
+                                <label class="col-5 oms2-right">进尺-月计划:</label>
+                                <p>{{selectedRow.monthPlannedDrillingFootage | ifNumberIsNull}}<span v-if="judgeNumberNotNull(selectedRow.monthPlannedDrillingFootage)"> m</span></p>
                             </div>
                             <div class="row">
-                                <label class="col-5 oms2-right">进尺-月累(m):</label>
-                                <p>{{selectedRow.cumulMonthDrilledFootage | ifNumberIsNull}}</p>
+                                <label class="col-5 oms2-right">进尺-月累:</label>
+                                <p>{{selectedRow.cumulMonthDrilledFootage | ifNumberIsNull}}<span v-if="judgeNumberNotNull(selectedRow.cumulMonthDrilledFootage)"> m</span></p>
                             </div>
                             <div class="row">
-                                <label class="col-5 oms2-right">进尺-年累(m):</label>
-                                <p>{{selectedRow.cumulYearDrilledFootage | ifNumberIsNull}}</p>
+                                <label class="col-5 oms2-right">进尺-年累:</label>
+                                <p>{{selectedRow.cumulYearDrilledFootage | ifNumberIsNull}}<span v-if="judgeNumberNotNull(selectedRow.cumulYearDrilledFootage)"> m</span></p>
                             </div>
                             <div class="row">
-                                <label class="col-5 oms2-right">完井-月累(口):</label>
-                                <p>{{selectedRow.monthCompletion | ifNumberIsNull}}</p>
+                                <label class="col-5 oms2-right">完井-月累:</label>
+                                <p>{{selectedRow.monthCompletion | ifNumberIsNull}}<span v-if="judgeNumberNotNull(selectedRow.monthCompletion)"> 口</span></p>
                             </div>
                             <div class="row">
-                                <label class="col-5 oms2-right">完井-年累(口):</label>
-                                <p>{{selectedRow.yearFinish | ifNumberIsNull}}</p>
+                                <label class="col-5 oms2-right">完井-年累:</label>
+                                <p>{{selectedRow.yearFinish | ifNumberIsNull}}<span v-if="judgeNumberNotNull(selectedRow.yearFinish)"> 口</span></p>
                             </div>
-                            <div class="oms2-list-divider list-group-item list-group-item-dark ">钻井参数</div>
                             <div class="row">
                                 <label class="col-5 oms2-right">钻头尺寸型号:</label>
                                 <p>{{selectedRow.bitSizeModel}}</p>
                             </div>
                             <div class="row">
-                                <label class="col-5 oms2-right">钻压(KN):</label>
-                                <p>{{selectedRow.woba | ifNumberIsNull}}</p>
+                                <label class="col-5 oms2-right">钻压:</label>
+                                <p>{{selectedRow.woba | ifNumberIsNull}}<span v-if="judgeNumberNotNull(selectedRow.woba)"> KN</span></p>
                             </div>
                             <div class="row">
-                                <label class="col-5 oms2-right">排量(L/s):</label>
-                                <p>{{selectedRow.deliveryVolume | ifNumberIsNull}}</p>
+                                <label class="col-5 oms2-right">排量:</label>
+                                <p>{{selectedRow.deliveryVolume | ifNumberIsNull}}<span v-if="judgeNumberNotNull(selectedRow.deliveryVolume)"> L/s</span></p>
                             </div>
                             <div class="row">
-                                <label class="col-5 oms2-right">纯钻时间(h):</label>
-                                <p>{{selectedRow.onlydrill | ifNumberIsNull}}</p>
+                                <label class="col-5 oms2-right">纯钻时间:</label>
+                                <p>{{selectedRow.onlydrill | ifNumberIsNull}}<span v-if="judgeNumberNotNull(selectedRow.onlydrill)"> h</span></p>
                             </div>
                             <div class="row">
-                                <label class="col-5 oms2-right">钻速(r/min):</label>
-                                <p>{{selectedRow.drillRotateSpeed}}</p>
+                                <label class="col-5 oms2-right">钻速:</label>
+                                <p>{{selectedRow.drillRotateSpeed}}<span v-if="judgeNumberNotNull(selectedRow.drillRotateSpeed)"> r/min</span></p>
                             </div>
                             <div class="row">
-                                <label class="col-5 oms2-right">泵压(MPa):</label>
-                                <p>{{selectedRow.pumpPressure | ifNumberIsNull}}</p>
+                                <label class="col-5 oms2-right">泵压:</label>
+                                <p>{{selectedRow.pumpPressure | ifNumberIsNull}}<span v-if="judgeNumberNotNull(selectedRow.pumpPressure)"> MPa</span></p>
                             </div>
                             <div class="list-group-item list-group-item-dark oms2-list-divider">钻井液性能</div>
                             <div class="row">
-                                <label class="col-6 oms2-right">密度-设计(g/cm3):</label>
-                                <p>{{selectedRow.designMudPropDendity | ifNumberIsNull}}</p>
+                                <label class="col-5 oms2-right">密度-设计:</label>
+                                <p>{{selectedRow.designMudPropDendity | ifNumberIsNull}}<span v-if="judgeNumberNotNull(selectedRow.designMudPropDendity)"> g/cm3</span></p>
                             </div>
                             <div class="row">
-                                <label class="col-6 oms2-right">密度-实际(g/cm3):</label>
-                                <p>{{selectedRow.mudPropDensity | ifNumberIsNull}}</p>
+                                <label class="col-5 oms2-right">密度-实际:</label>
+                                <p>{{selectedRow.mudPropDensity | ifNumberIsNull}}<span v-if="judgeNumberNotNull(selectedRow.mudPropDensity)"> g/cm3</span></p>
                             </div>
                             <div class="row">
-                                <label class="col-6 oms2-right">粘度(s):</label>
-                                <p>{{selectedRow.mudPropViscosity | ifNumberIsNull}}</p>
+                                <label class="col-5 oms2-right">粘度:</label>
+                                <p>{{selectedRow.mudPropViscosity | ifNumberIsNull}}<span v-if="judgeNumberNotNull(selectedRow.mudPropViscosity)"> s</span></p>
                             </div>
                             <div class="row">
-                                <label class="col-6 oms2-right">失水(ml):</label>
-                                <p>{{selectedRow.mudPropWaterLose | ifNumberIsNull}}</p>
+                                <label class="col-5 oms2-right">失水:</label>
+                                <p>{{selectedRow.mudPropWaterLose | ifNumberIsNull}}<span v-if="judgeNumberNotNull(selectedRow.mudPropWaterLose)"> ml</span></p>
                             </div>
                             <div class="row">
-                                <label class="col-6 oms2-right">含砂(%):</label>
-                                <p>{{selectedRow.mudPropGrittyConsistence | ifNumberIsNull}}</p>
+                                <label class="col-5 oms2-right">含砂:</label>
+                                <p>{{selectedRow.mudPropGrittyConsistence | ifNumberIsNull}}<span v-if="judgeNumberNotNull(selectedRow.mudPropGrittyConsistence)"> %</span></p>
                             </div>
                             <div class="list-group-item list-group-item-dark oms2-list-divider">套管及钻具</div>
                             <div class="row">
                                 <label class="col-6 oms2-right">套管规格(mm*m):</label>
-                                <div>{{selectedRow.cannulaSizeModel}}</div>
+                                <div><p style="margin-left:10px;">{{selectedRow.cannulaSizeModel}}</p></div>
                             </div>
                         
                         </form>
@@ -486,6 +485,7 @@
              */
             handleRowClick(rowIndex, rowData, column){
                 this.selectedRow=rowData
+                this.selectedRow.workContent=this.selectedRow.workContent.trim()
                 $("#ModalWellMessage").modal('show')
             },
             closeModel(){
@@ -505,6 +505,13 @@
             //进入实时曲线列表
             handleGoToChart() {
                 location.href = dataMonitorUrl+'?wellBoreId='+this.wellboreId+"&wellName="+encodeURI(encodeURI(this.wellName))
+            },
+            judgeNumberNotNull(data){
+                if(data!=null&&data!=-1){
+                    return true
+                }else{
+                    return false
+                }
             },
         },
     }

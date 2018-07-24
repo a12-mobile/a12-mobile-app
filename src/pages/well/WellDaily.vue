@@ -156,8 +156,8 @@
     }
     .oms2-list-divider {
         text-align: center;
-        padding-top: 0rem !important;
-        padding-bottom: 0rem !important;
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
         margin-bottom: 10px;
         font-size: 16px;
     }

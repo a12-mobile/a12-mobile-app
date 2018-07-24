@@ -36,7 +36,7 @@
                         <div style="padding-right:15px;padding-top:10px">
                             <div class="row">
                                 <div class="col-3">
-                                    <label style="font-size:12px;font-weight:bold;float:right;">油区：</label>
+                                    <label style="font-size:12px;font-weight:bold;float:right;vertical-align: middle;">油区：</label>
                                 </div>
                                 <div class="col-9">
                                     <label style="font-size:12px;">{{item.wellBlock | ifStringIsNull}}</label>

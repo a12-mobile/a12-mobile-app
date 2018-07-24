@@ -25,7 +25,7 @@
     <div class="container">
         <!--头部-->
         <div class="row" style="text-align: center;height: 50px;">
-            <i class="fa fa-chevron-left" style="left: 10px;position: absolute;line-height: 50px;font-size: 20px;color:aliceblue" onclick="back()"></i>
+            <i class="fa fa-chevron-left" style="left: 10px;position: absolute;line-height: 50px;font-size: 20px;color:aliceblue" onclick="handleBack()"></i>
             <i class="fa fa-fa-refresh" style="left: 10px;position: absolute;line-height: 50px;font-size: 20px;"></i>
             <span style="color: white;padding: 0px 20px 0px 20px;line-height: 50px;font-size: 20px;font-weight: 100;" id="WellBore">当前井名</span>
             <i class="fa fa-history"  data-toggle="modal" data-target="#chartHistoryModel" style="right: 70px;position: absolute;line-height: 50px;font-size: 20px;color: aliceblue;"></i>
@@ -383,8 +383,8 @@
         let isSearch = false;
 
         //    let BASE_URL ="http://"+location.host+"/websocket";
-        // let BASE_URL = "http://localhost:8002/websocket";
-        let BASE_URL ="http://11.10.97.109:9493/websocket";
+        let BASE_URL = "http://localhost:8002/websocket";
+        // let BASE_URL ="http://11.10.97.109:9493/websocket";
         // let BASE_URL ="http://1.85.51.153:7005/websocket";
         let RUIXIN = null;
 
@@ -504,7 +504,10 @@
         }
 
         /*瑞信返回按钮*/
-        function back() {
+        function handleBack() {
+            window.opener=null;
+            window.open('','_self');
+            window.close();     
             RUIXIN.closePage({});
         }
         /*根据参数设置tooltip样式*/

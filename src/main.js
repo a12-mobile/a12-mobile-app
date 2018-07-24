@@ -96,7 +96,7 @@ Vue.prototype.$echarts = echarts      //echarts曲线
  * 用于报表展示
  */
 Vue.filter('ifNumberIsNull', function (value) {
-  if(value!=0&&!value||value==-1){
+  if(value==null||value==-1){
     return ''
   }else{
     return value
